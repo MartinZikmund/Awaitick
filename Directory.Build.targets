@@ -46,7 +46,7 @@
     <!-- Other -->
     <PackageReference Update="AutoMapper" Version="10.1.1" />
     <PackageReference Update="System.Reflection.Emit" Version="4.7.0" />
-    <PackageReference Update="Microsoft.Identity.Client" Version="4.29.0" />
+    <PackageReference Update="Microsoft.Identity.Client" Version="4.30.1" />
     <PackageReference Update="Microsoft.Graph" Version="3.29.0" />
     <PackageReference Update="Microsoft.UI.Xaml" Version="2.5.0" />
     <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.12" />
