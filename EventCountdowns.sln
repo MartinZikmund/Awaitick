@@ -3,41 +3,41 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EventCountdowns.Shared", "EventCountdowns.Shared\EventCountdowns.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EventCountdowns.Shared", "src\EventCountdowns.Shared\EventCountdowns.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{CAB24E56-FC78-40B5-8752-927CA86FBD33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Droid", "EventCountdowns.Droid\EventCountdowns.Droid.csproj", "{52D3D040-84EA-4EA9-A995-2540DBC2B839}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Droid", "src\EventCountdowns.Droid\EventCountdowns.Droid.csproj", "{52D3D040-84EA-4EA9-A995-2540DBC2B839}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.iOS", "EventCountdowns.iOS\EventCountdowns.iOS.csproj", "{207C7A52-92F7-45FF-980E-A573281748DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.iOS", "src\EventCountdowns.iOS\EventCountdowns.iOS.csproj", "{207C7A52-92F7-45FF-980E-A573281748DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.UWP", "EventCountdowns.UWP\EventCountdowns.UWP.csproj", "{9FF2E01F-75AB-4022-92C2-2ABD17474DE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.UWP", "src\EventCountdowns.UWP\EventCountdowns.UWP.csproj", "{9FF2E01F-75AB-4022-92C2-2ABD17474DE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Wasm", "EventCountdowns.Wasm\EventCountdowns.Wasm.csproj", "{4202255B-150A-466B-BF37-AF1421CD1FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Wasm", "src\EventCountdowns.Wasm\EventCountdowns.Wasm.csproj", "{4202255B-150A-466B-BF37-AF1421CD1FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.macOS", "EventCountdowns.macOS\EventCountdowns.macOS.csproj", "{CF6CA5FF-78BE-47EC-9E06-2B78BAE134E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.macOS", "src\EventCountdowns.macOS\EventCountdowns.macOS.csproj", "{CF6CA5FF-78BE-47EC-9E06-2B78BAE134E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Skia.Wpf.Host", "EventCountdowns.Skia.Wpf.Host\EventCountdowns.Skia.Wpf.Host.csproj", "{5F847F46-4BFA-4D33-A93C-E689486F3AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Skia.Wpf.Host", "src\EventCountdowns.Skia.Wpf.Host\EventCountdowns.Skia.Wpf.Host.csproj", "{5F847F46-4BFA-4D33-A93C-E689486F3AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Skia.Wpf", "EventCountdowns.Skia.Wpf\EventCountdowns.Skia.Wpf.csproj", "{78FDB2B8-6230-44B4-A651-86D1851E4401}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Skia.Wpf", "src\EventCountdowns.Skia.Wpf\EventCountdowns.Skia.Wpf.csproj", "{78FDB2B8-6230-44B4-A651-86D1851E4401}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Skia.Gtk", "EventCountdowns.Skia.Gtk\EventCountdowns.Skia.Gtk.csproj", "{1F8A7DF8-867E-4569-9749-37327611D9DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Skia.Gtk", "src\EventCountdowns.Skia.Gtk\EventCountdowns.Skia.Gtk.csproj", "{1F8A7DF8-867E-4569-9749-37327611D9DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Skia.Tizen", "EventCountdowns.Skia.Tizen\EventCountdowns.Skia.Tizen.csproj", "{F8F863BF-FB5B-493C-9DAE-B58475F7A1A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Skia.Tizen", "src\EventCountdowns.Skia.Tizen\EventCountdowns.Skia.Tizen.csproj", "{F8F863BF-FB5B-493C-9DAE-B58475F7A1A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCountdowns.Core", "EventCountdowns.Core\EventCountdowns.Core.csproj", "{994A102A-07AB-44F5-96F2-5234547BDE63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Core", "src\EventCountdowns.Core\EventCountdowns.Core.csproj", "{994A102A-07AB-44F5-96F2-5234547BDE63}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{1f8a7df8-867e-4569-9749-37327611d9dc}*SharedItemsImports = 5
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{207c7a52-92f7-45ff-980e-a573281748da}*SharedItemsImports = 4
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{4202255b-150a-466b-bf37-af1421cd1fd6}*SharedItemsImports = 5
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{52d3d040-84ea-4ea9-a995-2540dbc2b839}*SharedItemsImports = 4
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{78fdb2b8-6230-44b4-a651-86d1851e4401}*SharedItemsImports = 5
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{9ff2e01f-75ab-4022-92c2-2abd17474de6}*SharedItemsImports = 4
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{cf6ca5ff-78be-47ec-9e06-2b78bae134e2}*SharedItemsImports = 4
-		EventCountdowns.Shared\EventCountdowns.Shared.projitems*{f8f863bf-fb5b-493c-9dae-b58475f7a1a4}*SharedItemsImports = 5
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{1f8a7df8-867e-4569-9749-37327611d9dc}*SharedItemsImports = 5
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{207c7a52-92f7-45ff-980e-a573281748da}*SharedItemsImports = 4
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{4202255b-150a-466b-bf37-af1421cd1fd6}*SharedItemsImports = 5
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{52d3d040-84ea-4ea9-a995-2540dbc2b839}*SharedItemsImports = 4
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{78fdb2b8-6230-44b4-a651-86d1851e4401}*SharedItemsImports = 5
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{9ff2e01f-75ab-4022-92c2-2abd17474de6}*SharedItemsImports = 4
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{cf6ca5ff-78be-47ec-9e06-2b78bae134e2}*SharedItemsImports = 4
+		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{f8f863bf-fb5b-493c-9dae-b58475f7a1a4}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

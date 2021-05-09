@@ -1,0 +1,62 @@
+<Project>
+  <ItemGroup>
+    <!-- Uno -->
+    <PackageReference Update="Uno.Core" Version="2.3.0" />
+    <PackageReference Update="Uno.UI" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.Skia.Gtk" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.Skia.Tizen" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.WebAssembly" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.RemoteControl" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.MSAL" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.Lottie" Version="3.7.3" />
+    <PackageReference Update="Uno.Wasm.Bootstrap" Version="2.1.0-dev.59" />
+    <PackageReference Update="Uno.Wasm.Bootstrap.DevServer" Version="2.1.0-dev.59"/>
+    <PackageReference Update="Uno.UniversalImageLoader" Version="1.9.33" />
+    <PackageReference Update="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.2-uno.81" />
+
+    <!-- Fody -->
+    <PackageReference Update="Fody" Version="6.5.1" />
+    <PackageReference Update="PropertyChanged.Fody" Version="3.3.3" />
+    <PackageReference Update="MethodTimer.Fody" Version="3.2.0" />
+
+    <!-- AppCenter-->
+    <PackageReference Update="Microsoft.AppCenter.Analytics" Version="4.2.0" />
+    <PackageReference Update="Microsoft.AppCenter.Crashes" Version="4.2.0" />
+
+    <!-- Microsoft Extensions -->
+    <PackageReference Update="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Update="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Update="Microsoft.Extensions.Localization" Version="5.0.5" />
+    <PackageReference Update="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Update="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
+    <PackageReference Update="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Update="Uno.Extensions.Logging.OSLog" Version="1.0.1" />
+    <PackageReference Update="Uno.Extensions.Logging.WebAssembly.Console" Version="1.0.1" />
+
+    <!-- WCT -->
+    <PackageReference Update="Microsoft.Toolkit.Mvvm" Version="7.0.1" />
+    <PackageReference Update="Microsoft.Toolkit.Uwp" Version="7.0.1" />
+    <PackageReference Update="Microsoft.Toolkit.Uwp.Notifications" Version="7.0.1" />
+    <PackageReference Update="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.0.1" />
+    <PackageReference Update="Uno.Microsoft.Toolkit.Uwp" Version="7.0.0" />
+    <PackageReference Update="Uno.Microsoft.Toolkit.Uwp.UI.Controls" Version="7.0.0" />
+
+    <!-- Other -->
+    <PackageReference Update="AutoMapper" Version="10.1.1" />
+    <PackageReference Update="System.Reflection.Emit" Version="4.7.0" />
+    <PackageReference Update="Microsoft.Identity.Client" Version="4.29.0" />
+    <PackageReference Update="Microsoft.Graph" Version="3.29.0" />
+    <PackageReference Update="Microsoft.UI.Xaml" Version="2.5.0" />
+    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.12" />
+    <PackageReference Update="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Update="LiteDB" Version="5.0.10" />
+    <PackageReference Update="Com.Airbnb.Android.Lottie" Version="3.6.1" />
+    <PackageReference Update="Moq" Version="4.16.1" />
+    <PackageReference Update="xunit" Version="2.4.1" />
+    <PackageReference Update="xunit.runner.visualstudio" Version="2.4.3" />
+    <PackageReference Update="coverlet.collector" Version="3.0.3" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+  </ItemGroup>
+</Project>

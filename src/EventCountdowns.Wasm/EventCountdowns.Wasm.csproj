@@ -36,12 +36,12 @@
     <None Include="wwwroot\web.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.0.1" />
-    <PackageReference Include="Uno.UI.WebAssembly" Version="3.6.6" />
-    <PackageReference Include="Uno.UI.RemoteControl" Version="3.6.6" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.3.4" />
-    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.3.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" />
+    <PackageReference Include="Uno.UI.WebAssembly" />
+    <PackageReference Include="Uno.UI.RemoteControl" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.Wasm.Bootstrap" />
+    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" />
   </ItemGroup>
   <Import Project="..\EventCountdowns.Shared\EventCountdowns.Shared.projitems" Label="Shared" Condition="Exists('..\EventCountdowns.Shared\EventCountdowns.Shared.projitems')" />
 </Project>
