@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MvvmCross.Platform;
 using EventCountdowns.Core.Configuration;
 using EventCountdowns.Core.Services.BackgroundTasks;
 using EventCountdowns.Core.Services.Settings;
@@ -49,7 +48,7 @@ namespace EventCountdowns.Core.Infrastructure
         public async Task UpdateFromVersion0ToVersion1Async()
         {
             //unregister background task
-            if ( await Mvx.Resolve<IBackgroundTasksService>().UnregisterAsync() )
+            if ( await IoC.Resolve<IBackgroundTasksService>().UnregisterAsync() )
             {
                 _settings.DataVersion = 1;
             }

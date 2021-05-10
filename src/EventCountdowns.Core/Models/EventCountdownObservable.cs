@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MvvmCross.Core.ViewModels;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace EventCountdowns.Core.Models
 {
-    public class EventCountdownObservable : MvxNotifyPropertyChanged
+    public class EventCountdownObservable : ObservableObject
     {
         private readonly EventCountdown _eventCountdown;
 
@@ -42,12 +38,12 @@ namespace EventCountdowns.Core.Models
 
         public void UpdateBindings()
         {
-            RaisePropertyChanged(() => DaysLeft);
-            RaisePropertyChanged(() => HoursLeft);
-            RaisePropertyChanged(() => MinutesLeft);
-            RaisePropertyChanged(() => SecondsLeft);
-            RaisePropertyChanged(() => TimeLeft);
-            RaisePropertyChanged(() => Finished);
+            OnPropertyChanged(nameof(DaysLeft));
+            OnPropertyChanged(nameof(HoursLeft));
+            OnPropertyChanged(nameof(MinutesLeft));
+            OnPropertyChanged(nameof(SecondsLeft));
+            OnPropertyChanged(nameof(TimeLeft));
+            OnPropertyChanged(nameof(Finished));
         }
     }
 }

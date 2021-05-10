@@ -1,21 +1,17 @@
-using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using EventCountdowns.Core.Models;
-using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Services.Mail;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
-using EventCountdowns.Core.Services.TelemetryService;
 using EventCountdowns.Core.Services.Tile;
 
 namespace EventCountdowns.Core.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : ViewModel
     {
         private readonly IDataService _dataService;
         private readonly ITileService _tileService;
@@ -60,77 +56,59 @@ namespace EventCountdowns.Core.ViewModels
 
         public bool IsLoading
         {
-            get { return _isLoading; }
-            set { SetProperty(ref _isLoading, value); }
+            get => _isLoading;
+            set => SetProperty(ref _isLoading, value);
         }
 
         private bool _showCoffee = false;
 
         public bool ShowCoffee
         {
-            get
-            {
-                return _showCoffee;
-            }
-            set { SetProperty(ref _showCoffee, value); }
+            get => _showCoffee;
+            set => SetProperty(ref _showCoffee, value);
         }
 
-        private ICommand _addCommand = null;
-
-        public ICommand AddCommand => _addCommand ?? (_addCommand = new MvxCommand(Add));
+        public ICommand AddCommand => GetOrCreateCommand(Add);
 
         private void Add()
         {
-            ShowViewModel<CountdownEditorViewModel>();
+            Navigation.Navigate<CountdownEditorViewModel>();
         }
 
-        private ICommand _showCountdownCommand = null;
+        public ICommand ShowCountdownCommand => GetOrCreateCommand<EventCountdownObservable>(ShowCountdown);
 
-        public ICommand ShowCountdownCommand
-            => _showCountdownCommand ?? (_showCountdownCommand = new MvxCommand<EventCountdownObservable>(ShowCountdown));
-
-        private void ShowCountdown(EventCountdownObservable eventCountdown)
+        private void ShowCountdown(EventCountdownObservable? eventCountdown)
         {
             if (eventCountdown != null)
             {
-                ShowViewModel<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(eventCountdown.Id));
+                Navigation.Navigate<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(eventCountdown.Id));
             }
         }
 
-        private ICommand _aboutAppCommand = null;
-        public ICommand AboutAppCommand => _aboutAppCommand ?? (_aboutAppCommand = new MvxCommand(AboutApp));
+        public ICommand AboutAppCommand => GetOrCreateCommand(AboutApp);
 
         private void AboutApp()
         {
-            ShowViewModel<AboutViewModel>();
+            Navigation.Navigate<AboutViewModel>();
         }
 
-        private ICommand _buyMeCoffeeCommand = null;
-
-        public ICommand BuyMeCoffeeCommand
-            => _buyMeCoffeeCommand ?? (_buyMeCoffeeCommand = new MvxCommand(BuyMeCoffee));
+        public ICommand BuyMeCoffeeCommand => GetOrCreateCommand(BuyMeCoffee);
 
         private void BuyMeCoffee()
         {
-            ShowViewModel<BuyMeCoffeeViewModel>();
+            Navigation.Navigate<BuyMeCoffeeViewModel>();
         }
 
-        private ICommand _rateAppCommand = null;
-
-        public ICommand RateAppCommand => _rateAppCommand ?? (_rateAppCommand
-            = new MvxCommand(RateApp));
+        public ICommand RateAppCommand => GetOrCreateCommand(RateApp);
 
         private async void RateApp()
         {
             _appSettings.OfferUserRating = false;
             await _storeLauncherService.RateAppAsync();
-            Mvx.Resolve<ITelemetryService>().TrackEvent("UserRatedApp");
+            //TODO:Track rating
         }
 
-        private ICommand _sendFeedbackCommand = null;
-
-        public ICommand SendFeedbackCommand
-            => _sendFeedbackCommand ?? (_sendFeedbackCommand = new MvxCommand(SendFeedback));
+        public ICommand SendFeedbackCommand => GetOrCreateCommand(SendFeedback);
 
         private async void SendFeedback()
         {

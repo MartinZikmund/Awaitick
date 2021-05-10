@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.Dialogs;
@@ -8,15 +9,15 @@ using EventCountdowns.Core.Services.InAppPurchases;
 
 namespace EventCountdowns.Core.ViewModels
 {
-    public class BuyMeCoffeeViewModel : BaseViewModel
+    public class BuyMeCoffeeViewModel : ViewModel
     {
         private readonly IInAppPurchaseService _inAppPurchaseService;
         private readonly IDialogService _messageDialogService;
         private readonly ILocalizationService _localizationService;
 
         public BuyMeCoffeeViewModel(
-            IInAppPurchaseService inAppPurchaseService, 
-            IDialogService messageDialogService, 
+            IInAppPurchaseService inAppPurchaseService,
+            IDialogService messageDialogService,
             ILocalizationService localizationService)
         {
             _inAppPurchaseService = inAppPurchaseService ?? throw new ArgumentNullException(nameof(inAppPurchaseService));
@@ -24,14 +25,12 @@ namespace EventCountdowns.Core.ViewModels
             _localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
         }
 
-        private ICommand _donateCommand = null;
+        public ICommand DonateCommand => GetOrCreateAsyncCommand<string>(DonateAsync);
 
-        public ICommand DonateCommand => _donateCommand ?? (_donateCommand = new DelegateCommand<string>(Donate));
-
-        private async void Donate(string coffeeSize)
+        private async Task DonateAsync(string? coffeeSize)
         {
             InAppProducts product = InAppProducts.LargeCoffee;
-            switch (coffeeSize.ToLowerInvariant())
+            switch (coffeeSize?.ToLowerInvariant())
             {
                 case "small":
                     {
