@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventCountdowns.Models.Theming;
 
 namespace EventCountdowns.Core.Services.Settings
 {
@@ -10,7 +11,7 @@ namespace EventCountdowns.Core.Services.Settings
     {
         private readonly ISettingsService _settingsService;
 
-        public AppSettings( ISettingsService settingsService )
+        public AppSettings(ISettingsService settingsService)
         {
             _settingsService = settingsService;
         }
@@ -45,6 +46,14 @@ namespace EventCountdowns.Core.Services.Settings
         {
             get => _settingsService.GetSetting(OfferUserRatingKey, () => true, true);
             set => _settingsService.SetSetting(OfferUserRatingKey, value, true);
+        }
+
+        private const string AppThemeKey = "AppTheme";
+
+        public AppTheme Theme
+        {
+            get => _settingsService.GetSetting(AppThemeKey, () => AppTheme.System, true);
+            set => _settingsService.SetSetting(AppThemeKey, value, true);
         }
     }
 }

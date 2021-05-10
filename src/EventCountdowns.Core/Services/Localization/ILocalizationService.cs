@@ -8,7 +8,7 @@ namespace EventCountdowns.Core.Services
 {
     public interface ILocalizationService
     {
-        string this[ string key ] { get; }
+        string this[string key] { get; }
 
         //specific keys
 

@@ -16,13 +16,11 @@ namespace EventCountdowns.Core.Services.Data
 
         private readonly IFileService _fileService;
 
-        
-
-        private List<EventCountdown> _eventCountdowns = null;
+        private List<EventCountdown> _eventCountdowns = new List<EventCountdown>();
 
         public FileDataService(IFileService fileService)
         {
-            _fileService = fileService;
+            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
         public async Task InitializeAsync()
@@ -34,18 +32,22 @@ namespace EventCountdowns.Core.Services.Data
         {
             try
             {
-                _eventCountdowns = new List<EventCountdown>();
+                _eventCountdowns.Clear();
                 var eventsJson = await _fileService.GetDataFileContentsAsync(DataFileName);
                 var eventsArray = JArray.Parse(eventsJson);
                 foreach (var item in eventsArray)
                 {
                     try
                     {
-                        _eventCountdowns.Add(item.ToObject<EventCountdown>());
+                        var parsedItem = item.ToObject<EventCountdown>();
+                        if (parsedItem != null)
+                        {
+                            _eventCountdowns.Add(parsedItem);
+                        }
                     }
                     catch
                     {
-                        //skip invalid value
+                        //TODO:LOG
                     }
                 }
             }
@@ -63,7 +65,7 @@ namespace EventCountdowns.Core.Services.Data
             }
             catch
             {
-
+                //TODO:LOG
             }
         }
 

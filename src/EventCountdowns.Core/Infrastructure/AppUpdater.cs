@@ -48,7 +48,7 @@ namespace EventCountdowns.Core.Infrastructure
         public async Task UpdateFromVersion0ToVersion1Async()
         {
             //unregister background task
-            if ( await IoC.Resolve<IBackgroundTasksService>().UnregisterAsync() )
+            if ( await IoC.GetService<IBackgroundTasksService>().UnregisterAsync() )
             {
                 _settings.DataVersion = 1;
             }

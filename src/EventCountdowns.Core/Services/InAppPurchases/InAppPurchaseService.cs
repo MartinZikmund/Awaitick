@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Store;
 using Windows.UI.Popups;
 using EventCountdowns.Core.Services.InAppPurchases;
+using EventCountdowns.Core.Infrastructure;
 
 namespace EventCountdowns.Core.Services
 {
@@ -15,7 +16,7 @@ namespace EventCountdowns.Core.Services
 
         private void InitializeLicenseInformation()
         {
-            if ( _licenseInformation == null )
+            if (_licenseInformation == null)
             {
 #if DEBUG
                 _licenseInformation = CurrentAppSimulator.LicenseInformation;
@@ -35,20 +36,20 @@ namespace EventCountdowns.Core.Services
                     GetProductId(InAppProducts.SmallCoffee), GetProductId(InAppProducts.MediumCoffee),
                     GetProductId(InAppProducts.LargeCoffee), GetProductId(InAppProducts.GigaCoffee)
                 };
-                return ( from d in durableIds where _licenseInformation.ProductLicenses[ d ].IsActive select d ).Any();
+                return (from d in durableIds where _licenseInformation.ProductLicenses[d].IsActive select d).Any();
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
                 //TODO:Track exception
                 return false;
             }
         }
 
-        private string GetProductId( InAppProducts product, bool durable = true )
+        private string GetProductId(InAppProducts product, bool durable = true)
         {
-            if ( durable )
+            if (durable)
             {
-                switch ( product )
+                switch (product)
                 {
                     case InAppProducts.SmallCoffee:
                         return "EventCountdownsSmallCoffee";
@@ -59,12 +60,12 @@ namespace EventCountdowns.Core.Services
                     case InAppProducts.GigaCoffee:
                         return "EventCountdownsGigaCoffee";
                     default:
-                        throw new ArgumentOutOfRangeException( nameof( product ), product, null );
+                        throw new ArgumentOutOfRangeException(nameof(product), product, null);
                 }
             }
             else
             {
-                switch ( product )
+                switch (product)
                 {
                     case InAppProducts.SmallCoffee:
                         return "EventCountdownsDemiCoffee";
@@ -75,27 +76,27 @@ namespace EventCountdowns.Core.Services
                     case InAppProducts.GigaCoffee:
                         return "EventCountdownsTrentaCoffee";
                     default:
-                        throw new ArgumentOutOfRangeException( nameof( product ), product, null );
+                        throw new ArgumentOutOfRangeException(nameof(product), product, null);
                 }
             }
 
         }
 
-        public async Task<bool> PurchaseAsync( InAppProducts product )
+        public async Task<bool> PurchaseAsync(InAppProducts product)
         {
             try
             {
                 InitializeLicenseInformation();
-                var productId = GetProductId( product );
+                var productId = GetProductId(product);
 
-                if ( !_licenseInformation.ProductLicenses[ productId ].IsActive )
+                if (!_licenseInformation.ProductLicenses[productId].IsActive)
                 {
 #if DEBUG
-                    await CurrentAppSimulator.RequestProductPurchaseAsync( productId, false );
+                    await CurrentAppSimulator.RequestProductPurchaseAsync(productId, false);
 #else
                     await CurrentApp.RequestProductPurchaseAsync( productId, false );
 #endif
-                    if ( _licenseInformation.ProductLicenses[ productId ].IsActive )
+                    if (_licenseInformation.ProductLicenses[productId].IsActive)
                     {
                         //purchase 
                         //TODO: Track
@@ -104,12 +105,12 @@ namespace EventCountdowns.Core.Services
                     //Check the license state to determine if the in-app purchase was successful.
                 }
             }
-            catch ( Exception )
+            catch (Exception)
             {
                 // The in-app purchase was not completed because 
                 // an error occurred. 
-                var localizer = IoC.Resolve<ILocalizationService>();
-                MessageDialog dialog = new MessageDialog( localizer.PurchaseUnsuccessfulText, localizer.PurchaseUnsuccessful );
+                var localizer = IoC.GetRequiredService<ILocalizationService>();
+                MessageDialog dialog = new MessageDialog(localizer.PurchaseUnsuccessfulText, localizer.PurchaseUnsuccessful);
                 await dialog.ShowAsync();
             }
             return false;

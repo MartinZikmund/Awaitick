@@ -12,7 +12,7 @@ namespace EventCountdowns.Core.ViewModels
             _storeLauncherService = storeLauncherService;
         }
 
-        public ICommand MoreAppsCommand => GetOrCreateCommand(MoreApps));
+        public ICommand MoreAppsCommand => GetOrCreateCommand(MoreApps);
 
         private async void MoreApps()
         {

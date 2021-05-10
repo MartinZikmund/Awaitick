@@ -10,21 +10,21 @@ namespace EventCountdowns.Core.Infrastructure
     {
         private static IServiceProvider? _serviceProvider;
 
-        public static T? Resolve<T>()
+        public static T? GetService<T>()
             where T : class
         {
             EnsureServiceProvider();
             return _serviceProvider.GetService<T>();
         }
 
-        public static T ResolveRequired<T>()
+        public static T GetRequiredService<T>()
             where T : class
         {
             EnsureServiceProvider();
             return _serviceProvider.GetRequiredService<T>();
         }
 
-        internal static void SetProvider(IServiceProvider serviceProvider)
+        public static void SetProvider(IServiceProvider serviceProvider)
         {
             if (serviceProvider is null)
             {

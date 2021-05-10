@@ -24,5 +24,8 @@
     <PackageReference Include="Uno.UI.Skia.Tizen" />
     <PackageReference Include="Uno.UI.RemoteControl" Condition="'$(Configuration)'=='Debug'" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
+  </ItemGroup>
   <Import Project="..\EventCountdowns.Shared\EventCountdowns.Shared.projitems" Label="Shared" />
 </Project>

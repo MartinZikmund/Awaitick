@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProjectGuid>207c7a52-92f7-45ff-980e-a573281748da</ProjectGuid>
+    <ProjectGuid>{207C7A52-92F7-45FF-980E-A573281748DA}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
     <RootNamespace>EventCountdowns</RootNamespace>
@@ -149,10 +149,12 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Media" Visible="false" />
-    <Folder Include="Media\AppIcons" Visible="false" />
-    <Folder Include="Media\LaunchImages" Visible="false" />
+    <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj">
+      <Project>{994a102a-07ab-44f5-96f2-5234547bde63}</Project>
+      <Name>EventCountdowns.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\EventCountdowns.Shared\EventCountdowns.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

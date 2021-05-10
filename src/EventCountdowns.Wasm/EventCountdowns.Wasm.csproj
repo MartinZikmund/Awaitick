@@ -43,5 +43,8 @@
     <PackageReference Include="Uno.Wasm.Bootstrap" />
     <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
+  </ItemGroup>
   <Import Project="..\EventCountdowns.Shared\EventCountdowns.Shared.projitems" Label="Shared" Condition="Exists('..\EventCountdowns.Shared\EventCountdowns.Shared.projitems')" />
 </Project>

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>52d3d040-84ea-4ea9-a995-2540dbc2b839</ProjectGuid>
+    <ProjectGuid>{52D3D040-84EA-4EA9-A995-2540DBC2B839}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -87,6 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj">
+      <Project>{994a102a-07ab-44f5-96f2-5234547bde63}</Project>
+      <Name>EventCountdowns.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\EventCountdowns.Shared\EventCountdowns.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -17,7 +17,7 @@ namespace EventCountdowns.Core.Services
             {
                 try
                 {
-                    return _resoruceLoader.GetString(key);                    
+                    return _resoruceLoader.GetString(key);
                 }
                 catch (Exception)
                 {

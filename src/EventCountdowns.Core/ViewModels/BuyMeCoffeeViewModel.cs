@@ -12,7 +12,7 @@ namespace EventCountdowns.Core.ViewModels
     public class BuyMeCoffeeViewModel : ViewModel
     {
         private readonly IInAppPurchaseService _inAppPurchaseService;
-        private readonly IDialogService _messageDialogService;
+        private readonly IDialogService _dialogService;
         private readonly ILocalizationService _localizationService;
 
         public BuyMeCoffeeViewModel(
@@ -21,7 +21,7 @@ namespace EventCountdowns.Core.ViewModels
             ILocalizationService localizationService)
         {
             _inAppPurchaseService = inAppPurchaseService ?? throw new ArgumentNullException(nameof(inAppPurchaseService));
-            _messageDialogService = messageDialogService ?? throw new ArgumentNullException(nameof(messageDialogService));
+            _dialogService = messageDialogService ?? throw new ArgumentNullException(nameof(messageDialogService));
             _localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
         }
 
@@ -58,7 +58,7 @@ namespace EventCountdowns.Core.ViewModels
             if (result)
             {
                 //show dialog
-                await _messageDialogService.ShowAsync(_localizationService.AppName, _localizationService.CoffeeThankYou);
+                await _dialogService.ShowAsync(_localizationService.AppName, _localizationService.CoffeeThankYou);
             }
             IsWorking = false;
         }

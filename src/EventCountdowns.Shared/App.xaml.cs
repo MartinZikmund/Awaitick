@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using EventCountdowns.Core.Infrastructure;
+using EventCountdowns.Core.Services.Settings;
+using EventCountdowns.Models.Theming;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -30,6 +34,8 @@ namespace EventCountdowns
         public App()
         {
             InitializeLogging();
+            ConfigureStartup();
+            ConfigureUI();
 
             this.InitializeComponent();
 
@@ -45,54 +51,72 @@ namespace EventCountdowns
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            SetupDebugInfo();
+
+            var window = Windows.UI.Xaml.Window.Current;
+            InitializeShell(window);
+
+#if !(NET5_0 && WINDOWS)
+            if (e.PrelaunchActivated == false)
+#endif
+            {
+                AppShell.GetForCurrentView().RootFrame.Navigate(typeof(BlogTagsManagerView));
+
+                // Ensure the current window is active
+                window.Activate();
+            }
+        }
+
+        private static void SetupDebugInfo()
+        {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+        }
 
-#if NET5_0 && WINDOWS
-            var window = new Window();
-            window.Activate();
-#else
-            var window = Windows.UI.Xaml.Window.Current;
-#endif
+        private void ConfigureUI()
+        {
+            InitializeTheme();
+        }
 
-            var rootFrame = window.Content as Frame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
+        private void InitializeTheme()
+        {
+            var preferences = IoC.GetRequiredService<IAppSettings>();
+            if (preferences.Theme == AppTheme.Dark)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                window.Content = rootFrame;
+                RequestedTheme = ApplicationTheme.Dark;
             }
-
-#if !(NET5_0 && WINDOWS)
-            if (e.PrelaunchActivated == false)
-#endif
+            else if (preferences.Theme == AppTheme.Light)
             {
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-                // Ensure the current window is active
-                window.Activate();
+                RequestedTheme = ApplicationTheme.Light;
             }
+        }
+
+        private void InitializeShell(Windows.UI.Xaml.Window window)
+        {
+            if (!(window.Content is AppShell))
+            {
+                var appShell = AppShell.GetForCurrentView();
+                window.Content = appShell;
+            }
+        }
+
+        /// <summary>
+        /// Configures the services for the application.
+        /// </summary>
+        private static void ConfigureStartup()
+        {
+            var services = new ServiceCollection();
+
+            Startup.ConfigureServices(services);
+
+            var provider = services.BuildServiceProvider();
+            IoC.SetProvider(provider);
+
+            Startup.Configure(provider);
         }
 
         /// <summary>

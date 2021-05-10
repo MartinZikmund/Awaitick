@@ -20,9 +20,9 @@ namespace EventCountdowns.Core.ViewModels
         private INavigationService? _navigationService;
         private bool _isWorking;
 
-        protected INavigationService Navigation => _navigationService ?? (_navigationService = IoC.ResolveRequired<INavigationService>());
+        protected INavigationService Navigation => _navigationService ?? (_navigationService = IoC.GetRequiredService<INavigationService>());
 
-        public bool UserPremium => IoC.ResolveRequired<IInAppPurchaseService>().HasUserAnyProduct();
+        public bool UserPremium => IoC.GetRequiredService<IInAppPurchaseService>().HasUserAnyProduct();
 
         public bool IsWorking
         {
