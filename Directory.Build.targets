@@ -10,8 +10,8 @@
     <PackageReference Update="Uno.UI.RemoteControl" Version="3.7.3" />
     <PackageReference Update="Uno.UI.MSAL" Version="3.7.3" />
     <PackageReference Update="Uno.UI.Lottie" Version="3.7.3" />
-    <PackageReference Update="Uno.Wasm.Bootstrap" Version="2.1.0-dev.59" />
-    <PackageReference Update="Uno.Wasm.Bootstrap.DevServer" Version="2.1.0-dev.59"/>
+    <PackageReference Update="Uno.Wasm.Bootstrap" Version="2.1.0" />
+    <PackageReference Update="Uno.Wasm.Bootstrap.DevServer" Version="2.1.0"/>
     <PackageReference Update="Uno.UniversalImageLoader" Version="1.9.33" />
     <PackageReference Update="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.2-uno.81" />
 
@@ -46,8 +46,8 @@
     <!-- Other -->
     <PackageReference Update="AutoMapper" Version="10.1.1" />
     <PackageReference Update="System.Reflection.Emit" Version="4.7.0" />
-    <PackageReference Update="Microsoft.Identity.Client" Version="4.29.0" />
-    <PackageReference Update="Microsoft.Graph" Version="3.29.0" />
+    <PackageReference Update="Microsoft.Identity.Client" Version="4.30.1" />
+    <PackageReference Update="Microsoft.Graph" Version="3.31.0" />
     <PackageReference Update="Microsoft.UI.Xaml" Version="2.5.0" />
     <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.12" />
     <PackageReference Update="Newtonsoft.Json" Version="13.0.1" />
