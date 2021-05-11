@@ -1,4 +1,5 @@
 ﻿<linker>
+  <assembly fullname="EventCountdowns.Core" />
   <assembly fullname="EventCountdowns.Wasm" />
   <assembly fullname="Uno.UI" />
   <assembly fullname="Microsoft.Extensions.Options" />

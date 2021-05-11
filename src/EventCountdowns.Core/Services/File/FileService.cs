@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using EventCountdowns.Core.Services.File;
 
 namespace EventCountdowns.Core.Services
 {

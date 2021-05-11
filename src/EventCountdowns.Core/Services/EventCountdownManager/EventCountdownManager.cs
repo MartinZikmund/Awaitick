@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.ScheduledNotification;
-using EventCountdowns.Core.Services.Tile;
+using EventCountdowns.Core.Services.Tiles;
 
 namespace EventCountdowns.Core.Services.EventCountdownManager
 {

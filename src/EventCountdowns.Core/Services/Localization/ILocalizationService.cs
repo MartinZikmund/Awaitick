@@ -10,6 +10,8 @@ namespace EventCountdowns.Core.Services
     {
         string this[string key] { get; }
 
+        string GetString(string key);
+
         //specific keys
 
         string AppName { get; }
@@ -25,6 +27,7 @@ namespace EventCountdowns.Core.Services
         string Cancel { get; }
 
         string Delete { get; }
+
 
         string Edit { get; }
 

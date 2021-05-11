@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using EventCountdowns.Core.Models;
 
-namespace EventCountdowns.Core.Services.Tile
+namespace EventCountdowns.Core.Services.Tiles
 {
     public interface ITileService
     {

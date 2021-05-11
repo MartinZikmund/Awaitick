@@ -138,5 +138,7 @@ namespace EventCountdowns.Core.Services
         public string NewYear => this[nameof(NewYear)];
         public string PurchaseUnsuccessfulText => this[nameof(PurchaseUnsuccessfulText)];
         public string PurchaseUnsuccessful => this[nameof(PurchaseUnsuccessful)];
+
+        public abstract string GetString(string key);
     }
 }

@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 namespace EventCountdowns.Core.Infrastructure
 {
     public static class IoC
-
     {
         private static IServiceProvider? _serviceProvider;
 

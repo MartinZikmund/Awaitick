@@ -7,21 +7,28 @@ using EventCountdowns.Core.Services.Mail;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
-using EventCountdowns.Core.Services.Tile;
+using EventCountdowns.Core.Services.Tiles;
 
 namespace EventCountdowns.Core.ViewModels
 {
     public class MainViewModel : ViewModel
     {
         private readonly IDataService _dataService;
-        private readonly ITileService _tileService;
+        private readonly ITileService? _tileService;
         private readonly IInAppPurchaseService _inAppPurchaseService;
         private readonly IMailService _mailService;
         private readonly IScheduledNotificationService _scheduledNotificationService;
         private readonly IStoreLauncherService _storeLauncherService;
         private readonly IAppSettings _appSettings;
 
-        public MainViewModel(IDataService dataService, ITileService tileService, IInAppPurchaseService inAppPurchaseService, IMailService mailService, IScheduledNotificationService scheduledNotificationService, IStoreLauncherService storeLauncherService, IAppSettings appSettings)
+        public MainViewModel(
+            IDataService dataService, 
+            ITileService? tileService, 
+            IInAppPurchaseService inAppPurchaseService, 
+            IMailService mailService, 
+            IScheduledNotificationService scheduledNotificationService, 
+            IStoreLauncherService storeLauncherService, 
+            IAppSettings appSettings)
         {
             _dataService = dataService;
             _tileService = tileService;

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Models.Theming;
+using EventCountdowns.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Windows.ApplicationModel;
@@ -60,7 +61,7 @@ namespace EventCountdowns
             if (e.PrelaunchActivated == false)
 #endif
             {
-                AppShell.GetForCurrentView().RootFrame.Navigate(typeof(BlogTagsManagerView));
+                AppShell.GetForCurrentView().RootFrame.Navigate(typeof(MainView));
 
                 // Ensure the current window is active
                 window.Activate();

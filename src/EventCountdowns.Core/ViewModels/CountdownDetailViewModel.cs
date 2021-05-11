@@ -6,7 +6,7 @@ using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Share;
-using EventCountdowns.Core.Services.Tile;
+using EventCountdowns.Core.Services.Tiles;
 
 namespace EventCountdowns.Core.ViewModels
 {
