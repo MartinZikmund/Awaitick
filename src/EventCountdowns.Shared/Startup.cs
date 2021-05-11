@@ -9,6 +9,10 @@ using EventCountdowns.Services.Theming;
 using EventCountdowns.Views;
 using Microsoft.Extensions.DependencyInjection;
 using EventCountdowns.Core.Services.Data;
+using EventCountdowns.Core.Services.ScheduledNotification;
+using EventCountdowns.Core.Services.StoreLauncher;
+using EventCountdowns.Core.Services.Mail;
+using EventCountdowns.Core.Services.InAppPurchases;
 
 namespace EventCountdowns
 {

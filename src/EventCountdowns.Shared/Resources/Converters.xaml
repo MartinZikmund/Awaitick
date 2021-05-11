@@ -7,4 +7,6 @@
     <converters:NonEmptyStringToVisibilityConverter x:Key="NonEmptyStringToVisibilityConverter" />
     <converters:IntToTimeComponentStringConverter x:Key="IntToTimeComponentStringConverter" />
     <converters:ItemClickEventArgsConverter x:Key="ItemClickEventArgsConverter" />
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <converters:BoolToVisibilityConverter Inverted="True" x:Key="InvertedBoolToVisibilityConverter" />
 </ResourceDictionary>
