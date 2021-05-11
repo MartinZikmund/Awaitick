@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using EventCountdowns.Core.Infrastructure;
+using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Models.Theming;
 using EventCountdowns.Views;
@@ -50,12 +52,13 @@ namespace EventCountdowns
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             SetupDebugInfo();
 
             var window = Windows.UI.Xaml.Window.Current;
             InitializeShell(window);
+            await InitializeAsync();
 
 #if !(NET5_0 && WINDOWS)
             if (e.PrelaunchActivated == false)
@@ -94,6 +97,11 @@ namespace EventCountdowns
             {
                 RequestedTheme = ApplicationTheme.Light;
             }
+        }
+
+        private async Task InitializeAsync()
+        {
+            await IoC.GetRequiredService<IDataService>().InitializeAsync();
         }
 
         private void InitializeShell(Windows.UI.Xaml.Window window)

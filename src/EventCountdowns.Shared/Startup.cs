@@ -13,6 +13,9 @@ using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Mail;
 using EventCountdowns.Core.Services.InAppPurchases;
+using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.Core.Services.BackgroundPicker;
+using EventCountdowns.Core.DefaultData;
 
 namespace EventCountdowns
 {
@@ -26,6 +29,8 @@ namespace EventCountdowns
                 .AddSingleton<IScheduledNotificationService, ScheduledNotificationService>()
                 .AddSingleton<IStoreLauncherService, StoreLauncherService>()
                 .AddSingleton<ITileService, TileService>()
+                .AddSingleton<IBackgroundPickerService, BackgroundPickerService>()
+                .AddSingleton<IEventCountdownManager, EventCountdownManager>()
                 .AddSingleton<IFileService, FileService>()
                 .AddSingleton<IDataService, FileDataService>()
                 .AddSingleton<ILocalizationService, LocalizationService>()
@@ -33,6 +38,7 @@ namespace EventCountdowns
                 .AddSingleton<ISettingsService, SettingsService>()
                 .AddSingleton<IAppSettings, AppSettings>()
                 .AddSingleton<IFrameAccessor, FrameAccessor>()
+                .AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>()
                 .AddSingleton<INavigationService, NavigationService>();
 
             RegisterViewModels(services);
@@ -43,6 +49,7 @@ namespace EventCountdowns
             services
                 .AddSingleton<AppShellViewModel>()
                 .AddSingleton<MainViewModel>()
+                .AddSingleton<AboutViewModel>()
                 .AddSingleton<BuyMeCoffeeViewModel>()
                 .AddSingleton<CountdownDetailViewModel>()
                 .AddSingleton<CountdownEditorViewModel>();

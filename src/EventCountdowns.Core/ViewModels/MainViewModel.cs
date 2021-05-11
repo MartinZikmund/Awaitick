@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.Data;
@@ -39,7 +40,7 @@ namespace EventCountdowns.Core.ViewModels
             _appSettings = appSettings;
         }
 
-        public async void Init()
+        public override async Task LoadAsync()
         {
             IsLoading = true;
             //load countdowns
