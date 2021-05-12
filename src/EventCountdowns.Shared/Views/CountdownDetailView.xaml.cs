@@ -23,7 +23,6 @@ namespace EventCountdowns.Views
         public CountdownDetailView()
         {
             this.InitializeComponent();
-            this.DataContextChanged += CountdownDetailView_DataContextChanged;
             _timer = new DispatcherTimer();
             _timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             _timer.Tick += _timer_Tick;
@@ -46,13 +45,6 @@ namespace EventCountdowns.Views
             base.OnNavigatedFrom(e);
             _timer.Stop();
         }
-
-        private void CountdownDetailView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
-        {
-            Model = args.NewValue as CountdownDetailViewModel;
-        }
-
-        public CountdownDetailViewModel Model { get; private set; }
     }
 
     public partial class CountdownDetailViewBase : ViewBase<CountdownDetailViewModel>

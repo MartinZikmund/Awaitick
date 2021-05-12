@@ -16,6 +16,8 @@ using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.DefaultData;
+using EventCountdowns.Core.Services.Share;
+using EventCountdowns.Core.Services.ConfirmationDialog;
 
 namespace EventCountdowns
 {
@@ -39,6 +41,8 @@ namespace EventCountdowns
                 .AddSingleton<IAppSettings, AppSettings>()
                 .AddSingleton<IFrameAccessor, FrameAccessor>()
                 .AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>()
+                .AddSingleton<IConfirmationDialogService, ConfirmationDialogService>()
+                .AddSingleton<ISystemSharingService, SystemSharingService>()
                 .AddSingleton<INavigationService, NavigationService>();
 
             RegisterViewModels(services);

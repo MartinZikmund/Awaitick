@@ -169,19 +169,19 @@
                                         <StackPanel x:Name="CountdownStack" Visibility="{x:Bind Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Orientation="Horizontal">
                                             <StackPanel Orientation="Vertical" Margin="10,0">
                                                 <TextBlock x:Name="DaysComponent" Style="{StaticResource TimeComponentStyle}" Text="{x:Bind DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Days}" />
+                                                <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Days}" />
                                             </StackPanel>
                                             <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
                                                 <TextBlock x:Name="HoursComponent" Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Hours}" />
+                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Hours}" />
                                             </StackPanel>
                                             <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
                                                 <TextBlock x:Name="MinutesComponent" Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Minutes}" />
+                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Minutes}" />
                                             </StackPanel>
                                             <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
                                                 <TextBlock x:Name="SecondsComponent" Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Seconds}" />
+                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Seconds}" />
                                             </StackPanel>
                                         </StackPanel>
                                         <TextBlock TextWrapping="Wrap" Margin="0" TextAlignment="Center" FontWeight="SemiLight" HorizontalAlignment="Center" Foreground="White" Text="{x:Bind CelebrationMessage}" VerticalAlignment="Center" FontSize="35" Visibility="{x:Bind Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />
@@ -252,19 +252,19 @@
                                         <StackPanel Visibility="{x:Bind Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Orientation="Horizontal">
                                             <StackPanel Orientation="Vertical" Margin="10,0">
                                                 <TextBlock Style="{StaticResource TimeComponentStyle}" Text="{x:Bind DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Days}" />
+                                                <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Days}" />
                                             </StackPanel>
                                             <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
                                                 <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Hours}" />
+                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Hours}" />
                                             </StackPanel>
                                             <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
                                                 <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Minutes}" />
+                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Minutes}" />
                                             </StackPanel>
                                             <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
                                                 <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{Binding Source={StaticResource Localizer}, Path=Seconds}" />
+                                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Seconds}" />
                                             </StackPanel>
                                         </StackPanel>
                                         <TextBlock TextWrapping="Wrap" Margin="0" TextAlignment="Center" FontWeight="SemiLight" HorizontalAlignment="Center" Foreground="White" Text="{x:Bind CelebrationMessage}" VerticalAlignment="Center" FontSize="35" Visibility="{x:Bind Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />

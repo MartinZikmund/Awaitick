@@ -21,7 +21,7 @@ namespace EventCountdowns.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await Model.LoadAsync();
+            await Model.LoadAsync(e.Parameter);
         }
     }
 }

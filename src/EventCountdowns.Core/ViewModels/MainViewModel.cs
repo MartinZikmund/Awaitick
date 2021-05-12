@@ -40,7 +40,7 @@ namespace EventCountdowns.Core.ViewModels
             _appSettings = appSettings;
         }
 
-        public override async Task LoadAsync()
+        public override async Task LoadAsync(object? parameter)
         {
             IsLoading = true;
             //load countdowns

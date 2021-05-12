@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.ConfirmationDialog;
@@ -49,8 +51,13 @@ namespace EventCountdowns.Core.ViewModels
             _localizationService = localizationService;
         }
 
-        public async void Init(NavigationModel navigationModel)
+        public override async Task LoadAsync(object? parameter)
         {
+            if (parameter is not NavigationModel navigationModel)
+            {
+                throw new ArgumentException("Parameter must be CountdownDetailViewModel.NavigationModel.", nameof(parameter));
+            }
+
             EventCountdown = new EventCountdownObservable(await _dataService.GetCountdownAsync(navigationModel.CountdownId));
             if (EventCountdown != null)
             {
@@ -60,14 +67,11 @@ namespace EventCountdowns.Core.ViewModels
             }
         }
 
-
-
         public EventCountdownObservable EventCountdown
         {
             get => _eventCountdown;
             set => SetProperty(ref _eventCountdown, value);
         }
-
 
         public ICommand DeletePromptCommand => GetOrCreateCommand(DeletePrompt);
 

@@ -30,7 +30,7 @@ namespace EventCountdowns.Core.ViewModels
             set => SetProperty(ref _isWorking, value);
         }
 
-        public virtual Task LoadAsync() => Task.CompletedTask;
+        public virtual Task LoadAsync(object? parameter) => Task.CompletedTask;
 
         protected ICommand GetOrCreateCommand(Action action, [CallerMemberName] string commandName = "")
         {

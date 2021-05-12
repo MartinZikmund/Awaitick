@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Windows.UI.Xaml.Controls;
 
 namespace EventCountdowns.Core.Services.Navigation
@@ -46,7 +47,8 @@ namespace EventCountdowns.Core.Services.Navigation
 
         public void Navigate<TViewModel>(object navigationModel)
         {
-            throw new NotImplementedException();
+            var view = FindViewForViewModel<TViewModel>();
+            _frameAccessor.GetFrame().Navigate(view, navigationModel);
         }
 
         public INavigationService RegisterForNavigation<TViewModel, TPage>()

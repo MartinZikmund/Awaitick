@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using EventCountdowns.Core.DefaultData;
 using EventCountdowns.Core.Models;
@@ -76,13 +77,18 @@ namespace EventCountdowns.Core.ViewModels
             _defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
         }
 
-        public async void Init(NavigationModel model)
+        public override async Task LoadAsync(object? parameter)
         {
-            Mode = model.Mode;
+            if (parameter is not NavigationModel navigationModel)
+            {
+                throw new ArgumentException("Parameter must be CountdownDetailViewModel.NavigationModel.", nameof(parameter));
+            }
+
+            Mode = navigationModel.Mode;
 
             if (Mode == EditorMode.Edit)
             {
-                _editedEventCountdown = await _dataService.GetCountdownAsync(model.Id);
+                _editedEventCountdown = await _dataService.GetCountdownAsync(navigationModel.Id);
                 if (_editedEventCountdown != null)
                 {
                     LoadEditedCountdown();
@@ -171,13 +177,11 @@ namespace EventCountdowns.Core.ViewModels
             set => SetProperty(ref _date, value);
         }
 
-
         public TimeSpan Time
         {
             get => _time;
             set => SetProperty(ref _time, value);
         }
-
 
         public string CelebrationMessage
         {
