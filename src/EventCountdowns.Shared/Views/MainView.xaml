@@ -10,7 +10,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"   
     xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
     mc:Ignorable="d">
-    <Page.Resources>
+    <local:MainViewBase.Resources>
         <Style x:Key="StretchedListViewItemStyle" TargetType="ListViewItem">
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
@@ -76,12 +76,12 @@
         <ItemsPanelTemplate x:Key="GridViewPanelTemplate">
             <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" />
         </ItemsPanelTemplate>
-    </Page.Resources>
-    <Page.Transitions>
+    </local:MainViewBase.Resources>
+    <local:MainViewBase.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition />
         </TransitionCollection>
-    </Page.Transitions>
+    </local:MainViewBase.Transitions>
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -154,15 +154,15 @@
                                     </Border.Background>
                                 </Border>
                                 <Grid Background="Black" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
-                                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill" Opacity="0.8">
-                                        <Image.Source>
-                                            <Binding Path="BackgroundImagePath" Mode="OneTime">
-                                                <Binding.TargetNullValue>
-                                                    <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                                                </Binding.TargetNullValue>
-                                            </Binding>
-                                        </Image.Source>
-                                    </Image>
+                                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill" Opacity="0.8">
+                                    <Image.Source>
+                                        <Binding Path="BackgroundImagePath" Mode="OneTime">
+                                            <!--<Binding.TargetNullValue>
+                                                <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
+                                            </Binding.TargetNullValue>-->
+                                        </Binding>
+                                    </Image.Source>
+                                </Image>
                                 </Grid>
                                 <Border VerticalAlignment="Stretch" Padding="20">
                                     <Grid>
@@ -240,9 +240,9 @@
                                     <Image VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill" Opacity="0.8">
                                         <Image.Source>
                                             <Binding Path="BackgroundImagePath" Mode="OneTime">
-                                                <Binding.TargetNullValue>
+                                                <!--<Binding.TargetNullValue>
                                                     <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                                                </Binding.TargetNullValue>
+                                                </Binding.TargetNullValue>-->
                                             </Binding>
                                         </Image.Source>
                                     </Image>

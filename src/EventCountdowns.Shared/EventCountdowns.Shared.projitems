@@ -86,4 +86,26 @@
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\cs\Resources.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Beach.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\BlankBackground.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Christmas.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Concert.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Easter.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Halloween.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Love.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Movies.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\NewYear.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Plane.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Beach.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\BlankBackground.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Christmas.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Concert.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Easter.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Halloween.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Love.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Movies.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\NewYear.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Thumbnails\Plane.jpg" />
+  </ItemGroup>
 </Project>

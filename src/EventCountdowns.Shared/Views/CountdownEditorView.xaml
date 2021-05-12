@@ -106,9 +106,9 @@
                                     <Image Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image.Source>
                                             <Binding Path="BackgroundPath">
-                                                <Binding.TargetNullValue>
+                                                <!--<Binding.TargetNullValue>
                                                     <ImageSource>/Assets/SampleBackgrounds/Thumbnails/BlankBackground.png</ImageSource>
-                                                </Binding.TargetNullValue>
+                                                </Binding.TargetNullValue>-->
                                             </Binding>
                                         </Image.Source>
                                     </Image>

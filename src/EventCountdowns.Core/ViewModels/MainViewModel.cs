@@ -23,12 +23,12 @@ namespace EventCountdowns.Core.ViewModels
         private readonly IAppSettings _appSettings;
 
         public MainViewModel(
-            IDataService dataService, 
-            ITileService? tileService, 
-            IInAppPurchaseService inAppPurchaseService, 
-            IMailService mailService, 
-            IScheduledNotificationService scheduledNotificationService, 
-            IStoreLauncherService storeLauncherService, 
+            IDataService dataService,
+            ITileService? tileService,
+            IInAppPurchaseService inAppPurchaseService,
+            IMailService mailService,
+            IScheduledNotificationService scheduledNotificationService,
+            IStoreLauncherService storeLauncherService,
             IAppSettings appSettings)
         {
             _dataService = dataService;
@@ -80,7 +80,7 @@ namespace EventCountdowns.Core.ViewModels
 
         private void Add()
         {
-            Navigation.Navigate<CountdownEditorViewModel>();
+            Navigation.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
         }
 
         public ICommand ShowCountdownCommand => GetOrCreateCommand<EventCountdownObservable>(ShowCountdown);

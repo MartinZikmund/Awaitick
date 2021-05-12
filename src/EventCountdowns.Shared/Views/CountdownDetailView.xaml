@@ -26,9 +26,9 @@
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8" Stretch="UniformToFill">
                 <Image.Source>
                     <Binding Path="EventCountdown.BackgroundImagePath">
-                        <Binding.TargetNullValue>
+                        <!--<Binding.TargetNullValue>
                             <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                        </Binding.TargetNullValue>
+                        </Binding.TargetNullValue>-->
                     </Binding>
                 </Image.Source>
             </Image>
