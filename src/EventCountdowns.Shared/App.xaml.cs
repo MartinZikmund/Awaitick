@@ -6,7 +6,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.Services.Data;
+using EventCountdowns.Core.Services.Navigation;
 using EventCountdowns.Core.Services.Settings;
+using EventCountdowns.Core.ViewModels;
 using EventCountdowns.Models.Theming;
 using EventCountdowns.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -54,21 +57,49 @@ namespace EventCountdowns
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            SetupDebugInfo();
+            await InitializeWindowAsync(Windows.UI.Xaml.Window.Current, e.PrelaunchActivated);
+        }
 
-            var window = Windows.UI.Xaml.Window.Current;
+        protected override async void OnActivated(IActivatedEventArgs args)
+        {
+            await InitializeWindowAsync(Windows.UI.Xaml.Window.Current, false);
+
+            CountdownDetailViewModel.NavigationModel countdownId = null;
+            if (args.Kind == ActivationKind.ToastNotification)
+            {
+                var toastActivation = (ToastNotificationActivatedEventArgs)args;
+                if (!string.IsNullOrWhiteSpace(toastActivation.Argument))
+                {
+                    try
+                    {
+                        countdownId =
+                            new CountdownDetailViewModel.NavigationModel(toastActivation.Argument.Remove(0, "Countdown_".Length));
+                    }
+                    catch
+                    {
+                        //TODO: Log here
+                    }
+                }
+            }
+
+            if (countdownId != null)
+            {
+                IoC.GetRequiredService<INavigationService>().Navigate<CountdownDetailViewModel>(countdownId);
+            }
+        }
+
+        private async Task InitializeWindowAsync(Windows.UI.Xaml.Window window, bool prelaunchActivated)
+        {
+            SetupDebugInfo();
             InitializeShell(window);
             await InitializeAsync();
 
-#if !(NET5_0 && WINDOWS)
-            if (e.PrelaunchActivated == false)
-#endif
+            if (AppShell.GetForCurrentView().RootFrame.Content == null && !prelaunchActivated)
             {
                 AppShell.GetForCurrentView().RootFrame.Navigate(typeof(MainView));
-
-                // Ensure the current window is active
-                window.Activate();
             }
+
+            window.Activate();
         }
 
         private static void SetupDebugInfo()
@@ -110,6 +141,18 @@ namespace EventCountdowns
             {
                 var appShell = AppShell.GetForCurrentView();
                 window.Content = appShell;
+            }
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += AppBackRequested;
+        }
+
+        private void AppBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            var navigationService = IoC.GetRequiredService<INavigationService>();
+            if (navigationService.CanGoBack)
+            {
+                navigationService.GoBack();
+                e.Handled = true;
             }
         }
 

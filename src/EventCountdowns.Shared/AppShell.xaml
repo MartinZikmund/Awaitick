@@ -9,6 +9,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Frame x:Name="InnerFrame" />
+        <Frame x:Name="InnerFrame" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+        <Button x:Name="BackButton"
+                VerticalAlignment="Top"
+                Style="{StaticResource NavigationBackButtonNormalStyle}"
+                IsEnabled="{x:Bind InnerFrame.CanGoBack, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.BackButtonVisibility, Mode=OneWay}"
+                ToolTipService.ToolTip="Back"/>
     </Grid>
 </Page>
