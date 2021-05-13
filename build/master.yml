@@ -1,0 +1,88 @@
+trigger:
+- develop
+
+pr: none
+
+variables:
+   major: 0
+   minor: 1
+
+name: $(major).$(minor).$(rev:r).0
+
+jobs:
+
+- job: AppWasm
+  timeoutInMinutes: 10
+  pool:
+    vmImage: 'windows-latest'
+  variables:
+    buildConfiguration: 'Release'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      useGlobalJson: true
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: '$(Build.SourcesDirectory)\src\EventCountdowns.Wasm\EventCountdowns.Wasm.csproj'
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: appwasm'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'appwasm'
+      publishLocation: 'Container'
+
+- job: AppWindows
+  pool:
+    vmImage: 'windows-latest'
+    demands: msbuild
+  variables:
+  - group: MicrosoftStoreSigning
+  - name: 'solution'
+    value: '**/*.sln'
+  - name: project
+    value: 'src/EventCountdowns.UWP/EventCountdowns.UWP.csproj'
+  - name: buildPlatform
+    value: 'x86|x64|ARM|ARM64'
+  - name: buildConfiguration
+    value: 'Release'
+  - name: 'appxPackageDir'
+    value: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      useGlobalJson: true    
+  - task: NuGetToolInstaller@1
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(solution)'
+  - task: VersionAPPX@2
+    inputs:
+      Path: '$(Build.SourcesDirectory)'
+      VersionNumber: '$(Build.BuildNumber)'
+      InjectVersion: true
+      OutputVersion: 'OutputedVersion'
+  - task: VSBuild@1
+    inputs:
+      platform: 'x86'
+      solution: '$(project)'
+      configuration: '$(buildConfiguration)'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" 
+                    /p:AppxPackageDir="$(appxPackageDir)" 
+                    /p:AppxBundle=Always 
+                    /p:UapAppxPackageBuildMode=CI'
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**\bin\$(BuildConfiguration)\**'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: appwindows'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+      ArtifactName: 'appwindows'

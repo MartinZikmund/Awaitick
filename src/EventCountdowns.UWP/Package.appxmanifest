@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="9ff2e01f-75ab-4022-92c2-2abd17474de6"
-    Publisher="CN=marti"
-    Version="1.0.0.0" />
+    Name="Sphereline.EventCountdowns"
+    Publisher="CN=D2F2CB5A-EA2E-47F2-A64C-75C59083C76B"
+    Version="1.1.13.0" />
 
-  <mp:PhoneIdentity PhoneProductId="c8f5c735-23bf-4897-8640-9aaca0a6b4d2" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="30dd53f0-13a8-4adb-b6b9-6039755cd87d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>EventCountdowns</DisplayName>
-    <PublisherDisplayName>EventCountdowns</PublisherDisplayName>
+    <DisplayName>Event Countdowns</DisplayName>
+    <PublisherDisplayName>Sphereline</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="EventCountdowns.App">
       <uap:VisualElements
-        DisplayName="EventCountdowns"
+        DisplayName="Event Countdowns"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="EventCountdowns"
