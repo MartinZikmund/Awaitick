@@ -87,6 +87,7 @@
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Attributions.txt" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Beach.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\BlankBackground.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\SampleBackgrounds\Christmas.jpg" />

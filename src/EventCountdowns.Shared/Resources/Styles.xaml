@@ -42,8 +42,6 @@
         <Setter Property="Margin" Value="0,12,0,8" />
     </Style>
 
-    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#F8F8F8" />
-
     <SolidColorBrush x:Key="AppThemeColor" Color="#23A0EA" />
     
     <SolidColorBrush x:Key="CommandBarBackgroundBrsuh" Color="#E6E6E6" />
