@@ -18,6 +18,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" />
     <PackageReference Include="Uno.UI.Skia.Gtk" />
     <PackageReference Include="Uno.UI.RemoteControl" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />

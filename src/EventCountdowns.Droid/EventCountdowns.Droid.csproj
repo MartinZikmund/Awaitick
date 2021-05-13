@@ -65,6 +65,8 @@
     <PackageReference Include="Uno.UniversalImageLoader" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" />
     <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

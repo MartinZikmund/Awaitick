@@ -58,13 +58,25 @@ namespace EventCountdowns
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             await InitializeWindowAsync(Windows.UI.Xaml.Window.Current, e.PrelaunchActivated);
+
+            if (e.Kind == ActivationKind.Launch && !string.IsNullOrWhiteSpace(e.Arguments))
+            {
+                try
+                {
+                    var countdownId = e.Arguments.Remove(0, "Countdown_".Length);
+                    NavigateToCountdown(countdownId);
+                }
+                catch
+                {
+                    //TODO: Log
+                }
+            }
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)
         {
             await InitializeWindowAsync(Windows.UI.Xaml.Window.Current, false);
 
-            CountdownDetailViewModel.NavigationModel countdownId = null;
             if (args.Kind == ActivationKind.ToastNotification)
             {
                 var toastActivation = (ToastNotificationActivatedEventArgs)args;
@@ -72,20 +84,25 @@ namespace EventCountdowns
                 {
                     try
                     {
-                        countdownId =
-                            new CountdownDetailViewModel.NavigationModel(toastActivation.Argument.Remove(0, "Countdown_".Length));
+                        var countdownId = toastActivation.Argument.Remove(0, "Countdown_".Length);
+                        NavigateToCountdown(countdownId);
                     }
                     catch
                     {
                         //TODO: Log here
                     }
                 }
-            }
+            }           
+        }
 
-            if (countdownId != null)
+        private static void NavigateToCountdown(string countdownId)
+        {
+            CountdownDetailViewModel.NavigationModel navigationModel = new CountdownDetailViewModel.NavigationModel()
             {
-                IoC.GetRequiredService<INavigationService>().Navigate<CountdownDetailViewModel>(countdownId);
-            }
+                CountdownId = countdownId
+            };
+
+            IoC.GetRequiredService<INavigationService>().Navigate<CountdownDetailViewModel>(navigationModel);
         }
 
         private async Task InitializeWindowAsync(Windows.UI.Xaml.Window window, bool prelaunchActivated)

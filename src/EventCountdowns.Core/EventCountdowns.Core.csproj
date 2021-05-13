@@ -12,7 +12,9 @@
   <ItemGroup>
     <PackageReference Include="Uno.UI" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" />
-    <PackageReference Include="Newtonsoft.Json" />   
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Fody" PrivateAssets="all" />
+    <PackageReference Include="PropertyChanged.Fody" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />

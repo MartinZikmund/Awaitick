@@ -23,6 +23,8 @@
     <PackageReference Include="SkiaSharp.Views" />
     <PackageReference Include="Uno.UI.Skia.Tizen" />
     <PackageReference Include="Uno.UI.RemoteControl" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
