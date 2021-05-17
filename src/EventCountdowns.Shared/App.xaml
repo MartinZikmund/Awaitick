@@ -2,6 +2,7 @@
     x:Class="EventCountdowns.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:resources="using:EventCountdowns.Resources"
     xmlns:local="using:EventCountdowns">
 	
 	<Application.Resources>
@@ -11,6 +12,7 @@
                 <ResourceDictionary Source="/Resources/Converters.xaml" />
                 <ResourceDictionary Source="/Resources/Colors.xaml" />
                 <ResourceDictionary Source="/Resources/Styles.xaml" />
+                <resources:DataTemplates />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 	</Application.Resources>
