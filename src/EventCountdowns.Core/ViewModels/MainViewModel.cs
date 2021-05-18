@@ -50,6 +50,8 @@ namespace EventCountdowns.Core.ViewModels
             {
                 EventCountdowns.Add(new EventCountdownObservable(countdown));
             }
+            OnPropertyChanged(nameof(HasAnyEvents));
+
             IsLoading = false;
             _scheduledNotificationService.UnSuppressAllCountdownNotifications();
             if (_appSettings.LaunchCount % 4 == 0 && !_inAppPurchaseService.HasUserAnyProduct())
@@ -59,6 +61,8 @@ namespace EventCountdowns.Core.ViewModels
         }
 
         public ObservableCollection<EventCountdownObservable> EventCountdowns { get; } = new ObservableCollection<EventCountdownObservable>();
+
+        public bool HasAnyEvents => EventCountdowns.Count > 0;
 
         private bool _isLoading = false;
 

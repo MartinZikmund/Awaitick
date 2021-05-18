@@ -1,5 +1,6 @@
 ﻿using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.ViewModels;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -16,7 +17,18 @@ namespace EventCountdowns.Views
             DataContext = Model;
         }
 
-        public virtual TViewModel Model => _model ??= IoC.GetRequiredService<TViewModel>();
+        public virtual TViewModel Model
+        {
+            get
+            {
+                if (DesignMode.DesignMode2Enabled)
+                {
+                    return null;
+                }
+
+                return _model ??= IoC.GetRequiredService<TViewModel>();
+            }
+        }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {

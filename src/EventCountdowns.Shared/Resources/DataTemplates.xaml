@@ -33,7 +33,7 @@
                                 <Setter Target="MainGrid.Width" Value="600" />
                                 <Setter Target="MainGrid.Height" Value="300" />
                                 <Setter Target="CountdownStack.VerticalAlignment" Value="Center" />
-                                <Setter Target="CountdownStack.Margin" Value="0,0,0,20" />
+                                <Setter Target="CountdownStack.Margin" Value="0,0,0,0" />
                                 <Setter Target="DaysComponent.Style" Value="{StaticResource LargeTimeComponentStyle}" />
                                 <Setter Target="HoursComponent.Style" Value="{StaticResource LargeSecondaryTimeComponentStyle}" />
                                 <Setter Target="MinutesComponent.Style" Value="{StaticResource LargeSecondaryTimeComponentStyle}" />
@@ -91,8 +91,8 @@
 
     <DataTemplate x:Key="EventListItemTemplate" x:DataType="models:EventCountdownObservable">
         <UserControl>
-            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="MainGrid" Height="200" HorizontalAlignment="Stretch">
-                <VisualStateManager.VisualStateGroups>
+            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="MainGrid" HorizontalAlignment="Stretch">
+                <!--<VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState>
                             <VisualState.StateTriggers>
@@ -111,7 +111,7 @@
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
+                </VisualStateManager.VisualStateGroups>-->
                 <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
