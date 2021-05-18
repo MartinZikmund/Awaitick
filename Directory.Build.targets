@@ -3,7 +3,7 @@
     <!-- Uno -->
     <PackageReference Update="Uno.Core" Version="2.3.0" />
     <PackageReference Update="Uno.UI" Version="3.7.4" />
-    <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.7.4" />
     <PackageReference Update="Uno.UI.Skia.Gtk" Version="3.7.4" />
     <PackageReference Update="Uno.UI.Skia.Tizen" Version="3.7.3" />
     <PackageReference Update="Uno.UI.WebAssembly" Version="3.7.4" />
