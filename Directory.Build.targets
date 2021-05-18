@@ -9,7 +9,7 @@
     <PackageReference Update="Uno.UI.WebAssembly" Version="3.7.4" />
     <PackageReference Update="Uno.UI.RemoteControl" Version="3.7.3" />
     <PackageReference Update="Uno.UI.MSAL" Version="3.7.4" />
-    <PackageReference Update="Uno.UI.Lottie" Version="3.7.3" />
+    <PackageReference Update="Uno.UI.Lottie" Version="3.7.4" />
     <PackageReference Update="Uno.Wasm.Bootstrap" Version="2.1.0" />
     <PackageReference Update="Uno.Wasm.Bootstrap.DevServer" Version="2.1.0"/>
     <PackageReference Update="Uno.UniversalImageLoader" Version="1.9.33" />
