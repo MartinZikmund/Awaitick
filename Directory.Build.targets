@@ -2,14 +2,14 @@
   <ItemGroup>
     <!-- Uno -->
     <PackageReference Update="Uno.Core" Version="2.3.0" />
-    <PackageReference Update="Uno.UI" Version="3.7.3" />
-    <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.7.3" />
-    <PackageReference Update="Uno.UI.Skia.Gtk" Version="3.7.3" />
-    <PackageReference Update="Uno.UI.Skia.Tizen" Version="3.7.3" />
-    <PackageReference Update="Uno.UI.WebAssembly" Version="3.7.3" />
-    <PackageReference Update="Uno.UI.RemoteControl" Version="3.7.3" />
-    <PackageReference Update="Uno.UI.MSAL" Version="3.7.3" />
-    <PackageReference Update="Uno.UI.Lottie" Version="3.7.3" />
+    <PackageReference Update="Uno.UI" Version="3.7.4" />
+    <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.7.4" />
+    <PackageReference Update="Uno.UI.Skia.Gtk" Version="3.7.4" />
+    <PackageReference Update="Uno.UI.Skia.Tizen" Version="3.7.4" />
+    <PackageReference Update="Uno.UI.WebAssembly" Version="3.7.4" />
+    <PackageReference Update="Uno.UI.RemoteControl" Version="3.7.4" />
+    <PackageReference Update="Uno.UI.MSAL" Version="3.7.4" />
+    <PackageReference Update="Uno.UI.Lottie" Version="3.7.4" />
     <PackageReference Update="Uno.Wasm.Bootstrap" Version="2.1.0" />
     <PackageReference Update="Uno.Wasm.Bootstrap.DevServer" Version="2.1.0"/>
     <PackageReference Update="Uno.UniversalImageLoader" Version="1.9.33" />
@@ -28,7 +28,7 @@
     <PackageReference Update="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Update="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-    <PackageReference Update="Microsoft.Extensions.Localization" Version="5.0.5" />
+    <PackageReference Update="Microsoft.Extensions.Localization" Version="5.0.6" />
     <PackageReference Update="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Update="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
     <PackageReference Update="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
@@ -36,10 +36,10 @@
     <PackageReference Update="Uno.Extensions.Logging.WebAssembly.Console" Version="1.0.1" />
 
     <!-- WCT -->
-    <PackageReference Update="Microsoft.Toolkit.Mvvm" Version="7.0.1" />
-    <PackageReference Update="Microsoft.Toolkit.Uwp" Version="7.0.1" />
-    <PackageReference Update="Microsoft.Toolkit.Uwp.Notifications" Version="7.0.1" />
-    <PackageReference Update="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.0.1" />
+    <PackageReference Update="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
+    <PackageReference Update="Microsoft.Toolkit.Uwp" Version="7.0.2" />
+    <PackageReference Update="Microsoft.Toolkit.Uwp.Notifications" Version="7.0.2" />
+    <PackageReference Update="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.0.2" />
     <PackageReference Update="Uno.Microsoft.Toolkit.Uwp" Version="7.0.0" />
     <PackageReference Update="Uno.Microsoft.Toolkit.Uwp.UI.Controls" Version="7.0.0" />
 
@@ -47,8 +47,8 @@
     <PackageReference Update="Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.1" />
     <PackageReference Update="AutoMapper" Version="10.1.1" />
     <PackageReference Update="System.Reflection.Emit" Version="4.7.0" />
-    <PackageReference Update="Microsoft.Identity.Client" Version="4.30.1" />
-    <PackageReference Update="Microsoft.Graph" Version="3.31.0" />
+    <PackageReference Update="Microsoft.Identity.Client" Version="4.31.0" />
+    <PackageReference Update="Microsoft.Graph" Version="3.32.0" />
     <PackageReference Update="Microsoft.UI.Xaml" Version="2.6.0-prerelease.210430001" />
     <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.12" />
     <PackageReference Update="Newtonsoft.Json" Version="13.0.1" />
