@@ -38,23 +38,10 @@
                 <Grid>
                     <controls:EventsGridView
                         Name="AdaptiveGridViewControl"
-                        Padding="0"
-                        DesiredWidth="500"
-                        IsItemClickEnabled="True"
-                        ItemHeight="238"
+                        Style="{StaticResource EventGridViewStyle}"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
                         ItemsSource="{x:Bind Model.EventCountdowns}"
-                        OneRowModeEnabled="False"
-                        SelectionMode="Single"
-                        StretchContentForSingleRow="True">
-                    
-                        <controls:EventsGridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="Margin" Value="0" />
-                            </Style>
-                        </controls:EventsGridView.ItemContainerStyle>
-                    
-                    </controls:EventsGridView>
+                        ItemContainerStyle="{StaticResource TightGridViewItemContainerStyle}" />
                 </Grid>
             </Grid>
             <StackPanel

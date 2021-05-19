@@ -27,6 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Skia.Tizen"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventCountdowns.Core", "src\EventCountdowns.Core\EventCountdowns.Core.csproj", "{994A102A-07AB-44F5-96F2-5234547BDE63}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A6C4125D-93D3-4F14-905B-57DD8BF476A9}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.targets = Directory.Build.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\EventCountdowns.Shared\EventCountdowns.Shared.projitems*{1f8a7df8-867e-4569-9749-37327611d9dc}*SharedItemsImports = 5
