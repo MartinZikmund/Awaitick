@@ -10,6 +10,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using EventCountdowns.Views;
 
 namespace EventCountdowns
 {
@@ -26,6 +27,15 @@ namespace EventCountdowns
             SetupCoreWindow();
 
             Loaded += AppShell_Loaded;
+            InnerFrame.Navigated += OnNavigated;
+        }
+
+        private void OnNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            if (e.Content is IViewBase viewBase && viewBase.Model is ViewModel viewModel)
+            {
+                ApplicationView.GetForCurrentView().Title = viewModel.Title ?? "";
+            }
         }
 
         private void AppShell_Loaded(object sender, RoutedEventArgs e)
@@ -42,9 +52,27 @@ namespace EventCountdowns
         private void SetupCoreWindow()
         {
 #pragma warning disable CS8618
-            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            var coreApplicationView = CoreApplication.GetCurrentView();
+            var coreTitleBar = coreApplicationView.TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
+            coreTitleBar.LayoutMetricsChanged += OnCoreTitleBarChanged;
+            coreTitleBar.IsVisibleChanged += OnCoreTitleBarChanged;
+            OnCoreTitleBarChanged(coreTitleBar, null);
+            Window.Current.SetTitleBar(TitleBarBorder);
 #pragma warning restore CS8618
+        }
+
+        private void OnCoreTitleBarChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            if (sender.IsVisible)
+            {
+                TitleBarBorder.Height = sender.Height;
+                TitleBarBorder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TitleBarBorder.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void ColorValuesChanged(UISettings sender, object args)

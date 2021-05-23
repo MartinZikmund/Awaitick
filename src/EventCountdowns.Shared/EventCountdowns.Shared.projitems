@@ -21,6 +21,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PageHeaderControl.xaml.cs">
+      <DependentUpon>PageHeaderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Xaml\Localize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\DataTemplates.xaml.cs">
       <DependentUpon>DataTemplates.xaml</DependentUpon>
@@ -39,6 +42,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\CountdownEditorView.xaml.cs">
       <DependentUpon>CountdownEditorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\IViewBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -46,6 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)AppShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\PageHeaderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

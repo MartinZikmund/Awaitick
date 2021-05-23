@@ -9,6 +9,7 @@
     xmlns:local="using:EventCountdowns.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:EventCountdowns.Core.Models"
+    xmlns:usercontrols="using:EventCountdowns.Controls"
     xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
     mc:Ignorable="d">
     <local:MainViewBase.Transitions>
@@ -28,18 +29,16 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Grid Padding="0,40,0,20" Background="{ThemeResource PageHeaderBackgroundBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                HorizontalAlignment="Center"
-                FontWeight="SemiBold"
-                Style="{ThemeResource TitleTextBlockStyle}"
-                Text="EVENT COUNTDOWNS" />
-            <Button />
-        </Grid>
+        <usercontrols:PageHeaderControl Title="EVENT COUNTDOWNS" FontWeight="SemiBold" />
+        <Button
+            Width="48"
+            Height="48"
+            Margin="12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            CornerRadius="24">
+            <SymbolIcon Symbol="Setting" />
+        </Button>
         <Grid Grid.Row="1">
             <Grid.ChildrenTransitions>
                 <TransitionCollection>

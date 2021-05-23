@@ -10,6 +10,11 @@ using Microsoft.Toolkit.Mvvm.Input;
 using EventCountdowns.Core.Services.Navigation;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.Services.InAppPurchases;
+using EventCountdowns.Core.Services;
+using Windows.UI.Xaml;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
+using Windows.UI.ViewManagement;
 
 namespace EventCountdowns.Core.ViewModels
 {
@@ -19,6 +24,11 @@ namespace EventCountdowns.Core.ViewModels
 
         private INavigationService? _navigationService;
         private bool _isWorking;
+
+        public string Title { get; set; }
+
+        private void OnTitleChanged() => 
+            ApplicationView.GetForCurrentView().Title = Title;
 
         protected INavigationService Navigation => _navigationService ?? (_navigationService = IoC.GetRequiredService<INavigationService>());
 

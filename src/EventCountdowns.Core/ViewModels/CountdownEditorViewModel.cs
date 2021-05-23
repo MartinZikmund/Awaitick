@@ -97,6 +97,12 @@ namespace EventCountdowns.Core.ViewModels
                 {
                     Navigation.GoBack();
                 }
+
+                Title = _localizationService.EditEvent;
+            }
+            else
+            {
+                Title = _localizationService.AddEvent;
             }
 
             if (DefaultBackgrounds.Count == 0)
