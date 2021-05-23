@@ -17,7 +17,7 @@
         </TransitionCollection>
     </local:MainViewBase.Transitions>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource PageBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -28,6 +28,18 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
         </Grid.ColumnDefinitions>
+        <Grid Padding="0,40,0,20" Background="{ThemeResource PageHeaderBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontWeight="SemiBold"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                Text="EVENT COUNTDOWNS" />
+            <Button />
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.ChildrenTransitions>
                 <TransitionCollection>
@@ -38,10 +50,10 @@
                 <Grid>
                     <controls:EventsGridView
                         Name="AdaptiveGridViewControl"
-                        Style="{StaticResource EventGridViewStyle}"
+                        ItemContainerStyle="{StaticResource TightGridViewItemContainerStyle}"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
                         ItemsSource="{x:Bind Model.EventCountdowns}"
-                        ItemContainerStyle="{StaticResource TightGridViewItemContainerStyle}" />
+                        Style="{StaticResource EventGridViewStyle}" />
                 </Grid>
             </Grid>
             <StackPanel
@@ -96,8 +108,7 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                    </VisualState.Setters>
+                    <VisualState.Setters />
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
