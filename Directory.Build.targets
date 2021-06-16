@@ -5,11 +5,11 @@
     <PackageReference Update="Uno.UI" Version="3.7.6" />
     <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.7.6" />
     <PackageReference Update="Uno.UI.Skia.Gtk" Version="3.7.6" />
-    <PackageReference Update="Uno.UI.Skia.Tizen" Version="3.7.6" />
+    <PackageReference Update="Uno.UI.Skia.Tizen" Version="3.8.6" />
     <PackageReference Update="Uno.UI.WebAssembly" Version="3.7.6" />
     <PackageReference Update="Uno.UI.RemoteControl" Version="3.7.6" />
     <PackageReference Update="Uno.UI.MSAL" Version="3.7.6" />
-    <PackageReference Update="Uno.UI.Lottie" Version="3.7.6" />
+    <PackageReference Update="Uno.UI.Lottie" Version="3.8.6" />
     <PackageReference Update="Uno.Wasm.Bootstrap" Version="2.1.0" />
     <PackageReference Update="Uno.Wasm.Bootstrap.DevServer" Version="2.1.0"/>
     <PackageReference Update="Uno.UniversalImageLoader" Version="1.9.33" />
