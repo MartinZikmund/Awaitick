@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup>
     <!-- Uno -->
-    <PackageReference Update="Uno.Core" Version="2.4.0" />
+    <PackageReference Update="Uno.Core" Version="3.0.0" />
     <PackageReference Update="Uno.UI" Version="3.8.13" />
     <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.9.7" />
     <PackageReference Update="Uno.UI.Skia.Gtk" Version="3.10.7" />
