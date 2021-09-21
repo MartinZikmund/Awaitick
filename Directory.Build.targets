@@ -6,7 +6,7 @@
     <PackageReference Update="Uno.UI.Skia.Wpf" Version="3.10.7" />
     <PackageReference Update="Uno.UI.Skia.Gtk" Version="3.10.7" />
     <PackageReference Update="Uno.UI.Skia.Tizen" Version="3.10.7" />
-    <PackageReference Update="Uno.UI.WebAssembly" Version="3.9.7" />
+    <PackageReference Update="Uno.UI.WebAssembly" Version="3.10.7" />
     <PackageReference Update="Uno.UI.RemoteControl" Version="3.10.7" />
     <PackageReference Update="Uno.UI.MSAL" Version="3.9.7" />
     <PackageReference Update="Uno.UI.Lottie" Version="3.10.7" />
