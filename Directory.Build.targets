@@ -13,7 +13,7 @@
     <PackageReference Update="Uno.Wasm.Bootstrap" Version="3.0.0" />
     <PackageReference Update="Uno.Wasm.Bootstrap.DevServer" Version="3.0.0"/>
     <PackageReference Update="Uno.UniversalImageLoader" Version="1.9.35" />
-    <PackageReference Update="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.3-uno.95" />
+    <PackageReference Update="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.5" />
 
     <!-- Fody -->
     <PackageReference Update="Fody" Version="6.6.0" />
