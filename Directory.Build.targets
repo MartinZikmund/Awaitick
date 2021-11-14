@@ -36,7 +36,7 @@
     <PackageReference Update="Uno.Extensions.Logging.WebAssembly.Console" Version="1.1.0" />
 
     <!-- WCT -->
-    <PackageReference Update="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
+    <PackageReference Update="Microsoft.Toolkit.Mvvm" Version="7.1.1" />
     <PackageReference Update="Microsoft.Toolkit.Uwp" Version="7.0.2" />
     <PackageReference Update="Microsoft.Toolkit.Uwp.Notifications" Version="7.0.2" />
     <PackageReference Update="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.1.1" />
