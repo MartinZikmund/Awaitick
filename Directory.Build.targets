@@ -53,7 +53,7 @@
     <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13" />
     <PackageReference Update="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Update="LiteDB" Version="5.0.11" />
-    <PackageReference Update="Com.Airbnb.Android.Lottie" Version="3.7.0" />
+    <PackageReference Update="Com.Airbnb.Android.Lottie" Version="4.2.2" />
     <PackageReference Update="Moq" Version="4.16.1" />
     <PackageReference Update="xunit" Version="2.4.1" />
     <PackageReference Update="xunit.runner.visualstudio" Version="2.4.3" />
