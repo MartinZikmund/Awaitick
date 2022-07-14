@@ -17,7 +17,7 @@
 
     <!-- Fody -->
     <PackageReference Update="Fody" Version="6.6.0" />
-    <PackageReference Update="PropertyChanged.Fody" Version="3.4.0" />
+    <PackageReference Update="PropertyChanged.Fody" Version="3.4.1" />
     <PackageReference Update="MethodTimer.Fody" Version="3.2.0" />
 
     <!-- AppCenter-->
