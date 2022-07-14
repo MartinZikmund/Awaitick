@@ -16,7 +16,7 @@
     <PackageReference Update="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.3.0" />
 
     <!-- Fody -->
-    <PackageReference Update="Fody" Version="6.6.0" />
+    <PackageReference Update="Fody" Version="6.6.3" />
     <PackageReference Update="PropertyChanged.Fody" Version="3.4.1" />
     <PackageReference Update="MethodTimer.Fody" Version="3.2.0" />
 
