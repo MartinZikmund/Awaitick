@@ -48,7 +48,7 @@
     <PackageReference Update="AutoMapper" Version="11.0.1" />
     <PackageReference Update="System.Reflection.Emit" Version="4.7.0" />
     <PackageReference Update="Microsoft.Identity.Client" Version="4.46.0" />
-    <PackageReference Update="Microsoft.Graph" Version="4.35.0" />
+    <PackageReference Update="Microsoft.Graph" Version="4.37.0" />
     <PackageReference Update="Microsoft.UI.Xaml" Version="2.8.0" />
     <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.14" />
     <PackageReference Update="Newtonsoft.Json" Version="13.0.1" />
