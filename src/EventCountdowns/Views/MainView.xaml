@@ -17,7 +17,7 @@
     </local:MainViewBase.Transitions>
 
     <Grid Background="{ThemeResource PageBackgroundBrush}">
-        <!--<Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition x:Name="MobileAdRow" Height="Auto" />
@@ -68,7 +68,7 @@
             </StackPanel>
         </Grid>
 
-        --><!--  Commands  --><!--
+        <!--  Commands  --><!--
         <CommandBar Grid.Row="3" Grid.ColumnSpan="2">
             <AppBarButton
                 Command="{x:Bind Model.AddCommand}"
