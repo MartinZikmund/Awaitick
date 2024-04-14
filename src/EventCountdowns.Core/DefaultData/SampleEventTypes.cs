@@ -17,3 +17,4 @@ public enum SampleEventTypes
 	Easter,
 	Halloween,
 	NewYear
+}

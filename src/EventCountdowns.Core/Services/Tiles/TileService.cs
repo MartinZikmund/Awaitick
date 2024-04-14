@@ -12,7 +12,7 @@
 //using EventCountdowns.Core.Services;
 //using EventCountdowns.Core.Services.Data;
 //using EventCountdowns.Core.Services.Tile;
-//using Microsoft.Toolkit.Uwp.Notifications;
+//using CommunityToolkit.Uwp.Notifications;
 
 //namespace EventCountdowns.Core.Services
 //{

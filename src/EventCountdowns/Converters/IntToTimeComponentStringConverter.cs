@@ -25,3 +25,4 @@ public class IntToTimeComponentStringConverter : IValueConverter
 	{
 		throw new NotImplementedException();
 	}
+}

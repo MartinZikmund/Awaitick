@@ -26,3 +26,4 @@ public class NonEmptyStringToVisibilityConverter : IValueConverter
 	{
 		throw new NotImplementedException();
 	}
+}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Toolkit.Uwp.UI.Controls;
+using CommunityToolkit.Uwp.UI.Controls;
 
 namespace EventCountdowns.Core.Controls
 {

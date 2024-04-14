@@ -29,3 +29,4 @@ public class EnumValueToVisibilityConverter : IValueConverter
 	{
 		throw new NotImplementedException();
 	}
+}

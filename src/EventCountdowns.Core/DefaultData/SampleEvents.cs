@@ -161,3 +161,4 @@ DateTimeOffset.Now.Offset);
 		var date = new DateTimeOffset(year, month, day, 0, 0, 0, DateTimeOffset.Now.Offset);
 		return date;
 	}
+}

@@ -48,3 +48,4 @@ public partial class ViewBase<TViewModel> : Page, IViewBase
 		base.OnNavigatedTo(e);
 		await Model.LoadAsync(e.Parameter);
 	}
+}

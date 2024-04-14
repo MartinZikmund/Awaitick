@@ -7,7 +7,7 @@
 //using Windows.UI.Notifications;
 //using EventCountdowns.Core.Models;
 //using EventCountdowns.Core.Services.ScheduledNotification;
-//using Microsoft.Toolkit.Uwp.Notifications;
+//using CommunityToolkit.Uwp.Notifications;
 
 //namespace EventCountdowns.Core.Services
 //{

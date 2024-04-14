@@ -44,3 +44,4 @@ public class BoolToVisibilityConverter : IValueConverter
 			return value is Visibility visibility && visibility == Visibility.Collapsed;
 		}
 	}
+}

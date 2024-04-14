@@ -27,3 +27,4 @@ public class ItemClickEventArgsConverter : IValueConverter
 	{
 		throw new NotImplementedException();
 	}
+}
