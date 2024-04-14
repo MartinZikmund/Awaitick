@@ -1,24 +1,23 @@
 ﻿using System.Windows.Input;
 using EventCountdowns.Core.Services.StoreLauncher;
 
-namespace EventCountdowns.Core.ViewModels
+namespace EventCountdowns.Core.ViewModels;
+
+public class AboutViewModel : ViewModel
 {
-    public class AboutViewModel : ViewModel
-    {
-        private readonly IStoreLauncherService _storeLauncherService;
+	private readonly IStoreLauncherService _storeLauncherService;
 
-        public AboutViewModel(IStoreLauncherService storeLauncherService)
-        {
-            _storeLauncherService = storeLauncherService;
-        }
+	public AboutViewModel(IStoreLauncherService storeLauncherService)
+	{
+		_storeLauncherService = storeLauncherService;
+	}
 
-        public ICommand MoreAppsCommand => GetOrCreateCommand(MoreApps);
+	public ICommand MoreAppsCommand => GetOrCreateCommand(MoreApps);
 
-        private async void MoreApps()
-        {
-            IsWorking = true;
-            await _storeLauncherService.MoreAppsByPublisherAsync();
-            IsWorking = false;
-        }
-    }
+	private async void MoreApps()
+	{
+		IsWorking = true;
+		await _storeLauncherService.MoreAppsByPublisherAsync();
+		IsWorking = false;
+	}
 }

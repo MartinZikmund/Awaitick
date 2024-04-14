@@ -11,7 +11,7 @@ using EventCountdowns.Core.Services.Navigation;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Services;
-using Windows.UI.Xaml;
+using Microsoft.UI.Xaml;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;

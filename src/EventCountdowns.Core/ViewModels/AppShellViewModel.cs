@@ -1,10 +1,9 @@
-﻿using Windows.UI.Core;
-using Windows.UI.Xaml;
+using Windows.UI.Core;
+using Microsoft.UI.Xaml;
 
-namespace EventCountdowns.Core.ViewModels
+namespace EventCountdowns.Core.ViewModels;
+
+public class AppShellViewModel : ViewModel
 {
-    public class AppShellViewModel : ViewModel
-    {
-        public Visibility BackButtonVisibility { get; set; } = Visibility.Visible;
-    }
+	public Visibility BackButtonVisibility { get; set; } = Visibility.Visible;
 }
