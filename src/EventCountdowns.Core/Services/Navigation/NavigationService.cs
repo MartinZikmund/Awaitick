@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Microsoft.UI.Xaml.Controls;
-
-namespace EventCountdowns.Core.Services.Navigation;
+﻿namespace EventCountdowns.Core.Services.Navigation;
 
 public class NavigationService : INavigationService
 {

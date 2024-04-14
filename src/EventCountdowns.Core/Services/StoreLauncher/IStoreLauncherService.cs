@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace EventCountdowns.Core.Services.StoreLauncher;
+﻿namespace EventCountdowns.Core.Services.StoreLauncher;
 
 public interface IStoreLauncherService
 {

@@ -1,9 +1,5 @@
 ﻿#nullable enable
 
-using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.Dialogs;
 using EventCountdowns.Core.Services.InAppPurchases;
 
@@ -13,12 +9,12 @@ public class BuyMeCoffeeViewModel : ViewModel
 {
 	private readonly IInAppPurchaseService _inAppPurchaseService;
 	private readonly IDialogService _dialogService;
-	private readonly ILocalizationService _localizationService;
+	private readonly IStringLocalizer _localizationService;
 
 	public BuyMeCoffeeViewModel(
 		IInAppPurchaseService inAppPurchaseService,
 		IDialogService messageDialogService,
-		ILocalizationService localizationService)
+		IStringLocalizer localizationService)
 	{
 		_inAppPurchaseService = inAppPurchaseService ?? throw new ArgumentNullException(nameof(inAppPurchaseService));
 		_dialogService = messageDialogService ?? throw new ArgumentNullException(nameof(messageDialogService));
@@ -58,7 +54,7 @@ public class BuyMeCoffeeViewModel : ViewModel
 		if (result)
 		{
 			//show dialog
-			await _dialogService.ShowAsync(_localizationService.AppName, _localizationService.CoffeeThankYou);
+			await _dialogService.ShowAsync(_localizationService.GetString("AppName"), _localizationService.GetString("CoffeeThankYou"));
 		}
 		IsWorking = false;
 	}

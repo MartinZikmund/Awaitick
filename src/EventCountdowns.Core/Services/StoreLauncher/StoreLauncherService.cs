@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Store;
-using Windows.System;
+﻿using Windows.System;
 using EventCountdowns.Core.Services.StoreLauncher;
 
 namespace EventCountdowns.Core.Services;

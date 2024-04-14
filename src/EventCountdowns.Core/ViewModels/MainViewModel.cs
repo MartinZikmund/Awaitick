@@ -1,6 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.InAppPurchases;

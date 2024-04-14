@@ -1,7 +1,4 @@
-﻿using System;
-using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace EventCountdowns.Core.Models;
+﻿namespace EventCountdowns.Core.Models;
 
 public class EventCountdownObservable : ObservableObject
 {

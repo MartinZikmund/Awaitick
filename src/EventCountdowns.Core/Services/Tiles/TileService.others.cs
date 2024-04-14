@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using EventCountdowns.Core.Models;
+﻿using EventCountdowns.Core.Models;
 
 namespace EventCountdowns.Core.Services.Tiles;
 

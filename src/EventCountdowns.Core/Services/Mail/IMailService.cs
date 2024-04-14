@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace EventCountdowns.Core.Services.Mail;
+﻿namespace EventCountdowns.Core.Services.Mail;
 
 public interface IMailService
 {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Globalization;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Globalization;
 using EventCountdowns.Core.Models;
-using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.ConfirmationDialog;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
@@ -35,13 +31,13 @@ public class CountdownDetailViewModel : ViewModel
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly ISystemSharingService _sharingService;
 	private readonly IConfirmationDialogService _confirmationDialogService;
-	private readonly ILocalizationService _localizationService;
+	private readonly IStringLocalizer _localizationService;
 
 	private EventCountdownObservable? _eventCountdown;
 	private bool _isTilePinned;
 	private string _targetDateString = "";
 
-	public CountdownDetailViewModel(IEventCountdownManager eventCountdownManager, IDataService dataService, ITileService tileService, IScheduledNotificationService scheduledNotificationService, ISystemSharingService sharingService, IConfirmationDialogService confirmationDialogService, ILocalizationService localizationService)
+	public CountdownDetailViewModel(IEventCountdownManager eventCountdownManager, IDataService dataService, ITileService tileService, IScheduledNotificationService scheduledNotificationService, ISystemSharingService sharingService, IConfirmationDialogService confirmationDialogService, IStringLocalizer localizationService)
 	{
 		_eventCountdownManager = eventCountdownManager;
 		_dataService = dataService;
@@ -80,8 +76,8 @@ public class CountdownDetailViewModel : ViewModel
 	{
 		//show delete dialog
 		await
-			_confirmationDialogService.ShowAsync(_localizationService.ConfirmDelete,
-				string.Format(CultureInfo.CurrentCulture, _localizationService.AreYouSureDeleteTextFormat, EventCountdown.Name), DeleteConfirmed,
+			_confirmationDialogService.ShowAsync(_localizationService.GetString("ConfirmDelete"),
+				string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("AreYouSureDeleteTextFormat"), EventCountdown.Name), DeleteConfirmed,
 				() => { });
 	}
 
@@ -106,18 +102,18 @@ public class CountdownDetailViewModel : ViewModel
 		string sharedText = "";
 		if (EventCountdown.Finished)
 		{
-			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.SharingFinishedEventFormatString,
-				EventCountdown.CelebrationMessage, _localizationService.AppSocialHandle);
+			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("SharingFinishedEventFormatString"),
+				EventCountdown.CelebrationMessage, _localizationService.GetString("AppSocialHandle"));
 		}
 		else
 		{
-			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.SharingFormatString,
+			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("SharingFormatString"),
 				EventCountdown.Name,
 				EventCountdown.DaysLeft,
 				EventCountdown.HoursLeft,
 				EventCountdown.MinutesLeft,
 				EventCountdown.TargetDateTime.ToString("g", CultureInfo.CurrentCulture),
-				_localizationService.AppSocialHandle);
+				_localizationService.GetString("AppSocialHandle"));
 		}
 		_sharingService.ShareTextAsync(sharedText);
 	}

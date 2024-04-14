@@ -1,8 +1,5 @@
 ﻿#nullable enable
 
-using System;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventCountdowns.Core.Infrastructure;
 
 public static class IoC

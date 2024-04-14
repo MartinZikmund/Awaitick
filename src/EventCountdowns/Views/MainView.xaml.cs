@@ -1,9 +1,4 @@
-﻿using System;
-using EventCountdowns.Core.Infrastructure;
-using EventCountdowns.Core.ViewModels;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
+﻿using EventCountdowns.Core.ViewModels;
 
 namespace EventCountdowns.Views;
 

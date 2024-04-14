@@ -1,6 +1,4 @@
-﻿using EventCountdowns.Models.Theming;
-
-namespace EventCountdowns.Services.Theming;
+﻿namespace EventCountdowns.Services.Theming;
 
 public interface IThemeManager
 {

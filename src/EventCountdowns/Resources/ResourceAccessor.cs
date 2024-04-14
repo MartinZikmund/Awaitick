@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml;
-
-namespace EventCountdowns.Core.Resources;
+﻿namespace EventCountdowns.Core.Resources;
 
 public class ResourceAccessor
 {

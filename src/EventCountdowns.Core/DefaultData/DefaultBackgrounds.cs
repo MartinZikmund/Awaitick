@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using EventCountdowns.Core.Models;
+﻿using EventCountdowns.Core.Models;
 
 namespace EventCountdowns.Core.DefaultData;
 

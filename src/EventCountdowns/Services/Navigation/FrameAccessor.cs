@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using EventCountdowns.Core.Services.Navigation;
-using Microsoft.UI.Xaml.Controls;
 
 namespace EventCountdowns.Services.Navigation;
 

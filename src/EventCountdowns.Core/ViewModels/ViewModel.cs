@@ -1,19 +1,9 @@
 ﻿#nullable enable
 
-using System;
-using System.Windows.Input;
 using System.Runtime.CompilerServices;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using EventCountdowns.Core.Services.Navigation;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.Services.InAppPurchases;
-using EventCountdowns.Core.Services;
-using Microsoft.UI.Xaml;
-using Windows.UI.Core;
-using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 
 namespace EventCountdowns.Core.ViewModels;

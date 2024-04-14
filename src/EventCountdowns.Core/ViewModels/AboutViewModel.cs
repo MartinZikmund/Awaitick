@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using EventCountdowns.Core.Services.StoreLauncher;
+﻿using EventCountdowns.Core.Services.StoreLauncher;
 
 namespace EventCountdowns.Core.ViewModels;
 

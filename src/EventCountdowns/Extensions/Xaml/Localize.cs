@@ -1,22 +1,14 @@
-﻿using System;
-using EventCountdowns.Core.Infrastructure;
-using EventCountdowns.Core.Services;
-using Windows.ApplicationModel;
+﻿using EventCountdowns.Core.Infrastructure;
 using Microsoft.UI.Xaml.Markup;
 
 namespace EventCountdowns.Extensions.Xaml;
 
 public class Localize : MarkupExtension
 {
-	private static Lazy<ILocalizationService> _localization = new Lazy<ILocalizationService>(
+	private static Lazy<IStringLocalizer> _localization = new Lazy<IStringLocalizer>(
 		() =>
 		{
-			if (DesignMode.DesignMode2Enabled)
-			{
-				return new LocalizationService();
-			}
-
-			return IoC.GetRequiredService<ILocalizationService>();
+			return IoC.GetRequiredService<IStringLocalizer>();
 		});
 
 	public string Key { get; set; }

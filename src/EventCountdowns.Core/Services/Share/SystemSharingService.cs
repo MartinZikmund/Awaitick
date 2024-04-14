@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.DataTransfer.ShareTarget;
-using EventCountdowns.Core.Services;
+﻿using Windows.ApplicationModel.DataTransfer;
 using EventCountdowns.Core.Services.Share;
 
 namespace EventCountdowns.Core.Services;
 
 public class SystemSharingService : ISystemSharingService
 {
-	private readonly ILocalizationService _localizationService;
+	private readonly IStringLocalizer _localizationService;
 
 	private string _data;
 
-	public SystemSharingService(ILocalizationService localizationService)
+	public SystemSharingService(IStringLocalizer localizationService)
 	{
 		_localizationService = localizationService;
 	}
@@ -33,6 +26,6 @@ public class SystemSharingService : ISystemSharingService
 	{
 		DataTransferManager.GetForCurrentView().DataRequested -= SystemSharingService_DataRequested;
 		args.Request.Data.SetText(_data);
-		args.Request.Data.Properties.Title = _localizationService.AppName;
+		args.Request.Data.Properties.Title = _localizationService.GetString("AppName");
 	}
 }

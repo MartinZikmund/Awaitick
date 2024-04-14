@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.UI.Xaml.Controls;
-
-namespace EventCountdowns.Core.Services.Dialogs;
+﻿namespace EventCountdowns.Core.Services.Dialogs;
 
 public interface IDialogService
 {

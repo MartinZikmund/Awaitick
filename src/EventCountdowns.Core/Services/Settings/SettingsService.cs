@@ -1,6 +1,4 @@
-﻿using System;
-using Windows.Storage;
-using EventCountdowns.Core.Services.Settings;
+﻿using EventCountdowns.Core.Services.Settings;
 
 namespace EventCountdowns.Core.Services;
 

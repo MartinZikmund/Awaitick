@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Text;
-using System.Threading.Tasks;
 using EventCountdowns.Core.Models;
-using EventCountdowns.Core.Services;
 
 namespace EventCountdowns.Core.DefaultData;
 
 public class SampleEvents : ISampleEvents
 {
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
-	private readonly ILocalizationService _localizationService;
+	private readonly IStringLocalizer _localizationService;
 
-	public SampleEvents(IDefaultBackgrounds defaultBackgrounds, ILocalizationService localizationService)
+	public SampleEvents(IDefaultBackgrounds defaultBackgrounds, IStringLocalizer localizationService)
 	{
 		_defaultBackgrounds = defaultBackgrounds;
 		_localizationService = localizationService;
@@ -46,9 +41,9 @@ public class SampleEvents : ISampleEvents
 		}
 		return new EventCountdown()
 		{
-			Name = _localizationService.NewYear,
+			Name = _localizationService.GetString("NewYear"),
 			BackgroundImagePath = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.NewYear).BackgroundPath,
-			CelebrationMessage = _localizationService.HappyNewYear,
+			CelebrationMessage = _localizationService.GetString("HappyNewYear"),
 			Id = Guid.NewGuid().ToString(),
 			TargetDateTime = newYearDate
 		};
@@ -69,10 +64,10 @@ DateTimeOffset.Now.Offset);
 
 		return new EventCountdown()
 		{
-			Name = _localizationService.Christmas,
+			Name = _localizationService.GetString("Christmas"),
 			BackgroundImagePath = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Christmas).BackgroundPath,
 			Id = Guid.NewGuid().ToString(),
-			CelebrationMessage = _localizationService.MerryChristmas,
+			CelebrationMessage = _localizationService.GetString("MerryChristmas"),
 			TargetDateTime = christmasDate
 		};
 	}
@@ -87,9 +82,9 @@ DateTimeOffset.Now.Offset);
 		}
 		return new EventCountdown()
 		{
-			Name = _localizationService.Halloween,
+			Name = _localizationService.GetString("Halloween"),
 			BackgroundImagePath = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Halloween).BackgroundPath,
-			CelebrationMessage = _localizationService.ScaryHalloween,
+			CelebrationMessage = _localizationService.GetString("ScaryHalloween"),
 			Id = Guid.NewGuid().ToString(),
 			TargetDateTime = halloweenDate
 		};
@@ -107,10 +102,10 @@ DateTimeOffset.Now.Offset);
 
 			return new EventCountdown()
 			{
-				Name = _localizationService.Easter,
+				Name = _localizationService.GetString("Easter"),
 				BackgroundImagePath =
 					_defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Easter).BackgroundPath,
-				CelebrationMessage = _localizationService.HappyEaster,
+				CelebrationMessage = _localizationService.GetString("HappyEaster"),
 				Id = Guid.NewGuid().ToString(),
 				TargetDateTime = easterDate
 			};

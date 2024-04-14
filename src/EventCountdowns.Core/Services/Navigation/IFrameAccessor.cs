@@ -1,6 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls;
-
-namespace EventCountdowns.Core.Services.Navigation;
+﻿namespace EventCountdowns.Core.Services.Navigation;
 
 public interface IFrameAccessor
 {

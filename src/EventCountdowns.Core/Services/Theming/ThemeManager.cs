@@ -1,8 +1,4 @@
-﻿using System;
-using EventCountdowns.Models.Theming;
-using Microsoft.UI.Xaml;
-
-namespace EventCountdowns.Services.Theming;
+﻿namespace EventCountdowns.Services.Theming;
 
 public class ThemeManager : IThemeManager
 {

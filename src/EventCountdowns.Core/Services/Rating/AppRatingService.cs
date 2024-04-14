@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Windows.UI.Popups;
-using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.Rating;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
@@ -14,11 +9,11 @@ namespace EventCountdowns.Core.Services;
 
 public class AppRatingService : IAppRatingService
 {
-	private readonly ILocalizationService _localizationService;
+	private readonly IStringLocalizer _localizationService;
 	private readonly IAppSettings _appSettings;
 	private readonly IStoreLauncherService _storeLauncherService;
 
-	public AppRatingService(ILocalizationService localizationService, IAppSettings appSettings, IStoreLauncherService storeLauncherService)
+	public AppRatingService(IStringLocalizer localizationService, IAppSettings appSettings, IStoreLauncherService storeLauncherService)
 	{
 		_localizationService = localizationService;
 		_appSettings = appSettings;
@@ -28,10 +23,10 @@ public class AppRatingService : IAppRatingService
 	public async Task AskUserForRatingAsync()
 	{
 		MessageDialog ratingDialog = new MessageDialog(
-			string.Format(CultureInfo.CurrentCulture, _localizationService.RatingDialogContentFormatString, _localizationService.AppName),
-			string.Format(CultureInfo.CurrentCulture, _localizationService.DoYouEnjoyAppFormatString, _localizationService.AppName));
-		ratingDialog.Commands.Add(new UICommand(_localizationService.RateNow, RateNowHandler));
-		ratingDialog.Commands.Add(new UICommand(_localizationService.Later, LaterHandler));
+			string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("RatingDialogContentFormatString"), _localizationService.GetString("AppName")),
+			string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DoYouEnjoyAppFormatString"), _localizationService.GetString("AppName")));
+		ratingDialog.Commands.Add(new UICommand(_localizationService.GetString("RateNow"), RateNowHandler));
+		ratingDialog.Commands.Add(new UICommand(_localizationService.GetString("Later"), LaterHandler));
 		await ratingDialog.ShowAsync();
 	}
 

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using EventCountdowns.Core.DefaultData;
 using EventCountdowns.Core.Models;
-using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
@@ -51,7 +47,7 @@ public class CountdownEditorViewModel : ViewModel
 	private readonly IEventCountdownManager _eventCountdownManager;
 	private readonly IBackgroundPickerService _backgroundPickerService;
 	private readonly IDataService _dataService;
-	private readonly ILocalizationService _localizationService;
+	private readonly IStringLocalizer _localizationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
 
 	private DefaultBackground? _selectedDefaultBackground;
@@ -68,7 +64,7 @@ public class CountdownEditorViewModel : ViewModel
 		IEventCountdownManager eventCountdownManager,
 		IBackgroundPickerService backgroundPickerService,
 		IDataService dataService,
-		ILocalizationService localizationService,
+		IStringLocalizer localizationService,
 		IDefaultBackgrounds defaultBackgrounds)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
@@ -99,11 +95,11 @@ public class CountdownEditorViewModel : ViewModel
 				Navigation.GoBack();
 			}
 
-			Title = _localizationService.EditEvent;
+			Title = _localizationService.GetString("EditEvent");
 		}
 		else
 		{
-			Title = _localizationService.AddEvent;
+			Title = _localizationService.GetString("AddEvent");
 		}
 
 		if (DefaultBackgrounds.Count == 0)
@@ -196,7 +192,7 @@ public class CountdownEditorViewModel : ViewModel
 		set => SetProperty(ref _celebrationMessage, value);
 	}
 
-	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.DefaultCelebration, Name);
+	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
 
 	public ICommand CancelCommand => GetOrCreateCommand(Cancel);
 
@@ -224,7 +220,7 @@ public class CountdownEditorViewModel : ViewModel
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
 		_editedEventCountdown.BackgroundImagePath = BackgroundPath;
-		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.DefaultCelebration, Name) : CelebrationMessage;
+		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
 		if (Mode == EditorMode.Edit)
 		{
 			await _eventCountdownManager.UpdateCountdownAsync(_editedEventCountdown);

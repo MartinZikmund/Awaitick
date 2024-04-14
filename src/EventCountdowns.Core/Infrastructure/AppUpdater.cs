@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EventCountdowns.Core.Configuration;
+﻿using EventCountdowns.Core.Configuration;
 using EventCountdowns.Core.Services.BackgroundTasks;
 using EventCountdowns.Core.Services.Settings;
 

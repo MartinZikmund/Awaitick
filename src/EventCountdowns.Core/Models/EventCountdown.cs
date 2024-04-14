@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EventCountdowns.Core.Models;
+﻿namespace EventCountdowns.Core.Models;
 
 public class EventCountdown
 {

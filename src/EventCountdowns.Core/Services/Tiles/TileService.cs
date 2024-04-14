@@ -18,7 +18,7 @@
 //{
 //    public class TileService : ITileService
 //    {
-//        private readonly ILocalizationService _localizationService;
+//        private readonly IStringLocalizer _localizationService;
 //        private const string EventTileIdPrefix = "Tile_Countdown_";
 //        private const string LaunchFormatString = "Countdown_{0}";
 //        private const int ScheduleNotificationFutureSecondsLimit = 3;
@@ -30,7 +30,7 @@
 //            return string.Format(EventTileIdFormatString, eventId);
 //        }
 
-//        public TileService(ILocalizationService localizationService)
+//        public TileService(IStringLocalizer localizationService)
 //        {
 //            _localizationService = localizationService;
 //        }

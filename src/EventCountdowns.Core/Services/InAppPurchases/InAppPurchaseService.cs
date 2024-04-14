@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Store;
+﻿using Windows.ApplicationModel.Store;
 using Windows.UI.Popups;
 using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Infrastructure;
@@ -109,8 +104,8 @@ public class InAppPurchaseService : IInAppPurchaseService
 		{
 			// The in-app purchase was not completed because 
 			// an error occurred. 
-			var localizer = IoC.GetRequiredService<ILocalizationService>();
-			MessageDialog dialog = new MessageDialog(localizer.PurchaseUnsuccessfulText, localizer.PurchaseUnsuccessful);
+			var localizer = IoC.GetRequiredService<IStringLocalizer>();
+			MessageDialog dialog = new MessageDialog(localizer.GetString("PurchaseUnsuccessfulText"), localizer.GetString("PurchaseUnsuccessful"));
 			await dialog.ShowAsync();
 		}
 		return false;

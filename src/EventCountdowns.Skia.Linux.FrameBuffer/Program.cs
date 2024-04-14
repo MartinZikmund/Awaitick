@@ -1,4 +1,3 @@
-using System;
 using Microsoft.UI.Xaml;
 using Uno.UI.Runtime.Skia.Linux.FrameBuffer;
 using Windows.UI.Core;

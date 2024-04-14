@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
+﻿using Microsoft.UI.Xaml.Data;
 
 namespace EventCountdowns.Core.Converters;
 
