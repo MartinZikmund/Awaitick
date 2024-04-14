@@ -1,4 +1,4 @@
-﻿using EventCountdowns.App.Core.Infrastructure;
+﻿using EventCountdowns.Core.Infrastructure;
 
 namespace EventCountdowns.Services.Navigation;
 

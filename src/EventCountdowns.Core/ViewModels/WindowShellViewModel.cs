@@ -1,5 +1,6 @@
 ﻿using EventCountdowns.Core.ViewModels;
 using EventCountdowns.Services.Navigation;
+using Microsoft.UI.Dispatching;
 using Uno.Disposables;
 
 namespace EventCountdowns.ViewModels;

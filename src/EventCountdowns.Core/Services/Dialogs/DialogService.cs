@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using MZikmund.Models.Dialogs;
-using MZikmund.ViewModels.Dialogs;
 
 namespace MZikmund.Services.Dialogs;
 
@@ -12,15 +11,6 @@ public class DialogService : IDialogService
 	public DialogService(IDialogCoordinator dialogCoordinator)
 	{
 		_dialogCoordinator = dialogCoordinator ?? throw new ArgumentNullException(nameof(dialogCoordinator));
-	}
-
-	public async Task<ContentDialogResult> ShowStatusMessageAsync(
-		StatusMessageDialogType type,
-		string title,
-		string text)
-	{
-		var statusMessageViewModel = new StatusMessageDialogViewModel(type, title, text);
-		return await ShowAsync(statusMessageViewModel);
 	}
 
 	public async Task<ContentDialogResult> ShowAsync<TViewModel>(TViewModel viewModel)
@@ -55,5 +45,16 @@ public class DialogService : IDialogService
 		{
 			_dialogs.Add(viewType.Name, viewType);
 		}
+	}
+
+	public async Task<ContentDialogResult> ShowAsync(string title, string content)
+	{
+		var dialog = new ContentDialog()
+		{
+			Title = title,
+			Content = content,
+		};
+
+		return await _dialogCoordinator.ShowAsync(dialog);
 	}
 }

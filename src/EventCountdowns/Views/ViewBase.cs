@@ -4,11 +4,11 @@ using EventCountdowns.Core.ViewModels;
 namespace EventCountdowns.Views;
 
 public partial class ViewBase<TViewModel> : Page, IViewBase
-	where TViewModel : ViewModel
+	where TViewModel : ViewModelBase
 {
 	private TViewModel? _model;
 
-    public ViewBase()
+	public ViewBase()
 	{
 		//TODO: Move to later?
 		DataContext = Model;

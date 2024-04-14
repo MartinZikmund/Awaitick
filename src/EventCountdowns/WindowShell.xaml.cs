@@ -2,10 +2,13 @@
 using Windows.UI.ViewManagement;
 using Windows.Foundation.Metadata;
 using EventCountdowns.Services.Navigation;
+using MZikmund.Services.Dialogs;
+using EventCountdowns.Core.Infrastructure;
+using EventCountdowns.ViewModels;
 
 namespace EventCountdowns;
 
-public sealed partial class WindowShell : Page //, IWindowShell
+public sealed partial class WindowShell : Page, IWindowShell
 {
 	private readonly IServiceScope _windowScope;
 	private readonly Window _associatedWindow;
@@ -17,8 +20,8 @@ public sealed partial class WindowShell : Page //, IWindowShell
 		_windowScope = serviceProvider.CreateScope();
 		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
 		windowShellProvider.SetShell(this, associatedWindow);
-		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(MZikmundApp).Assembly);
-		ServiceProvider.GetRequiredService<IDialogService>().RegisterDialogsFromAssembly(typeof(MZikmundApp).Assembly);
+		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(CountdownsApp).Assembly);
+		ServiceProvider.GetRequiredService<IDialogService>().RegisterDialogsFromAssembly(typeof(CountdownsApp).Assembly);
 
 		//ViewModel = ServiceProvider.GetRequiredService<WindowShellViewModel>();
 
@@ -40,9 +43,9 @@ public sealed partial class WindowShell : Page //, IWindowShell
 	//#endif
 	//	}
 
-	//	public WindowShellViewModel ViewModel { get; }
+	public WindowShellViewModel ViewModel { get; }
 
-	//	public Frame RootFrame => InnerFrame;
+	public Frame RootFrame => InnerFrame;
 
 	//	public bool HasCustomTitleBar { get; private set; }
 

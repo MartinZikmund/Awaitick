@@ -1,4 +1,4 @@
-﻿using MZikmund.Services.Navigation;
+﻿using EventCountdowns.Services.Navigation;
 
 namespace MZikmund.Services.Dialogs;
 
@@ -15,6 +15,16 @@ public class DialogCoordinator : IDialogCoordinator
 
 	public async Task<ContentDialogResult> ShowAsync(ContentDialog dialog)
 	{
+		if (dialog is null)
+		{
+			throw new ArgumentNullException(nameof(dialog));
+		}
+
+		if (dialog.XamlRoot is null)
+		{
+			dialog.XamlRoot = _windowShellProvider.XamlRoot;
+		}
+
 		var queuedDialog = EnqueueDialog(dialog);
 		await ProcessQueueAsync();
 		return await queuedDialog.CompletionSource.Task;
