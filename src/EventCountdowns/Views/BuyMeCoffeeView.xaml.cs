@@ -20,8 +20,8 @@ namespace EventCountdowns.Views;
 /// </summary>
 public sealed partial class BuyMeCoffeeView : Page
 {
-    public BuyMeCoffeeView()
-    {
-        this.InitializeComponent();
-    }
+	public BuyMeCoffeeView()
+	{
+		this.InitializeComponent();
+	}
 }

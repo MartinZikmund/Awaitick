@@ -7,7 +7,7 @@ namespace EventCountdowns.Services.Navigation;
 
 public class FrameAccessor : IFrameAccessor
 {
-    private Frame? _frame;
+	private Frame? _frame;
 
-	public Frame GetFrame() => _frame ??= AppShell.GetForCurrentView().RootFrame;
+    public Frame GetFrame() => _frame ??= AppShell.GetForCurrentView().RootFrame;
 }

@@ -4,5 +4,5 @@ namespace EventCountdowns.Core.Resources;
 
 public class ColorResources
 {
-	public static Color BrandColor => ResourceAccessor.GetResource<Color>("BrandColor");
+    public static Color BrandColor => ResourceAccessor.GetResource<Color>("BrandColor");
 }

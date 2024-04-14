@@ -8,18 +8,18 @@ namespace EventCountdowns.Extensions.Xaml;
 
 public class Localize : MarkupExtension
 {
-    private static Lazy<ILocalizationService> _localization = new Lazy<ILocalizationService>(
-        () =>
-        {
-            if (DesignMode.DesignMode2Enabled)
-            {
-                return new LocalizationService();
-            }
+	private static Lazy<ILocalizationService> _localization = new Lazy<ILocalizationService>(
+		() =>
+		{
+			if (DesignMode.DesignMode2Enabled)
+			{
+				return new LocalizationService();
+			}
 
-            return IoC.GetRequiredService<ILocalizationService>();
-        });
+			return IoC.GetRequiredService<ILocalizationService>();
+		});
 
-    public string Key { get; set; }
+	public string Key { get; set; }
 
-    protected override object ProvideValue() => _localization.Value.GetString(Key);
+	protected override object ProvideValue() => _localization.Value.GetString(Key);
 }

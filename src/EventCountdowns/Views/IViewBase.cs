@@ -8,5 +8,5 @@ namespace EventCountdowns.Views;
 
 public interface IViewBase
 {
-    object Model { get; }
+	object Model { get; }
 }

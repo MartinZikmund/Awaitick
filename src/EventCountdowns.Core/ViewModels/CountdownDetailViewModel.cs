@@ -62,7 +62,7 @@ public class CountdownDetailViewModel : ViewModel
 		EventCountdown = new EventCountdownObservable(await _dataService.GetCountdownAsync(navigationModel.CountdownId));
 		if (EventCountdown != null)
 		{
-			TargetDateString = EventCountdown.TargetDateTime.ToString(CultureInfo.CurrentCulture, "f");
+			TargetDateString = EventCountdown.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
 			IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
 			_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
 		}
@@ -116,7 +116,7 @@ public class CountdownDetailViewModel : ViewModel
 				EventCountdown.DaysLeft,
 				EventCountdown.HoursLeft,
 				EventCountdown.MinutesLeft,
-				EventCountdown.TargetDateTime.ToString(CultureInfo.CurrentCulture, "g"),
+				EventCountdown.TargetDateTime.ToString("g", CultureInfo.CurrentCulture),
 				_localizationService.AppSocialHandle);
 		}
 		_sharingService.ShareTextAsync(sharedText);
