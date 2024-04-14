@@ -11,7 +11,7 @@ using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class MainViewModel : PageViewModel
+public partial class MainViewModel : PageViewModel
 {
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;
@@ -79,15 +79,22 @@ public class MainViewModel : PageViewModel
 		set => SetProperty(ref _showCoffee, value);
 	}
 
-	public ICommand AddCommand => GetOrCreateCommand(Add);
+	[RelayCommand]
+	private void RootTap()
+	{
+		if (EventCountdowns.Count == 0)
+		{
+			Add();
+		}
+	}
 
+	[RelayCommand]
 	private void Add()
 	{
 		Navigation.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
 	}
 
-	public ICommand ShowCountdownCommand => GetOrCreateCommand<EventCountdownObservable>(ShowCountdown);
-
+	[RelayCommand]
 	private void ShowCountdown(EventCountdownObservable? eventCountdown)
 	{
 		if (eventCountdown != null)
@@ -96,32 +103,28 @@ public class MainViewModel : PageViewModel
 		}
 	}
 
-	public ICommand AboutAppCommand => GetOrCreateCommand(AboutApp);
-
+	[RelayCommand]
 	private void AboutApp()
 	{
 		Navigation.Navigate<AboutViewModel>();
 	}
 
-	public ICommand BuyMeCoffeeCommand => GetOrCreateCommand(BuyMeCoffee);
-
+	[RelayCommand]
 	private void BuyMeCoffee()
 	{
 		Navigation.Navigate<BuyMeCoffeeViewModel>();
 	}
 
-	public ICommand RateAppCommand => GetOrCreateCommand(RateApp);
-
-	private async void RateApp()
+	[RelayCommand]
+	private async Task RateAppAsync()
 	{
 		_appSettings.OfferUserRating = false;
 		await _storeLauncherService.RateAppAsync();
 		//TODO:Track rating
 	}
 
-	public ICommand SendFeedbackCommand => GetOrCreateCommand(SendFeedback);
-
-	private async void SendFeedback()
+	[RelayCommand]
+	private async Task SendFeedbackAsync()
 	{
 		await _mailService.ComposeMailAsync("Feedback", "eventcountdownsapp@sphereline.com");
 	}

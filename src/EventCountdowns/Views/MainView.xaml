@@ -9,6 +9,8 @@
     xmlns:models="using:EventCountdowns.Core.Models"
     xmlns:usercontrols="using:EventCountdowns.Controls"
     xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
+	xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+	xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
     <local:MainViewBase.Transitions>
         <TransitionCollection>
@@ -38,7 +40,12 @@
             <SymbolIcon Symbol="Setting" />
         </Button>
         <Grid Grid.Row="1">
-            <Grid.ChildrenTransitions>
+			<interactivity:Interaction.Behaviors>
+				<core:EventTriggerBehavior EventName="Tapped">
+					<core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />
+				</core:EventTriggerBehavior>
+			</interactivity:Interaction.Behaviors>
+			<Grid.ChildrenTransitions>
                 <TransitionCollection>
                     <EntranceThemeTransition />
                 </TransitionCollection>
