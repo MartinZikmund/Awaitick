@@ -6,6 +6,7 @@ using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Share;
 using EventCountdowns.Core.Services.Tiles;
+using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
@@ -27,6 +28,7 @@ public class CountdownDetailViewModel : PageViewModel
 	}
 
 	private readonly IEventCountdownManager _eventCountdownManager;
+	private readonly INavigationService _navigationService;
 	private readonly IDataService _dataService;
 	private readonly ITileService _tileService;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
@@ -38,9 +40,11 @@ public class CountdownDetailViewModel : PageViewModel
 	private bool _isTilePinned;
 	private string _targetDateString = "";
 
-	public CountdownDetailViewModel(IEventCountdownManager eventCountdownManager, IDataService dataService, ITileService tileService, IScheduledNotificationService scheduledNotificationService, ISystemSharingService sharingService, IConfirmationDialogService confirmationDialogService, IStringLocalizer localizationService)
+	public CountdownDetailViewModel(
+		IEventCountdownManager eventCountdownManager, INavigationService navigationService, IDataService dataService, ITileService tileService, IScheduledNotificationService scheduledNotificationService, ISystemSharingService sharingService, IConfirmationDialogService confirmationDialogService, IStringLocalizer localizationService)
 	{
 		_eventCountdownManager = eventCountdownManager;
+		_navigationService = navigationService;
 		_dataService = dataService;
 		_tileService = tileService;
 		_scheduledNotificationService = scheduledNotificationService;
@@ -85,7 +89,7 @@ public class CountdownDetailViewModel : PageViewModel
 	private async void DeleteConfirmed()
 	{
 		await _eventCountdownManager.DeleteCountdownAsync(EventCountdown.Model);
-		Navigation.GoBack();
+		_navigationService.GoBack();
 	}
 
 
@@ -93,7 +97,7 @@ public class CountdownDetailViewModel : PageViewModel
 
 	private void Edit()
 	{
-		Navigation.Navigate<CountdownEditorViewModel>(CountdownEditorViewModel.NavigationModel.CreateEdit(EventCountdown.Id));
+		_navigationService.Navigate<CountdownEditorViewModel>(CountdownEditorViewModel.NavigationModel.CreateEdit(EventCountdown.Id));
 	}
 
 	public ICommand ShareCommand => GetOrCreateCommand(Share);

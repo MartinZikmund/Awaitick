@@ -14,6 +14,9 @@ using EventCountdowns.Core.Services.Mail;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Settings;
+using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.Core.Services.BackgroundPicker;
+using EventCountdowns.Core.DefaultData;
 
 namespace EventCountdowns;
 
@@ -75,6 +78,7 @@ public class CountdownsApp : Application, IApplication
 	{
 		services.AddScoped<WindowShellViewModel>();
 		services.AddScoped<MainViewModel>();
+		services.AddScoped<CountdownEditorViewModel>();
 
 		services.AddSingleton<IApplication>(this);
 		services.AddScoped<IDialogCoordinator, DialogCoordinator>();
@@ -84,6 +88,9 @@ public class CountdownsApp : Application, IApplication
 		services.AddScoped<IDialogService, DialogService>();
 		services.AddScoped<IWindowShellProvider, WindowShellProvider>();
 
+		services.AddSingleton<IEventCountdownManager, EventCountdownManager>();
+		services.AddSingleton<IBackgroundPickerService, BackgroundPickerService>();
+		services.AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>();
 		services.AddSingleton<IDataService, FileDataService>();
 		services.AddSingleton<IFileService, FileService>();
 		services.AddSingleton<ITileService, TileService>();

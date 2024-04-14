@@ -12,13 +12,10 @@ public abstract partial class ViewModelBase : ObservableRecipient
 {
 	private readonly Dictionary<string, ICommand> _commands = new();
 
-	private INavigationService? _navigationService;
 	private bool _isWorking;
 
 	[ObservableProperty]
 	private string _title = "";
-
-	protected INavigationService Navigation => _navigationService ?? (_navigationService = IoC.GetRequiredService<INavigationService>());
 
 	public bool UserPremium => IoC.GetRequiredService<IInAppPurchaseService>().HasUserAnyProduct();
 

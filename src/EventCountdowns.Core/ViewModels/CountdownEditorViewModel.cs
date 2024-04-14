@@ -5,6 +5,7 @@ using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
@@ -49,6 +50,7 @@ public class CountdownEditorViewModel : PageViewModel
 	private readonly IBackgroundPickerService _backgroundPickerService;
 	private readonly IDataService _dataService;
 	private readonly IStringLocalizer _localizationService;
+	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
 
 	private DefaultBackground? _selectedDefaultBackground;
@@ -66,12 +68,14 @@ public class CountdownEditorViewModel : PageViewModel
 		IBackgroundPickerService backgroundPickerService,
 		IDataService dataService,
 		IStringLocalizer localizationService,
+		INavigationService navigationService,
 		IDefaultBackgrounds defaultBackgrounds)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
 		_backgroundPickerService = backgroundPickerService ?? throw new ArgumentNullException(nameof(backgroundPickerService));
 		_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
 		_localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
+		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 	}
 
@@ -93,7 +97,7 @@ public class CountdownEditorViewModel : PageViewModel
 			}
 			else
 			{
-				Navigation.GoBack();
+				_navigationService.GoBack();
 			}
 
 			Title = _localizationService.GetString("EditEvent");
@@ -197,7 +201,7 @@ public class CountdownEditorViewModel : PageViewModel
 
 	public ICommand CancelCommand => GetOrCreateCommand(Cancel);
 
-	private void Cancel() => Navigation.GoBack();
+	private void Cancel() => _navigationService.GoBack();
 
 	public ICommand ChooseYourImageCommand => GetOrCreateCommand(ChooseYourImage);
 
@@ -231,6 +235,6 @@ public class CountdownEditorViewModel : PageViewModel
 			await _eventCountdownManager.AddCountdownAsync(_editedEventCountdown);
 		}
 		IsWorking = false;
-		Navigation.GoBack();
+		_navigationService.GoBack();
 	}
 }

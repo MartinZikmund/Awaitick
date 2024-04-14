@@ -7,6 +7,7 @@ using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Tiles;
+using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
@@ -20,6 +21,7 @@ public partial class MainViewModel : PageViewModel
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly IStoreLauncherService _storeLauncherService;
 	private readonly IAppSettings _appSettings;
+	private readonly INavigationService _navigationService;
 
 	public MainViewModel(
 		IDataService dataService,
@@ -28,6 +30,7 @@ public partial class MainViewModel : PageViewModel
 		IMailService mailService,
 		IScheduledNotificationService scheduledNotificationService,
 		IStoreLauncherService storeLauncherService,
+		INavigationService navigationService,
 		IAppSettings appSettings)
 	{
 		_dataService = dataService;
@@ -36,6 +39,7 @@ public partial class MainViewModel : PageViewModel
 		_mailService = mailService;
 		_scheduledNotificationService = scheduledNotificationService;
 		_storeLauncherService = storeLauncherService;
+		_navigationService = navigationService;
 		_appSettings = appSettings;
 	}
 
@@ -91,7 +95,7 @@ public partial class MainViewModel : PageViewModel
 	[RelayCommand]
 	private void Add()
 	{
-		Navigation.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
+		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
 	}
 
 	[RelayCommand]
@@ -99,20 +103,20 @@ public partial class MainViewModel : PageViewModel
 	{
 		if (eventCountdown != null)
 		{
-			Navigation.Navigate<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(eventCountdown.Id));
+			_navigationService.Navigate<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(eventCountdown.Id));
 		}
 	}
 
 	[RelayCommand]
 	private void AboutApp()
 	{
-		Navigation.Navigate<AboutViewModel>();
+		_navigationService.Navigate<AboutViewModel>();
 	}
 
 	[RelayCommand]
 	private void BuyMeCoffee()
 	{
-		Navigation.Navigate<BuyMeCoffeeViewModel>();
+		_navigationService.Navigate<BuyMeCoffeeViewModel>();
 	}
 
 	[RelayCommand]
