@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EventCountdowns.Core.Models;
@@ -61,7 +62,7 @@ public class CountdownDetailViewModel : ViewModel
 		EventCountdown = new EventCountdownObservable(await _dataService.GetCountdownAsync(navigationModel.CountdownId));
 		if (EventCountdown != null)
 		{
-			TargetDateString = EventCountdown.TargetDateTime.ToString("f");
+			TargetDateString = EventCountdown.TargetDateTime.ToString(CultureInfo.CurrentCulture, "f");
 			IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
 			_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
 		}
@@ -80,7 +81,7 @@ public class CountdownDetailViewModel : ViewModel
 		//show delete dialog
 		await
 			_confirmationDialogService.ShowAsync(_localizationService.ConfirmDelete,
-				string.Format(_localizationService.AreYouSureDeleteTextFormat, EventCountdown.Name), DeleteConfirmed,
+				string.Format(CultureInfo.CurrentCulture, _localizationService.AreYouSureDeleteTextFormat, EventCountdown.Name), DeleteConfirmed,
 				() => { });
 	}
 
@@ -105,17 +106,17 @@ public class CountdownDetailViewModel : ViewModel
 		string sharedText = "";
 		if (EventCountdown.Finished)
 		{
-			sharedText = string.Format(_localizationService.SharingFinishedEventFormatString,
+			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.SharingFinishedEventFormatString,
 				EventCountdown.CelebrationMessage, _localizationService.AppSocialHandle);
 		}
 		else
 		{
-			sharedText = string.Format(_localizationService.SharingFormatString,
+			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.SharingFormatString,
 				EventCountdown.Name,
 				EventCountdown.DaysLeft,
 				EventCountdown.HoursLeft,
 				EventCountdown.MinutesLeft,
-				EventCountdown.TargetDateTime.ToString("g"),
+				EventCountdown.TargetDateTime.ToString(CultureInfo.CurrentCulture, "g"),
 				_localizationService.AppSocialHandle);
 		}
 		_sharingService.ShareTextAsync(sharedText);

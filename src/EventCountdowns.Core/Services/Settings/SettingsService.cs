@@ -9,12 +9,12 @@ public class SettingsService : ISettingsService
 	public T GetSetting<T>(string key, Func<T> defaultValueBuilder, bool roamed = false)
 	{
 		var container = roamed ? ApplicationData.Current.RoamingSettings : ApplicationData.Current.LocalSettings;
-		if (container.Values.ContainsKey(key))
+		if (container.Values.TryGetValue(key, out var value))
 		{
 			//get existing
 			try
 			{
-				return (T)container.Values[key];
+				return (T)value;
 			}
 			catch
 			{

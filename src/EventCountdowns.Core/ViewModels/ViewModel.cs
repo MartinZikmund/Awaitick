@@ -20,7 +20,7 @@ namespace EventCountdowns.Core.ViewModels;
 
 public abstract class ViewModel : ObservableRecipient
 {
-	private readonly IDictionary<string, ICommand> _commands = new Dictionary<string, ICommand>();
+	private readonly Dictionary<string, ICommand> _commands = new();
 
 	private INavigationService? _navigationService;
 	private bool _isWorking;

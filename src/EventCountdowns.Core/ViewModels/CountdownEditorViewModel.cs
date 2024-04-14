@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EventCountdowns.Core.DefaultData;
@@ -195,7 +196,7 @@ public class CountdownEditorViewModel : ViewModel
 		set => SetProperty(ref _celebrationMessage, value);
 	}
 
-	public string DefaultCelebrationMessage => string.Format(_localizationService.DefaultCelebration, Name);
+	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.DefaultCelebration, Name);
 
 	public ICommand CancelCommand => GetOrCreateCommand(Cancel);
 
@@ -223,7 +224,7 @@ public class CountdownEditorViewModel : ViewModel
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
 		_editedEventCountdown.BackgroundImagePath = BackgroundPath;
-		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(_localizationService.DefaultCelebration, Name) : CelebrationMessage;
+		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.DefaultCelebration, Name) : CelebrationMessage;
 		if (Mode == EditorMode.Edit)
 		{
 			await _eventCountdownManager.UpdateCountdownAsync(_editedEventCountdown);

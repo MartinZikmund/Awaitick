@@ -8,6 +8,7 @@ using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.Rating;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
+using System.Globalization;
 
 namespace EventCountdowns.Core.Services;
 
@@ -27,9 +28,8 @@ public class AppRatingService : IAppRatingService
 	public async Task AskUserForRatingAsync()
 	{
 		MessageDialog ratingDialog = new MessageDialog(
-			string.Format(_localizationService.RatingDialogContentFormatString, _localizationService.AppName),
-			string.Format(_localizationService.DoYouEnjoyAppFormatString, _localizationService.AppName)
-			 );
+			string.Format(CultureInfo.CurrentCulture, _localizationService.RatingDialogContentFormatString, _localizationService.AppName),
+			string.Format(CultureInfo.CurrentCulture, _localizationService.DoYouEnjoyAppFormatString, _localizationService.AppName));
 		ratingDialog.Commands.Add(new UICommand(_localizationService.RateNow, RateNowHandler));
 		ratingDialog.Commands.Add(new UICommand(_localizationService.Later, LaterHandler));
 		await ratingDialog.ShowAsync();
