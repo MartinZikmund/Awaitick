@@ -6,6 +6,14 @@ using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 using MZikmund.Services.Loading;
 using MZikmund.Services.Dialogs;
+using EventCountdowns.Core.Services.Data;
+using EventCountdowns.Core.Services.Tiles;
+using EventCountdowns.Core.Services;
+using EventCountdowns.Core.Services.InAppPurchases;
+using EventCountdowns.Core.Services.Mail;
+using EventCountdowns.Core.Services.ScheduledNotification;
+using EventCountdowns.Core.Services.StoreLauncher;
+using EventCountdowns.Core.Services.Settings;
 
 namespace EventCountdowns;
 
@@ -52,7 +60,7 @@ public class CountdownsApp : Application, IApplication
 			MainWindow.Content = windowShell;
 		}
 
-		if (windowShell.Content == null)
+		if (windowShell.RootFrame.Content is null)
 		{
 			// When the navigation stack isn't restored navigate to the first page,
 			// configuring the new page by passing required information as a navigation
@@ -66,6 +74,7 @@ public class CountdownsApp : Application, IApplication
 	private void ConfigureServices(IServiceCollection services)
 	{
 		services.AddScoped<WindowShellViewModel>();
+		services.AddScoped<MainViewModel>();
 
 		services.AddSingleton<IApplication>(this);
 		services.AddScoped<IDialogCoordinator, DialogCoordinator>();
@@ -74,5 +83,15 @@ public class CountdownsApp : Application, IApplication
 		services.AddScoped<ILoadingIndicator, LoadingIndicator>();
 		services.AddScoped<IDialogService, DialogService>();
 		services.AddScoped<IWindowShellProvider, WindowShellProvider>();
+
+		services.AddSingleton<IDataService, FileDataService>();
+		services.AddSingleton<IFileService, FileService>();
+		services.AddSingleton<ITileService, TileService>();
+		services.AddSingleton<IInAppPurchaseService, InAppPurchaseService>();
+		services.AddSingleton<IMailService, MailService>();
+		services.AddSingleton<IScheduledNotificationService, ScheduledNotificationService>();
+		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
+		services.AddSingleton<ISettingsService, SettingsService>();
+		services.AddSingleton<IAppSettings, AppSettings>();
 	}
 }

@@ -13,7 +13,7 @@
     <Grid
         x:Name="HeaderGrid"
         toolkit:VisibleBoundsPadding.PaddingMask="Top,Left,Right"
-        Background="{ThemeResource PageHeaderBackgroundBrush}">
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock
             Margin="20"
             HorizontalAlignment="Center"

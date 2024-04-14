@@ -47,10 +47,8 @@
                 <Grid>
                     <controls:EventsGridView
                         Name="AdaptiveGridViewControl"
-                        ItemContainerStyle="{StaticResource TightGridViewItemContainerStyle}"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.EventCountdowns}"
-                        Style="{StaticResource EventGridViewStyle}" />
+                        ItemsSource="{x:Bind ViewModel.EventCountdowns}" />
                 </Grid>
             </Grid>
             <StackPanel
