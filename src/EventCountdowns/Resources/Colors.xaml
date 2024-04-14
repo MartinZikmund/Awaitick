@@ -9,7 +9,6 @@
             <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="{ThemeResource PageHeaderBackgroundSolidColor}" />
             <AcrylicBrush
                 x:Key="PageBackgroundBrush"
-                BackgroundSource="HostBackdrop"
                 TintColor="{ThemeResource PageBackgroundSolidColor}"
                 TintOpacity="0.8" />
         </ResourceDictionary>
@@ -18,12 +17,10 @@
             <Color x:Key="PageHeaderBackgroundSolidColor">#F6F6F6</Color>
             <AcrylicBrush
                 x:Key="PageHeaderBackgroundBrush"
-                BackgroundSource="HostBackdrop"
                 TintColor="{ThemeResource PageHeaderBackgroundSolidColor}"
                 TintOpacity="0.9" />
             <AcrylicBrush
                 x:Key="PageBackgroundBrush"
-                BackgroundSource="HostBackdrop"
                 TintColor="{ThemeResource PageBackgroundSolidColor}"
                 TintOpacity="0.8" />
         </ResourceDictionary>

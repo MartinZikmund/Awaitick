@@ -118,7 +118,7 @@
         <Setter Property="Margin" Value="0" />
     </Style>
 
-    <win:Style x:Key="EventGridViewStyle" TargetType="controls:EventsGridView">
+    <!--<win:Style x:Key="EventGridViewStyle" TargetType="controls:EventsGridView">
         <Setter Property="DesiredWidth" Value="500" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
@@ -127,5 +127,5 @@
         <Setter Property="StretchContentForSingleRow" Value="True" />
         <Setter Property="IsItemClickEnabled" Value="True" />
         <Setter Property="SelectionMode" Value="None" />
-    </win:Style>
+    </win:Style>-->
 </ResourceDictionary>

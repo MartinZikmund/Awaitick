@@ -6,7 +6,7 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 {
 	private readonly DispatcherTimer _timer;
 
-    public CountdownDetailView()
+	public CountdownDetailView()
 	{
 		this.InitializeComponent();
 		_timer = new DispatcherTimer();

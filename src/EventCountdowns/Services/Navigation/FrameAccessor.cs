@@ -8,5 +8,5 @@ public class FrameAccessor : IFrameAccessor
 {
 	private Frame? _frame;
 
-    public Frame GetFrame() => _frame ??= AppShell.GetForCurrentView().RootFrame;
+	public Frame GetFrame() => throw new InvalidOperationException();
 }

@@ -6,9 +6,9 @@ namespace EventCountdowns.Views;
 public partial class ViewBase<TViewModel> : Page, IViewBase
 	where TViewModel : ViewModel
 {
-	private TViewModel? _model = null;
+	private TViewModel? _model;
 
-	public ViewBase()
+    public ViewBase()
 	{
 		//TODO: Move to later?
 		DataContext = Model;

@@ -3,9 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:EventCountdowns.Core.Controls"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:EventCountdowns.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:EventCountdowns.Core.Models"
@@ -19,7 +17,7 @@
     </local:MainViewBase.Transitions>
 
     <Grid Background="{ThemeResource PageBackgroundBrush}">
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition x:Name="MobileAdRow" Height="Auto" />
@@ -70,7 +68,7 @@
             </StackPanel>
         </Grid>
 
-        <!--  Commands  -->
+        --><!--  Commands  --><!--
         <CommandBar Grid.Row="3" Grid.ColumnSpan="2">
             <AppBarButton
                 Command="{x:Bind Model.AddCommand}"
@@ -88,8 +86,8 @@
                         UriSource="/Assets/Icons/Mug.png" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <!--<AppBarButton Icon="Bullets" Label="{xaml:Localize Key=Manage}" />-->
-            <!--<AppBarButton Icon="Accept" Click="ButtonBase_OnClick" Label="{xaml:Localize Key=Done}" />-->
+            --><!--<AppBarButton Icon="Bullets" Label="{xaml:Localize Key=Manage}" />-->
+            <!--<AppBarButton Icon="Accept" Click="ButtonBase_OnClick" Label="{xaml:Localize Key=Done}" />--><!--
             <CommandBar.SecondaryCommands>
                 <AppBarButton Command="{x:Bind Model.AboutAppCommand}" Label="{xaml:Localize Key=AboutApp}" />
                 <AppBarButton Command="{x:Bind Model.RateAppCommand}" Label="{xaml:Localize Key=RateThisApp}" />
@@ -110,6 +108,6 @@
                     <VisualState.Setters />
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        </VisualStateManager.VisualStateGroups>-->
     </Grid>
 </local:MainViewBase>

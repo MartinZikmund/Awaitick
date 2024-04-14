@@ -1,3 +1,5 @@
+using EventCountdowns.Core.Configuration;
+
 namespace EventCountdowns;
 
 public class App : Application
