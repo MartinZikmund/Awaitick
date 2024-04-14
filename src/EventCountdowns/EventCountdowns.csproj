@@ -38,4 +38,9 @@
     <EmbeddedResource Include="appsettings.json" />
     <EmbeddedResource Include="appsettings.*.json" DependentUpon="appsettings.json" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
+  </ItemGroup>
 </Project>

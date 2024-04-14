@@ -14,32 +14,16 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Before:
-namespace EventCountdowns.Views
-{
-	public sealed partial class AboutView : AboutViewBase
-After:
-namespace EventCountdowns.Views;
-
-	public sealed partial class AboutView : AboutViewBase
-*/
 namespace EventCountdowns.Views;
 
 public sealed partial class AboutView : AboutViewBase
 {
-	public AboutView()
-	{
-		InitializeComponent();
-	}
+    public AboutView()
+    {
+        InitializeComponent();
+    }
 }
 
 public partial class AboutViewBase : ViewBase<AboutViewModel>
 {
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Removed:
-}
-*/
 }

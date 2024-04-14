@@ -15,20 +15,9 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Before:
-namespace EventCountdowns.Controls
-{
-    public sealed partial class PageHeaderControl : UserControl
-After:
 namespace EventCountdowns.Controls;
 
 public sealed partial class PageHeaderControl : UserControl
-*/
-namespace EventCountdowns.Controls;
-
-    public sealed partial class PageHeaderControl : UserControl
 {
     public PageHeaderControl()
     {
@@ -47,12 +36,4 @@ namespace EventCountdowns.Controls;
             typeof(string),
             typeof(PageHeaderControl),
             new PropertyMetadata(""));
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Before:
-    }
 }
-After:
-}
-*/
-    }

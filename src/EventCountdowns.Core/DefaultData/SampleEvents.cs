@@ -7,17 +7,6 @@ using System.Threading.Tasks;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services;
 
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Before:
-namespace EventCountdowns.Core.DefaultData
-{
-	public class SampleEvents : ISampleEvents
-After:
-namespace EventCountdowns.Core.DefaultData;
-
-	public class SampleEvents : ISampleEvents
-*/
 namespace EventCountdowns.Core.DefaultData;
 
 public class SampleEvents : ISampleEvents

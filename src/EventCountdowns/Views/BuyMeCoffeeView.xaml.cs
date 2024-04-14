@@ -13,19 +13,6 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Before:
-namespace EventCountdowns.Views
-{
-	/// <summary>
-After:
-namespace EventCountdowns.Views;
-
-	/// <summary>
-*/
 namespace EventCountdowns.Views;
 
 /// <summary>
@@ -33,8 +20,8 @@ namespace EventCountdowns.Views;
 /// </summary>
 public sealed partial class BuyMeCoffeeView : Page
 {
-	public BuyMeCoffeeView()
-	{
-		this.InitializeComponent();
-	}
+    public BuyMeCoffeeView()
+    {
+        this.InitializeComponent();
+    }
 }

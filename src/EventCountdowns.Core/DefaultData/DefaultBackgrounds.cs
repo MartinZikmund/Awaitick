@@ -3,17 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EventCountdowns.Core.Models;
 
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Before:
-namespace EventCountdowns.Core.DefaultData
-{
-	public class DefaultBackgrounds : IDefaultBackgrounds
-After:
-namespace EventCountdowns.Core.DefaultData;
-
-	public class DefaultBackgrounds : IDefaultBackgrounds
-*/
 namespace EventCountdowns.Core.DefaultData;
 
 public class DefaultBackgrounds : IDefaultBackgrounds
@@ -52,3 +41,4 @@ public class DefaultBackgrounds : IDefaultBackgrounds
 				throw new ArgumentOutOfRangeException(nameof(sampleEventKind), sampleEventKind, null);
 		}
 	}
+}

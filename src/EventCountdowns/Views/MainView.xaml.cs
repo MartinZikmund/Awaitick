@@ -5,54 +5,38 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Before:
-namespace EventCountdowns.Views
-{
-	public sealed partial class MainView : MainViewBase
-After:
-namespace EventCountdowns.Views;
-
-	public sealed partial class MainView : MainViewBase
-*/
 namespace EventCountdowns.Views;
 
 public sealed partial class MainView : MainViewBase
 {
-	private DispatcherTimer _timer;
+    private DispatcherTimer _timer;
 
     public MainView()
-	{
-		InitializeComponent();
-		_timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1000) };
-		_timer.Tick += _timer_Tick;
-	}
+    {
+        InitializeComponent();
+        _timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1000) };
+        _timer.Tick += _timer_Tick;
+    }
 
-	private void _timer_Tick(object sender, object e)
-	{
-		//update data on view model
-		Model.UpdateCountdowns();
-	}
+    private void _timer_Tick(object sender, object e)
+    {
+        //update data on view model
+        Model.UpdateCountdowns();
+    }
 
-	protected override void OnNavigatedTo(NavigationEventArgs e)
-	{
-		base.OnNavigatedTo(e);
-		_timer.Start();
-	}
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        _timer.Start();
+    }
 
-	protected override void OnNavigatedFrom(NavigationEventArgs e)
-	{
-		base.OnNavigatedFrom(e);
-		_timer.Stop();
-	}
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        base.OnNavigatedFrom(e);
+        _timer.Stop();
+    }
 }
 
 public partial class MainViewBase : ViewBase<MainViewModel>
 {
-
-/* Unmerged change from project 'EventCountdowns (net8.0)'
-Removed:
-}
-*/
 }

@@ -15,10 +15,23 @@ namespace EventCountdowns.Resources;
 
 public partial class DataTemplates : ResourceDictionary
 {
-	public DataTemplates() => InitializeComponent();
+    public DataTemplates() => InitializeComponent();
 
+
+/* Unmerged change from project 'EventCountdowns (net8.0)'
+Before:
 /* Unmerged change from project 'EventCountdowns (net8.0)'
 Removed:
 }
 */
+After:
+    /* Unmerged change from project 'EventCountdowns (net8.0)'
+    Removed:
+    }
+    */
+*/
+	/* Unmerged change from project 'EventCountdowns (net8.0)'
+	Removed:
+	}
+	*/
 }
