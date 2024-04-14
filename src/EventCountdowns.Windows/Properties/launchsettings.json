@@ -1,0 +1,10 @@
+{
+	"profiles": {
+		"EventCountdowns.Windows (Unpackaged)": {
+			"commandName": "Project"
+		},
+		"EventCountdowns.Windows (Package)": {
+			"commandName": "MsixPackage"
+		}
+	}
+}
