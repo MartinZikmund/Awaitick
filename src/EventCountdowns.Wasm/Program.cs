@@ -2,7 +2,7 @@ namespace EventCountdowns.Wasm;
 
 public class Program
 {
-	private static App? _app;
+	private static CountdownsApp? _app;
 
 	public static int Main(string[] args)
 	{

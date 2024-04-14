@@ -2,7 +2,7 @@
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class AboutViewModel : ViewModel
+public class AboutViewModel : ViewModelBase
 {
 	private readonly IStoreLauncherService _storeLauncherService;
 

@@ -1,24 +1,24 @@
 ﻿using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.Foundation.Metadata;
+using EventCountdowns.Services.Navigation;
 
 namespace EventCountdowns;
 
 public sealed partial class WindowShell : Page //, IWindowShell
 {
-	//private readonly UISettings _uiSettings = new UISettings();
-	//private readonly IServiceScope _windowScope;
-	//private readonly Window _associatedWindow;
+	private readonly IServiceScope _windowScope;
+	private readonly Window _associatedWindow;
 
 	public WindowShell(IServiceProvider serviceProvider, Window associatedWindow)
 	{
 		InitializeComponent();
 
-		//_windowScope = serviceProvider.CreateScope();
-		//var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
-		//windowShellProvider.SetShell(this, associatedWindow);
-		//ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(MZikmundApp).Assembly);
-		//ServiceProvider.GetRequiredService<IDialogService>().RegisterDialogsFromAssembly(typeof(MZikmundApp).Assembly);
+		_windowScope = serviceProvider.CreateScope();
+		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
+		windowShellProvider.SetShell(this, associatedWindow);
+		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(MZikmundApp).Assembly);
+		ServiceProvider.GetRequiredService<IDialogService>().RegisterDialogsFromAssembly(typeof(MZikmundApp).Assembly);
 
 		//ViewModel = ServiceProvider.GetRequiredService<WindowShellViewModel>();
 
@@ -29,7 +29,7 @@ public sealed partial class WindowShell : Page //, IWindowShell
 		//Loaded += WindowShell_Loaded;
 	}
 
-	//	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
+	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
 
 	//	private void WindowShell_Loaded(object sender, RoutedEventArgs e)
 	//	{

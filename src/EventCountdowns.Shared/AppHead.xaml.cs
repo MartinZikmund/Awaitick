@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml;
 using Uno.Resizetizer;
 
 namespace EventCountdowns;
-public sealed partial class AppHead : App
+public sealed partial class AppHead : CountdownsApp
 {
 	static AppHead() =>
 		InitializeLogging();

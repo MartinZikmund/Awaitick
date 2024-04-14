@@ -1,6 +1,6 @@
 namespace EventCountdowns.Core.ViewModels;
 
-public class AppShellViewModel : ViewModel
+public class AppShellViewModel : ViewModelBase
 {
 	public Visibility BackButtonVisibility { get; set; } = Visibility.Visible;
 }

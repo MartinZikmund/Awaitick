@@ -1,11 +1,11 @@
 ﻿#nullable enable
 
-using EventCountdowns.Core.Services.Dialogs;
 using EventCountdowns.Core.Services.InAppPurchases;
+using MZikmund.Services.Dialogs;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class BuyMeCoffeeViewModel : ViewModel
+public class BuyMeCoffeeViewModel : ViewModelBase
 {
 	private readonly IInAppPurchaseService _inAppPurchaseService;
 	private readonly IDialogService _dialogService;

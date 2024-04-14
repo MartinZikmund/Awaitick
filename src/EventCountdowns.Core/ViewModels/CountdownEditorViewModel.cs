@@ -8,7 +8,7 @@ using EventCountdowns.Core.Services.EventCountdownManager;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownEditorViewModel : ViewModel
+public class CountdownEditorViewModel : ViewModelBase
 {
 	public enum EditorMode
 	{

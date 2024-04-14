@@ -1,15 +1,18 @@
-﻿namespace EventCountdowns.Core.Services.Navigation;
+﻿using System.Reflection;
+
+namespace EventCountdowns.Services.Navigation;
 
 public interface INavigationService
 {
+	void ClearBackStack();
+
 	void Navigate<TViewModel>();
 
-	void Navigate<TViewModel>(object navigationModel);
+	void Navigate<TViewModel>(object parameter);
 
-	void GoBack();
+	bool GoBack();
 
-	bool CanGoBack { get; }
+	void Initialize();
 
-	INavigationService RegisterForNavigation<TViewModel, TPage>()
-		where TPage : Page;
+	void RegisterViewsFromAssembly(Assembly sourceAssembly);
 }

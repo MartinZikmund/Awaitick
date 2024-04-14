@@ -2,7 +2,7 @@ using EventCountdowns.Core.Configuration;
 
 namespace EventCountdowns;
 
-public class App : Application
+public class CountdownsApp : Application
 {
 	protected Window? MainWindow { get; private set; }
 	protected IHost? Host { get; private set; }
@@ -17,7 +17,7 @@ public class App : Application
 #endif
 				.UseConfiguration(configure: configBuilder =>
 					configBuilder
-						.EmbeddedSource<App>()
+						.EmbeddedSource<CountdownsApp>()
 						.Section<AppConfig>()
 				)
 				// Enable localization (see appsettings.json for supported languages)

@@ -10,7 +10,7 @@ using EventCountdowns.Core.Services.Tiles;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class MainViewModel : ViewModel
+public class MainViewModel : ViewModelBase
 {
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;

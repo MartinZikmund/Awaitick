@@ -7,7 +7,7 @@
     <!-- Display name -->
     <ApplicationTitle>EventCountdowns</ApplicationTitle>
     <!-- App Identifier -->
-    <ApplicationId>dev.mzikmund.eventcountdowns</ApplicationId>
+    <ApplicationId>dev.EventCountdowns.eventcountdowns</ApplicationId>
     <ApplicationIdGuid>61961C5B-2303-46E6-82BF-66178B8DBE9F</ApplicationIdGuid>
     <!-- Versions -->
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>

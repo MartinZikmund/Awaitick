@@ -9,7 +9,7 @@ using EventCountdowns.Core.Services.Tiles;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownDetailViewModel : ViewModel
+public class CountdownDetailViewModel : ViewModelBase
 {
 	public class NavigationModel
 	{

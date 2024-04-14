@@ -4,21 +4,19 @@ using System.Runtime.CompilerServices;
 using EventCountdowns.Core.Services.Navigation;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.Services.InAppPurchases;
-using Windows.UI.ViewManagement;
+using EventCountdowns.Services.Navigation;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public abstract class ViewModel : ObservableRecipient
+public abstract partial class ViewModelBase : ObservableRecipient
 {
 	private readonly Dictionary<string, ICommand> _commands = new();
 
 	private INavigationService? _navigationService;
 	private bool _isWorking;
 
-	public string Title { get; set; }
-
-	private void OnTitleChanged() =>
-		ApplicationView.GetForCurrentView().Title = Title;
+	[ObservableProperty]
+	private string _title = "";
 
 	protected INavigationService Navigation => _navigationService ?? (_navigationService = IoC.GetRequiredService<INavigationService>());
 

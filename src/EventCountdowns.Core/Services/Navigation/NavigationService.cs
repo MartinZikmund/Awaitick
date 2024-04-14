@@ -1,55 +1,67 @@
-﻿namespace EventCountdowns.Core.Services.Navigation;
+﻿using System.Reflection;
+using Windows.UI.Core;
+
+namespace EventCountdowns.Services.Navigation;
 
 public class NavigationService : INavigationService
 {
-	private const string ModelSuffix = "Model";
+	private readonly Dictionary<string, Type> _views = new();
+	private readonly IFrameProvider _frameProvider;
 
-	private readonly Dictionary<Type, Type> _viewModelToPageMap = new();
-	private readonly IFrameAccessor _frameAccessor;
-
-	public NavigationService(IFrameAccessor frameAccessor)
+	public NavigationService(IFrameProvider frameProvider)
 	{
-		_frameAccessor = frameAccessor ?? throw new ArgumentNullException(nameof(frameAccessor));
+		_frameProvider = frameProvider ?? throw new ArgumentNullException(nameof(frameProvider));
 	}
 
-	public bool CanGoBack => _frameAccessor.GetFrame().CanGoBack;
+	private Frame Frame => _frameProvider.GetForCurrentView();
 
-	public void GoBack()
+	public bool GoBack()
 	{
-		var frame = _frameAccessor.GetFrame();
-		if (frame.CanGoBack)
+		if (Frame.CanGoBack)
 		{
-			frame.GoBack();
+			Frame.GoBack();
+			return true;
 		}
+		return false;
 	}
 
-	public void Navigate<TViewModel>()
-	{
-		var view = FindViewForViewModel<TViewModel>();
+	public void Navigate<TViewModel>() => Navigate<TViewModel>(null);
 
-		_frameAccessor.GetFrame().Navigate(view);
-	}
-
-	private Type FindViewForViewModel<TViewModel>()
+	public void Navigate<TViewModel>(object? parameter)
 	{
-		if (!_viewModelToPageMap.TryGetValue(typeof(TViewModel), out var pageType))
+		if (!TryFindViewForViewModel(typeof(TViewModel), out var viewType))
 		{
 			throw new InvalidOperationException($"ViewModel type {typeof(TViewModel).Name} is not registered for navigation.");
 		}
 
-		return pageType;
+		Frame.Navigate(viewType, parameter);
 	}
 
-	public void Navigate<TViewModel>(object navigationModel)
+	private bool TryFindViewForViewModel(Type viewModelType, out Type? viewType)
 	{
-		var view = FindViewForViewModel<TViewModel>();
-		_frameAccessor.GetFrame().Navigate(view, navigationModel);
+		if (!viewModelType.Name.EndsWith("ViewModel", StringComparison.OrdinalIgnoreCase))
+		{
+			throw new InvalidOperationException("ViewModel name must end with 'ViewModel' by convention.");
+		}
+
+		var viewModelName = viewModelType.Name;
+		return _views.TryGetValue(viewModelName.Substring(0, viewModelName.Length - "Model".Length), out viewType);
 	}
 
-	public INavigationService RegisterForNavigation<TViewModel, TPage>()
-		where TPage : Page
+	public void RegisterViewsFromAssembly(Assembly sourceAssembly)
 	{
-		_viewModelToPageMap[typeof(TViewModel)] = typeof(TPage);
-		return this;
+		// TODO: Avoid reflection
+		var pageType = typeof(Page);
+		var pages = sourceAssembly.GetTypes().Where(t => pageType.IsAssignableFrom(t) && t.Name.EndsWith("View", StringComparison.OrdinalIgnoreCase)).ToArray();
+		foreach (var viewType in pages)
+		{
+			_views.Add(viewType.Name, viewType);
+		}
 	}
+
+	public void Initialize() =>
+		SystemNavigationManager.GetForCurrentView().BackRequested += NavigationManagerBackRequested;
+
+	private void NavigationManagerBackRequested(object? sender, BackRequestedEventArgs? e) => GoBack();
+	public void ClearBackStack() => Frame.BackStack.Clear();
 }
