@@ -1,4 +1,5 @@
 ﻿using EventCountdowns.Core.ViewModels;
+using EventCountdowns.Services.Localization;
 using EventCountdowns.Services.Navigation;
 using Microsoft.UI.Dispatching;
 using Uno.Disposables;
@@ -23,7 +24,7 @@ public partial class WindowShellViewModel : ViewModelBase
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 	}
 
-	public string Title { get; set; } = "Martin Zikmund";
+	public string Title { get; set; } = Localizer.Instance.GetString("AppName");
 
 	public IDisposable BeginLoading()
 	{

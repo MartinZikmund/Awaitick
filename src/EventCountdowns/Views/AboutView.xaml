@@ -58,7 +58,7 @@
                     <TextBlock Text="Sphereline" FontWeight="SemiLight" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="50" Foreground="#008cd5" />
 
                 </StackPanel>
-                <HyperlinkButton Margin="0,0,0,20" Content="{xaml:Localize Key=MoreAppsBySphereline}" Command="{x:Bind Model.MoreAppsCommand}" />
+                <HyperlinkButton Margin="0,0,0,20" Content="{xaml:Localize Key=MoreAppsBySphereline}" Command="{x:Bind ViewModel.MoreAppsCommand}" />
 
                 <Grid Margin="0,5">
                     <Grid.RowDefinitions>

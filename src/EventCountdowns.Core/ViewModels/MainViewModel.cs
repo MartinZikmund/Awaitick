@@ -7,10 +7,11 @@ using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Tiles;
+using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class MainViewModel : ViewModelBase
+public class MainViewModel : PageViewModel
 {
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;

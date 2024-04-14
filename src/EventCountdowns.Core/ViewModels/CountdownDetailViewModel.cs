@@ -6,10 +6,11 @@ using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Share;
 using EventCountdowns.Core.Services.Tiles;
+using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownDetailViewModel : ViewModelBase
+public class CountdownDetailViewModel : PageViewModel
 {
 	public class NavigationModel
 	{

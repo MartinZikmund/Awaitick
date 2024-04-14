@@ -336,4 +336,7 @@
   <data name="PurchaseUnsuccessfulText" xml:space="preserve">
     <value>An error occured trying to purchase the coffee... Please, try it again later.</value>
   </data>
+  <data name="TapToAddYourFirstEvent" xml:space="preserve">
+    <value>Tap to add your first event</value>
+  </data>
 </root>

@@ -16,7 +16,7 @@
         </TransitionCollection>
     </local:MainViewBase.Transitions>
 
-    <Grid Background="{ThemeResource PageBackgroundBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -43,20 +43,20 @@
                     <EntranceThemeTransition />
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <Grid Visibility="{x:Bind Model.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Grid>
                     <controls:EventsGridView
                         Name="AdaptiveGridViewControl"
                         ItemContainerStyle="{StaticResource TightGridViewItemContainerStyle}"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
-                        ItemsSource="{x:Bind Model.EventCountdowns}"
+                        ItemsSource="{x:Bind ViewModel.EventCountdowns}"
                         Style="{StaticResource EventGridViewStyle}" />
                 </Grid>
             </Grid>
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Visibility="{x:Bind Model.HasAnyEvents, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+                Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
                 <Image
                     Width="160"
                     Height="160"
@@ -64,20 +64,20 @@
                     VerticalAlignment="Center"
                     Source="ms-appx:///Assets/AddEvent.svg"
                     Stretch="Fill" />
-                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Add your first event" />
+				<TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{xaml:Localize Key=TapToAddYourFirstEvent}" />
             </StackPanel>
         </Grid>
 
         <!--  Commands  --><!--
         <CommandBar Grid.Row="3" Grid.ColumnSpan="2">
             <AppBarButton
-                Command="{x:Bind Model.AddCommand}"
+                Command="{x:Bind ViewModel.AddCommand}"
                 Icon="Add"
                 Label="{xaml:Localize Key=AddEvent}" />
             <AppBarButton
-                Command="{x:Bind Model.BuyMeCoffeeCommand}"
+                Command="{x:Bind ViewModel.BuyMeCoffeeCommand}"
                 Label="{xaml:Localize Key=BuyMeCoffee}"
-                Visibility="{x:Bind Model.ShowCoffee, Converter={StaticResource BoolToVisibilityConverter}}">
+                Visibility="{x:Bind ViewModel.ShowCoffee, Converter={StaticResource BoolToVisibilityConverter}}">
                 <AppBarButton.Icon>
                     <BitmapIcon
                         Height="25"
@@ -89,25 +89,14 @@
             --><!--<AppBarButton Icon="Bullets" Label="{xaml:Localize Key=Manage}" />-->
             <!--<AppBarButton Icon="Accept" Click="ButtonBase_OnClick" Label="{xaml:Localize Key=Done}" />--><!--
             <CommandBar.SecondaryCommands>
-                <AppBarButton Command="{x:Bind Model.AboutAppCommand}" Label="{xaml:Localize Key=AboutApp}" />
-                <AppBarButton Command="{x:Bind Model.RateAppCommand}" Label="{xaml:Localize Key=RateThisApp}" />
-                <AppBarButton Command="{x:Bind Model.SendFeedbackCommand}" Label="{xaml:Localize Key=SendFeedback}" />
+                <AppBarButton Command="{x:Bind ViewModel.AboutAppCommand}" Label="{xaml:Localize Key=AboutApp}" />
+                <AppBarButton Command="{x:Bind ViewModel.RateAppCommand}" Label="{xaml:Localize Key=RateThisApp}" />
+                <AppBarButton Command="{x:Bind ViewModel.SendFeedbackCommand}" Label="{xaml:Localize Key=SendFeedback}" />
                 <AppBarButton
-                    Command="{x:Bind Model.BuyMeCoffeeCommand}"
+                    Command="{x:Bind ViewModel.BuyMeCoffeeCommand}"
                     Label="{xaml:Localize Key=BuyMeCoffee}"
-                    Visibility="{x:Bind Model.ShowCoffee, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
+                    Visibility="{x:Bind ViewModel.ShowCoffee, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
             </CommandBar.SecondaryCommands>
-        </CommandBar>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WindowSizeGroup">
-                <VisualState />
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters />
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>-->
+        </CommandBar>-->
     </Grid>
 </local:MainViewBase>

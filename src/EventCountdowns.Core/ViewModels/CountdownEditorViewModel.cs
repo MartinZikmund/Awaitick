@@ -5,10 +5,11 @@ using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownEditorViewModel : ViewModelBase
+public class CountdownEditorViewModel : PageViewModel
 {
 	public enum EditorMode
 	{

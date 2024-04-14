@@ -22,7 +22,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <usercontrols:PageHeaderControl Title="{x:Bind Model.Title, Mode=OneWay}" FontWeight="SemiBold" />
+        <usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" FontWeight="SemiBold" />
         <ScrollViewer Grid.Row="1" Margin="0">
             <Border Padding="10" HorizontalAlignment="Stretch">
                 <Grid>
@@ -50,13 +50,13 @@
                                 Margin="0,0,0,8"
                                 Style="{StaticResource FormLabelTextBlockStyle}"
                                 Text="{xaml:Localize Key=Name}" />
-                            <TextBox Text="{x:Bind Model.Name, Mode=TwoWay}" />
+                            <TextBox Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
                             <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Date}" />
-                            <DatePicker Date="{x:Bind Model.Date, Mode=TwoWay}" />
+                            <DatePicker Date="{x:Bind ViewModel.Date, Mode=TwoWay}" />
                             <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Time}" />
-                            <TimePicker Time="{x:Bind Model.Time, Mode=TwoWay}" />
+                            <TimePicker Time="{x:Bind ViewModel.Time, Mode=TwoWay}" />
                             <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Celebration}" />
-                            <TextBox PlaceholderText="{x:Bind Model.DefaultCelebrationMessage, Mode=OneWay}" Text="{x:Bind Model.CelebrationMessage, Mode=TwoWay}" />
+                            <TextBox PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}" Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay}" />
 
                         </StackPanel>
                         <Grid
@@ -79,7 +79,7 @@
                                 <StackPanel>
                                     <Button
                                         Margin="0,0,0,10"
-                                        Command="{x:Bind Model.ChooseYourImageCommand}"
+                                        Command="{x:Bind ViewModel.ChooseYourImageCommand}"
                                         Content="{xaml:Localize Key=ChooseYourImage}" />
                                     <TextBlock
                                         FontSize="16"
@@ -87,7 +87,7 @@
                                         Text="{xaml:Localize Key=DefaultBackgrounds}" />
                                     <GridView
                                         Margin="0,5,0,0"
-                                        ItemsSource="{x:Bind Model.DefaultBackgrounds}"
+                                        ItemsSource="{x:Bind ViewModel.DefaultBackgrounds}"
                                         SelectedItem="{Binding SelectedDefaultBackground, Mode=TwoWay}"
                                         SelectionMode="Single">
                                         <GridView.ItemTemplate>
@@ -138,24 +138,24 @@
         </ScrollViewer>
         <CommandBar Grid.Row="2">
             <AppBarButton
-                Command="{x:Bind Model.SaveCommand}"
+                Command="{x:Bind ViewModel.SaveCommand}"
                 Icon="Save"
                 Label="{xaml:Localize Key=Save}" />
             <AppBarButton
-                Command="{x:Bind Model.CancelCommand}"
+                Command="{x:Bind ViewModel.CancelCommand}"
                 Icon="Cancel"
                 Label="{xaml:Localize Key=Cancel}" />
         </CommandBar>
         <Grid
             Grid.RowSpan="3"
             Background="#88FFFFFF"
-            Visibility="{x:Bind Model.IsWorking, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
+            Visibility="{x:Bind ViewModel.IsWorking, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
             <ProgressRing
                 Width="50"
                 Height="50"
                 BorderBrush="Black"
                 Foreground="Black"
-                IsActive="{x:Bind Model.IsWorking, Mode=OneWay}" />
+                IsActive="{x:Bind ViewModel.IsWorking, Mode=OneWay}" />
         </Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

@@ -336,4 +336,7 @@
   <data name="PurchaseUnsuccessfulText" xml:space="preserve">
     <value>Při pokusu o zakoupení kávy došlo k chybě... Zkuste to prosím znovu později.</value>
   </data>
+  <data name="TapToAddYourFirstEvent" xml:space="preserve">
+    <value>Klepnutím přidejte svou první událost</value>
+  </data>
 </root>

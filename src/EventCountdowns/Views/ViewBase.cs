@@ -1,37 +1,70 @@
-﻿using EventCountdowns.Core.Infrastructure;
-using EventCountdowns.Core.ViewModels;
+﻿using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Views;
 
-public partial class ViewBase<TViewModel> : Page, IViewBase
-	where TViewModel : ViewModelBase
+public abstract partial class PageBase<TViewModel> : Page
+	where TViewModel : PageViewModel
 {
-	private TViewModel? _model;
+	private object? _pendingParameter;
+	private bool _isNavigationDelayed;
 
-	public ViewBase()
+	protected PageBase()
 	{
-		//TODO: Move to later?
-		DataContext = Model;
+		Loading += PageLoading;
+		Loaded += PageLoaded;
+		Unloaded += PageUnloaded;
 	}
 
-	public virtual TViewModel Model
-	{
-		get
-		{
-			if (DesignMode.DesignMode2Enabled)
-			{
-				return null;
-			}
+	public virtual TViewModel? ViewModel { get; private set; }
 
-			return _model ??= IoC.GetRequiredService<TViewModel>();
+	private void PageLoading(object sender, object args)
+	{
+		EnsureViewModel();
+
+		if (_isNavigationDelayed)
+		{
+			ViewModel?.ViewNavigatedTo(_pendingParameter);
+			_pendingParameter = null;
+		}
+
+		ViewModel?.ViewLoading();
+	}
+
+	private void PageLoaded(object sender, RoutedEventArgs e)
+	{
+		ViewModel?.ViewLoaded();
+	}
+
+	protected override void OnNavigatedTo(NavigationEventArgs e)
+	{
+		EnsureViewModel();
+
+		if (ViewModel is not null)
+		{
+			ViewModel.ViewNavigatedTo(_pendingParameter ?? e.Parameter);
+		}
+		else
+		{
+			_isNavigationDelayed = true;
+			_pendingParameter = e.Parameter;
 		}
 	}
 
-	object IViewBase.Model => Model;
-
-	protected override async void OnNavigatedTo(NavigationEventArgs e)
+	private void PageUnloaded(object sender, RoutedEventArgs e)
 	{
-		base.OnNavigatedTo(e);
-		await Model.LoadAsync(e.Parameter);
+		ViewModel?.ViewUnloaded();
+	}
+
+	private void EnsureViewModel()
+	{
+		if (ViewModel is not null)
+		{
+			return;
+		}
+
+		if (XamlRoot?.Content is WindowShell windowShell)
+		{
+			ViewModel = windowShell.ServiceProvider.GetRequiredService<TViewModel>();
+		}
 	}
 }

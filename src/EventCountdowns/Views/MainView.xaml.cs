@@ -16,7 +16,7 @@ public sealed partial class MainView : MainViewBase
 	private void _timer_Tick(object sender, object e)
 	{
 		//update data on view model
-		Model.UpdateCountdowns();
+		ViewModel.UpdateCountdowns();
 	}
 
 	protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -32,6 +32,6 @@ public sealed partial class MainView : MainViewBase
 	}
 }
 
-public partial class MainViewBase : ViewBase<MainViewModel>
+public partial class MainViewBase : PageBase<MainViewModel>
 {
 }

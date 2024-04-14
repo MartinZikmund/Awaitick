@@ -1,8 +1,9 @@
 ﻿using EventCountdowns.Core.Services.StoreLauncher;
+using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class AboutViewModel : ViewModelBase
+public class AboutViewModel : PageViewModel
 {
 	private readonly IStoreLauncherService _storeLauncherService;
 

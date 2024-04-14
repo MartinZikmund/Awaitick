@@ -3,9 +3,9 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Windows.Compatibility" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
-    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.4.231219000" />
+    <PackageVersion Include="Microsoft.Windows.Compatibility" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.5.240404000" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="SkiaSharp.Skottie" Version="2.88.8" />
     <PackageVersion Include="SkiaSharp.Views.Uno.WinUI" Version="2.88.8" />
@@ -30,6 +30,6 @@
     <PackageVersion Include="Uno.WinUI.Skia.Linux.FrameBuffer" Version="$(UnoVersion)" />
     <PackageVersion Include="Uno.WinUI.Skia.Wpf" Version="$(UnoVersion)" />
     <PackageVersion Include="Uno.WinUI.WebAssembly" Version="$(UnoVersion)" />
-    <PackageVersion Include="Xamarin.Google.Android.Material" Version="1.10.0.2" />
+    <PackageVersion Include="Xamarin.Google.Android.Material" Version="1.10.0.3" />
   </ItemGroup>
 </Project>
