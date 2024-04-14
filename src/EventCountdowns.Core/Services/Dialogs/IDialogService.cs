@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 
-namespace EventCountdowns.Core.Services.Dialogs
+namespace EventCountdowns.Core.Services.Dialogs;
+
+public interface IDialogService
 {
-    public interface IDialogService
-    {
-        Task<ContentDialogResult> ShowAsync(string title, string text);
-    }
+	Task<ContentDialogResult> ShowAsync(string title, string text);
 }

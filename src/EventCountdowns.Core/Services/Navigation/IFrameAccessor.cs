@@ -1,9 +1,8 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 
-namespace EventCountdowns.Core.Services.Navigation
+namespace EventCountdowns.Core.Services.Navigation;
+
+public interface IFrameAccessor
 {
-    public interface IFrameAccessor
-    {
-        public Frame GetFrame();
-    }
+	public Frame GetFrame();
 }

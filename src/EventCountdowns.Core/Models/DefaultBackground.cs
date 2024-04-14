@@ -4,21 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Models
+namespace EventCountdowns.Core.Models;
+
+public class DefaultBackground
 {
-    public class DefaultBackground
-    {
-        public DefaultBackground( string key, string backgroundPath, string thumbnailPath)
-        {
-            Key = key;
-            BackgroundPath = backgroundPath;
-            ThumbnailPath = thumbnailPath;  
-        }
+	public DefaultBackground(string key, string backgroundPath, string thumbnailPath)
+	{
+		Key = key;
+		BackgroundPath = backgroundPath;
+		ThumbnailPath = thumbnailPath;
+	}
 
-        public string Key { get; set; }
+	public string Key { get; set; }
 
-        public string BackgroundPath { get; set; }
+	public string BackgroundPath { get; set; }
 
-        public string ThumbnailPath { get; set; }
-    }
+	public string ThumbnailPath { get; set; }
 }

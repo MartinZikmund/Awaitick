@@ -5,55 +5,54 @@ using System.Text;
 using System.Threading.Tasks;
 using EventCountdowns.Models.Theming;
 
-namespace EventCountdowns.Core.Services.Settings
+namespace EventCountdowns.Core.Services.Settings;
+
+public class AppSettings : IAppSettings
 {
-    public class AppSettings : IAppSettings
-    {
-        private readonly ISettingsService _settingsService;
+	private readonly ISettingsService _settingsService;
 
-        public AppSettings(ISettingsService settingsService)
-        {
-            _settingsService = settingsService;
-        }
+	public AppSettings(ISettingsService settingsService)
+	{
+		_settingsService = settingsService;
+	}
 
-        private const string DataVersionKey = "AppDataVersion";
+	private const string DataVersionKey = "AppDataVersion";
 
-        public int DataVersion
-        {
-            get => _settingsService.GetSetting(DataVersionKey, () => 0);
-            set => _settingsService.SetSetting(DataVersionKey, value);
-        }
+	public int DataVersion
+	{
+		get => _settingsService.GetSetting(DataVersionKey, () => 0);
+		set => _settingsService.SetSetting(DataVersionKey, value);
+	}
 
-        private const string FirstStartKey = "AppFirstStart";
+	private const string FirstStartKey = "AppFirstStart";
 
-        public bool FirstStart
-        {
-            get => _settingsService.GetSetting(FirstStartKey, () => true);
-            set => _settingsService.SetSetting(FirstStartKey, value);
-        }
+	public bool FirstStart
+	{
+		get => _settingsService.GetSetting(FirstStartKey, () => true);
+		set => _settingsService.SetSetting(FirstStartKey, value);
+	}
 
-        private const string LaunchCountKey = "AppLaunchCount";
+	private const string LaunchCountKey = "AppLaunchCount";
 
-        public int LaunchCount
-        {
-            get => _settingsService.GetSetting(LaunchCountKey, () => 0);
-            set => _settingsService.SetSetting(LaunchCountKey, value);
-        }
+	public int LaunchCount
+	{
+		get => _settingsService.GetSetting(LaunchCountKey, () => 0);
+		set => _settingsService.SetSetting(LaunchCountKey, value);
+	}
 
-        private const string OfferUserRatingKey = "OfferUserRating";
+	private const string OfferUserRatingKey = "OfferUserRating";
 
-        public bool OfferUserRating
-        {
-            get => _settingsService.GetSetting(OfferUserRatingKey, () => true, true);
-            set => _settingsService.SetSetting(OfferUserRatingKey, value, true);
-        }
+	public bool OfferUserRating
+	{
+		get => _settingsService.GetSetting(OfferUserRatingKey, () => true, true);
+		set => _settingsService.SetSetting(OfferUserRatingKey, value, true);
+	}
 
-        private const string AppThemeKey = "AppTheme";
+	private const string AppThemeKey = "AppTheme";
 
-        public AppTheme Theme
-        {
-            get => _settingsService.GetSetting(AppThemeKey, () => AppTheme.System, true);
-            set => _settingsService.SetSetting(AppThemeKey, value, true);
-        }
-    }
+	public AppTheme Theme
+	{
+		get => _settingsService.GetSetting(AppThemeKey, () => AppTheme.System, true);
+		set => _settingsService.SetSetting(AppThemeKey, value, true);
+	}
 }

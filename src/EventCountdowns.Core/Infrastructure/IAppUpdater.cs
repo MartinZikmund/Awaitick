@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Infrastructure
+namespace EventCountdowns.Core.Infrastructure;
+
+public interface IAppUpdater
 {
-    public interface IAppUpdater
-    {
-        Task EnsureAppUpToDateAsync();
-    }
+	Task EnsureAppUpToDateAsync();
 }

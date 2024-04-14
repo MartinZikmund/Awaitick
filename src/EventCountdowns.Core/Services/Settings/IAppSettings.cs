@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using EventCountdowns.Models.Theming;
 
-namespace EventCountdowns.Core.Services.Settings
+namespace EventCountdowns.Core.Services.Settings;
+
+public interface IAppSettings
 {
-    public interface IAppSettings
-    {
-        int DataVersion { get; set; }
+	int DataVersion { get; set; }
 
-        bool FirstStart { get; set; }
+	bool FirstStart { get; set; }
 
-        int LaunchCount { get; set; }
+	int LaunchCount { get; set; }
 
-        bool OfferUserRating { get; set; }
+	bool OfferUserRating { get; set; }
 
-        AppTheme Theme { get; set; }
-    }
+	AppTheme Theme { get; set; }
 }

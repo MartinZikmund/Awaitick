@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.BackgroundTasks
-{
-    public interface IBackgroundTasksService
-    {
-        Task<bool> RegisterAsync();
+namespace EventCountdowns.Core.Services.BackgroundTasks;
 
-        Task<bool> UnregisterAsync();
-    }
+public interface IBackgroundTasksService
+{
+	Task<bool> RegisterAsync();
+
+	Task<bool> UnregisterAsync();
 }

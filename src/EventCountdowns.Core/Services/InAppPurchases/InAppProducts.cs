@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.InAppPurchases
+namespace EventCountdowns.Core.Services.InAppPurchases;
+
+public enum InAppProducts
 {
-    public enum InAppProducts
-    {
-        SmallCoffee,
-        MediumCoffee,
-        LargeCoffee,
-        GigaCoffee
-    }
+	SmallCoffee,
+	MediumCoffee,
+	LargeCoffee,
+	GigaCoffee
 }

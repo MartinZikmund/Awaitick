@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.StoreLauncher
+namespace EventCountdowns.Core.Services.StoreLauncher;
+
+public interface IStoreLauncherService
 {
-    public interface IStoreLauncherService
-    {
-        Task RateAppAsync();
+	Task RateAppAsync();
 
-        Task MoreAppsByPublisherAsync();
+	Task MoreAppsByPublisherAsync();
 
-        Task ShowAppListingAsync();                      
-    }
+	Task ShowAppListingAsync();
 }

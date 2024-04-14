@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using EventCountdowns.Core.Models;
 
-namespace EventCountdowns.Core.Services.EventCountdownManager
+namespace EventCountdowns.Core.Services.EventCountdownManager;
+
+public interface IEventCountdownManager
 {
-    public interface IEventCountdownManager
-    {
-        Task AddCountdownAsync(EventCountdown eventCountdown);
-        Task UpdateCountdownAsync(EventCountdown eventCountdown);
-        Task DeleteCountdownAsync(EventCountdown eventCountdown);
-    }
+	Task AddCountdownAsync(EventCountdown eventCountdown);
+	Task UpdateCountdownAsync(EventCountdown eventCountdown);
+	Task DeleteCountdownAsync(EventCountdown eventCountdown);
 }

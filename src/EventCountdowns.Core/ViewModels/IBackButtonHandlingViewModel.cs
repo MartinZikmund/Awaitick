@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.ViewModels
+namespace EventCountdowns.Core.ViewModels;
+
+public interface IBackButtonHandlingViewModel
 {
-    public interface IBackButtonHandlingViewModel
-    {
-        bool HandleBackRequest();
-    }
+	bool HandleBackRequest();
 }

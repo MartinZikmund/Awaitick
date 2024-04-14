@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 
-namespace EventCountdowns.Core.Services.Navigation
+namespace EventCountdowns.Core.Services.Navigation;
+
+public interface INavigationService
 {
-    public interface INavigationService
-    {
-        void Navigate<TViewModel>();
+	void Navigate<TViewModel>();
 
-        void Navigate<TViewModel>(object navigationModel);
+	void Navigate<TViewModel>(object navigationModel);
 
-        void GoBack();
+	void GoBack();
 
-        bool CanGoBack { get; }
+	bool CanGoBack { get; }
 
-        INavigationService RegisterForNavigation<TViewModel, TPage>()
-            where TPage : Page;
-    }
+	INavigationService RegisterForNavigation<TViewModel, TPage>()
+		where TPage : Page;
 }

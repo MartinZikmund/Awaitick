@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.Rating
+namespace EventCountdowns.Core.Services.Rating;
+
+public interface IAppRatingService
 {
-    public interface IAppRatingService
-    {
-        Task AskUserForRatingAsync();
-    }
+	Task AskUserForRatingAsync();
 }

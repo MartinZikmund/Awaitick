@@ -1,11 +1,10 @@
 ﻿using EventCountdowns.Models.Theming;
 
-namespace EventCountdowns.Services.Theming
-{
-    public interface IThemeManager
-    {
-        void SetTheme(AppTheme theme);
+namespace EventCountdowns.Services.Theming;
 
-        AppTheme CurrentTheme { get; }
-    }
+public interface IThemeManager
+{
+	void SetTheme(AppTheme theme);
+
+	AppTheme CurrentTheme { get; }
 }

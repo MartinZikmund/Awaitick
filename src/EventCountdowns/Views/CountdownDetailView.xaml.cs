@@ -6,48 +6,63 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using EventCountdowns.Core.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
 
+
+/* Unmerged change from project 'EventCountdowns (net8.0)'
+Before:
 namespace EventCountdowns.Views
 {
-    public sealed partial class CountdownDetailView : CountdownDetailViewBase
-    {
-        private readonly DispatcherTimer _timer = null;
+	public sealed partial class CountdownDetailView : CountdownDetailViewBase
+After:
+namespace EventCountdowns.Views;
 
-        public CountdownDetailView()
-        {
-            this.InitializeComponent();
-            _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
-            _timer.Tick += _timer_Tick;
-        }
+	public sealed partial class CountdownDetailView : CountdownDetailViewBase
+*/
+namespace EventCountdowns.Views;
 
-        private void _timer_Tick(object sender, object e)
-        {
-            //update data on view model
-            Model.UpdateCountdowns();
-        }
+public sealed partial class CountdownDetailView : CountdownDetailViewBase
+{
+	private readonly DispatcherTimer _timer;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            _timer.Start();
-        }
+    public CountdownDetailView()
+	{
+		this.InitializeComponent();
+		_timer = new DispatcherTimer();
+		_timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
+		_timer.Tick += _timer_Tick;
+	}
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            _timer.Stop();
-        }
-    }
+	private void _timer_Tick(object sender, object e)
+	{
+		//update data on view model
+		Model.UpdateCountdowns();
+	}
 
-    public partial class CountdownDetailViewBase : ViewBase<CountdownDetailViewModel>
-    {
-    }
+	protected override void OnNavigatedTo(NavigationEventArgs e)
+	{
+		base.OnNavigatedTo(e);
+		_timer.Start();
+	}
+
+	protected override void OnNavigatedFrom(NavigationEventArgs e)
+	{
+		base.OnNavigatedFrom(e);
+		_timer.Stop();
+	}
+}
+
+public partial class CountdownDetailViewBase : ViewBase<CountdownDetailViewModel>
+{
+
+/* Unmerged change from project 'EventCountdowns (net8.0)'
+Removed:
+}
+*/
 }

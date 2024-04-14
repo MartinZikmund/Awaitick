@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.InAppPurchases
-{
-    public interface IInAppPurchaseService
-    {
-        bool HasUserAnyProduct();
+namespace EventCountdowns.Core.Services.InAppPurchases;
 
-        Task<bool> PurchaseAsync( InAppProducts product );        
-    }
+public interface IInAppPurchaseService
+{
+	bool HasUserAnyProduct();
+
+	Task<bool> PurchaseAsync(InAppProducts product);
 }

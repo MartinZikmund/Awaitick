@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.BackgroundPicker
+namespace EventCountdowns.Core.Services.BackgroundPicker;
+
+public interface IBackgroundPickerService
 {
-    public interface IBackgroundPickerService
-    {
-        Task<string?> PickBackgroundAsync();
-    }
+	Task<string?> PickBackgroundAsync();
 }

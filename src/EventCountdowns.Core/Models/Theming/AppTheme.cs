@@ -1,9 +1,8 @@
-﻿namespace EventCountdowns.Models.Theming
+﻿namespace EventCountdowns.Models.Theming;
+
+public enum AppTheme
 {
-    public enum AppTheme
-    {
-        System,
-        Light,
-        Dark,
-    }
+	System,
+	Light,
+	Dark,
 }

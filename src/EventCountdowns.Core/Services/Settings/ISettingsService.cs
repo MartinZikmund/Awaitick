@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.Settings
+namespace EventCountdowns.Core.Services.Settings;
+
+public interface ISettingsService
 {
-    public interface ISettingsService
-    {
-        T GetSetting<T>(string key, Func<T> defaultValueBuilder, bool roamed = false);
-        void SetSetting<T>(string key, T value, bool roamed = false);
-    }
+	T GetSetting<T>(string key, Func<T> defaultValueBuilder, bool roamed = false);
+	void SetSetting<T>(string key, T value, bool roamed = false);
 }

@@ -1,7 +1,6 @@
-﻿namespace EventCountdowns.Core.Configuration
+﻿namespace EventCountdowns.Core.Configuration;
+
+public static class ApplicationReleaseInfo
 {
-    public static class ApplicationReleaseInfo
-    {
-        public const int DataVersion = 1;
-    }
+	public const int DataVersion = 1;
 }

@@ -2,25 +2,40 @@
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.Core.Services;
 using Windows.ApplicationModel;
-using Windows.UI.Xaml.Markup;
+using Microsoft.UI.Xaml.Markup;
 
+
+/* Unmerged change from project 'EventCountdowns (net8.0)'
+Before:
 namespace EventCountdowns.Extensions.Xaml
 {
-    public class Localize : MarkupExtension
-    {
-        private static Lazy<ILocalizationService> _localization = new Lazy<ILocalizationService>(
-            () =>
-            {
-                if (DesignMode.DesignMode2Enabled)
-                {
-                    return new LocalizationService();
-                }
+	public class Localize : MarkupExtension
+After:
+namespace EventCountdowns.Extensions.Xaml;
 
-                return IoC.GetRequiredService<ILocalizationService>();
-            });
+	public class Localize : MarkupExtension
+*/
+namespace EventCountdowns.Extensions.Xaml;
 
-        public string Key { get; set; }
+public class Localize : MarkupExtension
+{
+	private static Lazy<ILocalizationService> _localization = new Lazy<ILocalizationService>(
+		() =>
+		{
+			if (DesignMode.DesignMode2Enabled)
+			{
+				return new LocalizationService();
+			}
 
-        protected override object ProvideValue() => _localization.Value.GetString(Key);
-    }
+			return IoC.GetRequiredService<ILocalizationService>();
+		});
+
+	public string Key { get; set; }
+
+	protected override object ProvideValue() => _localization.Value.GetString(Key);
+
+/* Unmerged change from project 'EventCountdowns (net8.0)'
+Removed:
+}
+*/
 }

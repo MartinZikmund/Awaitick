@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace EventCountdowns.Core.Services.Mail
+namespace EventCountdowns.Core.Services.Mail;
+
+public interface IMailService
 {
-    public interface IMailService
-    {
-        Task ComposeMailAsync( string subject, string addressTo );
-    }
+	Task ComposeMailAsync(string subject, string addressTo);
 }
