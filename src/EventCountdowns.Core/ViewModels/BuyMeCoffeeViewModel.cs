@@ -5,7 +5,7 @@ using MZikmund.Services.Dialogs;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class BuyMeCoffeeViewModel : ViewModelBase
+public partial class BuyMeCoffeeViewModel : ViewModelBase
 {
 	private readonly IInAppPurchaseService _inAppPurchaseService;
 	private readonly IDialogService _dialogService;
@@ -21,8 +21,7 @@ public class BuyMeCoffeeViewModel : ViewModelBase
 		_localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
 	}
 
-	public ICommand DonateCommand => GetOrCreateAsyncCommand<string>(DonateAsync);
-
+	[RelayCommand]
 	private async Task DonateAsync(string? coffeeSize)
 	{
 		InAppProducts product = InAppProducts.LargeCoffee;

@@ -39,7 +39,7 @@
             CornerRadius="24">
             <SymbolIcon Symbol="Setting" />
         </Button>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="Transparent">
 			<interactivity:Interaction.Behaviors>
 				<core:EventTriggerBehavior EventName="Tapped">
 					<core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />

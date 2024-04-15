@@ -43,7 +43,7 @@ public partial class MainViewModel : PageViewModel
 		_appSettings = appSettings;
 	}
 
-	public override async Task LoadAsync(object? parameter)
+	public override async void ViewNavigatedTo(object? parameter)
 	{
 		IsLoading = true;
 		//load countdowns

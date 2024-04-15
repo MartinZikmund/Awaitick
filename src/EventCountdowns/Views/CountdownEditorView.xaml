@@ -29,8 +29,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
                             x:Name="WrapperGridMaxColumn"
-                            Width="*"
-                            MaxWidth="350" />
+                            Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid>
@@ -50,7 +49,7 @@
                                 Margin="0,0,0,8"
                                 Style="{StaticResource FormLabelTextBlockStyle}"
                                 Text="{xaml:Localize Key=Name}" />
-                            <TextBox Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
+                            <TextBox FontSize="30" Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Date}" />
                             <DatePicker Date="{x:Bind ViewModel.Date, Mode=TwoWay}" />
                             <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Time}" />

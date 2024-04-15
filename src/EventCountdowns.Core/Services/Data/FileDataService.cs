@@ -10,7 +10,7 @@ public class FileDataService : IDataService
 
 	private readonly IFileService _fileService;
 
-	private List<EventCountdown> _eventCountdowns = new List<EventCountdown>();
+	private List<EventCountdown> _eventCountdowns = new();
 
 	public FileDataService(IFileService fileService)
 	{
@@ -18,11 +18,6 @@ public class FileDataService : IDataService
 	}
 
 	public async Task InitializeAsync()
-	{
-		await LoadDataAsync();
-	}
-
-	private async Task LoadDataAsync()
 	{
 		try
 		{

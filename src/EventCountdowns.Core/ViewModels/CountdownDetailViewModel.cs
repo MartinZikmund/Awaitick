@@ -11,7 +11,7 @@ using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownDetailViewModel : PageViewModel
+public partial class CountdownDetailViewModel : PageViewModel
 {
 	public class NavigationModel
 	{
@@ -53,7 +53,7 @@ public class CountdownDetailViewModel : PageViewModel
 		_localizationService = localizationService;
 	}
 
-	public override async Task LoadAsync(object? parameter)
+	public override async void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
@@ -75,8 +75,7 @@ public class CountdownDetailViewModel : PageViewModel
 		set => SetProperty(ref _eventCountdown, value);
 	}
 
-	public ICommand DeletePromptCommand => GetOrCreateCommand(DeletePrompt);
-
+	[RelayCommand]
 	private async void DeletePrompt()
 	{
 		//show delete dialog
@@ -92,16 +91,13 @@ public class CountdownDetailViewModel : PageViewModel
 		_navigationService.GoBack();
 	}
 
-
-	public ICommand EditCommand => GetOrCreateCommand(Edit);
-
+	[RelayCommand]
 	private void Edit()
 	{
 		_navigationService.Navigate<CountdownEditorViewModel>(CountdownEditorViewModel.NavigationModel.CreateEdit(EventCountdown.Id));
 	}
 
-	public ICommand ShareCommand => GetOrCreateCommand(Share);
-
+	[RelayCommand]
 	private void Share()
 	{
 		string sharedText = "";
@@ -123,7 +119,6 @@ public class CountdownDetailViewModel : PageViewModel
 		_sharingService.ShareTextAsync(sharedText);
 	}
 
-
 	public string TargetDateString
 	{
 		get => _targetDateString;
@@ -136,23 +131,20 @@ public class CountdownDetailViewModel : PageViewModel
 		set => SetProperty(ref _isTilePinned, value);
 	}
 
-	public ICommand PinCommand => GetOrCreateCommand(Pin);
-
-	private async void Pin()
+	[RelayCommand]
+	private async Task PinAsync()
 	{
 		IsTilePinned = await _tileService.PinCountdownAsync(EventCountdown.Model);
 		_tileService.UpdateCountdownTile(EventCountdown.Model);
 		_tileService.ScheduleCountdownNotification(EventCountdown.Model);
 	}
 
-	public ICommand UnPinCommand => GetOrCreateCommand(UnPin);
-
-	private async void UnPin()
+	[RelayCommand]
+	private async Task UnPinAsync()
 	{
 		var unpinSuccessful = await _tileService.UnpinCountdownAsync(EventCountdown.Model);
 		IsTilePinned = !unpinSuccessful;
 	}
-
 
 	public void UpdateCountdowns()
 	{

@@ -3,7 +3,7 @@ using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class AboutViewModel : PageViewModel
+public partial class AboutViewModel : PageViewModel
 {
 	private readonly IStoreLauncherService _storeLauncherService;
 
@@ -12,9 +12,8 @@ public class AboutViewModel : PageViewModel
 		_storeLauncherService = storeLauncherService;
 	}
 
-	public ICommand MoreAppsCommand => GetOrCreateCommand(MoreApps);
-
-	private async void MoreApps()
+	[RelayCommand]
+	private async Task MoreAppsAsync()
 	{
 		IsWorking = true;
 		await _storeLauncherService.MoreAppsByPublisherAsync();

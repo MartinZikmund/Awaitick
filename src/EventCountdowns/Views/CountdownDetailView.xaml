@@ -34,9 +34,9 @@
                 Stretch="UniformToFill">
                 <Image.Source>
                     <Binding Path="EventCountdown.BackgroundImagePath">
-                        <!--<Binding.TargetNullValue>
-                            <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                        </Binding.TargetNullValue>-->
+                        <Binding.TargetNullValue>
+                            <ImageSource>ms-appx:///EventCountdowns/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
+                        </Binding.TargetNullValue>
                     </Binding>
                 </Image.Source>
             </Image>

@@ -26,7 +26,7 @@ public class CountdownsApp : Application, IApplication
 
 	protected IHost? Host { get; private set; }
 
-	protected override void OnLaunched(LaunchActivatedEventArgs args)
+	protected override async void OnLaunched(LaunchActivatedEventArgs args)
 	{
 		var builder = this.CreateBuilder(args)
 			.Configure(host => host
@@ -52,6 +52,8 @@ public class CountdownsApp : Application, IApplication
 		Host = builder.Build();
 		Ioc.Default.ConfigureServices(Host.Services);
 
+		await Host.Services.GetRequiredService<IDataService>().InitializeAsync();
+
 		// Do not repeat app initialization when the Window already has content,
 		// just ensure that the window is active
 		if (MainWindow.Content is not WindowShell windowShell)
@@ -70,6 +72,7 @@ public class CountdownsApp : Application, IApplication
 			// parameter
 			windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<MainViewModel>(args.Arguments);
 		}
+
 		// Ensure the current window is active
 		MainWindow.Activate();
 	}
@@ -89,7 +92,7 @@ public class CountdownsApp : Application, IApplication
 		services.AddScoped<IWindowShellProvider, WindowShellProvider>();
 
 		services.AddSingleton<IEventCountdownManager, EventCountdownManager>();
-		services.AddSingleton<IBackgroundPickerService, BackgroundPickerService>();
+		services.AddScoped<IBackgroundPickerService, BackgroundPickerService>();
 		services.AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>();
 		services.AddSingleton<IDataService, FileDataService>();
 		services.AddSingleton<IFileService, FileService>();

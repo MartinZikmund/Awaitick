@@ -2,7 +2,7 @@
 
 public class FileService : IFileService
 {
-	public async Task<string> GetDataFileContentsAsync(string filePath)
+	public async Task<string?> GetDataFileContentsAsync(string filePath)
 	{
 		var rootFolder = ApplicationData.Current.LocalFolder;
 		try
@@ -26,7 +26,6 @@ public class FileService : IFileService
 		}
 		catch
 		{
-
 		}
 	}
 }

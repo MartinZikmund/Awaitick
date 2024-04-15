@@ -5,12 +5,19 @@ using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using EventCountdowns.Core.Services.BackgroundPicker;
+using EventCountdowns.Services.Navigation;
 
 namespace EventCountdowns.Core.Services;
 
 public class BackgroundPickerService : IBackgroundPickerService
 {
 	private const int BufferSize = 1024;
+	private readonly IWindowShellProvider _windowShellProvider;
+
+	public BackgroundPickerService(IWindowShellProvider windowShellProvider)
+	{
+		_windowShellProvider = windowShellProvider;
+	}
 
 	public async Task<string?> PickBackgroundAsync()
 	{
@@ -21,6 +28,9 @@ public class BackgroundPickerService : IBackgroundPickerService
 		filePicker.FileTypeFilter.Add(".png");
 		filePicker.ViewMode = PickerViewMode.Thumbnail;
 		filePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+
+		var handle = WinRT.Interop.WindowNative.GetWindowHandle(_windowShellProvider.Window);
+		WinRT.Interop.InitializeWithWindow.Initialize(filePicker, handle);
 
 		StorageFile file = await filePicker.PickSingleFileAsync();
 		if (file == null)

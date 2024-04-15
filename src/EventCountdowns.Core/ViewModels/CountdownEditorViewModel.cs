@@ -10,7 +10,7 @@ using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownEditorViewModel : PageViewModel
+public partial class CountdownEditorViewModel : PageViewModel
 {
 	public enum EditorMode
 	{
@@ -79,7 +79,7 @@ public class CountdownEditorViewModel : PageViewModel
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 	}
 
-	public override async Task LoadAsync(object? parameter)
+	public override async void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
@@ -199,22 +199,19 @@ public class CountdownEditorViewModel : PageViewModel
 
 	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
 
-	public ICommand CancelCommand => GetOrCreateCommand(Cancel);
-
+	[RelayCommand]
 	private void Cancel() => _navigationService.GoBack();
 
-	public ICommand ChooseYourImageCommand => GetOrCreateCommand(ChooseYourImage);
-
-	private async void ChooseYourImage()
+	[RelayCommand]
+	private async Task ChooseYourImageAsync()
 	{
 		IsWorking = true;
 		BackgroundPath = (await _backgroundPickerService.PickBackgroundAsync()) ?? LastCustomBackgroundPath;
 		IsWorking = false;
 	}
 
-	public ICommand SaveCommand => GetOrCreateCommand(Save);
-
-	private async void Save()
+	[RelayCommand]
+	private async Task SaveAsync()
 	{
 		IsWorking = true;
 		if (Mode == EditorMode.Add)
