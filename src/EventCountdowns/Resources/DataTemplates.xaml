@@ -1,12 +1,108 @@
 ﻿<ResourceDictionary
     x:Class="EventCountdowns.Resources.DataTemplates"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:models="using:EventCountdowns.Core.Models"
     xmlns:xaml="using:EventCountdowns.Extensions.Xaml">
     <DataTemplate x:Key="EventGridItemTemplate" x:DataType="models:EventCountdownObservable">
         <UserControl>
-            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="MainGrid" Height="210" Width="340">
+            <Grid
+                x:Name="MainGrid"
+                Width="340"
+                Height="210"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Offset="0" Color="#00FFFFFF" />
+                            <GradientStop Offset="1" Color="#22FFFFFF" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Grid Background="Black" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Image
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Opacity="0.8"
+                        Stretch="UniformToFill">
+                        <Image.Source>
+                            <Binding Mode="OneTime" Path="BackgroundImagePath">
+                                <!--<Binding.TargetNullValue>
+                                                <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
+                                            </Binding.TargetNullValue>-->
+                            </Binding>
+                        </Image.Source>
+                    </Image>
+                </Grid>
+                <Border Padding="20" VerticalAlignment="Stretch">
+                    <Grid>
+                        <StackPanel
+                            x:Name="CountdownStack"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal"
+                            Visibility="{x:Bind Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}">
+                            <StackPanel Margin="10,0" Orientation="Vertical">
+                                <TextBlock
+                                    x:Name="DaysComponent"
+                                    Style="{StaticResource TimeComponentStyle}"
+                                    Text="{x:Bind DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                                <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Days}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <TextBlock
+                                    x:Name="HoursComponent"
+                                    Style="{StaticResource SecondaryTimeComponentStyle}"
+                                    Text="{x:Bind HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Hours}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <TextBlock
+                                    x:Name="MinutesComponent"
+                                    Style="{StaticResource SecondaryTimeComponentStyle}"
+                                    Text="{x:Bind MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Minutes}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <TextBlock
+                                    x:Name="SecondsComponent"
+                                    Style="{StaticResource SecondaryTimeComponentStyle}"
+                                    Text="{x:Bind SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Seconds}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock
+                            Margin="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="35"
+                            FontWeight="SemiLight"
+                            Foreground="White"
+                            Text="{x:Bind CelebrationMessage}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap"
+                            Visibility="{x:Bind Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />
+                        <TextBlock
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            FontSize="30"
+                            FontWeight="Normal"
+                            Foreground="White"
+                            Text="{x:Bind Name}"
+                            TextLineBounds="Tight" />
+                    </Grid>
+                </Border>
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState>
@@ -42,56 +138,16 @@
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
-                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#00FFFFFF" Offset="0" />
-                            <GradientStop Color="#22FFFFFF" Offset="1" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                </Border>
-                <Grid Background="Black" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
-                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill" Opacity="0.8">
-                        <Image.Source>
-                            <Binding Path="BackgroundImagePath" Mode="OneTime">
-                                <!--<Binding.TargetNullValue>
-                                                <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                                            </Binding.TargetNullValue>-->
-                            </Binding>
-                        </Image.Source>
-                    </Image>
-                </Grid>
-                <Border VerticalAlignment="Stretch" Padding="20">
-                    <Grid>
-                        <StackPanel x:Name="CountdownStack" Visibility="{x:Bind Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical" Margin="10,0">
-                                <TextBlock x:Name="DaysComponent" Style="{StaticResource TimeComponentStyle}" Text="{x:Bind DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Days}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="HoursComponent" Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Hours}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="MinutesComponent" Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Minutes}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="SecondsComponent" Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Seconds}" />
-                            </StackPanel>
-                        </StackPanel>
-                        <TextBlock TextWrapping="Wrap" Margin="0" TextAlignment="Center" FontWeight="SemiLight" HorizontalAlignment="Center" Foreground="White" Text="{x:Bind CelebrationMessage}" VerticalAlignment="Center" FontSize="35" Visibility="{x:Bind Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />
-                        <TextBlock FontSize="30" Margin="0" TextLineBounds="Tight" HorizontalAlignment="Left" Foreground="White" FontWeight="Normal" VerticalAlignment="Bottom" Text="{x:Bind Name}" />
-                    </Grid>
-                </Border>
             </Grid>
         </UserControl>
     </DataTemplate>
 
     <DataTemplate x:Key="EventListItemTemplate" x:DataType="models:EventCountdownObservable">
         <UserControl>
-            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="MainGrid" HorizontalAlignment="Stretch">
+            <Grid
+                x:Name="MainGrid"
+                HorizontalAlignment="Stretch"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <!--<VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState>
@@ -115,15 +171,19 @@
                 <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="#00FFFFFF" Offset="0" />
-                            <GradientStop Color="#22FFFFFF" Offset="1" />
+                            <GradientStop Offset="0" Color="#00FFFFFF" />
+                            <GradientStop Offset="1" Color="#22FFFFFF" />
                         </LinearGradientBrush>
                     </Border.Background>
                 </Border>
                 <Grid Background="Black" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
-                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill" Opacity="0.8">
+                    <Image
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Opacity="0.8"
+                        Stretch="UniformToFill">
                         <Image.Source>
-                            <Binding Path="BackgroundImagePath" Mode="OneTime">
+                            <Binding Mode="OneTime" Path="BackgroundImagePath">
                                 <!--<Binding.TargetNullValue>
                                                     <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
                                                 </Binding.TargetNullValue>-->
@@ -131,28 +191,60 @@
                         </Image.Source>
                     </Image>
                 </Grid>
-                <Border VerticalAlignment="Stretch" Padding="20">
+                <Border Padding="20" VerticalAlignment="Stretch">
                     <Grid>
-                        <StackPanel Visibility="{x:Bind Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical" Margin="10,0">
+                        <StackPanel
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal"
+                            Visibility="{x:Bind Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}">
+                            <StackPanel Margin="10,0" Orientation="Vertical">
                                 <TextBlock Style="{StaticResource TimeComponentStyle}" Text="{x:Bind DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                                 <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Days}" />
                             </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Hours}" />
                             </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Minutes}" />
                             </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="10,0" VerticalAlignment="Center">
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Seconds}" />
                             </StackPanel>
                         </StackPanel>
-                        <TextBlock TextWrapping="Wrap" Margin="0" TextAlignment="Center" FontWeight="SemiLight" HorizontalAlignment="Center" Foreground="White" Text="{x:Bind CelebrationMessage}" VerticalAlignment="Center" FontSize="35" Visibility="{x:Bind Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />
-                        <TextBlock FontSize="30" Margin="0" TextLineBounds="Tight" HorizontalAlignment="Left" Foreground="White" FontWeight="Normal" VerticalAlignment="Bottom" Text="{x:Bind Name}" />
+                        <TextBlock
+                            Margin="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="35"
+                            FontWeight="SemiLight"
+                            Foreground="White"
+                            Text="{x:Bind CelebrationMessage}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap"
+                            Visibility="{x:Bind Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />
+                        <TextBlock
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            FontSize="30"
+                            FontWeight="Normal"
+                            Foreground="White"
+                            Text="{x:Bind Name}"
+                            TextLineBounds="Tight" />
                     </Grid>
                 </Border>
             </Grid>
