@@ -21,7 +21,6 @@ public partial class CountdownEditorViewModel : PageViewModel
 	{
 		public NavigationModel()
 		{
-
 		}
 
 		private NavigationModel(string id)
@@ -54,14 +53,29 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
 
 	private DefaultBackground? _selectedDefaultBackground;
-	private string? _lastCustomBackgroundPath;
-	private string? _backgroundPath;
-	private EventCountdown? _editedEventCountdown;
+
+	[ObservableProperty]
 	private EditorMode _mode = EditorMode.Add;
+
+	[ObservableProperty]
+	private Uri? _lastCustomBackgroundPath;
+
+	[ObservableProperty]
+	private Uri? _backgroundPath = new Uri("ms-appx:///EventCountdowns/Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
+
+	[ObservableProperty]
 	private string _name = "";
+
+	[ObservableProperty]
 	private DateTimeOffset _date = DateTimeOffset.UtcNow.AddDays(1);
+
+	[ObservableProperty]
 	private TimeSpan _time = TimeSpan.Zero;
+
+	[ObservableProperty]
 	private string _celebrationMessage = "";
+
+	private EventCountdown? _editedEventCountdown;
 
 	public CountdownEditorViewModel(
 		IEventCountdownManager eventCountdownManager,
@@ -78,6 +92,11 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 	}
+
+
+	public ObservableCollection<DefaultBackground> DefaultBackgrounds { get; } = new();
+
+	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
 
 	public override async void ViewNavigatedTo(object? parameter)
 	{
@@ -134,21 +153,9 @@ public partial class CountdownEditorViewModel : PageViewModel
 		}
 	}
 
-	public string? LastCustomBackgroundPath
-	{
-		get => _lastCustomBackgroundPath;
-		set => SetProperty(ref _lastCustomBackgroundPath, value);
-	}
+	partial void OnBackgroundPathChanged(string? value) => LastCustomBackgroundPath = value;
 
-	public string? BackgroundPath
-	{
-		get => _backgroundPath;
-		set
-		{
-			SetProperty(ref _backgroundPath, value);
-			LastCustomBackgroundPath = value;
-		}
-	}
+	partial void OnNameChanged(string value) => OnPropertyChanged(nameof(DefaultCelebrationMessage));
 
 	private void LoadEditedCountdown()
 	{
@@ -161,43 +168,6 @@ public partial class CountdownEditorViewModel : PageViewModel
 		LastCustomBackgroundPath = BackgroundPath;
 	}
 
-	public ObservableCollection<DefaultBackground> DefaultBackgrounds { get; } = new ObservableCollection<DefaultBackground>();
-
-	public EditorMode Mode
-	{
-		get => _mode;
-		set => SetProperty(ref _mode, value);
-	}
-
-	public string Name
-	{
-		get => _name;
-		set
-		{
-			SetProperty(ref _name, value);
-			OnPropertyChanged(nameof(DefaultCelebrationMessage));
-		}
-	}
-
-	public DateTimeOffset Date
-	{
-		get => _date;
-		set => SetProperty(ref _date, value);
-	}
-
-	public TimeSpan Time
-	{
-		get => _time;
-		set => SetProperty(ref _time, value);
-	}
-
-	public string CelebrationMessage
-	{
-		get => _celebrationMessage;
-		set => SetProperty(ref _celebrationMessage, value);
-	}
-
-	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
 
 	[RelayCommand]
 	private void Cancel() => _navigationService.GoBack();

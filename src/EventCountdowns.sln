@@ -156,7 +156,6 @@ Global
 		{486438A5-DD9D-4CC3-9F23-4B67AA38D77D}.Release|x86.Build.0 = Release|Any CPU
 		{55D4CFE5-2CA7-4DCE-8DEC-17630891BCA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55D4CFE5-2CA7-4DCE-8DEC-17630891BCA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55D4CFE5-2CA7-4DCE-8DEC-17630891BCA6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{55D4CFE5-2CA7-4DCE-8DEC-17630891BCA6}.Debug|arm64.ActiveCfg = Debug|Any CPU
 		{55D4CFE5-2CA7-4DCE-8DEC-17630891BCA6}.Debug|arm64.Build.0 = Debug|Any CPU
 		{55D4CFE5-2CA7-4DCE-8DEC-17630891BCA6}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -215,6 +214,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+erties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

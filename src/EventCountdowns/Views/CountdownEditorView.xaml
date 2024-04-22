@@ -27,9 +27,7 @@
             <Border Padding="10" HorizontalAlignment="Stretch">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            x:Name="WrapperGridMaxColumn"
-                            Width="*" />
+                        <ColumnDefinition x:Name="WrapperGridMaxColumn" Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid>
@@ -112,15 +110,8 @@
                                     <Image
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Stretch="UniformToFill">
-                                        <Image.Source>
-                                            <Binding Path="BackgroundPath">
-                                                <!--<Binding.TargetNullValue>
-                                                    <ImageSource>/Assets/SampleBackgrounds/Thumbnails/BlankBackground.png</ImageSource>
-                                                </Binding.TargetNullValue>-->
-                                            </Binding>
-                                        </Image.Source>
-                                    </Image>
+                                        Source="{x:Bind ViewModel.BackgroundPath, Mode=OneWay}"
+                                        Stretch="UniformToFill" />
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Bottom"

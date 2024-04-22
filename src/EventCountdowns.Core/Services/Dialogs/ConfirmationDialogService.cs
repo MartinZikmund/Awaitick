@@ -1,22 +1,38 @@
-﻿using Windows.UI.Popups;
-using EventCountdowns.Core.Services.ConfirmationDialog;
+﻿using EventCountdowns.Core.Services.ConfirmationDialog;
+using EventCountdowns.Services.Navigation;
+using MZikmund.Services.Dialogs;
+using Windows.UI.Popups;
 
 namespace EventCountdowns.Core.Services;
 
 public class ConfirmationDialogService : IConfirmationDialogService
 {
 	private readonly IStringLocalizer _localization;
+	private readonly IDialogCoordinator _dialogCoordinator;
 
-	public ConfirmationDialogService(IStringLocalizer localization)
+	public ConfirmationDialogService(IStringLocalizer localization, IDialogCoordinator dialogCoordinator)
 	{
-		_localization = localization;
+		_localization = localization ?? throw new ArgumentNullException(nameof(localization));
+		_dialogCoordinator = dialogCoordinator ?? throw new ArgumentNullException(nameof(dialogCoordinator));
 	}
 
 	public async Task ShowAsync(string title, string text, Action yesAction, Action noAction)
 	{
-		MessageDialog dialog = new MessageDialog(text, title);
-		dialog.Commands.Add(new UICommand(_localization.GetString("Yes"), command => yesAction()));
-		dialog.Commands.Add(new UICommand(_localization.GetString("No"), command => noAction()));
-		await dialog.ShowAsync();
+		ContentDialog dialog = new()
+		{
+			Title = title,
+			Content = text,
+			PrimaryButtonText = _localization.GetString("Yes"),
+			SecondaryButtonText = _localization.GetString("No"),
+		};
+		var result = await _dialogCoordinator.ShowAsync(dialog);
+		if (result == ContentDialogResult.Primary)
+		{
+			yesAction();
+		}
+		else if (result == ContentDialogResult.Secondary)
+		{
+			noAction();
+		}
 	}
 }

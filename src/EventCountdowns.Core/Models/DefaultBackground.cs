@@ -2,16 +2,13 @@
 
 public class DefaultBackground
 {
-	public DefaultBackground(string key, string backgroundPath, string thumbnailPath)
+	public DefaultBackground(string name)
 	{
-		Key = key;
-		BackgroundPath = backgroundPath;
-		ThumbnailPath = thumbnailPath;
+		BackgroundUri = new Uri($"ms-appx:///EventCountdowns/Assets/SampleBackgrounds/{name}.png", UriKind.Absolute);
+		ThumbnailUri = new Uri($"ms-appx:///EventCountdowns/Assets/SampleBackgrounds/Thumbnails/{name}.png", UriKind.Absolute);
 	}
 
-	public string Key { get; set; }
+	public Uri BackgroundUri { get; }
 
-	public string BackgroundPath { get; set; }
-
-	public string ThumbnailPath { get; set; }
+	public Uri ThumbnailUri { get; }
 }
