@@ -144,7 +144,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 			SetProperty(ref _selectedDefaultBackground, value);
 			if (_selectedDefaultBackground != null)
 			{
-				BackgroundPath = _selectedDefaultBackground.BackgroundPath;
+				BackgroundPath = _selectedDefaultBackground.BackgroundUri;
 			}
 			else
 			{
@@ -153,7 +153,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		}
 	}
 
-	partial void OnBackgroundPathChanged(string? value) => LastCustomBackgroundPath = value;
+	partial void OnBackgroundPathChanged(Uri? value) => LastCustomBackgroundPath = value;
 
 	partial void OnNameChanged(string value) => OnPropertyChanged(nameof(DefaultCelebrationMessage));
 
@@ -164,7 +164,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		Date = _editedEventCountdown.TargetDateTime.Date;
 		Time = _editedEventCountdown.TargetDateTime.TimeOfDay;
 		CelebrationMessage = _editedEventCountdown.CelebrationMessage;
-		BackgroundPath = _editedEventCountdown.BackgroundImagePath;
+		BackgroundPath = _editedEventCountdown.BackgroundImageUri;
 		LastCustomBackgroundPath = BackgroundPath;
 	}
 
@@ -191,7 +191,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_editedEventCountdown.Name = Name;
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
-		_editedEventCountdown.BackgroundImagePath = BackgroundPath;
+		_editedEventCountdown.BackgroundImageUri = BackgroundPath;
 		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
 		if (Mode == EditorMode.Edit)
 		{

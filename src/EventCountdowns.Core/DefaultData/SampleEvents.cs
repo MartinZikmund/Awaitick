@@ -42,7 +42,7 @@ public class SampleEvents : ISampleEvents
 		return new EventCountdown()
 		{
 			Name = _localizationService.GetString("NewYear"),
-			BackgroundImagePath = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.NewYear).BackgroundPath,
+			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.NewYear).BackgroundUri,
 			CelebrationMessage = _localizationService.GetString("HappyNewYear"),
 			Id = Guid.NewGuid().ToString(),
 			TargetDateTime = newYearDate
@@ -65,7 +65,7 @@ DateTimeOffset.Now.Offset);
 		return new EventCountdown()
 		{
 			Name = _localizationService.GetString("Christmas"),
-			BackgroundImagePath = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Christmas).BackgroundPath,
+			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Christmas).BackgroundUri,
 			Id = Guid.NewGuid().ToString(),
 			CelebrationMessage = _localizationService.GetString("MerryChristmas"),
 			TargetDateTime = christmasDate
@@ -83,7 +83,7 @@ DateTimeOffset.Now.Offset);
 		return new EventCountdown()
 		{
 			Name = _localizationService.GetString("Halloween"),
-			BackgroundImagePath = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Halloween).BackgroundPath,
+			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Halloween).BackgroundUri,
 			CelebrationMessage = _localizationService.GetString("ScaryHalloween"),
 			Id = Guid.NewGuid().ToString(),
 			TargetDateTime = halloweenDate
@@ -103,8 +103,8 @@ DateTimeOffset.Now.Offset);
 			return new EventCountdown()
 			{
 				Name = _localizationService.GetString("Easter"),
-				BackgroundImagePath =
-					_defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Easter).BackgroundPath,
+				BackgroundImageUri =
+					_defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Easter).BackgroundUri,
 				CelebrationMessage = _localizationService.GetString("HappyEaster"),
 				Id = Guid.NewGuid().ToString(),
 				TargetDateTime = easterDate
