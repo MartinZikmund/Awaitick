@@ -19,7 +19,7 @@ public class BackgroundPickerService : IBackgroundPickerService
 		_windowShellProvider = windowShellProvider;
 	}
 
-	public async Task<string?> PickBackgroundAsync()
+	public async Task<Uri?> PickBackgroundAsync()
 	{
 		//pick image
 		var filePicker = new FileOpenPicker();
@@ -44,7 +44,7 @@ public class BackgroundPickerService : IBackgroundPickerService
 			var inputStream = resizedStream.GetInputStreamAt(0);
 			Guid backgoundId = Guid.NewGuid();
 			var userBackgroundsFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("UserBackgrounds", CreationCollisionOption.OpenIfExists);
-			var imageFile = await userBackgroundsFolder.CreateFileAsync(backgoundId + ".jpg");
+			var imageFile = await userBackgroundsFolder.CreateFileAsync(backgoundId + file.FileType);
 			using (DataReader reader = new DataReader(inputStream))
 			{
 				using (IRandomAccessStream fileStream = await imageFile.OpenAsync(FileAccessMode.ReadWrite))
@@ -66,7 +66,7 @@ public class BackgroundPickerService : IBackgroundPickerService
 					}
 				}
 			}
-			return imageFile.Path;
+			return new Uri("ms-appdata:///local/UserBackgrounds/" + backgoundId + file.FileType, UriKind.Absolute);
 		}
 	}
 

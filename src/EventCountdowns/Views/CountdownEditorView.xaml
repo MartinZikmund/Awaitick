@@ -93,8 +93,11 @@
                                                     <Image
                                                         Width="70"
                                                         Height="70"
-                                                        Source="{x:Bind ThumbnailPath}"
-                                                        Stretch="UniformToFill" />
+                                                        Stretch="UniformToFill">
+                                                        <Image.Source>
+                                                            <BitmapImage UriSource="{x:Bind ThumbnailUri}" />
+                                                        </Image.Source>
+                                                    </Image>
                                                 </Border>
                                             </DataTemplate>
                                         </GridView.ItemTemplate>
@@ -110,8 +113,11 @@
                                     <Image
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Source="{x:Bind ViewModel.BackgroundPath, Mode=OneWay}"
-                                        Stretch="UniformToFill" />
+                                        Stretch="UniformToFill">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{x:Bind ViewModel.BackgroundUri, Mode=OneWay}" />
+                                        </Image.Source>
+                                    </Image>
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Bottom"
