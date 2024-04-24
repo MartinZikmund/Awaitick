@@ -1,4 +1,0 @@
-﻿
-namespace EventCountdowns.Skia.Gtk
-{
-}
