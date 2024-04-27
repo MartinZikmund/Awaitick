@@ -94,7 +94,6 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 	}
 
-
 	public ObservableCollection<DefaultBackground> DefaultBackgrounds { get; } = new();
 
 	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
