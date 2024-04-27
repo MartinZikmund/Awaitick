@@ -16,7 +16,7 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </local:CountdownEditorViewBase.Transitions>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

@@ -25,12 +25,11 @@
             <RowDefinition x:Name="MobileAdRow" Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <usercontrols:PageHeaderControl Title="{xaml:Localize Key=AppName}" FontWeight="SemiBold" />
-        <Button
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
+		</Grid.ColumnDefinitions>
+		<Button
             Width="48"
             Height="48"
             Margin="12"
