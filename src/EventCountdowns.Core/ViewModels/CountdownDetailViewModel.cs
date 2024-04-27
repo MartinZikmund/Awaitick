@@ -43,7 +43,15 @@ public partial class CountdownDetailViewModel : PageViewModel
 	private string _targetDateString = "";
 
 	public CountdownDetailViewModel(
-		IEventCountdownManager eventCountdownManager, INavigationService navigationService, IDataService dataService, ITileService tileService, IScheduledNotificationService scheduledNotificationService, ISystemSharingService sharingService, IConfirmationDialogService confirmationDialogService, IStringLocalizer localizationService)
+		IEventCountdownManager eventCountdownManager,
+		INavigationService navigationService,
+		IDataService dataService,
+		ITileService tileService,
+		IScheduledNotificationService scheduledNotificationService,
+		ISystemSharingService sharingService,
+		IConfirmationDialogService confirmationDialogService,
+		IStringLocalizer localizationService) :
+		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager;
 		_navigationService = navigationService;

@@ -31,7 +31,8 @@ public partial class MainViewModel : PageViewModel
 		IScheduledNotificationService scheduledNotificationService,
 		IStoreLauncherService storeLauncherService,
 		INavigationService navigationService,
-		IAppSettings appSettings)
+		IAppSettings appSettings) :
+		base(navigationService)
 	{
 		_dataService = dataService;
 		_tileService = tileService;

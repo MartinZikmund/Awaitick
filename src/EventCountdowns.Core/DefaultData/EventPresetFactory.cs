@@ -4,37 +4,30 @@ using EventCountdowns.Core.Models;
 
 namespace EventCountdowns.Core.DefaultData;
 
-public class SampleEvents : ISampleEvents
+public class EventPresetFactory : IEventPresetFactory
 {
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
 	private readonly IStringLocalizer _localizationService;
 
-	public SampleEvents(IDefaultBackgrounds defaultBackgrounds, IStringLocalizer localizationService)
+	public EventPresetFactory(IDefaultBackgrounds defaultBackgrounds, IStringLocalizer localizationService)
 	{
 		_defaultBackgrounds = defaultBackgrounds;
 		_localizationService = localizationService;
 	}
 
-	public EventCountdown[] GetSampleEvents()
-	{
-		List<EventCountdown> events = new List<EventCountdown>
+	public EventCountdown Create(EventPreset preset) =>
+		preset switch
 		{
-			CreateChristmasCountdown(),
-			CreateHalloweenCountdown(),
-			CreateNewYearCountdown()
+			EventPreset.Christmas => CreateChristmasCountdown(),
+			EventPreset.Easter => CreateEasterCountdown(),
+			EventPreset.Halloween => CreateHalloweenCountdown(),
+			EventPreset.NewYear => CreateNewYearCountdown(),
+			_ => throw new InvalidOperationException("Unknown preset"),
 		};
-		var easterCountdown = CreateEasterCountdown();
-		if (easterCountdown != null)
-		{
-			events.Add(easterCountdown);
-		}
-		return events.ToArray();
-	}
 
 	private EventCountdown CreateNewYearCountdown()
 	{
-		var newYearDate = new DateTimeOffset(DateTimeOffset.Now.Year, 1, 1, 00, 00, 00,
-		   DateTimeOffset.Now.Offset);
+		var newYearDate = new DateTimeOffset(DateTimeOffset.Now.Year, 1, 1, 00, 00, 00, DateTimeOffset.Now.Offset);
 		if (newYearDate < DateTimeOffset.Now)
 		{
 			newYearDate = new DateTimeOffset(DateTimeOffset.Now.Year + 1, 1, 1, 00, 00, 00, DateTimeOffset.Now.Offset);
@@ -42,7 +35,7 @@ public class SampleEvents : ISampleEvents
 		return new EventCountdown()
 		{
 			Name = _localizationService.GetString("NewYear"),
-			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.NewYear).BackgroundUri,
+			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(EventPreset.NewYear).BackgroundUri,
 			CelebrationMessage = _localizationService.GetString("HappyNewYear"),
 			Id = Guid.NewGuid().ToString(),
 			TargetDateTime = newYearDate
@@ -51,8 +44,7 @@ public class SampleEvents : ISampleEvents
 
 	private EventCountdown CreateChristmasCountdown()
 	{
-		var christmasDate = new DateTimeOffset(DateTimeOffset.Now.Year, 12, 25, 00, 00, 00,
-DateTimeOffset.Now.Offset);
+		var christmasDate = new DateTimeOffset(DateTimeOffset.Now.Year, 12, 25, 00, 00, 00, DateTimeOffset.Now.Offset);
 		if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.StartsWith("cs"))
 		{
 			christmasDate = christmasDate.AddDays(-1);
@@ -65,7 +57,7 @@ DateTimeOffset.Now.Offset);
 		return new EventCountdown()
 		{
 			Name = _localizationService.GetString("Christmas"),
-			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Christmas).BackgroundUri,
+			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(EventPreset.Christmas).BackgroundUri,
 			Id = Guid.NewGuid().ToString(),
 			CelebrationMessage = _localizationService.GetString("MerryChristmas"),
 			TargetDateTime = christmasDate
@@ -74,8 +66,7 @@ DateTimeOffset.Now.Offset);
 
 	private EventCountdown CreateHalloweenCountdown()
 	{
-		var halloweenDate = new DateTimeOffset(DateTimeOffset.Now.Year, 10, 31, 00, 00, 00,
-			DateTimeOffset.Now.Offset);
+		var halloweenDate = new DateTimeOffset(DateTimeOffset.Now.Year, 10, 31, 00, 00, 00, DateTimeOffset.Now.Offset);
 		if (halloweenDate < DateTimeOffset.Now)
 		{
 			halloweenDate = new DateTimeOffset(DateTimeOffset.Now.Year + 1, 10, 31, 00, 00, 00, DateTimeOffset.Now.Offset);
@@ -83,7 +74,7 @@ DateTimeOffset.Now.Offset);
 		return new EventCountdown()
 		{
 			Name = _localizationService.GetString("Halloween"),
-			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Halloween).BackgroundUri,
+			BackgroundImageUri = _defaultBackgrounds.GetSampleEventBackground(EventPreset.Halloween).BackgroundUri,
 			CelebrationMessage = _localizationService.GetString("ScaryHalloween"),
 			Id = Guid.NewGuid().ToString(),
 			TargetDateTime = halloweenDate
@@ -92,31 +83,24 @@ DateTimeOffset.Now.Offset);
 
 	private EventCountdown CreateEasterCountdown()
 	{
-		try
+		var easterDate = EasterSunday(DateTimeOffset.Now.Year);
+		if (easterDate < DateTimeOffset.Now)
 		{
-			var easterDate = EasterSunday(DateTimeOffset.Now.Year);
-			if (easterDate < DateTimeOffset.Now)
-			{
-				easterDate = EasterSunday(DateTimeOffset.Now.Year + 1);
-			}
+			easterDate = EasterSunday(DateTimeOffset.Now.Year + 1);
+		}
 
-			return new EventCountdown()
-			{
-				Name = _localizationService.GetString("Easter"),
-				BackgroundImageUri =
-					_defaultBackgrounds.GetSampleEventBackground(SampleEventTypes.Easter).BackgroundUri,
-				CelebrationMessage = _localizationService.GetString("HappyEaster"),
-				Id = Guid.NewGuid().ToString(),
-				TargetDateTime = easterDate
-			};
-		}
-		catch
+		return new()
 		{
-			return null;
-		}
+			Name = _localizationService.GetString("Easter"),
+			BackgroundImageUri =
+				_defaultBackgrounds.GetSampleEventBackground(EventPreset.Easter).BackgroundUri,
+			CelebrationMessage = _localizationService.GetString("HappyEaster"),
+			Id = Guid.NewGuid().ToString(),
+			TargetDateTime = easterDate
+		};
 	}
 
-	private void EasterSunday(int year, out int month, out int day)
+	private (int month, int day) CalculateEasterSunday(int year)
 	{
 		int g = year % 19;
 		int c = year / 100;
@@ -125,22 +109,21 @@ DateTimeOffset.Now.Offset);
 		int i = h - (int)(h / 28) * (1 - (int)(h / 28) *
 					(int)(29 / (h + 1)) * (int)((21 - g) / 11));
 
-		day = i - ((year + (int)(year / 4) +
-					  i + 2 - c + (int)(c / 4)) % 7) + 28;
-		month = 3;
+		var day = i - ((year + (int)(year / 4) + i + 2 - c + (int)(c / 4)) % 7) + 28;
+		var month = 3;
 
 		if (day > 31)
 		{
 			month++;
 			day -= 31;
 		}
+
+		return (month, day);
 	}
 
 	private DateTimeOffset EasterSunday(int year)
 	{
-		int month = 0;
-		int day = 0;
-		EasterSunday(year, out month, out day);
+		var (month, day) = CalculateEasterSunday(year);
 
 		var date = new DateTimeOffset(year, month, day, 0, 0, 0, DateTimeOffset.Now.Offset);
 		return date;

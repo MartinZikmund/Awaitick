@@ -84,7 +84,8 @@ public partial class CountdownEditorViewModel : PageViewModel
 		IDataService dataService,
 		IStringLocalizer localizationService,
 		INavigationService navigationService,
-		IDefaultBackgrounds defaultBackgrounds)
+		IDefaultBackgrounds defaultBackgrounds) :
+		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
 		_backgroundPickerService = backgroundPickerService ?? throw new ArgumentNullException(nameof(backgroundPickerService));

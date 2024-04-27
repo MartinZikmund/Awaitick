@@ -6,5 +6,5 @@ public interface IDefaultBackgrounds
 {
 	DefaultBackground[] GetDefaultBackgrounds();
 
-	DefaultBackground GetSampleEventBackground(SampleEventTypes sampleEventKind);
+	DefaultBackground GetSampleEventBackground(EventPreset sampleEventKind);
 }

@@ -1,20 +1,24 @@
 ﻿#nullable enable
 
 using EventCountdowns.Core.Services.InAppPurchases;
+using EventCountdowns.Services.Navigation;
+using EventCountdowns.ViewModels;
 using MZikmund.Services.Dialogs;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public partial class BuyMeCoffeeViewModel : ViewModelBase
+public partial class BuyMeCoffeeViewModel : PageViewModel
 {
 	private readonly IInAppPurchaseService _inAppPurchaseService;
 	private readonly IDialogService _dialogService;
 	private readonly IStringLocalizer _localizationService;
 
 	public BuyMeCoffeeViewModel(
+		INavigationService navigationService,
 		IInAppPurchaseService inAppPurchaseService,
 		IDialogService messageDialogService,
-		IStringLocalizer localizationService)
+		IStringLocalizer localizationService) :
+		base(navigationService)
 	{
 		_inAppPurchaseService = inAppPurchaseService ?? throw new ArgumentNullException(nameof(inAppPurchaseService));
 		_dialogService = messageDialogService ?? throw new ArgumentNullException(nameof(messageDialogService));

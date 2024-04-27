@@ -4,7 +4,7 @@ namespace EventCountdowns.Core.DefaultData;
 
 public class DefaultBackgrounds : IDefaultBackgrounds
 {
-	private readonly Dictionary<string, DefaultBackground> _defaultBackgrounds = new Dictionary<string, DefaultBackground>()
+	private readonly Dictionary<string, DefaultBackground> _defaultBackgrounds = new()
 	{
 		{ "blank", new DefaultBackground("BlankBackground") },
 		{ "christmas", new DefaultBackground("Christmas") },
@@ -17,25 +17,15 @@ public class DefaultBackgrounds : IDefaultBackgrounds
 		{ "newyear", new DefaultBackground("NewYear") },
 		{ "plane", new DefaultBackground("Plane")},
 	};
-	public DefaultBackground[] GetDefaultBackgrounds()
-	{
-		return _defaultBackgrounds.Values.ToArray();
-	}
 
-	public DefaultBackground GetSampleEventBackground(SampleEventTypes sampleEventKind)
+	public DefaultBackground[] GetDefaultBackgrounds() => _defaultBackgrounds.Values.ToArray();
+
+	public DefaultBackground GetSampleEventBackground(EventPreset sampleEventKind) => sampleEventKind switch
 	{
-		switch (sampleEventKind)
-		{
-			case SampleEventTypes.Christmas:
-				return _defaultBackgrounds["christmas"];
-			case SampleEventTypes.Easter:
-				return _defaultBackgrounds["easter"];
-			case SampleEventTypes.Halloween:
-				return _defaultBackgrounds["halloween"];
-			case SampleEventTypes.NewYear:
-				return _defaultBackgrounds["newyear"];
-			default:
-				throw new ArgumentOutOfRangeException(nameof(sampleEventKind), sampleEventKind, null);
-		}
-	}
+		EventPreset.Christmas => _defaultBackgrounds["christmas"],
+		EventPreset.Easter => _defaultBackgrounds["easter"],
+		EventPreset.Halloween => _defaultBackgrounds["halloween"],
+		EventPreset.NewYear => _defaultBackgrounds["newyear"],
+		_ => throw new ArgumentOutOfRangeException(nameof(sampleEventKind), sampleEventKind, null),
+	};
 }
