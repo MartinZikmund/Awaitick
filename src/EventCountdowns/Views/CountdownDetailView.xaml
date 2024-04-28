@@ -114,6 +114,14 @@
                 </StackPanel>
             </Grid>
         </Border>
+
+        <Button
+            x:Name="BackButton"
+            Margin="20"
+            Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
+            Style="{StaticResource NavigationBackButtonStyle}"
+            ToolTipService.ToolTip="Back"
+            Visibility="{x:Bind ViewModel.CanGoBack, Mode=OneWay}" />
         <CommandBar
             Grid.Row="2"
             Grid.ColumnSpan="2"
