@@ -11,7 +11,7 @@
                 Width="340"
                 Height="210"
                 Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
+                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImage, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Offset="0" Color="#00FFFFFF" />
@@ -19,18 +19,14 @@
                         </LinearGradientBrush>
                     </Border.Background>
                 </Border>
-                <Grid Background="Black" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
+                <Grid Background="Black" Visibility="{x:Bind BackgroundImage, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Opacity="0.8"
                         Stretch="UniformToFill">
                         <Image.Source>
-                            <Binding Mode="OneTime" Path="BackgroundImagePath">
-                                <!--<Binding.TargetNullValue>
-                                                <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                                            </Binding.TargetNullValue>-->
-                            </Binding>
+                            <BitmapImage UriSource="{x:Bind BackgroundImage, Mode=OneWay}" />
                         </Image.Source>
                     </Image>
                 </Grid>
@@ -168,7 +164,7 @@
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>-->
-                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
+                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImage, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                             <GradientStop Offset="0" Color="#00FFFFFF" />
@@ -176,18 +172,14 @@
                         </LinearGradientBrush>
                     </Border.Background>
                 </Border>
-                <Grid Background="Black" Visibility="{x:Bind BackgroundImagePath, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
+                <Grid Background="Black" Visibility="{x:Bind BackgroundImage, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed}">
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Opacity="0.8"
                         Stretch="UniformToFill">
                         <Image.Source>
-                            <Binding Mode="OneTime" Path="BackgroundImagePath">
-                                <!--<Binding.TargetNullValue>
-                                                    <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                                                </Binding.TargetNullValue>-->
-                            </Binding>
+                            <BitmapImage UriSource="{x:Bind BackgroundImage, Mode=OneWay}" />
                         </Image.Source>
                     </Image>
                 </Grid>

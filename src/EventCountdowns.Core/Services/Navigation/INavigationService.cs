@@ -14,8 +14,6 @@ public interface INavigationService
 
 	bool CanGoBack { get; }
 
-	event EventHandler? Navigated;
-
 	void Initialize();
 
 	void RegisterViewsFromAssembly(Assembly sourceAssembly);

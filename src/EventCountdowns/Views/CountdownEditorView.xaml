@@ -85,11 +85,11 @@
                                     <GridView
                                         Margin="0,5,0,0"
                                         ItemsSource="{x:Bind ViewModel.DefaultBackgrounds}"
-                                        SelectedItem="{Binding SelectedDefaultBackground, Mode=TwoWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultBackground, Mode=TwoWay}"
                                         SelectionMode="Single">
                                         <GridView.ItemTemplate>
                                             <DataTemplate x:DataType="models:DefaultBackground">
-                                                <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                                                <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="4">
                                                     <Image
                                                         Width="70"
                                                         Height="70"

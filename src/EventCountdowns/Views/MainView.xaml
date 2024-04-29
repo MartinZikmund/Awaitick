@@ -49,7 +49,7 @@
                     <EntranceThemeTransition />
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <Grid Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Grid>
                     <controls:EventsGridView
                         Name="AdaptiveGridViewControl"
@@ -91,6 +91,7 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             HorizontalContentAlignment="Center"
+            Command="{x:Bind ViewModel.AddCommand}"
             CornerRadius="140"
             Style="{ThemeResource AccentButtonStyle}"
             Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -99,39 +100,5 @@
                 FontSize="20"
                 Glyph="&#xE710;" />
         </Button>
-
-        <!--  Commands  -->
-        <!--
-        <CommandBar Grid.Row="3" Grid.ColumnSpan="2">
-            <AppBarButton
-                Command="{x:Bind ViewModel.AddCommand}"
-                Icon="Add"
-                Label="{xaml:Localize Key=AddEvent}" />
-            <AppBarButton
-                Command="{x:Bind ViewModel.BuyMeCoffeeCommand}"
-                Label="{xaml:Localize Key=BuyMeCoffee}"
-                Visibility="{x:Bind ViewModel.ShowCoffee, Converter={StaticResource BoolToVisibilityConverter}}">
-                <AppBarButton.Icon>
-                    <BitmapIcon
-                        Height="25"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        UriSource="/Assets/Icons/Mug.png" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-        -->
-        <!--<AppBarButton Icon="Bullets" Label="{xaml:Localize Key=Manage}" />-->
-        <!--<AppBarButton Icon="Accept" Click="ButtonBase_OnClick" Label="{xaml:Localize Key=Done}" />-->
-        <!--
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Command="{x:Bind ViewModel.AboutAppCommand}" Label="{xaml:Localize Key=AboutApp}" />
-                <AppBarButton Command="{x:Bind ViewModel.RateAppCommand}" Label="{xaml:Localize Key=RateThisApp}" />
-                <AppBarButton Command="{x:Bind ViewModel.SendFeedbackCommand}" Label="{xaml:Localize Key=SendFeedback}" />
-                <AppBarButton
-                    Command="{x:Bind ViewModel.BuyMeCoffeeCommand}"
-                    Label="{xaml:Localize Key=BuyMeCoffee}"
-                    Visibility="{x:Bind ViewModel.ShowCoffee, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
-            </CommandBar.SecondaryCommands>
-        </CommandBar>-->
     </Grid>
 </local:MainViewBase>

@@ -16,7 +16,7 @@ public class InAppPurchaseService : IInAppPurchaseService
 #if DEBUG
 			_licenseInformation = CurrentAppSimulator.LicenseInformation;
 #else
-                _licenseInformation = CurrentApp.LicenseInformation;
+            _licenseInformation = CurrentApp.LicenseInformation;
 #endif
 		}
 	}

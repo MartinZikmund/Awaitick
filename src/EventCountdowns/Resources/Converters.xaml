@@ -10,4 +10,5 @@
     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     <converters:BoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter" Inverted="True" />
     <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+    <converters:NonNullToVisibilityConverter x:Key="NonNullToVisibilityConverter" />
 </ResourceDictionary>

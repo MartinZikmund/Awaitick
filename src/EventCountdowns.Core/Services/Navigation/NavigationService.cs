@@ -8,8 +8,6 @@ public class NavigationService : INavigationService
 	private readonly Dictionary<string, Type> _views = new();
 	private readonly IFrameProvider _frameProvider;
 
-	public event EventHandler? Navigated;
-
 	public NavigationService(IFrameProvider frameProvider)
 	{
 		_frameProvider = frameProvider ?? throw new ArgumentNullException(nameof(frameProvider));
