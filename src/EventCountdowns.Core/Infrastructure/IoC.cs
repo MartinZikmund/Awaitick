@@ -1,5 +1,7 @@
 ﻿#nullable enable
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace EventCountdowns.Core.Infrastructure;
 
 public static class IoC
@@ -30,6 +32,7 @@ public static class IoC
 		_serviceProvider = serviceProvider;
 	}
 
+	[MemberNotNull(nameof(_serviceProvider))]
 	private static void EnsureServiceProvider()
 	{
 		if (_serviceProvider == null)

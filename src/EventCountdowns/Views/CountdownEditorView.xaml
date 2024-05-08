@@ -16,7 +16,7 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </local:CountdownEditorViewBase.Transitions>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -27,10 +27,7 @@
             <Border Padding="10" HorizontalAlignment="Stretch">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            x:Name="WrapperGridMaxColumn"
-                            Width="*"
-                            MaxWidth="350" />
+                        <ColumnDefinition x:Name="WrapperGridMaxColumn" Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid>
@@ -50,7 +47,7 @@
                                 Margin="0,0,0,8"
                                 Style="{StaticResource FormLabelTextBlockStyle}"
                                 Text="{xaml:Localize Key=Name}" />
-                            <TextBox Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
+                            <TextBox FontSize="30" Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Date}" />
                             <DatePicker Date="{x:Bind ViewModel.Date, Mode=TwoWay}" />
                             <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Time}" />
@@ -88,16 +85,19 @@
                                     <GridView
                                         Margin="0,5,0,0"
                                         ItemsSource="{x:Bind ViewModel.DefaultBackgrounds}"
-                                        SelectedItem="{Binding SelectedDefaultBackground, Mode=TwoWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultBackground, Mode=TwoWay}"
                                         SelectionMode="Single">
                                         <GridView.ItemTemplate>
                                             <DataTemplate x:DataType="models:DefaultBackground">
-                                                <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                                                <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="4">
                                                     <Image
                                                         Width="70"
                                                         Height="70"
-                                                        Source="{x:Bind ThumbnailPath}"
-                                                        Stretch="UniformToFill" />
+                                                        Stretch="UniformToFill">
+                                                        <Image.Source>
+                                                            <BitmapImage UriSource="{x:Bind ThumbnailUri}" />
+                                                        </Image.Source>
+                                                    </Image>
                                                 </Border>
                                             </DataTemplate>
                                         </GridView.ItemTemplate>
@@ -115,11 +115,7 @@
                                         VerticalAlignment="Center"
                                         Stretch="UniformToFill">
                                         <Image.Source>
-                                            <Binding Path="BackgroundPath">
-                                                <!--<Binding.TargetNullValue>
-                                                    <ImageSource>/Assets/SampleBackgrounds/Thumbnails/BlankBackground.png</ImageSource>
-                                                </Binding.TargetNullValue>-->
-                                            </Binding>
+                                            <BitmapImage UriSource="{x:Bind ViewModel.BackgroundUri, Mode=OneWay}" />
                                         </Image.Source>
                                     </Image>
                                     <TextBlock

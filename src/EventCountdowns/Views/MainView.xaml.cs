@@ -30,6 +30,12 @@ public sealed partial class MainView : MainViewBase
 		base.OnNavigatedFrom(e);
 		_timer.Stop();
 	}
+
+	private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
+	{
+		var vm = ViewModel;
+		vm?.ShowCountdownCommand.Execute(e.ClickedItem);
+	}
 }
 
 public partial class MainViewBase : PageBase<MainViewModel>

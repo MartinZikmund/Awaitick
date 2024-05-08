@@ -8,22 +8,36 @@
     xmlns:mux="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Uno.UI.Toolkit"
     d:RequestedTheme="Light"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-	<Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Grid x:Name="TitleBarGrid" Padding="16,0" ColumnSpacing="16" Visibility="{x:Bind HasCustomTitleBar}" Height="48">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<BitmapIcon ShowAsMonochrome="False" Width="16" UriSource="ms-appx:///MZikmund/Assets/NavigationViewLogo.png" />
-			<TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{x:Bind ViewModel.Title}" Style="{ThemeResource CaptionTextBlockStyle}" />
-		</Grid>
+    <Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            x:Name="TitleBarGrid"
+            Height="48"
+            Padding="16,0"
+            ColumnSpacing="16"
+			Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            Visibility="{x:Bind HasCustomTitleBar}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Width="16"
+				Height="16"
+                Source="ms-appx:///EventCountdowns/Assets/Icons/appicon.png" />
+            <TextBlock
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Style="{ThemeResource CaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.Title}" />
+        </Grid>
 		<Frame x:Name="InnerFrame" Grid.Row="1" />
 	</Grid>
 </Page>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Data;
 
-namespace EventCountdowns.Core.Converters;
+namespace EventCountdowns.Converters;
 
 public class EmptyStringToVisibilityConverter : IValueConverter
 {

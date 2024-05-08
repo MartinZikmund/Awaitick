@@ -14,11 +14,15 @@
         x:Name="HeaderGrid"
         toolkit:VisibleBoundsPadding.PaddingMask="Top,Left,Right"
         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Button x:Name="BackButton"
+				Visibility="{x:Bind CanGoBack, Mode=OneWay}"
+				Command="{x:Bind GoBackCommand, Mode=OneWay}"
+                Style="{StaticResource NavigationBackButtonStyle}"                
+                ToolTipService.ToolTip="Back"/>
         <TextBlock
             Margin="20"
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
-            d:Text="Title"
             FontWeight="{x:Bind FontWeight, Mode=OneWay}"
             Style="{ThemeResource TitleTextBlockStyle}"
             Text="{x:Bind Title, Mode=OneWay}"

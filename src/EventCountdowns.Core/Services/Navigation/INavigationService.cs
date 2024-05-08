@@ -12,6 +12,8 @@ public interface INavigationService
 
 	bool GoBack();
 
+	bool CanGoBack { get; }
+
 	void Initialize();
 
 	void RegisterViewsFromAssembly(Assembly sourceAssembly);

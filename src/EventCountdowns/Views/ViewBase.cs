@@ -23,7 +23,7 @@ public abstract partial class PageBase<TViewModel> : Page
 
 		if (_isNavigationDelayed)
 		{
-			ViewModel?.ViewNavigatedTo(_pendingParameter);
+			ViewModel.ViewNavigatedToInternal(_pendingParameter);
 			_pendingParameter = null;
 		}
 
@@ -41,7 +41,7 @@ public abstract partial class PageBase<TViewModel> : Page
 
 		if (ViewModel is not null)
 		{
-			ViewModel.ViewNavigatedTo(_pendingParameter ?? e.Parameter);
+			ViewModel.ViewNavigatedToInternal(_pendingParameter ?? e.Parameter);
 		}
 		else
 		{

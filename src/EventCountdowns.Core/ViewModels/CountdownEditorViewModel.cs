@@ -5,11 +5,12 @@ using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownEditorViewModel : PageViewModel
+public partial class CountdownEditorViewModel : PageViewModel
 {
 	public enum EditorMode
 	{
@@ -20,7 +21,6 @@ public class CountdownEditorViewModel : PageViewModel
 	{
 		public NavigationModel()
 		{
-
 		}
 
 		private NavigationModel(string id)
@@ -49,33 +49,57 @@ public class CountdownEditorViewModel : PageViewModel
 	private readonly IBackgroundPickerService _backgroundPickerService;
 	private readonly IDataService _dataService;
 	private readonly IStringLocalizer _localizationService;
+	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
 
+	[ObservableProperty]
 	private DefaultBackground? _selectedDefaultBackground;
-	private string? _lastCustomBackgroundPath;
-	private string? _backgroundPath;
-	private EventCountdown? _editedEventCountdown;
+
+	[ObservableProperty]
 	private EditorMode _mode = EditorMode.Add;
+
+	[ObservableProperty]
+	private Uri? _lastCustomBackgroundUri;
+
+	[ObservableProperty]
+	private Uri? _backgroundUri = new Uri("ms-appx:///EventCountdowns/Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
+
+	[ObservableProperty]
 	private string _name = "";
+
+	[ObservableProperty]
 	private DateTimeOffset _date = DateTimeOffset.UtcNow.AddDays(1);
+
+	[ObservableProperty]
 	private TimeSpan _time = TimeSpan.Zero;
+
+	[ObservableProperty]
 	private string _celebrationMessage = "";
+
+	private EventCountdown? _editedEventCountdown;
 
 	public CountdownEditorViewModel(
 		IEventCountdownManager eventCountdownManager,
 		IBackgroundPickerService backgroundPickerService,
 		IDataService dataService,
 		IStringLocalizer localizationService,
-		IDefaultBackgrounds defaultBackgrounds)
+		INavigationService navigationService,
+		IDefaultBackgrounds defaultBackgrounds) :
+		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
 		_backgroundPickerService = backgroundPickerService ?? throw new ArgumentNullException(nameof(backgroundPickerService));
 		_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
 		_localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
+		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 	}
 
-	public override async Task LoadAsync(object? parameter)
+	public ObservableCollection<DefaultBackground> DefaultBackgrounds { get; } = new();
+
+	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
+
+	public override async void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
@@ -93,7 +117,7 @@ public class CountdownEditorViewModel : PageViewModel
 			}
 			else
 			{
-				Navigation.GoBack();
+				_navigationService.GoBack();
 			}
 
 			Title = _localizationService.GetString("EditEvent");
@@ -113,38 +137,21 @@ public class CountdownEditorViewModel : PageViewModel
 		}
 	}
 
-	public DefaultBackground? SelectedDefaultBackground
+	partial void OnSelectedDefaultBackgroundChanged(DefaultBackground? value)
 	{
-		get => _selectedDefaultBackground;
-		set
+		if (SelectedDefaultBackground is not null)
 		{
-			SetProperty(ref _selectedDefaultBackground, value);
-			if (_selectedDefaultBackground != null)
-			{
-				BackgroundPath = _selectedDefaultBackground.BackgroundPath;
-			}
-			else
-			{
-				BackgroundPath = LastCustomBackgroundPath;
-			}
+			BackgroundUri = SelectedDefaultBackground.BackgroundUri;
+		}
+		else
+		{
+			BackgroundUri = LastCustomBackgroundUri;
 		}
 	}
 
-	public string? LastCustomBackgroundPath
-	{
-		get => _lastCustomBackgroundPath;
-		set => SetProperty(ref _lastCustomBackgroundPath, value);
-	}
+	partial void OnBackgroundUriChanged(Uri? value) => LastCustomBackgroundUri = value;
 
-	public string? BackgroundPath
-	{
-		get => _backgroundPath;
-		set
-		{
-			SetProperty(ref _backgroundPath, value);
-			LastCustomBackgroundPath = value;
-		}
-	}
+	partial void OnNameChanged(string value) => OnPropertyChanged(nameof(DefaultCelebrationMessage));
 
 	private void LoadEditedCountdown()
 	{
@@ -153,64 +160,24 @@ public class CountdownEditorViewModel : PageViewModel
 		Date = _editedEventCountdown.TargetDateTime.Date;
 		Time = _editedEventCountdown.TargetDateTime.TimeOfDay;
 		CelebrationMessage = _editedEventCountdown.CelebrationMessage;
-		BackgroundPath = _editedEventCountdown.BackgroundImagePath;
-		LastCustomBackgroundPath = BackgroundPath;
+		BackgroundUri = _editedEventCountdown.BackgroundImageUri;
+		LastCustomBackgroundUri = BackgroundUri;
 	}
 
-	public ObservableCollection<DefaultBackground> DefaultBackgrounds { get; } = new ObservableCollection<DefaultBackground>();
 
-	public EditorMode Mode
-	{
-		get => _mode;
-		set => SetProperty(ref _mode, value);
-	}
+	[RelayCommand]
+	private void Cancel() => _navigationService.GoBack();
 
-	public string Name
-	{
-		get => _name;
-		set
-		{
-			SetProperty(ref _name, value);
-			OnPropertyChanged(nameof(DefaultCelebrationMessage));
-		}
-	}
-
-	public DateTimeOffset Date
-	{
-		get => _date;
-		set => SetProperty(ref _date, value);
-	}
-
-	public TimeSpan Time
-	{
-		get => _time;
-		set => SetProperty(ref _time, value);
-	}
-
-	public string CelebrationMessage
-	{
-		get => _celebrationMessage;
-		set => SetProperty(ref _celebrationMessage, value);
-	}
-
-	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
-
-	public ICommand CancelCommand => GetOrCreateCommand(Cancel);
-
-	private void Cancel() => Navigation.GoBack();
-
-	public ICommand ChooseYourImageCommand => GetOrCreateCommand(ChooseYourImage);
-
-	private async void ChooseYourImage()
+	[RelayCommand]
+	private async Task ChooseYourImageAsync()
 	{
 		IsWorking = true;
-		BackgroundPath = (await _backgroundPickerService.PickBackgroundAsync()) ?? LastCustomBackgroundPath;
+		BackgroundUri = (await _backgroundPickerService.PickBackgroundAsync()) ?? LastCustomBackgroundUri;
 		IsWorking = false;
 	}
 
-	public ICommand SaveCommand => GetOrCreateCommand(Save);
-
-	private async void Save()
+	[RelayCommand]
+	private async Task SaveAsync()
 	{
 		IsWorking = true;
 		if (Mode == EditorMode.Add)
@@ -220,7 +187,7 @@ public class CountdownEditorViewModel : PageViewModel
 		_editedEventCountdown.Name = Name;
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
-		_editedEventCountdown.BackgroundImagePath = BackgroundPath;
+		_editedEventCountdown.BackgroundImageUri = BackgroundUri;
 		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
 		if (Mode == EditorMode.Edit)
 		{
@@ -231,6 +198,6 @@ public class CountdownEditorViewModel : PageViewModel
 			await _eventCountdownManager.AddCountdownAsync(_editedEventCountdown);
 		}
 		IsWorking = false;
-		Navigation.GoBack();
+		_navigationService.GoBack();
 	}
 }

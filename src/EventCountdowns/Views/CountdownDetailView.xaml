@@ -26,18 +26,14 @@
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"
             Background="Black"
-            Visibility="{x:Bind ViewModel.EventCountdown.BackgroundImagePath, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
+            Visibility="{x:Bind ViewModel.Event.BackgroundImage, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
             <Image
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Opacity="0.8"
                 Stretch="UniformToFill">
                 <Image.Source>
-                    <Binding Path="EventCountdown.BackgroundImagePath">
-                        <!--<Binding.TargetNullValue>
-                            <ImageSource>/Assets/SampleBackgrounds/BlankBackground.png</ImageSource>
-                        </Binding.TargetNullValue>-->
-                    </Binding>
+                    <BitmapImage UriSource="{x:Bind ViewModel.Event.BackgroundImage, Mode=OneWay}" />
                 </Image.Source>
             </Image>
         </Border>
@@ -50,10 +46,10 @@
                 <Viewbox
                     MaxWidth="600"
                     Margin="20"
-                    Visibility="{x:Bind ViewModel.EventCountdown.Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay}">
+                    Visibility="{x:Bind ViewModel.Event.Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Margin="10,0" Orientation="Vertical">
-                            <TextBlock Style="{StaticResource TimeComponentStyle}" Text="{x:Bind ViewModel.EventCountdown.DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                            <TextBlock Style="{StaticResource TimeComponentStyle}" Text="{x:Bind ViewModel.Event.DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                             <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Days}" />
                         </StackPanel>
                         <StackPanel
@@ -64,21 +60,21 @@
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind ViewModel.EventCountdown.HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind ViewModel.Event.HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Hours}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind ViewModel.EventCountdown.MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind ViewModel.Event.MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Minutes}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind ViewModel.EventCountdown.SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
+                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind ViewModel.Event.SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
                                 <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Seconds}" />
                             </StackPanel>
                         </StackPanel>
@@ -91,10 +87,10 @@
                     FontSize="55"
                     FontWeight="SemiLight"
                     Foreground="White"
-                    Text="{x:Bind ViewModel.EventCountdown.CelebrationMessage}"
+                    Text="{x:Bind ViewModel.Event.CelebrationMessage}"
                     TextAlignment="Center"
                     TextWrapping="Wrap"
-                    Visibility="{x:Bind ViewModel.EventCountdown.Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+                    Visibility="{x:Bind ViewModel.Event.Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
                     <TextBlock
                         Grid.Row="1"
@@ -103,7 +99,7 @@
                         VerticalAlignment="Bottom"
                         FontSize="40"
                         Foreground="White"
-                        Text="{x:Bind ViewModel.EventCountdown.Name, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Event.Name, Mode=OneWay}" />
                     <TextBlock
                         Margin="22,0,0,20"
                         HorizontalAlignment="Left"
@@ -114,7 +110,15 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <CommandBar
+
+        <Button
+            x:Name="BackButton"
+            Margin="12"
+            Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
+            Style="{StaticResource NavigationBackButtonStyle}"
+            ToolTipService.ToolTip="Back"
+            Visibility="{x:Bind ViewModel.CanGoBack, Mode=OneWay}" />
+        <!--<CommandBar
             Grid.Row="2"
             Grid.ColumnSpan="2"
             ClosedDisplayMode="Minimal"
@@ -144,6 +148,6 @@
                     Icon="Delete"
                     Label="{xaml:Localize Key=Delete}" />
             </CommandBar.SecondaryCommands>
-        </CommandBar>
+        </CommandBar>-->
     </Grid>
 </local:CountdownDetailViewBase>

@@ -1,4 +1,6 @@
-﻿namespace EventCountdowns.Core.Models;
+﻿using System;
+
+namespace EventCountdowns.Core.Models;
 
 public class EventCountdownObservable : ObservableObject
 {
@@ -15,7 +17,7 @@ public class EventCountdownObservable : ObservableObject
 
 	public string Name => _eventCountdown.Name;
 
-	public string BackgroundImagePath => _eventCountdown.BackgroundImagePath;
+	public Uri? BackgroundImage => _eventCountdown.BackgroundImageUri;
 
 	public bool Finished => _eventCountdown.TargetDateTime < DateTimeOffset.Now;
 

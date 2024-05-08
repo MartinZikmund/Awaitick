@@ -4,38 +4,28 @@ namespace EventCountdowns.Core.DefaultData;
 
 public class DefaultBackgrounds : IDefaultBackgrounds
 {
-	private readonly Dictionary<string, DefaultBackground> _defaultBackgrounds = new Dictionary<string, DefaultBackground>()
+	private readonly Dictionary<string, DefaultBackground> _defaultBackgrounds = new()
 	{
-		{ "blank", new DefaultBackground("", null, "ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.jpg") },
-		{ "christmas", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Christmas.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Christmas.jpg") },
-		{ "easter", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Easter.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Easter.jpg") },
-		{ "halloween", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Halloween.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Halloween.jpg") },
-		{ "beach", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Beach.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Beach.jpg") },
-		{ "concert", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Concert.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Concert.jpg") },
-		{ "love", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Love.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Love.jpg") },
-		{ "movies", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Movies.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Movies.jpg") },
-		{ "newyear", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/NewYear.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/NewYear.jpg") },
-		{ "plane", new DefaultBackground("", "ms-appx:///Assets/SampleBackgrounds/Plane.jpg", "ms-appx:///Assets/SampleBackgrounds/Thumbnails/Plane.jpg") },
+		{ "blank", new DefaultBackground("BlankBackground") },
+		{ "christmas", new DefaultBackground("Christmas") },
+		{ "easter", new DefaultBackground("Easter") },
+		{ "halloween", new DefaultBackground("Halloween") },
+		{ "beach", new DefaultBackground("Beach") },
+		{ "concert", new DefaultBackground("Concert") },
+		{ "love", new DefaultBackground("Love") },
+		{ "movies", new DefaultBackground("Movies") },
+		{ "newyear", new DefaultBackground("NewYear") },
+		{ "plane", new DefaultBackground("Plane")},
 	};
-	public DefaultBackground[] GetDefaultBackgrounds()
-	{
-		return _defaultBackgrounds.Values.ToArray();
-	}
 
-	public DefaultBackground GetSampleEventBackground(SampleEventTypes sampleEventKind)
+	public DefaultBackground[] GetDefaultBackgrounds() => _defaultBackgrounds.Values.ToArray();
+
+	public DefaultBackground GetSampleEventBackground(EventPreset sampleEventKind) => sampleEventKind switch
 	{
-		switch (sampleEventKind)
-		{
-			case SampleEventTypes.Christmas:
-				return _defaultBackgrounds["christmas"];
-			case SampleEventTypes.Easter:
-				return _defaultBackgrounds["easter"];
-			case SampleEventTypes.Halloween:
-				return _defaultBackgrounds["halloween"];
-			case SampleEventTypes.NewYear:
-				return _defaultBackgrounds["newyear"];
-			default:
-				throw new ArgumentOutOfRangeException(nameof(sampleEventKind), sampleEventKind, null);
-		}
-	}
+		EventPreset.Christmas => _defaultBackgrounds["christmas"],
+		EventPreset.Easter => _defaultBackgrounds["easter"],
+		EventPreset.Halloween => _defaultBackgrounds["halloween"],
+		EventPreset.NewYear => _defaultBackgrounds["newyear"],
+		_ => throw new ArgumentOutOfRangeException(nameof(sampleEventKind), sampleEventKind, null),
+	};
 }

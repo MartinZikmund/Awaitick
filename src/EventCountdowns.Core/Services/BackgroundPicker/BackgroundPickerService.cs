@@ -5,14 +5,21 @@ using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 using EventCountdowns.Core.Services.BackgroundPicker;
+using EventCountdowns.Services.Navigation;
 
 namespace EventCountdowns.Core.Services;
 
 public class BackgroundPickerService : IBackgroundPickerService
 {
 	private const int BufferSize = 1024;
+	private readonly IWindowShellProvider _windowShellProvider;
 
-	public async Task<string?> PickBackgroundAsync()
+	public BackgroundPickerService(IWindowShellProvider windowShellProvider)
+	{
+		_windowShellProvider = windowShellProvider;
+	}
+
+	public async Task<Uri?> PickBackgroundAsync()
 	{
 		//pick image
 		var filePicker = new FileOpenPicker();
@@ -21,6 +28,9 @@ public class BackgroundPickerService : IBackgroundPickerService
 		filePicker.FileTypeFilter.Add(".png");
 		filePicker.ViewMode = PickerViewMode.Thumbnail;
 		filePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+
+		var handle = WinRT.Interop.WindowNative.GetWindowHandle(_windowShellProvider.Window);
+		WinRT.Interop.InitializeWithWindow.Initialize(filePicker, handle);
 
 		StorageFile file = await filePicker.PickSingleFileAsync();
 		if (file == null)
@@ -34,7 +44,7 @@ public class BackgroundPickerService : IBackgroundPickerService
 			var inputStream = resizedStream.GetInputStreamAt(0);
 			Guid backgoundId = Guid.NewGuid();
 			var userBackgroundsFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("UserBackgrounds", CreationCollisionOption.OpenIfExists);
-			var imageFile = await userBackgroundsFolder.CreateFileAsync(backgoundId + ".jpg");
+			var imageFile = await userBackgroundsFolder.CreateFileAsync(backgoundId + file.FileType);
 			using (DataReader reader = new DataReader(inputStream))
 			{
 				using (IRandomAccessStream fileStream = await imageFile.OpenAsync(FileAccessMode.ReadWrite))
@@ -56,7 +66,7 @@ public class BackgroundPickerService : IBackgroundPickerService
 					}
 				}
 			}
-			return imageFile.Path;
+			return new Uri("ms-appdata:///local/UserBackgrounds/" + backgoundId + file.FileType, UriKind.Absolute);
 		}
 	}
 

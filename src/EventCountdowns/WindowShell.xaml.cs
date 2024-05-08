@@ -50,13 +50,16 @@ public sealed partial class WindowShell : Page, IWindowShell
 	{
 		if (ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.Window", "ExtendsContentIntoTitleBar"))
 		{
+#if !HAS_UNO
 			_associatedWindow.ExtendsContentIntoTitleBar = true;
 			_associatedWindow.SetTitleBar(TitleBarGrid);
 			HasCustomTitleBar = true;
+#endif
 		}
 		if (ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.Window", "SystemBackdrop"))
 		{
 			_associatedWindow.SystemBackdrop = new MicaBackdrop();
+			Background = null;
 		}
 	}
 

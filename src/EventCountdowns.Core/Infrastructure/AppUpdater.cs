@@ -1,5 +1,4 @@
 ﻿using EventCountdowns.Core.Configuration;
-using EventCountdowns.Core.Services.BackgroundTasks;
 using EventCountdowns.Core.Services.Settings;
 
 namespace EventCountdowns.Core.Infrastructure;
@@ -19,6 +18,7 @@ public class AppUpdater : IAppUpdater
 		{
 			_settings.DataVersion = ApplicationReleaseInfo.DataVersion;
 		}
+
 		int retryCounter = 0;
 		while (_settings.DataVersion < ApplicationReleaseInfo.DataVersion)
 		{
@@ -41,10 +41,5 @@ public class AppUpdater : IAppUpdater
 
 	public async Task UpdateFromVersion0ToVersion1Async()
 	{
-		//unregister background task
-		if (await IoC.GetService<IBackgroundTasksService>().UnregisterAsync())
-		{
-			_settings.DataVersion = 1;
-		}
 	}
 }

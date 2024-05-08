@@ -15,6 +15,8 @@ public class NavigationService : INavigationService
 
 	private Frame Frame => _frameProvider.GetForCurrentView();
 
+	public bool CanGoBack => Frame.CanGoBack;
+
 	public bool GoBack()
 	{
 		if (Frame.CanGoBack)

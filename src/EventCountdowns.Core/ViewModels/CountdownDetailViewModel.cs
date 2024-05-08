@@ -6,11 +6,12 @@ using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Share;
 using EventCountdowns.Core.Services.Tiles;
+using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
-public class CountdownDetailViewModel : PageViewModel
+public partial class CountdownDetailViewModel : PageViewModel
 {
 	public class NavigationModel
 	{
@@ -27,6 +28,7 @@ public class CountdownDetailViewModel : PageViewModel
 	}
 
 	private readonly IEventCountdownManager _eventCountdownManager;
+	private readonly INavigationService _navigationService;
 	private readonly IDataService _dataService;
 	private readonly ITileService _tileService;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
@@ -34,13 +36,25 @@ public class CountdownDetailViewModel : PageViewModel
 	private readonly IConfirmationDialogService _confirmationDialogService;
 	private readonly IStringLocalizer _localizationService;
 
-	private EventCountdownObservable? _eventCountdown;
+	[ObservableProperty]
+	private EventCountdownObservable? _event;
+
 	private bool _isTilePinned;
 	private string _targetDateString = "";
 
-	public CountdownDetailViewModel(IEventCountdownManager eventCountdownManager, IDataService dataService, ITileService tileService, IScheduledNotificationService scheduledNotificationService, ISystemSharingService sharingService, IConfirmationDialogService confirmationDialogService, IStringLocalizer localizationService)
+	public CountdownDetailViewModel(
+		IEventCountdownManager eventCountdownManager,
+		INavigationService navigationService,
+		IDataService dataService,
+		ITileService tileService,
+		IScheduledNotificationService scheduledNotificationService,
+		ISystemSharingService sharingService,
+		IConfirmationDialogService confirmationDialogService,
+		IStringLocalizer localizationService) :
+		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager;
+		_navigationService = navigationService;
 		_dataService = dataService;
 		_tileService = tileService;
 		_scheduledNotificationService = scheduledNotificationService;
@@ -49,76 +63,64 @@ public class CountdownDetailViewModel : PageViewModel
 		_localizationService = localizationService;
 	}
 
-	public override async Task LoadAsync(object? parameter)
+	public override async void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
 			throw new ArgumentException("Parameter must be CountdownDetailViewModel.NavigationModel.", nameof(parameter));
 		}
 
-		EventCountdown = new EventCountdownObservable(await _dataService.GetCountdownAsync(navigationModel.CountdownId));
-		if (EventCountdown != null)
+		Event = new EventCountdownObservable(await _dataService.GetCountdownAsync(navigationModel.CountdownId));
+		if (Event != null)
 		{
-			TargetDateString = EventCountdown.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
-			IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
-			_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
+			TargetDateString = Event.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
+			IsTilePinned = _tileService.IsCountdownPinned(Event.Id);
+			_scheduledNotificationService.SuppressCountdownNotification(Event.Model);
 		}
 	}
 
-	public EventCountdownObservable EventCountdown
-	{
-		get => _eventCountdown;
-		set => SetProperty(ref _eventCountdown, value);
-	}
-
-	public ICommand DeletePromptCommand => GetOrCreateCommand(DeletePrompt);
-
-	private async void DeletePrompt()
+	[RelayCommand]
+	private async Task DeletePrompt()
 	{
 		//show delete dialog
-		await
-			_confirmationDialogService.ShowAsync(_localizationService.GetString("ConfirmDelete"),
-				string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("AreYouSureDeleteTextFormat"), EventCountdown.Name), DeleteConfirmed,
-				() => { });
+		await _confirmationDialogService.ShowAsync(_localizationService.GetString("ConfirmDelete"),
+			string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("AreYouSureDeleteTextFormat"), Event.Name), DeleteConfirmed,
+			() => { });
 	}
 
 	private async void DeleteConfirmed()
 	{
-		await _eventCountdownManager.DeleteCountdownAsync(EventCountdown.Model);
-		Navigation.GoBack();
+		await _eventCountdownManager.DeleteCountdownAsync(Event.Model);
+		_navigationService.GoBack();
 	}
 
-
-	public ICommand EditCommand => GetOrCreateCommand(Edit);
-
+	[RelayCommand]
 	private void Edit()
 	{
-		Navigation.Navigate<CountdownEditorViewModel>(CountdownEditorViewModel.NavigationModel.CreateEdit(EventCountdown.Id));
+		_navigationService.Navigate<CountdownEditorViewModel>(CountdownEditorViewModel.NavigationModel.CreateEdit(Event.Id));
 	}
 
-	public ICommand ShareCommand => GetOrCreateCommand(Share);
-
+	[RelayCommand]
 	private void Share()
 	{
 		string sharedText = "";
-		if (EventCountdown.Finished)
+		if (Event.Finished)
 		{
 			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("SharingFinishedEventFormatString"),
-				EventCountdown.CelebrationMessage, _localizationService.GetString("AppSocialHandle"));
+				Event.CelebrationMessage, _localizationService.GetString("AppSocialHandle"));
 		}
 		else
 		{
 			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("SharingFormatString"),
-				EventCountdown.Name,
-				EventCountdown.DaysLeft,
-				EventCountdown.HoursLeft,
-				EventCountdown.MinutesLeft,
-				EventCountdown.TargetDateTime.ToString("g", CultureInfo.CurrentCulture),
+				Event.Name,
+				Event.DaysLeft,
+				Event.HoursLeft,
+				Event.MinutesLeft,
+				Event.TargetDateTime.ToString("g", CultureInfo.CurrentCulture),
 				_localizationService.GetString("AppSocialHandle"));
 		}
 		_sharingService.ShareTextAsync(sharedText);
 	}
-
 
 	public string TargetDateString
 	{
@@ -132,26 +134,23 @@ public class CountdownDetailViewModel : PageViewModel
 		set => SetProperty(ref _isTilePinned, value);
 	}
 
-	public ICommand PinCommand => GetOrCreateCommand(Pin);
-
-	private async void Pin()
+	[RelayCommand]
+	private async Task PinAsync()
 	{
-		IsTilePinned = await _tileService.PinCountdownAsync(EventCountdown.Model);
-		_tileService.UpdateCountdownTile(EventCountdown.Model);
-		_tileService.ScheduleCountdownNotification(EventCountdown.Model);
+		IsTilePinned = await _tileService.PinCountdownAsync(Event.Model);
+		_tileService.UpdateCountdownTile(Event.Model);
+		_tileService.ScheduleCountdownNotification(Event.Model);
 	}
 
-	public ICommand UnPinCommand => GetOrCreateCommand(UnPin);
-
-	private async void UnPin()
+	[RelayCommand]
+	private async Task UnPinAsync()
 	{
-		var unpinSuccessful = await _tileService.UnpinCountdownAsync(EventCountdown.Model);
+		var unpinSuccessful = await _tileService.UnpinCountdownAsync(Event.Model);
 		IsTilePinned = !unpinSuccessful;
 	}
 
-
 	public void UpdateCountdowns()
 	{
-		EventCountdown?.UpdateBindings();
+		Event?.UpdateBindings();
 	}
 }

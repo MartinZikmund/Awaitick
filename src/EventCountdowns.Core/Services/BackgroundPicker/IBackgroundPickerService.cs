@@ -2,5 +2,5 @@
 
 public interface IBackgroundPickerService
 {
-	Task<string?> PickBackgroundAsync();
+	Task<Uri?> PickBackgroundAsync();
 }

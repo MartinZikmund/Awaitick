@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.UI.Xaml.Data;
 
-namespace EventCountdowns.Core.Converters;
+namespace EventCountdowns.Converters;
 
 public class IntToTimeComponentStringConverter : IValueConverter
 {
