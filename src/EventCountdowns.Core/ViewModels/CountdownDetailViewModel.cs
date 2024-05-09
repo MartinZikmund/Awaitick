@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
 using EventCountdowns.Core.Models;
+using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.ConfirmationDialog;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.ScheduledNotification;
-using EventCountdowns.Core.Services.Share;
 using EventCountdowns.Core.Services.Tiles;
 using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
@@ -37,7 +37,7 @@ public partial class CountdownDetailViewModel : PageViewModel
 	private readonly IStringLocalizer _localizationService;
 
 	[ObservableProperty]
-	private EventCountdownObservable? _event;
+	private EventCountdownObservable _event = null!;
 
 	private bool _isTilePinned;
 	private string _targetDateString = "";
@@ -70,13 +70,17 @@ public partial class CountdownDetailViewModel : PageViewModel
 			throw new ArgumentException("Parameter must be CountdownDetailViewModel.NavigationModel.", nameof(parameter));
 		}
 
-		Event = new EventCountdownObservable(await _dataService.GetCountdownAsync(navigationModel.CountdownId));
-		if (Event != null)
+		var eventInfo = await _dataService.GetCountdownAsync(navigationModel.CountdownId);
+		if (eventInfo is null)
 		{
-			TargetDateString = Event.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
-			IsTilePinned = _tileService.IsCountdownPinned(Event.Id);
-			_scheduledNotificationService.SuppressCountdownNotification(Event.Model);
+			throw new InvalidOperationException("This event does not exist");
 		}
+
+		Event = new EventCountdownObservable(eventInfo);
+
+		TargetDateString = Event.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
+		IsTilePinned = _tileService.IsCountdownPinned(Event.Id);
+		_scheduledNotificationService.SuppressCountdownNotification(Event.Model);
 	}
 
 	[RelayCommand]
@@ -104,21 +108,28 @@ public partial class CountdownDetailViewModel : PageViewModel
 	private void Share()
 	{
 		string sharedText = "";
+
 		if (Event.Finished)
 		{
-			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("SharingFinishedEventFormatString"),
-				Event.CelebrationMessage, _localizationService.GetString("AppSocialHandle"));
+			sharedText = string.Format(
+				CultureInfo.CurrentCulture,
+				_localizationService.GetString("SharingFinishedEventFormatString"),
+				Event.CelebrationMessage,
+				_localizationService.GetString("AppName"));
 		}
 		else
 		{
-			sharedText = string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("SharingFormatString"),
+			sharedText = string.Format(
+				CultureInfo.CurrentCulture,
+				_localizationService.GetString("SharingFormatString"),
 				Event.Name,
 				Event.DaysLeft,
 				Event.HoursLeft,
 				Event.MinutesLeft,
 				Event.TargetDateTime.ToString("g", CultureInfo.CurrentCulture),
-				_localizationService.GetString("AppSocialHandle"));
+				_localizationService.GetString("AppName"));
 		}
+
 		_sharingService.ShareTextAsync(sharedText);
 	}
 

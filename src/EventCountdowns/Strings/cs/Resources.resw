@@ -129,9 +129,6 @@
   <data name="AppName" xml:space="preserve">
     <value>Odpočty</value>
   </data>
-  <data name="AppSocialHandle" xml:space="preserve">
-    <value>EventCountdownsApp</value>
-  </data>
   <data name="AreYouSureDeleteTextFormat" xml:space="preserve">
     <value>Checte opravdu odstranit "{0}"?</value>
   </data>
@@ -268,7 +265,7 @@
     <value>Sdílet</value>
   </data>
   <data name="SharingFormatString" xml:space="preserve">
-    <value>{0} za {1} dní, {2} hodin a {3} minut ({4}) [přes @{5} pro Windows 10]</value>
+    <value>{0} za {1} dní, {2} hodin a {3} minut ({4}) [z aplikace {5}]</value>
   </data>
   <data name="TallCoffee" xml:space="preserve">
     <value>Malá</value>
@@ -304,7 +301,7 @@
     <value>Děkuji vám moc za kávu :-) .</value>
   </data>
   <data name="SharingFinishedEventFormatString" xml:space="preserve">
-    <value>{0} [přes @{1} pro Windows 10]</value>
+    <value>{0} [z aplikace {1}]</value>
   </data>
   <data name="ThankYou" xml:space="preserve">
     <value>Thank you!</value>
