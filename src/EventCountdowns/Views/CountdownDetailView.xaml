@@ -118,17 +118,16 @@
             Style="{StaticResource NavigationBackButtonStyle}"
             ToolTipService.ToolTip="Back"
             Visibility="{x:Bind ViewModel.CanGoBack, Mode=OneWay}" />
-        <!--<CommandBar
+        <CommandBar
             Grid.Row="2"
             Grid.ColumnSpan="2"
-            ClosedDisplayMode="Minimal"
-            IsOpen="False">
-            <AppBarButton Command="{x:Bind ViewModel.ShareCommand}" Label="{xaml:Localize Key=Share}">
+            ClosedDisplayMode="Compact">
+            <AppBarButton Command="{x:Bind ViewModel.Event.ShareCommand}" Label="{xaml:Localize Key=Share}">
                 <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" />
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE72D;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton
+            <!--<AppBarButton
                 Command="{x:Bind ViewModel.PinCommand}"
                 Icon="Pin"
                 Label="{xaml:Localize Key=PinToStart}"
@@ -137,8 +136,8 @@
                 Command="{x:Bind ViewModel.UnPinCommand}"
                 Icon="UnPin"
                 Label="{xaml:Localize Key=UnpinFromStart}"
-                Visibility="{x:Bind ViewModel.IsTilePinned, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <AppBarButton
+                Visibility="{x:Bind ViewModel.IsTilePinned, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />-->
+            <!--<AppBarButton
                 Command="{x:Bind ViewModel.EditCommand}"
                 Icon="Edit"
                 Label="{xaml:Localize Key=Edit}" />
@@ -147,7 +146,7 @@
                     Command="{x:Bind ViewModel.DeletePromptCommand}"
                     Icon="Delete"
                     Label="{xaml:Localize Key=Delete}" />
-            </CommandBar.SecondaryCommands>
-        </CommandBar>-->
+            </CommandBar.SecondaryCommands>-->
+        </CommandBar>
     </Grid>
 </local:CountdownDetailViewBase>

@@ -1,14 +1,17 @@
-﻿using System;
+﻿using System.Globalization;
+using EventCountdowns.Core.Services;
 
 namespace EventCountdowns.Core.Models;
 
-public class EventCountdownObservable : ObservableObject
+public partial class EventCountdownObservable : ObservableObject
 {
 	private readonly EventCountdown _eventCountdown;
+	private readonly IEventSharingService _sharingService;
 
-	public EventCountdownObservable(EventCountdown eventCountdown)
+	public EventCountdownObservable(EventCountdown eventCountdown, IEventSharingService sharingService)
 	{
-		_eventCountdown = eventCountdown;
+		_eventCountdown = eventCountdown ?? throw new ArgumentNullException(nameof(eventCountdown));
+		_sharingService = sharingService ?? throw new ArgumentNullException(nameof(sharingService));
 	}
 
 	public EventCountdown Model => _eventCountdown;
@@ -34,6 +37,9 @@ public class EventCountdownObservable : ObservableObject
 	public DateTimeOffset TargetDateTime => _eventCountdown.TargetDateTime;
 
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
+
+	[RelayCommand]
+	public void Share() => _sharingService.ShareAsync(this);
 
 	public void UpdateBindings()
 	{

@@ -144,6 +144,14 @@
                 x:Name="MainGrid"
                 HorizontalAlignment="Stretch"
                 Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <Grid.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem
+                            Command="{x:Bind ShareCommand}"
+                            Icon="{xaml:FontIcon Glyph={StaticResource ShareIcon}}"
+                            Text="{xaml:Localize Key=Share}" />
+                    </MenuFlyout>
+                </Grid.ContextFlyout>
                 <!--<VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualState>

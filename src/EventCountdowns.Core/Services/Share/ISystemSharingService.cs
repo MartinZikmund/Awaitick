@@ -1,4 +1,4 @@
-﻿namespace EventCountdowns.Core.Services.Share;
+﻿namespace EventCountdowns.Core.Services;
 
 public interface ISystemSharingService
 {

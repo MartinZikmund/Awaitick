@@ -17,7 +17,6 @@ using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.DefaultData;
-using EventCountdowns.Core.Services.Share;
 using EventCountdowns.Core.Services.ConfirmationDialog;
 
 namespace EventCountdowns;
@@ -95,6 +94,7 @@ public class CountdownsApp : Application, IApplication
 		services.AddScoped<IWindowShellProvider, WindowShellProvider>();
 
 		services.AddScoped<ISystemSharingService, SystemSharingService>();
+		services.AddScoped<IEventSharingService, EventSharingService>();
 		services.AddScoped<IConfirmationDialogService, ConfirmationDialogService>();
 		services.AddSingleton<IEventCountdownManager, EventCountdownManager>();
 		services.AddScoped<IBackgroundPickerService, BackgroundPickerService>();

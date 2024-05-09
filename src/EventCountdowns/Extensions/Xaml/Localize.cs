@@ -3,7 +3,8 @@ using Microsoft.UI.Xaml.Markup;
 
 namespace EventCountdowns.Extensions.Xaml;
 
-public class Localize : MarkupExtension
+[MarkupExtensionReturnType(ReturnType = typeof(string))]
+public class LocalizeExtension : MarkupExtension
 {
 	public string Key { get; set; } = "";
 

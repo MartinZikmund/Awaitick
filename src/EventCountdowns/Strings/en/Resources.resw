@@ -129,9 +129,6 @@
   <data name="AppName" xml:space="preserve">
     <value>Event Countdowns</value>
   </data>
-  <data name="AppSocialHandle" xml:space="preserve">
-    <value>EventCountdownsApp</value>
-  </data>
   <data name="AreYouSureDeleteTextFormat" xml:space="preserve">
     <value>Are you sure you want to delete "{0}"?</value>
   </data>
@@ -265,7 +262,7 @@
     <value>Share</value>
   </data>
   <data name="SharingFormatString" xml:space="preserve">
-    <value>{0} in {1} days, {2} hours and {3} minutes ({4}) [via @{5} for Windows 10]</value>
+    <value>{0} in {1} days, {2} hours and {3} minutes ({4}) [from {5} app]</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Time</value>
@@ -319,7 +316,7 @@
     <value>Thank you very much for the coffee :-) !</value>
   </data>
   <data name="SharingFinishedEventFormatString" xml:space="preserve">
-    <value>{0} [via@{1} for Windows 10]</value>
+    <value>{0} [from {1} app]</value>
   </data>
   <data name="ThankYou" xml:space="preserve">
     <value>Thank you!</value>
