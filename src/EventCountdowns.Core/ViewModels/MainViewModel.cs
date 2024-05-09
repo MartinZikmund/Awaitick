@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using EventCountdowns.Core.Models;
+using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Services.Mail;
@@ -22,6 +23,7 @@ public partial class MainViewModel : PageViewModel
 	private readonly IStoreLauncherService _storeLauncherService;
 	private readonly IAppSettings _appSettings;
 	private readonly INavigationService _navigationService;
+	private readonly IEventSharingService _sharingService;
 
 	public MainViewModel(
 		IDataService dataService,
@@ -31,6 +33,7 @@ public partial class MainViewModel : PageViewModel
 		IScheduledNotificationService scheduledNotificationService,
 		IStoreLauncherService storeLauncherService,
 		INavigationService navigationService,
+		IEventSharingService sharingService,
 		IAppSettings appSettings) :
 		base(navigationService)
 	{
@@ -41,6 +44,7 @@ public partial class MainViewModel : PageViewModel
 		_scheduledNotificationService = scheduledNotificationService;
 		_storeLauncherService = storeLauncherService;
 		_navigationService = navigationService;
+		_sharingService = sharingService;
 		_appSettings = appSettings;
 	}
 
@@ -52,7 +56,7 @@ public partial class MainViewModel : PageViewModel
 		EventCountdowns.Clear();
 		foreach (var countdown in countdowns)
 		{
-			EventCountdowns.Add(new EventCountdownObservable(countdown));
+			EventCountdowns.Add(new EventCountdownObservable(countdown, _sharingService));
 		}
 		OnPropertyChanged(nameof(HasAnyEvents));
 

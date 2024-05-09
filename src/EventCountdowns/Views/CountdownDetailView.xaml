@@ -122,7 +122,7 @@
             Grid.Row="2"
             Grid.ColumnSpan="2"
             ClosedDisplayMode="Compact">
-            <AppBarButton Command="{x:Bind ViewModel.ShareCommand}" Label="{xaml:Localize Key=Share}">
+            <AppBarButton Command="{x:Bind ViewModel.Event.ShareCommand}" Label="{xaml:Localize Key=Share}">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE72D;" />
                 </AppBarButton.Icon>

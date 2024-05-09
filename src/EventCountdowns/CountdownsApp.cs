@@ -94,6 +94,7 @@ public class CountdownsApp : Application, IApplication
 		services.AddScoped<IWindowShellProvider, WindowShellProvider>();
 
 		services.AddScoped<ISystemSharingService, SystemSharingService>();
+		services.AddScoped<IEventSharingService, EventSharingService>();
 		services.AddScoped<IConfirmationDialogService, ConfirmationDialogService>();
 		services.AddSingleton<IEventCountdownManager, EventCountdownManager>();
 		services.AddScoped<IBackgroundPickerService, BackgroundPickerService>();
