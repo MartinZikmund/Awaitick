@@ -1,7 +1,5 @@
 ﻿using System.Reflection;
 using EventCountdowns.ViewModels;
-using EventCountdowns.Core.Attributes;
-using EventCountdowns.Core.Enums;
 
 namespace EventCountdowns.Views;
 
@@ -51,12 +49,6 @@ public abstract partial class PageBase<TViewModel> : Page
 	private void PageLoaded(object sender, RoutedEventArgs e)
 	{
 		ViewModel?.ViewLoaded();
-
-		if (XamlRoot?.Content is WindowShell windowShell)
-		{
-			var titleBarMode = GetType().GetCustomAttribute<TitleBarModeAttribute>()?.Mode ?? TitleBarMode.Default;
-			windowShell.SetTitleBarMode(titleBarMode);
-		}
 	}
 
 	protected override void OnNavigatedTo(NavigationEventArgs e)

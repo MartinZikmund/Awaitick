@@ -6,7 +6,6 @@ using MZikmund.Services.Dialogs;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.ViewModels;
 using Microsoft.UI.Xaml.Media;
-using EventCountdowns.Core.Enums;
 
 namespace EventCountdowns;
 
@@ -39,21 +38,6 @@ public sealed partial class WindowShell : Page, IWindowShell
 	private void WindowShell_Loaded(object sender, RoutedEventArgs e)
 	{
 		SetTitlebarColors();
-	}
-
-	public void SetTitleBarMode(TitleBarMode mode)
-	{
-		switch (mode)
-		{
-			case TitleBarMode.Default:
-				Grid.SetRow(InnerFrame, 1);
-				Grid.SetRowSpan(InnerFrame, 1);
-				break;
-			case TitleBarMode.BlendIn:
-				Grid.SetRow(InnerFrame, 0);
-				Grid.SetRowSpan(InnerFrame, 2);
-				break;
-		}
 	}
 
 	public WindowShellViewModel ViewModel { get; }

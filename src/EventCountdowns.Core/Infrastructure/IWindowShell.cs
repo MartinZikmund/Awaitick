@@ -1,5 +1,4 @@
-﻿using EventCountdowns.Core.Enums;
-using EventCountdowns.ViewModels;
+﻿using EventCountdowns.ViewModels;
 using Microsoft.UI.Dispatching;
 
 namespace EventCountdowns.Core.Infrastructure;
@@ -15,6 +14,4 @@ public interface IWindowShell
 	DispatcherQueue DispatcherQueue { get; }
 
 	Frame RootFrame { get; }
-
-	void SetTitleBarMode(TitleBarMode mode);
 }

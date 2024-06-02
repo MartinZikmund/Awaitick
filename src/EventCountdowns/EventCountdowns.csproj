@@ -47,12 +47,4 @@
 	<ItemGroup>
 		<ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Enums\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <UpToDateCheckInput Remove="resources\Values.xaml" />
-	</ItemGroup>
 </Project>

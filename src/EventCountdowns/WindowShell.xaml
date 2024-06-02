@@ -22,22 +22,22 @@
             ColumnSpacing="16"
 			Background="Transparent"
             Visibility="{x:Bind HasCustomTitleBar}">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<Image
-					Width="16"
-					Height="16"
-					Source="ms-appx:///EventCountdowns/Assets/Icons/appicon.png" />
-				<TextBlock
-					Grid.Column="1"
-					VerticalAlignment="Center"
-					Style="{ThemeResource CaptionTextBlockStyle}"
-					Text="{x:Bind ViewModel.Title}" />
-			</Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Image
+				Width="16"
+				Height="16"
+				Source="ms-appx:///EventCountdowns/Assets/Icons/appicon.png"
+				Grid.Column="1" />
+			<TextBlock
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				Style="{ThemeResource CaptionTextBlockStyle}"
+				Text="{x:Bind ViewModel.Title}" />
 		</Grid>
 	</Grid>
 </Page>
