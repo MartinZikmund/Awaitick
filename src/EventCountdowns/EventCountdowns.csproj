@@ -39,11 +39,20 @@
 	<ItemGroup>
 		<EmbeddedResource Include="appsettings.json" />
 		<EmbeddedResource Include="appsettings.*.json" DependentUpon="appsettings.json" />
+		<None Remove="resources\Values.xaml" />
 
 		<Content Include="Assets/Icons/appicon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Enums\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="resources\Values.xaml" />
 	</ItemGroup>
 </Project>

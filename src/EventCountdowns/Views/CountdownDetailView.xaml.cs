@@ -1,7 +1,10 @@
 ﻿using EventCountdowns.Core.ViewModels;
+using EventCountdowns.Core.Attributes;
+using EventCountdowns.Core.Enums;
 
 namespace EventCountdowns.Views;
 
+[TitleBarMode(TitleBarMode.BlendIn)]
 public sealed partial class CountdownDetailView : CountdownDetailViewBase
 {
 	private readonly DispatcherTimer _timer;

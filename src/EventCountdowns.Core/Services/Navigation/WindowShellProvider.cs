@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.UI.Dispatching;
 using EventCountdowns.ViewModels;
 using EventCountdowns.Core.Infrastructure;
+using EventCountdowns.Core.Enums;
 
 namespace EventCountdowns.Services.Navigation;
 
@@ -89,6 +90,12 @@ public sealed class WindowShellProvider : IWindowShellProvider
 			EnsureInitialized();
 			return _shell.RootFrame;
 		}
+	}
+
+	public void SetTitleBarMode(TitleBarMode mode)
+	{
+		EnsureInitialized();
+		_shell.SetTitleBarMode(mode);
 	}
 
 	[MemberNotNull(nameof(_shell))]

@@ -8,6 +8,8 @@ using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Tiles;
 using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
+using EventCountdowns.Core.Attributes;
+using EventCountdowns.Core.Enums;
 
 namespace EventCountdowns.Core.ViewModels;
 
