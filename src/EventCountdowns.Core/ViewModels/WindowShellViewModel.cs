@@ -1,6 +1,8 @@
-﻿using EventCountdowns.Core.ViewModels;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using EventCountdowns.Core.ViewModels;
 using EventCountdowns.Services.Localization;
 using EventCountdowns.Services.Navigation;
+using EventCountdowns.Core.Messages;
 using Microsoft.UI.Dispatching;
 using Uno.Disposables;
 
@@ -10,6 +12,7 @@ public partial class WindowShellViewModel : ViewModelBase
 {
 	private readonly IWindowShellProvider _provider;
 	private readonly INavigationService _navigationService;
+	private readonly IMessenger _messenger;
 	private RefCountDisposable? _refCountDisposable;
 
 	[ObservableProperty]
@@ -18,13 +21,20 @@ public partial class WindowShellViewModel : ViewModelBase
 	[ObservableProperty]
 	private string _loadingStatusMessage = "";
 
-	public WindowShellViewModel(IWindowShellProvider provider, INavigationService navigationService)
+	public WindowShellViewModel(IWindowShellProvider provider, INavigationService navigationService, IMessenger messenger)
 	{
 		_provider = provider ?? throw new ArgumentNullException(nameof(provider));
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
+		_messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+		_messenger.Register<NavigatedMessage>(this, OnNavigated);
 	}
 
 	public string Title { get; set; } = Localizer.Instance.GetString("AppName");
+
+	public bool CanGoBack => _navigationService.CanGoBack;
+
+	[RelayCommand]
+	public void GoBack() => _navigationService.GoBack();
 
 	public IDisposable BeginLoading()
 	{
@@ -61,6 +71,8 @@ public partial class WindowShellViewModel : ViewModelBase
 		return _refCountDisposable;
 	}
 
-
-	public void BackRequested() => _navigationService.GoBack();
+	private void OnNavigated(object recipient, NavigatedMessage message)
+	{
+		OnPropertyChanged(nameof(CanGoBack));
+	}
 }

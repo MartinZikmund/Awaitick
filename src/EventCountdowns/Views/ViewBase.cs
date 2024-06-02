@@ -16,6 +16,8 @@ public abstract partial class PageBase<TViewModel> : Page
 		Unloaded += PageUnloaded;
 	}
 
+	public virtual bool BlendsInTitleBar => false;
+
 	public virtual TViewModel? ViewModel { get; private set; }
 
 	private void PageLoading(object sender, object args)
@@ -35,6 +37,11 @@ public abstract partial class PageBase<TViewModel> : Page
 
 	private void SetTitleBarPadding()
 	{
+		if (BlendsInTitleBar)
+		{
+			return;
+		}
+
 		var titleBarHeight = (double)Application.Current.Resources["TitleBarHeight"];
 		if (Content is Grid grid)
 		{

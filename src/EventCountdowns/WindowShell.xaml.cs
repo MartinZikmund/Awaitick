@@ -52,7 +52,10 @@ public sealed partial class WindowShell : Page, IWindowShell
 		{
 #if !HAS_UNO
 			_associatedWindow.ExtendsContentIntoTitleBar = true;
-			_associatedWindow.SetTitleBar(TitleBarGrid);
+			_associatedWindow.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
+			LeftTitleBarInsetColumnDefinition.Width = new GridLength(_associatedWindow.AppWindow.TitleBar.LeftInset);
+			RightTitleBarInsetColumnDefinition.Width = new GridLength(_associatedWindow.AppWindow.TitleBar.RightInset);
+			_associatedWindow.SetTitleBar(DraggableTitleBar);
 			HasCustomTitleBar = true;
 #endif
 		}

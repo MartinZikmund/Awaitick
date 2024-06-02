@@ -18,6 +18,7 @@ using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.DefaultData;
 using EventCountdowns.Core.Services.ConfirmationDialog;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace EventCountdowns;
 
@@ -84,6 +85,8 @@ public class CountdownsApp : Application, IApplication
 		services.AddScoped<MainViewModel>();
 		services.AddTransient<CountdownEditorViewModel>();
 		services.AddTransient<CountdownDetailViewModel>();
+
+		services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
 		services.AddSingleton<IApplication>(this);
 		services.AddScoped<IDialogCoordinator, DialogCoordinator>();

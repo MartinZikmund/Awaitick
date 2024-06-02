@@ -1,3 +1,3 @@
 ﻿namespace EventCountdowns.Core.Messages;
 
-internal record NavigatedMessage;
+public record NavigatedMessage;

@@ -14,6 +14,8 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		_timer.Tick += _timer_Tick;
 	}
 
+	public override bool BlendsInTitleBar => true;
+
 	private void _timer_Tick(object sender, object e)
 	{
 		//update data on view model
