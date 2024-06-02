@@ -39,6 +39,7 @@
 	<ItemGroup>
 		<EmbeddedResource Include="appsettings.json" />
 		<EmbeddedResource Include="appsettings.*.json" DependentUpon="appsettings.json" />
+		<None Remove="resources\Values.xaml" />
 
 		<Content Include="Assets/Icons/appicon.svg" />
 	</ItemGroup>

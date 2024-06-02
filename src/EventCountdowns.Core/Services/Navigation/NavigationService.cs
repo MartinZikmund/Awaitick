@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using CommunityToolkit.Mvvm.Messaging;
 using Windows.UI.Core;
+using EventCountdowns.Core.Messages;
 
 namespace EventCountdowns.Services.Navigation;
 
@@ -7,11 +9,16 @@ public class NavigationService : INavigationService
 {
 	private readonly Dictionary<string, Type> _views = new();
 	private readonly IFrameProvider _frameProvider;
+	private readonly IMessenger _messenger;
 
-	public NavigationService(IFrameProvider frameProvider)
+	public NavigationService(IFrameProvider frameProvider, IMessenger messenger)
 	{
 		_frameProvider = frameProvider ?? throw new ArgumentNullException(nameof(frameProvider));
+		_messenger = messenger;
+		_frameProvider.GetForCurrentView().Navigated += OnNavigated;
 	}
+
+	private void OnNavigated(object sender, NavigationEventArgs e) => _messenger.Send(new NavigatedMessage());
 
 	private Frame Frame => _frameProvider.GetForCurrentView();
 
@@ -65,5 +72,6 @@ public class NavigationService : INavigationService
 		SystemNavigationManager.GetForCurrentView().BackRequested += NavigationManagerBackRequested;
 
 	private void NavigationManagerBackRequested(object? sender, BackRequestedEventArgs? e) => GoBack();
+
 	public void ClearBackStack() => Frame.BackStack.Clear();
 }
