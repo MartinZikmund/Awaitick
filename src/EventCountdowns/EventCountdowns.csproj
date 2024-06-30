@@ -43,7 +43,9 @@
     </UnoFeatures>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI" />
+		<PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI" Condition="!$(TargetFramework.Contains('windows10'))" />
+		<PackageReference Include="Uno.Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="!$(TargetFramework.Contains('windows10'))" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="$(TargetFramework.Contains('windows10'))" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
