@@ -118,181 +118,163 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutApp" xml:space="preserve">
-    <value>About</value>
+    <value>O aplikaci</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Nový</value>
   </data>
   <data name="AddEvent" xml:space="preserve">
-    <value>Add event</value>
+    <value>Přidat událost</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>Event Countdowns</value>
+    <value>Odpočty</value>
   </data>
   <data name="AreYouSureDeleteTextFormat" xml:space="preserve">
-    <value>Are you sure you want to delete "{0}"?</value>
+    <value>Checte opravdu odstranit "{0}"?</value>
   </data>
   <data name="Background" xml:space="preserve">
-    <value>Background</value>
+    <value>Pozadí</value>
   </data>
   <data name="BuyMeCoffee" xml:space="preserve">
-    <value>Buy me coffee</value>
+    <value>Kupte mi kafe</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Zrušit</value>
   </data>
   <data name="Celebration" xml:space="preserve">
-    <value>Celebration</value>
+    <value>Blahopřání</value>
   </data>
   <data name="ChooseYourImage" xml:space="preserve">
-    <value>Choose your image</value>
+    <value>Vyberte vlastní</value>
   </data>
   <data name="Christmas" xml:space="preserve">
-    <value>Christmas</value>
+    <value>Vánoce</value>
   </data>
   <data name="ConfirmDelete" xml:space="preserve">
-    <value>Confirm deletion</value>
+    <value>Potvrdit odstranění</value>
   </data>
   <data name="CopyrightNotice" xml:space="preserve">
     <value>© Copyright Sphereline, 2016</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Date</value>
+    <value>Datum</value>
   </data>
   <data name="Days" xml:space="preserve">
-    <value>days</value>
+    <value>dní</value>
   </data>
   <data name="DefaultBackgrounds" xml:space="preserve">
-    <value>Default backgrounds</value>
+    <value>Výchozí pozadí</value>
   </data>
   <data name="DefaultCelebration" xml:space="preserve">
-    <value>It's {0}!</value>
+    <value>{0} jsou/je tady!</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Odstranit</value>
+  </data>
+  <data name="DonateDescription" xml:space="preserve">
+    <value>Ahoj, jmenuji se Martin Zikmund a jsem autor této aplikace. Miluji vývoj aplikací na Windows, ale jako student je většinou musím vyvíjet až pozdě v noci. A abych se udržel ve stavu plné pozornosti, je potřeba dostatečné množství kávy! Pokud se vám tato aplikace líbí a chtěli byste podpořit vývoj nových aplikací a dalších funkcí, kupte mi prosím kávu :-) . Děkuji vám moc za podporu vývoje a za to, že používáte Windows :-) !</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="DoNotRemindMe" xml:space="preserve">
-    <value>Do not remind me</value>
+    <value>Hotovo</value>
   </data>
   <data name="DoYouEnjoyAppFormatString" xml:space="preserve">
-    <value>Are you enjoying {0}?</value>
+    <value>Líbí se vám {0}?</value>
   </data>
   <data name="Easter" xml:space="preserve">
-    <value>Easter</value>
+    <value>Velikonoce</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Upravit</value>
   </data>
   <data name="EditEvent" xml:space="preserve">
-    <value>Edit event</value>
-  </data>
-  <data name="EventNamePlaceholder" xml:space="preserve">
-    <value>Event name</value>
+    <value>Úpravit událost</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Zpětná vazba</value>
+  </data>
+  <data name="GrandeCoffee" xml:space="preserve">
+    <value>Střední</value>
+  </data>
+  <data name="GrandeCoffeePrice" xml:space="preserve">
+    <value>1.99</value>
   </data>
   <data name="Halloween" xml:space="preserve">
     <value>Halloween</value>
   </data>
   <data name="HappyEaster" xml:space="preserve">
-    <value>Happy Easter!</value>
+    <value>Veselé Velikonoce!</value>
   </data>
   <data name="Hours" xml:space="preserve">
-    <value>hours</value>
-  </data>
-  <data name="Later" xml:space="preserve">
-    <value>Later</value>
-  </data>
-  <data name="Manage" xml:space="preserve">
-    <value>Manage</value>
-  </data>
-  <data name="MerryChristmas" xml:space="preserve">
-    <value>Merry Christmas!</value>
-  </data>
-  <data name="Minutes" xml:space="preserve">
-    <value>minutes</value>
-  </data>
-  <data name="MoreAppsBySphereline" xml:space="preserve">
-    <value>More apps by Sphereline</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="PinToStart" xml:space="preserve">
-    <value>Pin to Start</value>
-  </data>
-  <data name="Preview" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="RateNow" xml:space="preserve">
-    <value>Review now</value>
-  </data>
-  <data name="RateThisApp" xml:space="preserve">
-    <value>Rate this app</value>
-  </data>
-  <data name="RatingDialogContentFormatString" xml:space="preserve">
-    <value>Please, review {0} in the Windows Store. If there is anything that can be fixed or you have ideas for improvement, send me a message by clicking the "Send feedback" option in the main menu of the app :-) .</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="ScaryHalloween" xml:space="preserve">
-    <value>Scary Halloween!</value>
-  </data>
-  <data name="Seconds" xml:space="preserve">
-    <value>seconds</value>
-  </data>
-  <data name="Selected" xml:space="preserve">
-    <value>Selected</value>
-  </data>
-  <data name="SendFeedback" xml:space="preserve">
-    <value>Send feedback</value>
-  </data>
-  <data name="SetAsLockscreen" xml:space="preserve">
-    <value>Set as lockscreen</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>Share</value>
-  </data>
-  <data name="SharingFormatString" xml:space="preserve">
-    <value>{0} in {1} days, {2} hours and {3} minutes ({4}) [from {5} app]</value>
-  </data>
-  <data name="Time" xml:space="preserve">
-    <value>Time</value>
-  </data>
-  <data name="UnpinFromStart" xml:space="preserve">
-    <value>Unpin from Start</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="DonateDescription" xml:space="preserve">
-    <value>Hi, my name is Martin Zikmund and I am the developer of this app. I love building apps for Windows, but as I am a full time student, I usually build them at night. And to fuel myself and stay alert, coffee is really necessary! If you like this app and want to keep me awake to bring more new apps and features, please consider buying me a coffee :-) . Thank you very much for your support and for using Windows :-) !</value>
-  </data>
-  <data name="GrandeCoffee" xml:space="preserve">
-    <value>Medium</value>
-  </data>
-  <data name="GrandeCoffeePrice" xml:space="preserve">
-    <value>1.99</value>
+    <value>hodin</value>
   </data>
   <data name="InPrague" xml:space="preserve">
-    <value>in Prague, Czech Republic</value>
+    <value>v Praze v České Republice</value>
   </data>
   <data name="MadeWith" xml:space="preserve">
-    <value>Made with</value>
+    <value>Vytvořeno s</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Změnit</value>
+  </data>
+  <data name="MerryChristmas" xml:space="preserve">
+    <value>Veselé Vánoce!</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minut</value>
+  </data>
+  <data name="MoreAppsBySphereline" xml:space="preserve">
+    <value>Další aplikace od Sphereline</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Připnout na Start</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Ukázka</value>
+  </data>
+  <data name="RateThisApp" xml:space="preserve">
+    <value>Ohodnotit tuto aplikaci</value>
+  </data>
+  <data name="RatingDialogContentFormatString" xml:space="preserve">
+    <value>Prosím, ohodnoťte {0} na Windows Store. Pokud jste našli něco, co by se mělo opravit, nebo máte další nápady na vylepšení, napište mi prosím kliknutím na "Zaslat zpětnou vazbu" v hlavním menu aplikace :-) .</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="ScaryHalloween" xml:space="preserve">
+    <value>Strašidelný Halloween!</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>sekund</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Vybrané</value>
+  </data>
+  <data name="SendFeedback" xml:space="preserve">
+    <value>Zaslat zpětnou vazbu</value>
+  </data>
+  <data name="SetAsLockscreen" xml:space="preserve">
+    <value>Nastavit jako zamykací obrazovku</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Sdílet</value>
+  </data>
+  <data name="SharingFormatString" xml:space="preserve">
+    <value>{0} za {1} dní, {2} hodin a {3} minut ({4}) [z aplikace {5}]</value>
   </data>
   <data name="TallCoffee" xml:space="preserve">
-    <value>Small</value>
+    <value>Malá</value>
   </data>
   <data name="TallCoffeePrice" xml:space="preserve">
     <value>.99</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Čas</value>
   </data>
   <data name="TrentaCoffee" xml:space="preserve">
     <value>Giga!</value>
@@ -301,39 +283,57 @@
     <value>4.99</value>
   </data>
   <data name="VentiCoffee" xml:space="preserve">
-    <value>Venti</value>
+    <value>Velká</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ano</value>
   </data>
   <data name="PricesInUsd" xml:space="preserve">
-    <value>Prices in USD</value>
+    <value>Ceny v USD</value>
   </data>
   <data name="ShortAppName" xml:space="preserve">
-    <value>Countdowns</value>
+    <value>Odpočty</value>
   </data>
   <data name="VentiCoffeePrice" xml:space="preserve">
     <value>2.99</value>
   </data>
   <data name="CoffeeThankYou" xml:space="preserve">
-    <value>Thank you very much for the coffee :-) !</value>
+    <value>Děkuji vám moc za kávu :-) .</value>
   </data>
   <data name="SharingFinishedEventFormatString" xml:space="preserve">
-    <value>{0} [from {1} app]</value>
+    <value>{0} [z aplikace {1}]</value>
   </data>
   <data name="ThankYou" xml:space="preserve">
     <value>Thank you!</value>
   </data>
+  <data name="DoNotRemindMe" xml:space="preserve">
+    <value>Již nepřipomínat</value>
+  </data>
+  <data name="EventNamePlaceholder" xml:space="preserve">
+    <value>Název události</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Později</value>
+  </data>
+  <data name="RateNow" xml:space="preserve">
+    <value>Ohodnotit nyní</value>
+  </data>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value>Odepnout ze Startu</value>
+  </data>
   <data name="HappyNewYear" xml:space="preserve">
-    <value>Happy new year!</value>
+    <value>Šťastný nový rok!</value>
   </data>
   <data name="NewYear" xml:space="preserve">
-    <value>New Year</value>
+    <value>Nový Rok</value>
   </data>
   <data name="PurchaseUnsuccessful" xml:space="preserve">
-    <value>Purchase unsuccessful</value>
+    <value>Nákup neúspěšný</value>
   </data>
   <data name="PurchaseUnsuccessfulText" xml:space="preserve">
-    <value>An error occured trying to purchase the coffee... Please, try it again later.</value>
+    <value>Při pokusu o zakoupení kávy došlo k chybě... Zkuste to prosím znovu později.</value>
   </data>
   <data name="TapToAddYourFirstEvent" xml:space="preserve">
-    <value>Tap to add your first event</value>
+    <value>Klepnutím přidejte svou první událost</value>
   </data>
 </root>
