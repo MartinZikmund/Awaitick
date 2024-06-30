@@ -1,0 +1,172 @@
+﻿<local:CountdownEditorViewBase
+    x:Class="EventCountdowns.Views.CountdownEditorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:EventCountdowns.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:EventCountdowns.Core.Models"
+    xmlns:usercontrols="using:EventCountdowns.Controls"
+    xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
+    mc:Ignorable="d">
+    <local:CountdownEditorViewBase.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <SuppressNavigationTransitionInfo />
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </local:CountdownEditorViewBase.Transitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" FontWeight="SemiBold" />
+        <ScrollViewer Grid.Row="1" Margin="0">
+            <Border Padding="10" HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="WrapperGridMaxColumn" Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition x:Name="FormSecondaryColumn" Width="0" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            x:Name="BasicInputFormStack"
+                            Margin="10"
+                            HorizontalAlignment="Stretch">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Style="{StaticResource FormLabelTextBlockStyle}"
+                                Text="{xaml:Localize Key=Name}" />
+                            <TextBox FontSize="30" Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Date}" />
+                            <DatePicker Date="{x:Bind ViewModel.Date, Mode=TwoWay}" />
+                            <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Time}" />
+                            <TimePicker Time="{x:Bind ViewModel.Time, Mode=TwoWay}" />
+                            <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{xaml:Localize Key=Celebration}" />
+                            <TextBox PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}" Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay}" />
+
+                        </StackPanel>
+                        <Grid
+                            x:Name="BackgroundControlGrid"
+                            Grid.Row="1"
+                            Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Style="{StaticResource FormLabelTextBlockStyle}"
+                                Text="{xaml:Localize Key=Background}" />
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <Button
+                                        Margin="0,0,0,10"
+                                        Command="{x:Bind ViewModel.ChooseYourImageCommand}"
+                                        Content="{xaml:Localize Key=ChooseYourImage}" />
+                                    <TextBlock
+                                        FontSize="16"
+                                        FontWeight="Normal"
+                                        Text="{xaml:Localize Key=DefaultBackgrounds}" />
+                                    <GridView
+                                        Margin="0,5,0,0"
+                                        ItemsSource="{x:Bind ViewModel.DefaultBackgrounds}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultBackground, Mode=TwoWay}"
+                                        SelectionMode="Single">
+                                        <GridView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:DefaultBackground">
+                                                <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="4">
+                                                    <Image
+                                                        Width="70"
+                                                        Height="70"
+                                                        Stretch="UniformToFill">
+                                                        <Image.Source>
+                                                            <BitmapImage UriSource="{x:Bind ThumbnailUri}" />
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Border>
+                                            </DataTemplate>
+                                        </GridView.ItemTemplate>
+                                    </GridView>
+
+                                </StackPanel>
+                                <Grid
+                                    Grid.Column="1"
+                                    Height="180"
+                                    Margin="20,0,0,0"
+                                    VerticalAlignment="Top">
+                                    <Border HorizontalAlignment="Stretch" Background="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                                    <Image
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Stretch="UniformToFill">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{x:Bind ViewModel.BackgroundUri, Mode=OneWay}" />
+                                        </Image.Source>
+                                    </Image>
+                                    <TextBlock
+                                        Margin="10"
+                                        VerticalAlignment="Bottom"
+                                        Foreground="#FFF"
+                                        Opacity="0.8"
+                                        Text="{xaml:Localize Key=Preview}" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+            </Border>
+        </ScrollViewer>
+        <CommandBar Grid.Row="2">
+            <AppBarButton
+                Command="{x:Bind ViewModel.SaveCommand}"
+                Icon="Save"
+                Label="{xaml:Localize Key=Save}" />
+            <AppBarButton
+                Command="{x:Bind ViewModel.CancelCommand}"
+                Icon="Cancel"
+                Label="{xaml:Localize Key=Cancel}" />
+        </CommandBar>
+        <Grid
+            Grid.RowSpan="3"
+            Background="#88FFFFFF"
+            Visibility="{x:Bind ViewModel.IsWorking, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
+            <ProgressRing
+                Width="50"
+                Height="50"
+                BorderBrush="Black"
+                Foreground="Black"
+                IsActive="{x:Bind ViewModel.IsWorking, Mode=OneWay}" />
+        </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="768" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="WrapperGridMaxColumn.MaxWidth" Value="1000" />
+                        <Setter Target="FormSecondaryColumn.Width" Value="*" />
+                        <Setter Target="BackgroundControlGrid.(Grid.Column)" Value="1" />
+                        <Setter Target="BackgroundControlGrid.(Grid.Row)" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</local:CountdownEditorViewBase>

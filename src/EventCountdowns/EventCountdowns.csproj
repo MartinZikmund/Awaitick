@@ -1,4 +1,4 @@
-<Project Sdk="Uno.Sdk">
+﻿<Project Sdk="Uno.Sdk">
   <PropertyGroup>
     <TargetFrameworks>
       net8.0-android;
@@ -42,5 +42,11 @@
       Localization;
     </UnoFeatures>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
+  </ItemGroup>
 
 </Project>

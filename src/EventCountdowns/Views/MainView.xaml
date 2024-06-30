@@ -1,0 +1,104 @@
+﻿<local:MainViewBase
+    x:Class="EventCountdowns.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:EventCountdowns.Core.Controls"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:EventCountdowns.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:EventCountdowns.Core.Models"
+    xmlns:usercontrols="using:EventCountdowns.Controls"
+    xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
+    mc:Ignorable="d">
+    <local:MainViewBase.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition />
+        </TransitionCollection>
+    </local:MainViewBase.Transitions>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition x:Name="MobileAdRow" Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Button
+            Width="48"
+            Height="48"
+            Margin="12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            CornerRadius="24">
+            <SymbolIcon Symbol="Setting" />
+        </Button>
+        <Grid Grid.Row="1" Background="Transparent">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid>
+                    <controls:EventsGridView
+                        Name="AdaptiveGridViewControl"
+                        IsItemClickEnabled="True"
+                        ItemClick="AdaptiveGridViewControl_ItemClick"
+                        ItemTemplate="{StaticResource EventListItemTemplate}"
+                        ItemsSource="{x:Bind ViewModel.EventCountdowns}" />
+                </Grid>
+            </Grid>
+            <Button
+                Width="280"
+                Height="280"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                CornerRadius="140"
+                Style="{ThemeResource AccentButtonStyle}"
+                Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+                <StackPanel Spacing="8">
+                    <FontIcon
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="60"
+                        Glyph="&#xE710;" />
+                    <TextBlock
+                        FontSize="30"
+                        Style="{ThemeResource TitleTextBlockStyle}"
+                        Text="{xaml:Localize Key=TapToAddYourFirstEvent}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Button
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Width="80"
+            Height="80"
+            Margin="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            HorizontalContentAlignment="Center"
+            Command="{x:Bind ViewModel.AddCommand}"
+            CornerRadius="140"
+            Style="{ThemeResource AccentButtonStyle}"
+            Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <FontIcon
+                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Glyph="&#xE710;" />
+        </Button>
+    </Grid>
+</local:MainViewBase>
