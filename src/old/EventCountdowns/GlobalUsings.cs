@@ -1,0 +1,12 @@
+﻿global using System.Windows.Input;
+global using Microsoft.Extensions.DependencyInjection;
+global using Windows.Storage;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Localization;
+global using Microsoft.UI.Xaml;
+global using Microsoft.UI.Xaml.Controls;
+global using Microsoft.UI.Xaml.Navigation;
+global using Uno.UI;
+global using Windows.ApplicationModel;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
