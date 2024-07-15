@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "EventCountdowns",
+  "display": "standalone",
+  "name": "EventCountdowns",
+  "short_name": "EventCountdowns",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
