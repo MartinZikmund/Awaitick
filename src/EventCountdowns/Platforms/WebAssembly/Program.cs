@@ -2,11 +2,11 @@ namespace EventCountdowns;
 
 public class Program
 {
-    private static App? _app;
+    private static CountdownsApp? _app;
 
     public static int Main(string[] args)
     {
-        Microsoft.UI.Xaml.Application.Start(_ => _app = new App());
+        Microsoft.UI.Xaml.Application.Start(_ => _app = new CountdownsApp());
 
         return 0;
     }
