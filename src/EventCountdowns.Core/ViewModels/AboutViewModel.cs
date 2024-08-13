@@ -1,4 +1,5 @@
-﻿using EventCountdowns.Core.Services.StoreLauncher;
+﻿using CommunityToolkit.Mvvm.Input;
+using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 
