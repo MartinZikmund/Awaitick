@@ -72,7 +72,7 @@ public partial class CountdownDetailViewModel : PageViewModel
 			throw new InvalidOperationException("This event does not exist");
 		}
 
-		Event = new CountdownViewModel(eventInfo);
+		Event = new CountdownViewModel(eventInfo, _countdownsManager);
 
 		TargetDateString = Event.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
 		IsTilePinned = _tileService.IsCountdownPinned(Event.Id);
@@ -91,6 +91,9 @@ public partial class CountdownDetailViewModel : PageViewModel
 
 	[RelayCommand]
 	private void Edit() => _countdownsManager.GoToEdit(Event);
+
+	[RelayCommand]
+	private async Task ShareAsync() => await _countdownsManager.ShareAsync(Event);
 
 	public string TargetDateString
 	{

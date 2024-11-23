@@ -40,6 +40,7 @@
 			Mvvm;
 			Configuration;
 			Localization;
+			Toolkit;
 		</UnoFeatures>
 	</PropertyGroup>
 	<ItemGroup>

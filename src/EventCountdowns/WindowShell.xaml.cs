@@ -22,7 +22,6 @@ public sealed partial class WindowShell : Page, IWindowShell
 		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
 		windowShellProvider.SetShell(this, associatedWindow);
 		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(CountdownsApp).Assembly);
-		ServiceProvider.GetRequiredService<IDialogService>().RegisterDialogsFromAssembly(typeof(CountdownsApp).Assembly);
 
 		ViewModel = ServiceProvider.GetRequiredService<WindowShellViewModel>();
 

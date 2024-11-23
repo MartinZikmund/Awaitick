@@ -21,6 +21,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Uno.Resizetizer;
 using MZikmund.Toolkit.WinUI.Infrastructure;
 using EventCountdowns.Core.Services.Countdowns;
+using MZikmund.Toolkit.WinUI.Services;
 
 namespace EventCountdowns;
 
@@ -108,6 +109,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddScoped<IFrameProvider, FrameProvider>();
 		services.AddScoped<INavigationService, NavigationService>();
 		services.AddScoped<ILoadingIndicator, LoadingIndicator>();
+		services.AddScoped<IDialogCoordinator, DialogCoordinator>();
 		services.AddScoped<IDialogService, DialogService>();
 
 		services.AddScoped<ISystemSharingService, SystemSharingService>();

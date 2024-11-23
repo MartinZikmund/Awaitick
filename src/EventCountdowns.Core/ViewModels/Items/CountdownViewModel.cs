@@ -1,12 +1,16 @@
-﻿namespace EventCountdowns.Core.Models;
+﻿using EventCountdowns.Core.Services.Countdowns;
+
+namespace EventCountdowns.Core.Models;
 
 public partial class CountdownViewModel : ObservableObject
 {
 	private readonly EventCountdown _eventCountdown;
+	private readonly ICountdownsManager _countdownsManager;
 
-	public CountdownViewModel(EventCountdown eventCountdown)
+	public CountdownViewModel(EventCountdown eventCountdown, ICountdownsManager countdownsManager)
 	{
 		_eventCountdown = eventCountdown ?? throw new ArgumentNullException(nameof(eventCountdown));
+		_countdownsManager = countdownsManager ?? throw new ArgumentNullException(nameof(countdownsManager));
 	}
 
 	public EventCountdown Model => _eventCountdown;

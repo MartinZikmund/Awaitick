@@ -103,7 +103,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
-			throw new ArgumentException("Parameter must be CountdownDetailViewModel.NavigationModel.", nameof(parameter));
+			throw new ArgumentException("Parameter must be CountdownEditorViewModel.NavigationModel.", nameof(parameter));
 		}
 
 		Mode = navigationModel.Mode;

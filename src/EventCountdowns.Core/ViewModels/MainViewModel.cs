@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Messaging;
+using EventCountdowns.Core.Messages;
 using EventCountdowns.Core.Models;
-using EventCountdowns.Core.Services;
+using EventCountdowns.Core.Services.Countdowns;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Services.Mail;
@@ -19,19 +21,23 @@ public partial class MainViewModel : PageViewModel
 	private readonly ITileService? _tileService;
 	private readonly IInAppPurchaseService _inAppPurchaseService;
 	private readonly IMailService _mailService;
+	private readonly ICountdownsManager _countdownsManager;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly IStoreLauncherService _storeLauncherService;
 	private readonly IAppSettings _appSettings;
 	private readonly INavigationService _navigationService;
+	private readonly IMessenger _messenger;
 
 	public MainViewModel(
 		IDataService dataService,
 		ITileService? tileService,
 		IInAppPurchaseService inAppPurchaseService,
 		IMailService mailService,
+		ICountdownsManager countdownsManager,
 		IScheduledNotificationService scheduledNotificationService,
 		IStoreLauncherService storeLauncherService,
 		INavigationService navigationService,
+		IMessenger messenger,
 		IAppSettings appSettings) :
 		base(navigationService)
 	{
@@ -39,10 +45,27 @@ public partial class MainViewModel : PageViewModel
 		_tileService = tileService;
 		_inAppPurchaseService = inAppPurchaseService;
 		_mailService = mailService;
+		_countdownsManager = countdownsManager;
 		_scheduledNotificationService = scheduledNotificationService;
 		_storeLauncherService = storeLauncherService;
 		_navigationService = navigationService;
+		_messenger = messenger;
 		_appSettings = appSettings;
+		_messenger.Register<CountdownDeletedMessage>(this, CountdownDeletedHandler);
+	}
+
+	private static void CountdownDeletedHandler(object recipient, CountdownDeletedMessage message)
+	{
+		var viewModel = recipient as MainViewModel;
+		if (viewModel != null)
+		{
+			var countdown = viewModel.EventCountdowns.FirstOrDefault(c => c.Id == message.Id);
+			if (countdown != null)
+			{
+				viewModel.EventCountdowns.Remove(countdown);
+				viewModel.OnPropertyChanged(nameof(HasAnyEvents));
+			}
+		}
 	}
 
 	public override async void ViewNavigatedTo(object? parameter)
@@ -53,7 +76,7 @@ public partial class MainViewModel : PageViewModel
 		EventCountdowns.Clear();
 		foreach (var countdown in countdowns)
 		{
-			EventCountdowns.Add(new CountdownViewModel(countdown));
+			EventCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
 		}
 		OnPropertyChanged(nameof(HasAnyEvents));
 

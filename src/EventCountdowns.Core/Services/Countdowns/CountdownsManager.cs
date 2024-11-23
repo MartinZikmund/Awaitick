@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using CommunityToolkit.Mvvm.Messaging;
+using EventCountdowns.Core.Messages;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.ViewModels;
@@ -15,6 +17,7 @@ public class CountdownsManager : ICountdownsManager
 	private readonly ISystemSharingService _sharingService;
 	private readonly IStringLocalizer _localizer;
 	private readonly ICountdownsDataService _countdownsDataService;
+	private readonly IMessenger _messenger;
 	private readonly IXamlRootProvider _xamlRootProvider;
 
 	public CountdownsManager(
@@ -23,6 +26,7 @@ public class CountdownsManager : ICountdownsManager
 		ISystemSharingService sharingService,
 		IStringLocalizer localizer,
 		ICountdownsDataService countdownsDataService,
+		IMessenger messenger,
 		IXamlRootProvider xamlRootProvider)
 	{
 		_dialogService = dialogService;
@@ -30,6 +34,7 @@ public class CountdownsManager : ICountdownsManager
 		_sharingService = sharingService;
 		_localizer = localizer;
 		_countdownsDataService = countdownsDataService;
+		_messenger = messenger;
 		_xamlRootProvider = xamlRootProvider;
 	}
 
@@ -51,13 +56,13 @@ public class CountdownsManager : ICountdownsManager
 		}
 
 		await _countdownsDataService.DeleteCountdownAsync(countdown.Model);
-
+		_messenger.Send(new CountdownDeletedMessage(countdown.Id));
 		return true;
 	}
 
 	public void GoToEdit(CountdownViewModel eventCountdown)
 	{
-		_navigationService.Navigate<CountdownEditorViewModel>(eventCountdown.Id);
+		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = eventCountdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
 	}
 
 	public async Task ShareAsync(CountdownViewModel countdown)
