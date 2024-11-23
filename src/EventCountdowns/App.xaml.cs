@@ -17,9 +17,10 @@ using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.DefaultData;
-using EventCountdowns.Core.Services.ConfirmationDialog;
 using CommunityToolkit.Mvvm.Messaging;
 using Uno.Resizetizer;
+using MZikmund.Toolkit.WinUI.Infrastructure;
+using EventCountdowns.Core.Services.Countdowns;
 
 namespace EventCountdowns;
 
@@ -101,17 +102,17 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
 		services.AddSingleton<IApplication>(this);
-		services.AddScoped<IDialogCoordinator, DialogCoordinator>();
+		services.AddSingleton<WindowShellProvider>();
+		services.AddScoped<IXamlRootProvider>(services => services.GetRequiredService<WindowShellProvider>());
+		services.AddScoped<IWindowShellProvider>(services => services.GetRequiredService<WindowShellProvider>());
 		services.AddScoped<IFrameProvider, FrameProvider>();
 		services.AddScoped<INavigationService, NavigationService>();
 		services.AddScoped<ILoadingIndicator, LoadingIndicator>();
 		services.AddScoped<IDialogService, DialogService>();
-		services.AddScoped<IWindowShellProvider, WindowShellProvider>();
 
 		services.AddScoped<ISystemSharingService, SystemSharingService>();
-		services.AddScoped<IEventSharingService, EventSharingService>();
-		services.AddScoped<IConfirmationDialogService, ConfirmationDialogService>();
-		services.AddSingleton<IEventCountdownManager, EventCountdownManager>();
+		services.AddScoped<ICountdownsManager, CountdownsManager>();
+		services.AddSingleton<ICountdownsDataService, CountdownsDataService>();
 		services.AddScoped<IBackgroundPickerService, BackgroundPickerService>();
 		services.AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>();
 		services.AddSingleton<IDataService, FileDataService>();

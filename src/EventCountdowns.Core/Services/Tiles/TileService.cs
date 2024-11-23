@@ -122,7 +122,7 @@
 //                }
 //            };
 
-//            var extendedCountdown = new EventCountdownObservable(eventCountdown);
+//            var extendedCountdown = new CountdownViewModel(eventCountdown);
 //            TileGroup group = null;
 //            if (!extendedCountdown.Finished && !forceFinish)
 //            {
@@ -230,7 +230,7 @@
 
 //                foreach (var countdown in countdowns.Take(3))
 //                {
-//                    var extendedCountdown = new EventCountdownObservable(countdown);
+//                    var extendedCountdown = new CountdownViewModel(countdown);
 //                    TileGroup group = null;
 //                    TileGroup smallGroup = null;
 //                    if (!extendedCountdown.Finished)

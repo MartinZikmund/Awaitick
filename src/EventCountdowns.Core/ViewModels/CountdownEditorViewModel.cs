@@ -45,7 +45,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		public EditorMode Mode { get; set; } = EditorMode.Add;
 	}
 
-	private readonly IEventCountdownManager _eventCountdownManager;
+	private readonly ICountdownsDataService _eventCountdownManager;
 	private readonly IBackgroundPickerService _backgroundPickerService;
 	private readonly IDataService _dataService;
 	private readonly IStringLocalizer _localizationService;
@@ -79,7 +79,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private EventCountdown? _editedEventCountdown;
 
 	public CountdownEditorViewModel(
-		IEventCountdownManager eventCountdownManager,
+		ICountdownsDataService eventCountdownManager,
 		IBackgroundPickerService backgroundPickerService,
 		IDataService dataService,
 		IStringLocalizer localizationService,

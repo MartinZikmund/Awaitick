@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using EventCountdowns.Core.Models;
-using EventCountdowns.Core.Services;
-using EventCountdowns.Core.Services.ConfirmationDialog;
+using EventCountdowns.Core.Services.Countdowns;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.ScheduledNotification;
@@ -27,29 +26,27 @@ public partial class CountdownDetailViewModel : PageViewModel
 		public string CountdownId { get; set; } = string.Empty;
 	}
 
-	private readonly IEventCountdownManager _eventCountdownManager;
+	private readonly ICountdownsDataService _eventCountdownManager;
 	private readonly INavigationService _navigationService;
 	private readonly IDataService _dataService;
 	private readonly ITileService _tileService;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
-	private readonly IEventSharingService _sharingService;
-	private readonly IConfirmationDialogService _confirmationDialogService;
+	private readonly ICountdownsManager _countdownsManager;
 	private readonly IStringLocalizer _localizationService;
 
 	[ObservableProperty]
-	private EventCountdownObservable _event = null!;
+	private CountdownViewModel _event = null!;
 
 	private bool _isTilePinned;
 	private string _targetDateString = "";
 
 	public CountdownDetailViewModel(
-		IEventCountdownManager eventCountdownManager,
+		ICountdownsDataService eventCountdownManager,
+		ICountdownsManager countdownsManager,
 		INavigationService navigationService,
 		IDataService dataService,
 		ITileService tileService,
 		IScheduledNotificationService scheduledNotificationService,
-		IEventSharingService sharingService,
-		IConfirmationDialogService confirmationDialogService,
 		IStringLocalizer localizationService) :
 		base(navigationService)
 	{
@@ -58,8 +55,7 @@ public partial class CountdownDetailViewModel : PageViewModel
 		_dataService = dataService;
 		_tileService = tileService;
 		_scheduledNotificationService = scheduledNotificationService;
-		_sharingService = sharingService;
-		_confirmationDialogService = confirmationDialogService;
+		_countdownsManager = countdownsManager;
 		_localizationService = localizationService;
 	}
 
@@ -76,7 +72,7 @@ public partial class CountdownDetailViewModel : PageViewModel
 			throw new InvalidOperationException("This event does not exist");
 		}
 
-		Event = new EventCountdownObservable(eventInfo, _sharingService);
+		Event = new CountdownViewModel(eventInfo);
 
 		TargetDateString = Event.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
 		IsTilePinned = _tileService.IsCountdownPinned(Event.Id);
@@ -84,25 +80,17 @@ public partial class CountdownDetailViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private async Task DeletePrompt()
+	private async Task DeleteAsync()
 	{
-		//show delete dialog
-		await _confirmationDialogService.ShowAsync(_localizationService.GetString("ConfirmDelete"),
-			string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("AreYouSureDeleteTextFormat"), Event.Name), DeleteConfirmed,
-			() => { });
-	}
-
-	private async void DeleteConfirmed()
-	{
-		await _eventCountdownManager.DeleteCountdownAsync(Event.Model);
-		_navigationService.GoBack();
+		var result = await _countdownsManager.DeleteAsync(Event);
+		if (result)
+		{
+			_navigationService.GoBack();
+		}
 	}
 
 	[RelayCommand]
-	private void Edit()
-	{
-		_navigationService.Navigate<CountdownEditorViewModel>(CountdownEditorViewModel.NavigationModel.CreateEdit(Event.Id));
-	}
+	private void Edit() => _countdownsManager.GoToEdit(Event);
 
 	public string TargetDateString
 	{

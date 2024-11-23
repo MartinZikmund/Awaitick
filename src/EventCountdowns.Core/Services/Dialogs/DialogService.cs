@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using MZikmund.Models.Dialogs;
+using MZikmund.Toolkit.WinUI.Infrastructure;
+using MZikmund.Toolkit.WinUI.Services;
 
 namespace MZikmund.Services.Dialogs;
 
@@ -7,44 +9,12 @@ public class DialogService : IDialogService
 {
 	private readonly Dictionary<string, Type> _dialogs = new();
 	private readonly IDialogCoordinator _dialogCoordinator;
+	private readonly IXamlRootProvider _xamlRootProvider;
 
-	public DialogService(IDialogCoordinator dialogCoordinator)
+	public DialogService(IDialogCoordinator dialogCoordinator, IXamlRootProvider xamlRootProvider)
 	{
 		_dialogCoordinator = dialogCoordinator ?? throw new ArgumentNullException(nameof(dialogCoordinator));
-	}
-
-	public async Task<ContentDialogResult> ShowAsync<TViewModel>(TViewModel viewModel)
-	{
-		var viewModelType = typeof(TViewModel);
-		if (!viewModelType.Name.EndsWith("ViewModel", StringComparison.OrdinalIgnoreCase))
-		{
-			throw new InvalidOperationException("ViewModel name must end with 'ViewModel' by convention.");
-		}
-
-		var viewModelName = viewModelType.Name;
-		var dialogTypeName = viewModelName.Substring(0, viewModelName.Length - "ViewModel".Length);
-		if (!_dialogs.TryGetValue(dialogTypeName, out var dialogType))
-		{
-			throw new InvalidOperationException($"Dialog for {viewModelType} not found");
-		}
-		var dialog = (ContentDialog?)Activator.CreateInstance(dialogType);
-		if (dialog is null)
-		{
-			throw new InvalidOperationException($"Instance of {dialogType} could not be created");
-		}
-		dialog.DataContext = viewModel;
-		return await _dialogCoordinator.ShowAsync(dialog);
-	}
-
-	public void RegisterDialogsFromAssembly(Assembly sourceAssembly)
-	{
-		// TODO: Avoid reflection
-		var dialogType = typeof(ContentDialog);
-		var pages = sourceAssembly.GetTypes().Where(t => dialogType.IsAssignableFrom(t) && t.Name.EndsWith("Dialog", StringComparison.OrdinalIgnoreCase)).ToArray();
-		foreach (var viewType in pages)
-		{
-			_dialogs.Add(viewType.Name, viewType);
-		}
+		_xamlRootProvider = xamlRootProvider ?? throw new ArgumentNullException(nameof(xamlRootProvider));
 	}
 
 	public async Task<ContentDialogResult> ShowAsync(string title, string content)
@@ -53,8 +23,15 @@ public class DialogService : IDialogService
 		{
 			Title = title,
 			Content = content,
+			XamlRoot = _xamlRootProvider.XamlRoot
 		};
 
 		return await _dialogCoordinator.ShowAsync(dialog);
+	}
+
+	public async Task<ContentDialogResult> ShowAsync(ContentDialog contentDialog)
+	{
+		contentDialog.XamlRoot = _xamlRootProvider.XamlRoot;
+		return await _dialogCoordinator.ShowAsync(contentDialog);
 	}
 }
