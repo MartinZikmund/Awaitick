@@ -37,6 +37,15 @@ public partial class CountdownViewModel : ObservableObject
 
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
 
+	[RelayCommand]
+	public Task ShareAsync() => _countdownsManager.ShareAsync(this);
+
+	[RelayCommand]
+	public void GoToEdit() => _countdownsManager.GoToEdit(this);
+
+	[RelayCommand]
+	public Task<bool> DeleteAsync() => _countdownsManager.DeleteAsync(this);
+
 	public void UpdateBindings()
 	{
 		OnPropertyChanged(nameof(DaysLeft));

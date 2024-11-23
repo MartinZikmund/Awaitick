@@ -148,10 +148,18 @@
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem
-                            Command="{Binding Path=DataContext.ShareCommand, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                            Command="{x:Bind ShareCommand}"
                             Icon="{xaml:FontIcon Glyph={StaticResource ShareIcon}}"
                             Text="{xaml:Localize Key=Share}" />
-                    </MenuFlyout>
+						<MenuFlyoutItem
+                            Command="{x:Bind ShareCommand}"
+                            Icon="Edit"
+                            Text="{xaml:Localize Key=Edit}" />
+						<MenuFlyoutItem
+							Command="{x:Bind DeleteCommand}"
+							Icon="Delete"
+							Text="{xaml:Localize Key=Delete}" />
+					</MenuFlyout>
                 </Grid.ContextFlyout>
                 <!--<VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
