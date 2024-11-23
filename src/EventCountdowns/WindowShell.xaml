@@ -19,7 +19,7 @@
             Height="{ThemeResource TitleBarHeight}"
             Padding="0,0"
             VerticalAlignment="Top"
-            Background="#11000000"
+            Background="#44000000"
             ColumnSpacing="8"
             Visibility="{x:Bind HasCustomTitleBar}">
 			<Grid.ColumnDefinitions>

@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             Grid.ColumnSpan="2"
             Background="Black"
             Visibility="{x:Bind ViewModel.Event.BackgroundImage, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
@@ -111,16 +111,28 @@
             </Grid>
         </Border>
 
-        <CommandBar
+		<CommandBar
             Grid.Row="2"
+			OverflowButtonVisibility="Collapsed"
             Grid.ColumnSpan="2"
+			Background="#44000000"
             ClosedDisplayMode="Compact">
-            <AppBarButton Command="{x:Bind ViewModel.Event.ShareCommand}" Label="{xaml:Localize Key=Share}">
+			<AppBarButton Command="{x:Bind ViewModel.Event.ShareCommand}" Label="{xaml:Localize Key=Share}">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE72D;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <!--<AppBarButton
+			<AppBarButton Command="{x:Bind ViewModel.Event.EditCommand}" Label="{xaml:Localize Key=Share}">
+				<AppBarButton.Icon>
+					<SymbolIcon Symbol="Edit" />
+				</AppBarButton.Icon>
+			</AppBarButton>
+			<AppBarButton Command="{x:Bind ViewModel.Event.DeleteCommand}" Label="{xaml:Localize Key=Share}">
+				<AppBarButton.Icon>
+					<SymbolIcon Symbol="Delete" />
+				</AppBarButton.Icon>
+			</AppBarButton>
+			<!--<AppBarButton
                 Command="{x:Bind ViewModel.PinCommand}"
                 Icon="Pin"
                 Label="{xaml:Localize Key=PinToStart}"

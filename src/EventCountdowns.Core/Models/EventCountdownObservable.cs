@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 using EventCountdowns.Core.Services;
+using EventCountdowns.Core.Services.ConfirmationDialog;
+using EventCountdowns.Services.Navigation;
 
 namespace EventCountdowns.Core.Models;
 
@@ -7,11 +9,19 @@ public partial class EventCountdownObservable : ObservableObject
 {
 	private readonly EventCountdown _eventCountdown;
 	private readonly IEventSharingService _sharingService;
+	private readonly INavigationService _navigationService;
+	private readonly IConfirmationDialogService _confirmationDialogService;
 
-	public EventCountdownObservable(EventCountdown eventCountdown, IEventSharingService sharingService)
+	public EventCountdownObservable(
+		EventCountdown eventCountdown,
+		IEventSharingService sharingService,
+		INavigationService navigationService,
+		IConfirmationDialogService confirmationDialogService)
 	{
 		_eventCountdown = eventCountdown ?? throw new ArgumentNullException(nameof(eventCountdown));
 		_sharingService = sharingService ?? throw new ArgumentNullException(nameof(sharingService));
+		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
+		_confirmationDialogService = confirmationDialogService ?? throw new ArgumentNullException(nameof(confirmationDialogService));
 	}
 
 	public EventCountdown Model => _eventCountdown;
