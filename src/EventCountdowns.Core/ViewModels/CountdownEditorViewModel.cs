@@ -62,7 +62,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private Uri? _lastCustomBackgroundUri;
 
 	[ObservableProperty]
-	private Uri? _backgroundUri = new Uri("ms-appx:///EventCountdowns/Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
+	private Uri? _backgroundUri = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
 
 	[ObservableProperty]
 	private string _name = "";
