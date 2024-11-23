@@ -68,7 +68,7 @@ public partial class MainViewModel : PageViewModel
 		}
 	}
 
-	public ObservableCollection<EventCountdownObservable> EventCountdowns { get; } = new ObservableCollection<EventCountdownObservable>();
+	public ObservableCollection<EventCountdownViewModel> EventCountdowns { get; } = new ObservableCollection<EventCountdownViewModel>();
 
 	public bool HasAnyEvents => EventCountdowns.Count > 0;
 
@@ -104,7 +104,7 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private void ShowCountdown(EventCountdownObservable? eventCountdown)
+	private void ShowCountdown(EventCountdownViewModel? eventCountdown)
 	{
 		if (eventCountdown != null)
 		{
