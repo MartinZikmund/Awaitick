@@ -152,7 +152,7 @@
                             Icon="{xaml:FontIcon Glyph={StaticResource ShareIcon}}"
                             Text="{xaml:Localize Key=Share}" />
 						<MenuFlyoutItem
-                            Command="{x:Bind ShareCommand}"
+                            Command="{x:Bind GoToEditCommand}"
                             Icon="Edit"
                             Text="{xaml:Localize Key=Edit}" />
 						<MenuFlyoutItem
