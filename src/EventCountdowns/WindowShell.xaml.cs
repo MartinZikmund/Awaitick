@@ -53,8 +53,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 #if !HAS_UNO
 			_associatedWindow.ExtendsContentIntoTitleBar = true;
 			_associatedWindow.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
-			LeftTitleBarInsetColumnDefinition.Width = new GridLength(_associatedWindow.AppWindow.TitleBar.LeftInset);
-			RightTitleBarInsetColumnDefinition.Width = new GridLength(_associatedWindow.AppWindow.TitleBar.RightInset);
+			TitleBarGrid.Padding = new Thickness(_associatedWindow.AppWindow.TitleBar.LeftInset, 0, _associatedWindow.AppWindow.TitleBar.RightInset, 0);
 			_associatedWindow.SetTitleBar(DraggableTitleBar);
 			HasCustomTitleBar = true;
 #endif
