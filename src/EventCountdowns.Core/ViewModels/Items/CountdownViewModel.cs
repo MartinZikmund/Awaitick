@@ -38,6 +38,9 @@ public partial class CountdownViewModel : ObservableObject
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
 
 	[RelayCommand]
+	public void GoToDetail() => _countdownsManager.GoToDetail(this);
+
+	[RelayCommand]
 	public Task ShareAsync() => _countdownsManager.ShareAsync(this);
 
 	[RelayCommand]

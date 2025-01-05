@@ -43,7 +43,7 @@ public class CountdownsManager : ICountdownsManager
 		var confirmationDialog = new ContentDialog
 		{
 			Title = _localizer.GetString("ConfirmDelete"),
-			Content = _localizer.GetString("AreYouSureDeleteTextFormat"),
+			Content = string.Format(_localizer.GetString("AreYouSureDeleteTextFormat"), countdown.Name),
 			PrimaryButtonText = _localizer.GetString("Delete"),
 			CloseButtonText = _localizer.GetString("Cancel"),
 			XamlRoot = _xamlRootProvider.XamlRoot
@@ -60,9 +60,19 @@ public class CountdownsManager : ICountdownsManager
 		return true;
 	}
 
-	public void GoToEdit(CountdownViewModel eventCountdown)
+	public void EditAsync(CountdownViewModel eventCountdown)
 	{
 		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = eventCountdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
+	}
+
+	public void GoToDetail(CountdownViewModel countdown)
+	{
+		_navigationService.Navigate<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(countdown.Id));
+	}
+
+	public void GoToEdit(CountdownViewModel countdown)
+	{
+		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = countdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
 	}
 
 	public async Task ShareAsync(CountdownViewModel countdown)

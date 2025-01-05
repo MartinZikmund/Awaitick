@@ -9,4 +9,6 @@ public interface ICountdownsManager
 	void GoToEdit(CountdownViewModel countdown);
 
 	Task<bool> DeleteAsync(CountdownViewModel countdown);
+
+	void GoToDetail(CountdownViewModel countdown);
 }
