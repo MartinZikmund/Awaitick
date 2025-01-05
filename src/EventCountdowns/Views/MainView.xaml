@@ -50,14 +50,13 @@
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
             <Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Grid>
-                    <controls:EventsGridView
-                        Name="AdaptiveGridViewControl"
-                        IsItemClickEnabled="True"
-                        ItemClick="AdaptiveGridViewControl_ItemClick"
-                        ItemTemplate="{StaticResource EventListItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.EventCountdowns}" />
-                </Grid>
+                <ScrollViewer HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+					<ItemsRepeater HorizontalAlignment="Center" ItemTemplate="{StaticResource EventListItemTemplate}" ItemsSource="{x:Bind ViewModel.EventCountdowns}">
+						<ItemsRepeater.Layout>
+							<UniformGridLayout ItemsJustification="Center" ItemsStretch="Fill" Orientation="Horizontal" MinItemHeight="320" MinItemWidth="480" MaximumRowsOrColumns="3" MinColumnSpacing="20" MinRowSpacing="20" />
+						</ItemsRepeater.Layout>
+					</ItemsRepeater>
+                </ScrollViewer>
             </Grid>
             <Button
                 Width="280"
