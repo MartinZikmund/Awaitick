@@ -180,12 +180,12 @@
 						</Image.Source>
 					</Image>
 				</Grid>
-				<Border Padding="20" VerticalAlignment="Stretch">
+				<Border Padding="0" VerticalAlignment="Stretch">
 					<Grid>
 						<StackPanel
-                            Margin="0,10,0,0"
+                            Margin="0,0,0,0"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
+                            VerticalAlignment="Center"
                             Orientation="Horizontal"
                             Visibility="{x:Bind HasFinished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}">
 							<StackPanel Margin="10,0" Orientation="Vertical">
@@ -226,7 +226,7 @@
                             TextWrapping="Wrap"
                             Visibility="{x:Bind HasFinished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />
 						<TextBlock
-                            Margin="0"
+                            Margin="20"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             FontSize="30"
