@@ -35,6 +35,6 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 	}
 }
 
-public partial class CountdownDetailViewBase : PageBase<CountdownDetailViewModel>
+public abstract partial class CountdownDetailViewBase : PageBase<CountdownDetailViewModel>
 {
 }

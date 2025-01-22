@@ -10,6 +10,6 @@ public sealed partial class AboutView : AboutViewBase
 	}
 }
 
-public partial class AboutViewBase : PageBase<AboutViewModel>
+public abstract partial class AboutViewBase : PageBase<AboutViewModel>
 {
 }

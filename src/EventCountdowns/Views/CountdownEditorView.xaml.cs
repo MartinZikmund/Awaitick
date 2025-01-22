@@ -10,6 +10,6 @@ public sealed partial class CountdownEditorView : CountdownEditorViewBase
 	}
 }
 
-public partial class CountdownEditorViewBase : PageBase<CountdownEditorViewModel>
+public abstract partial class CountdownEditorViewBase : PageBase<CountdownEditorViewModel>
 {
 }
