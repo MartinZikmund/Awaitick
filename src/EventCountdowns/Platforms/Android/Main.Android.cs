@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Com.Nostra13.Universalimageloader.Core;
 using Microsoft.UI.Xaml.Media;
+using static Android.Telephony.CarrierConfigManager;
 
 namespace EventCountdowns.Droid;
 [global::Android.App.ApplicationAttribute(
@@ -21,7 +22,12 @@ namespace EventCountdowns.Droid;
 )]
 public class Application : Microsoft.UI.Xaml.NativeApplication
 {
-    public Application(IntPtr javaReference, JniHandleOwnership transfer)
+	static Application()
+	{
+		CountdownsApp.InitializeLogging();
+	}
+
+	public Application(IntPtr javaReference, JniHandleOwnership transfer)
         : base(() => new CountdownsApp(), javaReference, transfer)
     {
         ConfigureUniversalImageLoader();

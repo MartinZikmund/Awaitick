@@ -30,6 +30,9 @@
 		</UnoFeatures>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Views\SettingsView.xaml" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" />
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
 		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />
@@ -42,6 +45,11 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Views\SettingsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 </Project>
