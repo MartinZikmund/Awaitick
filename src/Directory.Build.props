@@ -17,6 +17,8 @@
 		-->
 		<NoWarn>$(NoWarn);NU1507;NETSDK1201;PRI257</NoWarn>
 
+
+		<WinAppSdkVersion>1.7.250208002-preview1</WinAppSdkVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
