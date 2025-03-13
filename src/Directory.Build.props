@@ -5,6 +5,7 @@
 
 		<DefaultLanguage>en-US</DefaultLanguage>
 
+		<LangVersion>preview</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>

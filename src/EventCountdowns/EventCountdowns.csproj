@@ -30,9 +30,6 @@
 		</UnoFeatures>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Views\SettingsView.xaml" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" />
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
 		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />

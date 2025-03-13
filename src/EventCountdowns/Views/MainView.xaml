@@ -51,11 +51,22 @@
             </Grid.ChildrenTransitions>
             <Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <ScrollViewer HorizontalAlignment="Center" HorizontalContentAlignment="Center">
-					<ItemsRepeater HorizontalAlignment="Center" ItemTemplate="{StaticResource EventListItemTemplate}" ItemsSource="{x:Bind ViewModel.EventCountdowns}">
-						<ItemsRepeater.Layout>
-							<UniformGridLayout ItemsJustification="Center" ItemsStretch="Fill" Orientation="Horizontal" MinItemHeight="320" MinItemWidth="480" MaximumRowsOrColumns="3" MinColumnSpacing="20" MinRowSpacing="20" />
-						</ItemsRepeater.Layout>
-					</ItemsRepeater>
+                    <ItemsView
+                        HorizontalAlignment="Center"
+                        ItemTemplate="{StaticResource EventListItemTemplate}"
+                        ItemsSource="{x:Bind ViewModel.EventCountdowns, Mode=OneTime}">
+                        <ItemsView.Layout>
+                            <UniformGridLayout
+                                ItemsJustification="Center"
+                                ItemsStretch="Fill"
+                                MaximumRowsOrColumns="3"
+                                MinColumnSpacing="20"
+                                MinItemHeight="320"
+                                MinItemWidth="480"
+                                MinRowSpacing="20"
+                                Orientation="Horizontal" />
+                        </ItemsView.Layout>
+                    </ItemsView>
                 </ScrollViewer>
             </Grid>
             <Button

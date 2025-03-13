@@ -73,11 +73,12 @@ public partial class MainViewModel : PageViewModel
 		IsLoading = true;
 		//load countdowns
 		var countdowns = await _dataService.GetCountdownsAsync();
-		EventCountdowns.Clear();
+		var newCountdowns = new ObservableCollection<CountdownViewModel>();
 		foreach (var countdown in countdowns)
 		{
-			EventCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
+			newCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
 		}
+		EventCountdowns = newCountdowns;
 		OnPropertyChanged(nameof(HasAnyEvents));
 
 		IsLoading = false;
@@ -88,7 +89,8 @@ public partial class MainViewModel : PageViewModel
 		}
 	}
 
-	public ObservableCollection<CountdownViewModel> EventCountdowns { get; } = new ObservableCollection<CountdownViewModel>();
+	[ObservableProperty]
+	public partial ObservableCollection<CountdownViewModel> EventCountdowns { get; private set; } = new ObservableCollection<CountdownViewModel>();
 
 	public bool HasAnyEvents => EventCountdowns.Count > 0;
 
