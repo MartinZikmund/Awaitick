@@ -2,7 +2,7 @@
 using EventCountdowns.Core.ViewModels;
 using EventCountdowns.Services.Navigation;
 
-namespace EventCountdowns.ViewModels;
+namespace EventCountdowns.Core.ViewModels;
 
 public abstract partial class PageViewModel : ViewModelBase
 {

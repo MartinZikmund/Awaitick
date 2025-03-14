@@ -8,7 +8,7 @@ using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
 using Windows.UI.ViewManagement;
 
-namespace EventCountdowns.ViewModels;
+namespace EventCountdowns.Core.ViewModels;
 
 public partial class SettingsViewModel : PageViewModel
 {
