@@ -19,7 +19,6 @@ public partial class MainViewModel : PageViewModel
 {
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;
-	private readonly IInAppPurchaseService _inAppPurchaseService;
 	private readonly IMailService _mailService;
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
@@ -31,7 +30,6 @@ public partial class MainViewModel : PageViewModel
 	public MainViewModel(
 		IDataService dataService,
 		ITileService? tileService,
-		IInAppPurchaseService inAppPurchaseService,
 		IMailService mailService,
 		ICountdownsManager countdownsManager,
 		IScheduledNotificationService scheduledNotificationService,
@@ -43,7 +41,6 @@ public partial class MainViewModel : PageViewModel
 	{
 		_dataService = dataService;
 		_tileService = tileService;
-		_inAppPurchaseService = inAppPurchaseService;
 		_mailService = mailService;
 		_countdownsManager = countdownsManager;
 		_scheduledNotificationService = scheduledNotificationService;
@@ -83,10 +80,6 @@ public partial class MainViewModel : PageViewModel
 
 		IsLoading = false;
 		_scheduledNotificationService.UnSuppressAllCountdownNotifications();
-		if (_appSettings.LaunchCount % 4 == 0 && !_inAppPurchaseService.HasUserAnyProduct())
-		{
-			ShowCoffee = true;
-		}
 	}
 
 	[ObservableProperty]

@@ -120,7 +120,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IDataService, FileDataService>();
 		services.AddSingleton<IFileService, FileService>();
 		services.AddSingleton<ITileService, TileService>();
-		services.AddSingleton<IInAppPurchaseService, InAppPurchaseService>();
+		//services.AddSingleton<IInAppPurchaseService, InAppPurchaseService>();
 		services.AddSingleton<IMailService, MailService>();
 		services.AddSingleton<IScheduledNotificationService, ScheduledNotificationService>();
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
