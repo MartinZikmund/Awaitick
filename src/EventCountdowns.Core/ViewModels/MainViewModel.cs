@@ -24,7 +24,7 @@ public partial class MainViewModel : PageViewModel
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly IStoreLauncherService _storeLauncherService;
-	private readonly IAppSettings _appSettings;
+	private readonly IAppPreferences _appSettings;
 	private readonly INavigationService _navigationService;
 	private readonly IMessenger _messenger;
 
@@ -38,7 +38,7 @@ public partial class MainViewModel : PageViewModel
 		IStoreLauncherService storeLauncherService,
 		INavigationService navigationService,
 		IMessenger messenger,
-		IAppSettings appSettings) :
+		IAppPreferences appSettings) :
 		base(navigationService)
 	{
 		_dataService = dataService;

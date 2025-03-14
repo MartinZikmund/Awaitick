@@ -10,10 +10,10 @@ namespace EventCountdowns.Core.Services;
 public class AppRatingService : IAppRatingService
 {
 	private readonly IStringLocalizer _localizationService;
-	private readonly IAppSettings _appSettings;
+	private readonly IAppPreferences _appSettings;
 	private readonly IStoreLauncherService _storeLauncherService;
 
-	public AppRatingService(IStringLocalizer localizationService, IAppSettings appSettings, IStoreLauncherService storeLauncherService)
+	public AppRatingService(IStringLocalizer localizationService, IAppPreferences appSettings, IStoreLauncherService storeLauncherService)
 	{
 		_localizationService = localizationService;
 		_appSettings = appSettings;

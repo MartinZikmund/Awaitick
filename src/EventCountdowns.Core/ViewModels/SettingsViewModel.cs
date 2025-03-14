@@ -1,16 +1,196 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.WinUI.Helpers;
 using EventCountdowns.Services.Navigation;
-using EventCountdowns.ViewModels;
+using Javax.Sql;
+using Microsoft.UI;
+using MZikmund.Toolkit.WinUI.Infrastructure;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 
-namespace EventCountdowns.Core.ViewModels;
+namespace EventCountdowns.ViewModels;
 
 public partial class SettingsViewModel : PageViewModel
 {
-	public SettingsViewModel(INavigationService navigationService) : base(navigationService)
+	private readonly IAppPreferences _appSettings;
+	private readonly IThemeManager _themeManager;
+	private readonly IImagePickerService _imagePickerService;
+	private readonly IXamlRootProvider _xamlRootProvider;
+	private readonly IStoreService _storeService;
+	private readonly IDialogService _dialogService;
+	private readonly IDataSource _dataSource;
+
+	private readonly UISettings _uiSettings = new();
+
+	[ObservableProperty]
+	private ElementTheme _theme;
+
+	[ObservableProperty]
+	private bool _hasProLicense;
+
+	private bool _isInitializing = false;
+
+	public SettingsViewModel(
+		INavigationService navigationService,
+		IAppPreferences appSettings,
+		IThemeManager themeManager,
+		IImagePickerService imagePickerService,
+		IXamlRootProvider xamlRootProvider,
+		IStoreService storeService,
+		IDialogService dialogService,
+		IDataSource dataSource) : base(navigationService)
 	{
+		_appSettings = appSettings;
+		_themeManager = themeManager;
+		_imagePickerService = imagePickerService;
+		_xamlRootProvider = xamlRootProvider;
+		_storeService = storeService;
+		_dialogService = dialogService;
+		_dataSource = dataSource;
+	}
+
+	public override async void ViewNavigatedTo(object? parameter)
+	{
+		base.ViewNavigatedTo(parameter);
+		try
+		{
+			_isInitializing = true;
+			HasProLicense = await _storeService.HasProAsync();
+
+			if (parameter is int stopwatchId)
+			{
+				if (_dataSource.Stopwatches.Get(stopwatchId) is not { } stopwatch)
+				{
+					throw new InvalidOperationException("Stopwatch with ID " + stopwatchId + " does not exist.");
+				}
+
+				_stopwatch = stopwatch;
+				Theme = _stopwatch.Theme;
+
+				BackgroundImageUri = _stopwatch.BackgroundImageUri is not null ? new(_stopwatch.BackgroundImageUri) : null;
+				BackgroundImageOpacityPercent = _stopwatch.BackgroundImageOpacity * 100;
+				BackgroundColor = ColorHelper.ToColor(_stopwatch.BackgroundColor);
+			}
+		}
+		finally
+		{
+			_isInitializing = false;
+		}
+	}
+
+	public override void GoBack()
+	{
+		SaveChanges();
+
+		base.GoBack();
+	}
+
+	public ElementTheme[] ThemeOptions { get; } = [ElementTheme.Default, ElementTheme.Light, ElementTheme.Dark];
+
+	partial void OnThemeChanged(ElementTheme value)
+	{
+		_themeManager.SetTheme(Theme);
+		SaveChanges();
+	}
+
+	public bool KeepScreenOn
+	{
+		get => _appSettings.KeepScreenOn;
+		set
+		{
+			if (_appSettings.KeepScreenOn != value)
+			{
+				_appSettings.KeepScreenOn = value;
+				OnPropertyChanged();
+			}
+		}
+	}
+
+	partial void OnBackgroundImageOpacityPercentChanged(double value) => SaveChanges();
+
+	public double BackgroundImageOpacity => BackgroundImageOpacityPercent / 100;
+
+	public bool IsBackgroundImageSet => BackgroundImageUri is not null;
+
+	public bool IsBackgroundColorSet => BackgroundColor != Colors.Transparent;
+
+	public string PackageVersionString => Package.Current.Id.Version.ToFormattedString();
+
+	[RelayCommand]
+	private async Task ReviewAppAsync() => await SystemInformation.LaunchStoreForReviewAsync();
+
+	[RelayCommand]
+	private async Task PickBackgroundImageAsync()
+	{
+		if (!HasProLicense)
+		{
+			var proOnlyFeatureDialog = new ProOnlyFeatureDialog();
+			await _dialogService.ShowAsync(proOnlyFeatureDialog);
+			return;
+		}
+
+		IsWorking = true;
+		try
+		{
+
+			if (await _imagePickerService.PickAsync() is { } imageUri)
+			{
+				BackgroundImageUri = imageUri;
+				OnPropertyChanged(nameof(IsBackgroundImageSet));
+			}
+
+			SaveChanges();
+		}
+		finally
+		{
+			IsWorking = false;
+		}
+	}
+
+	[RelayCommand]
+	private async Task PickBackgroundColor()
+	{
+		IsWorking = true;
+		var pickerDialog = new ColorPickerDialog
+		{
+			XamlRoot = _xamlRootProvider.XamlRoot,
+			SelectedColor = IsBackgroundColorSet ? BackgroundColor : _uiSettings.GetColorValue(UIColorType.Accent),
+		};
+
+		if (await pickerDialog.ShowAsync() == ContentDialogResult.Primary)
+		{
+			BackgroundColor = pickerDialog.SelectedColor;
+			OnPropertyChanged(nameof(IsBackgroundColorSet));
+			SaveChanges();
+		}
+		IsWorking = false;
+	}
+
+	[RelayCommand]
+	private void RemoveBackgroundImage()
+	{
+		BackgroundImageUri = null;
+		OnPropertyChanged(nameof(IsBackgroundImageSet));
+		SaveChanges();
+	}
+
+	[RelayCommand]
+	private void RemoveBackgroundColor()
+	{
+		BackgroundColor = Colors.Transparent;
+		OnPropertyChanged(nameof(IsBackgroundColorSet));
+		SaveChanges();
+	}
+
+	private void SaveChanges()
+	{
+		if (_isInitializing)
+		{
+			return;
+		}
+
+		_stopwatch.Theme = Theme;
+		_stopwatch.BackgroundImageUri = BackgroundImageUri?.ToString();
+		_stopwatch.BackgroundImageOpacity = BackgroundImageOpacityPercent / 100;
+		_stopwatch.BackgroundColor = ColorHelper.ToHex(BackgroundColor);
+		_dataSource.Stopwatches.Update(_stopwatch);
 	}
 }

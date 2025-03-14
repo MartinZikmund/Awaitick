@@ -125,7 +125,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IScheduledNotificationService, ScheduledNotificationService>();
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
 		services.AddSingleton<ISettingsService, SettingsService>();
-		services.AddSingleton<IAppSettings, AppSettings>();
+		services.AddSingleton<IAppPreferences, AppPreferences>();
 	}
 
 	/// <summary>
