@@ -5,13 +5,13 @@ using EventCountdowns.Core.Services.Tiles;
 
 namespace EventCountdowns.Core.Services.EventCountdownManager;
 
-public class EventCountdownManager : IEventCountdownManager
+public class CountdownsDataService : ICountdownsDataService
 {
 	private readonly IDataService _dataService;
 	private readonly ITileService _tileService;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 
-	public EventCountdownManager(IDataService dataService, ITileService tileService,
+	public CountdownsDataService(IDataService dataService, ITileService tileService,
 		IScheduledNotificationService scheduledNotificationService)
 	{
 		_dataService = dataService;

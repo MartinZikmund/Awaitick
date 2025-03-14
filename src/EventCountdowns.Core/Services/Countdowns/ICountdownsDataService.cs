@@ -2,7 +2,7 @@
 
 namespace EventCountdowns.Core.Services.EventCountdownManager;
 
-public interface IEventCountdownManager
+public interface ICountdownsDataService
 {
 	Task AddCountdownAsync(EventCountdown eventCountdown);
 	Task UpdateCountdownAsync(EventCountdown eventCountdown);

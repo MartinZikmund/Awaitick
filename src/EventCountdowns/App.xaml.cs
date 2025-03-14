@@ -17,9 +17,11 @@ using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.DefaultData;
-using EventCountdowns.Core.Services.ConfirmationDialog;
 using CommunityToolkit.Mvvm.Messaging;
 using Uno.Resizetizer;
+using MZikmund.Toolkit.WinUI.Infrastructure;
+using EventCountdowns.Core.Services.Countdowns;
+using MZikmund.Toolkit.WinUI.Services;
 
 namespace EventCountdowns;
 
@@ -58,7 +60,7 @@ public partial class CountdownsApp : Application, IApplication
 		MainWindow = builder.Window;
 
 #if DEBUG
-		MainWindow.EnableHotReload();
+		MainWindow.UseStudio();
 #endif
 
 		MainWindow.SetWindowIcon();
@@ -101,17 +103,18 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
 		services.AddSingleton<IApplication>(this);
-		services.AddScoped<IDialogCoordinator, DialogCoordinator>();
+		services.AddSingleton<WindowShellProvider>();
+		services.AddScoped<IXamlRootProvider>(services => services.GetRequiredService<WindowShellProvider>());
+		services.AddScoped<IWindowShellProvider>(services => services.GetRequiredService<WindowShellProvider>());
 		services.AddScoped<IFrameProvider, FrameProvider>();
 		services.AddScoped<INavigationService, NavigationService>();
 		services.AddScoped<ILoadingIndicator, LoadingIndicator>();
+		services.AddScoped<IDialogCoordinator, DialogCoordinator>();
 		services.AddScoped<IDialogService, DialogService>();
-		services.AddScoped<IWindowShellProvider, WindowShellProvider>();
 
 		services.AddScoped<ISystemSharingService, SystemSharingService>();
-		services.AddScoped<IEventSharingService, EventSharingService>();
-		services.AddScoped<IConfirmationDialogService, ConfirmationDialogService>();
-		services.AddSingleton<IEventCountdownManager, EventCountdownManager>();
+		services.AddScoped<ICountdownsManager, CountdownsManager>();
+		services.AddSingleton<ICountdownsDataService, CountdownsDataService>();
 		services.AddScoped<IBackgroundPickerService, BackgroundPickerService>();
 		services.AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>();
 		services.AddSingleton<IDataService, FileDataService>();
@@ -123,5 +126,72 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
 		services.AddSingleton<ISettingsService, SettingsService>();
 		services.AddSingleton<IAppSettings, AppSettings>();
+	}
+
+	/// <summary>
+	/// Configures global Uno Platform logging
+	/// </summary>
+	public static void InitializeLogging()
+	{
+#if DEBUG
+		// Logging is disabled by default for release builds, as it incurs a significant
+		// initialization cost from Microsoft.Extensions.Logging setup. If startup performance
+		// is a concern for your application, keep this disabled. If you're running on the web or
+		// desktop targets, you can use URL or command line parameters to enable it.
+		//
+		// For more performance documentation: https://platform.uno/docs/articles/Uno-UI-Performance.html
+
+		var factory = LoggerFactory.Create(builder =>
+		{
+#if __WASM__
+            builder.AddProvider(new global::Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider());
+#elif __IOS__ || __MACCATALYST__
+            builder.AddProvider(new global::Uno.Extensions.Logging.OSLogLoggerProvider());
+#else
+			builder.AddConsole();
+#endif
+
+			// Exclude logs below this level
+			builder.SetMinimumLevel(LogLevel.Information);
+
+			// Default filters for Uno Platform namespaces
+			builder.AddFilter("Uno", LogLevel.Warning);
+			builder.AddFilter("Windows", LogLevel.Warning);
+			builder.AddFilter("Microsoft", LogLevel.Warning);
+
+			// Generic Xaml events
+			// builder.AddFilter("Microsoft.UI.Xaml", LogLevel.Debug );
+			// builder.AddFilter("Microsoft.UI.Xaml.VisualStateGroup", LogLevel.Debug );
+			// builder.AddFilter("Microsoft.UI.Xaml.StateTriggerBase", LogLevel.Debug );
+			// builder.AddFilter("Microsoft.UI.Xaml.UIElement", LogLevel.Debug );
+			// builder.AddFilter("Microsoft.UI.Xaml.FrameworkElement", LogLevel.Trace );
+
+			// Layouter specific messages
+			// builder.AddFilter("Microsoft.UI.Xaml.Controls", LogLevel.Debug );
+			// builder.AddFilter("Microsoft.UI.Xaml.Controls.Layouter", LogLevel.Debug );
+			// builder.AddFilter("Microsoft.UI.Xaml.Controls.Panel", LogLevel.Debug );
+
+			// builder.AddFilter("Windows.Storage", LogLevel.Debug );
+
+			// Binding related messages
+			// builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug );
+			// builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug );
+
+			// Binder memory references tracking
+			// builder.AddFilter("Uno.UI.DataBinding.BinderReferenceHolder", LogLevel.Debug );
+
+			// DevServer and HotReload related
+			// builder.AddFilter("Uno.UI.RemoteControl", LogLevel.Information);
+
+			// Debug JS interop
+			// builder.AddFilter("Uno.Foundation.WebAssemblyRuntime", LogLevel.Debug );
+		});
+
+		global::Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory = factory;
+
+#if HAS_UNO
+        global::Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
+#endif
+#endif
 	}
 }

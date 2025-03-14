@@ -5,6 +5,7 @@
 
 		<DefaultLanguage>en-US</DefaultLanguage>
 
+		<LangVersion>preview</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
@@ -17,10 +18,8 @@
 		-->
 		<NoWarn>$(NoWarn);NU1507;NETSDK1201;PRI257</NoWarn>
 
-		<!-- Temporary workaround for https://github.com/microsoft/WindowsAppSDK/issues/4480 -->
-		<WinAppSdkBuildToolsVersion Condition="$(TargetFramework.Contains('windows10'))">10.0.22621.3233</WinAppSdkBuildToolsVersion>
-		<UnoExtensionsVersion Condition="$(TargetFramework.Contains('windows10'))">4.2.2</UnoExtensionsVersion>
 
+		<WinAppSdkVersion>1.7.250208002-preview1</WinAppSdkVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -45,7 +45,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		public EditorMode Mode { get; set; } = EditorMode.Add;
 	}
 
-	private readonly IEventCountdownManager _eventCountdownManager;
+	private readonly ICountdownsDataService _eventCountdownManager;
 	private readonly IBackgroundPickerService _backgroundPickerService;
 	private readonly IDataService _dataService;
 	private readonly IStringLocalizer _localizationService;
@@ -62,7 +62,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private Uri? _lastCustomBackgroundUri;
 
 	[ObservableProperty]
-	private Uri? _backgroundUri = new Uri("ms-appx:///EventCountdowns/Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
+	private Uri? _backgroundUri = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
 
 	[ObservableProperty]
 	private string _name = "";
@@ -79,7 +79,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private EventCountdown? _editedEventCountdown;
 
 	public CountdownEditorViewModel(
-		IEventCountdownManager eventCountdownManager,
+		ICountdownsDataService eventCountdownManager,
 		IBackgroundPickerService backgroundPickerService,
 		IDataService dataService,
 		IStringLocalizer localizationService,
@@ -103,7 +103,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
-			throw new ArgumentException("Parameter must be CountdownDetailViewModel.NavigationModel.", nameof(parameter));
+			throw new ArgumentException("Parameter must be CountdownEditorViewModel.NavigationModel.", nameof(parameter));
 		}
 
 		Mode = navigationModel.Mode;

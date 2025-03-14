@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             Grid.ColumnSpan="2"
             Background="Black"
             Visibility="{x:Bind ViewModel.Event.BackgroundImage, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
@@ -46,7 +46,7 @@
                 <Viewbox
                     MaxWidth="600"
                     Margin="20"
-                    Visibility="{x:Bind ViewModel.Event.Finished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay}">
+                    Visibility="{x:Bind ViewModel.Event.HasFinished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay}">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Margin="10,0" Orientation="Vertical">
                             <TextBlock Style="{StaticResource TimeComponentStyle}" Text="{x:Bind ViewModel.Event.DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
@@ -90,7 +90,7 @@
                     Text="{x:Bind ViewModel.Event.CelebrationMessage}"
                     TextAlignment="Center"
                     TextWrapping="Wrap"
-                    Visibility="{x:Bind ViewModel.Event.Finished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+                    Visibility="{x:Bind ViewModel.Event.HasFinished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
                     <TextBlock
                         Grid.Row="1"
@@ -111,16 +111,28 @@
             </Grid>
         </Border>
 
-        <CommandBar
+		<CommandBar
             Grid.Row="2"
+			OverflowButtonVisibility="Collapsed"
             Grid.ColumnSpan="2"
+			Background="#44000000"
             ClosedDisplayMode="Compact">
-            <AppBarButton Command="{x:Bind ViewModel.Event.ShareCommand}" Label="{xaml:Localize Key=Share}">
+			<AppBarButton Command="{x:Bind ViewModel.ShareCommand}" Label="{xaml:Localize Key=Share}">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE72D;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <!--<AppBarButton
+			<AppBarButton Command="{x:Bind ViewModel.EditCommand}" Label="{xaml:Localize Key=Share}">
+				<AppBarButton.Icon>
+					<SymbolIcon Symbol="Edit" />
+				</AppBarButton.Icon>
+			</AppBarButton>
+			<AppBarButton Command="{x:Bind ViewModel.DeleteCommand}" Label="{xaml:Localize Key=Share}">
+				<AppBarButton.Icon>
+					<SymbolIcon Symbol="Delete" />
+				</AppBarButton.Icon>
+			</AppBarButton>
+			<!--<AppBarButton
                 Command="{x:Bind ViewModel.PinCommand}"
                 Icon="Pin"
                 Label="{xaml:Localize Key=PinToStart}"

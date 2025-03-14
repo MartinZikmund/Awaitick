@@ -38,6 +38,6 @@ public sealed partial class MainView : MainViewBase
 	}
 }
 
-public partial class MainViewBase : PageBase<MainViewModel>
+public abstract partial class MainViewBase : PageBase<MainViewModel>
 {
 }

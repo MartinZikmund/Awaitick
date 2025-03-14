@@ -47,6 +47,7 @@ public class SystemSharingService : ISystemSharingService
 		try
 		{
 			DataTransferManager.ShowShareUI();
+			_completionSource?.SetResult();
 		}
 		catch (Exception ex)
 		{
@@ -67,6 +68,7 @@ public class SystemSharingService : ISystemSharingService
 		try
 		{
 			interop.ShowShareUIForWindow(windowHandle);
+			_completionSource?.SetResult();
 		}
 		catch (Exception ex)
 		{

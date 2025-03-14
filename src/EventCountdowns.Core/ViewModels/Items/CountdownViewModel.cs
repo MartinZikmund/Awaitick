@@ -1,17 +1,16 @@
-﻿using System.Globalization;
-using EventCountdowns.Core.Services;
+﻿using EventCountdowns.Core.Services.Countdowns;
 
 namespace EventCountdowns.Core.Models;
 
-public partial class EventCountdownObservable : ObservableObject
+public partial class CountdownViewModel : ObservableObject
 {
 	private readonly EventCountdown _eventCountdown;
-	private readonly IEventSharingService _sharingService;
+	private readonly ICountdownsManager _countdownsManager;
 
-	public EventCountdownObservable(EventCountdown eventCountdown, IEventSharingService sharingService)
+	public CountdownViewModel(EventCountdown eventCountdown, ICountdownsManager countdownsManager)
 	{
 		_eventCountdown = eventCountdown ?? throw new ArgumentNullException(nameof(eventCountdown));
-		_sharingService = sharingService ?? throw new ArgumentNullException(nameof(sharingService));
+		_countdownsManager = countdownsManager ?? throw new ArgumentNullException(nameof(countdownsManager));
 	}
 
 	public EventCountdown Model => _eventCountdown;
@@ -22,7 +21,7 @@ public partial class EventCountdownObservable : ObservableObject
 
 	public Uri? BackgroundImage => _eventCountdown.BackgroundImageUri;
 
-	public bool Finished => _eventCountdown.TargetDateTime < DateTimeOffset.Now;
+	public bool HasFinished => _eventCountdown.TargetDateTime < DateTimeOffset.Now;
 
 	public TimeSpan TimeLeft => _eventCountdown.TargetDateTime - DateTimeOffset.Now;
 
@@ -39,7 +38,16 @@ public partial class EventCountdownObservable : ObservableObject
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
 
 	[RelayCommand]
-	public void Share() => _sharingService.ShareAsync(this);
+	public void GoToDetail() => _countdownsManager.GoToDetail(this);
+
+	[RelayCommand]
+	public Task ShareAsync() => _countdownsManager.ShareAsync(this);
+
+	[RelayCommand]
+	public void GoToEdit() => _countdownsManager.GoToEdit(this);
+
+	[RelayCommand]
+	public Task<bool> DeleteAsync() => _countdownsManager.DeleteAsync(this);
 
 	public void UpdateBindings()
 	{
@@ -48,6 +56,6 @@ public partial class EventCountdownObservable : ObservableObject
 		OnPropertyChanged(nameof(MinutesLeft));
 		OnPropertyChanged(nameof(SecondsLeft));
 		OnPropertyChanged(nameof(TimeLeft));
-		OnPropertyChanged(nameof(Finished));
+		OnPropertyChanged(nameof(HasFinished));
 	}
 }

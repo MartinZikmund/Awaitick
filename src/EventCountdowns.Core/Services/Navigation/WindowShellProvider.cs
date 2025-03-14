@@ -3,10 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.UI.Dispatching;
 using EventCountdowns.ViewModels;
 using EventCountdowns.Core.Infrastructure;
+using MZikmund.Toolkit.WinUI.Infrastructure;
 
 namespace EventCountdowns.Services.Navigation;
 
-public sealed class WindowShellProvider : IWindowShellProvider
+public sealed class WindowShellProvider : IWindowShellProvider, IXamlRootProvider
 {
 	private IWindowShell? _shell;
 	private Window? _window;

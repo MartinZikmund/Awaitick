@@ -22,7 +22,6 @@ public sealed partial class WindowShell : Page, IWindowShell
 		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
 		windowShellProvider.SetShell(this, associatedWindow);
 		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(CountdownsApp).Assembly);
-		ServiceProvider.GetRequiredService<IDialogService>().RegisterDialogsFromAssembly(typeof(CountdownsApp).Assembly);
 
 		ViewModel = ServiceProvider.GetRequiredService<WindowShellViewModel>();
 
@@ -53,8 +52,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 #if !HAS_UNO
 			_associatedWindow.ExtendsContentIntoTitleBar = true;
 			_associatedWindow.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
-			LeftTitleBarInsetColumnDefinition.Width = new GridLength(_associatedWindow.AppWindow.TitleBar.LeftInset);
-			RightTitleBarInsetColumnDefinition.Width = new GridLength(_associatedWindow.AppWindow.TitleBar.RightInset);
+			TitleBarGrid.Padding = new Thickness(_associatedWindow.AppWindow.TitleBar.LeftInset, 0, _associatedWindow.AppWindow.TitleBar.RightInset, 0);
 			_associatedWindow.SetTitleBar(DraggableTitleBar);
 			HasCustomTitleBar = true;
 #endif
