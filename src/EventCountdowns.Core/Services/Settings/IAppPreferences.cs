@@ -10,5 +10,7 @@ public interface IAppPreferences
 
 	bool OfferUserRating { get; set; }
 
-	AppTheme ApplicationTheme { get; set; }
+	ElementTheme Theme { get; set; }
+
+	bool KeepScreenOn { get; set; }
 }

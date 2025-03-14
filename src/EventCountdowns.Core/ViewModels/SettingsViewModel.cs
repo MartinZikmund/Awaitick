@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.WinUI.Helpers;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Services.Navigation;
+using EventCountdowns.Services.Store;
 using EventCountdowns.Services.Theming;
-using Javax.Sql;
-using Microsoft.UI;
+using Microsoft.Toolkit.Uwp.Helpers;
+using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
-using Windows.UI;
 using Windows.UI.ViewManagement;
 
 namespace EventCountdowns.ViewModels;
@@ -17,15 +17,8 @@ public partial class SettingsViewModel : PageViewModel
 	private readonly IXamlRootProvider _xamlRootProvider;
 	private readonly IStoreService _storeService;
 	private readonly IDialogService _dialogService;
-	private readonly IDataSource _dataSource;
 
 	private readonly UISettings _uiSettings = new();
-
-	[ObservableProperty]
-	private ElementTheme _theme;
-
-	[ObservableProperty]
-	private bool _hasProLicense;
 
 	private bool _isInitializing = false;
 
@@ -35,15 +28,13 @@ public partial class SettingsViewModel : PageViewModel
 		IThemeManager themeManager,
 		IXamlRootProvider xamlRootProvider,
 		IStoreService storeService,
-		IDialogService dialogService,
-		IDataSource dataSource) : base(navigationService)
+		IDialogService dialogService) : base(navigationService)
 	{
 		_appSettings = appSettings;
 		_themeManager = themeManager;
 		_xamlRootProvider = xamlRootProvider;
 		_storeService = storeService;
 		_dialogService = dialogService;
-		_dataSource = dataSource;
 	}
 
 	public override async void ViewNavigatedTo(object? parameter)
@@ -53,21 +44,7 @@ public partial class SettingsViewModel : PageViewModel
 		{
 			_isInitializing = true;
 			HasProLicense = await _storeService.HasProAsync();
-
-			if (parameter is int EventCountdownsId)
-			{
-				if (_dataSource.EventCountdownses.Get(EventCountdownsId) is not { } EventCountdowns)
-				{
-					throw new InvalidOperationException("EventCountdowns with ID " + EventCountdownsId + " does not exist.");
-				}
-
-				_EventCountdowns = EventCountdowns;
-				Theme = _EventCountdowns.Theme;
-
-				BackgroundImageUri = _EventCountdowns.BackgroundImageUri is not null ? new(_EventCountdowns.BackgroundImageUri) : null;
-				BackgroundImageOpacityPercent = _EventCountdowns.BackgroundImageOpacity * 100;
-				BackgroundColor = ColorHelper.ToColor(_EventCountdowns.BackgroundColor);
-			}
+			Theme = _appSettings.Theme;
 		}
 		finally
 		{
@@ -82,11 +59,18 @@ public partial class SettingsViewModel : PageViewModel
 		base.GoBack();
 	}
 
+	[ObservableProperty]
+	public partial bool HasProLicense { get; private set; }
+
 	public ElementTheme[] ThemeOptions { get; } = [ElementTheme.Default, ElementTheme.Light, ElementTheme.Dark];
+
+	[ObservableProperty]
+	public partial ElementTheme Theme { get; set; }
 
 	partial void OnThemeChanged(ElementTheme value)
 	{
 		_themeManager.SetTheme(Theme);
+		_appSettings.Theme = value;
 		SaveChanges();
 	}
 
@@ -103,81 +87,10 @@ public partial class SettingsViewModel : PageViewModel
 		}
 	}
 
-	partial void OnBackgroundImageOpacityPercentChanged(double value) => SaveChanges();
-
-	public double BackgroundImageOpacity => BackgroundImageOpacityPercent / 100;
-
-	public bool IsBackgroundImageSet => BackgroundImageUri is not null;
-
-	public bool IsBackgroundColorSet => BackgroundColor != Colors.Transparent;
-
 	public string PackageVersionString => Package.Current.Id.Version.ToFormattedString();
 
 	[RelayCommand]
 	private async Task ReviewAppAsync() => await SystemInformation.LaunchStoreForReviewAsync();
-
-	[RelayCommand]
-	private async Task PickBackgroundImageAsync()
-	{
-		if (!HasProLicense)
-		{
-			var proOnlyFeatureDialog = new ProOnlyFeatureDialog();
-			await _dialogService.ShowAsync(proOnlyFeatureDialog);
-			return;
-		}
-
-		IsWorking = true;
-		try
-		{
-
-			if (await _imagePickerService.PickAsync() is { } imageUri)
-			{
-				BackgroundImageUri = imageUri;
-				OnPropertyChanged(nameof(IsBackgroundImageSet));
-			}
-
-			SaveChanges();
-		}
-		finally
-		{
-			IsWorking = false;
-		}
-	}
-
-	[RelayCommand]
-	private async Task PickBackgroundColor()
-	{
-		IsWorking = true;
-		var pickerDialog = new ColorPickerDialog
-		{
-			XamlRoot = _xamlRootProvider.XamlRoot,
-			SelectedColor = IsBackgroundColorSet ? BackgroundColor : _uiSettings.GetColorValue(UIColorType.Accent),
-		};
-
-		if (await pickerDialog.ShowAsync() == ContentDialogResult.Primary)
-		{
-			BackgroundColor = pickerDialog.SelectedColor;
-			OnPropertyChanged(nameof(IsBackgroundColorSet));
-			SaveChanges();
-		}
-		IsWorking = false;
-	}
-
-	[RelayCommand]
-	private void RemoveBackgroundImage()
-	{
-		BackgroundImageUri = null;
-		OnPropertyChanged(nameof(IsBackgroundImageSet));
-		SaveChanges();
-	}
-
-	[RelayCommand]
-	private void RemoveBackgroundColor()
-	{
-		BackgroundColor = Colors.Transparent;
-		OnPropertyChanged(nameof(IsBackgroundColorSet));
-		SaveChanges();
-	}
 
 	private void SaveChanges()
 	{
@@ -185,11 +98,5 @@ public partial class SettingsViewModel : PageViewModel
 		{
 			return;
 		}
-
-		_EventCountdowns.Theme = Theme;
-		_EventCountdowns.BackgroundImageUri = BackgroundImageUri?.ToString();
-		_EventCountdowns.BackgroundImageOpacity = BackgroundImageOpacityPercent / 100;
-		_EventCountdowns.BackgroundColor = ColorHelper.ToHex(BackgroundColor);
-		_dataSource.EventCountdownses.Update(_EventCountdowns);
 	}
 }

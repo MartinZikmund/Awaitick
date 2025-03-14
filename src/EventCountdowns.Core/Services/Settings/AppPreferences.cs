@@ -4,50 +4,58 @@ namespace EventCountdowns.Core.Services.Settings;
 
 public class AppPreferences : IAppPreferences
 {
-	private readonly IPreferences _settingsService;
+	private readonly IPreferences _preferences;
 
 	public AppPreferences(IPreferences settingsService)
 	{
-		_settingsService = settingsService;
+		_preferences = settingsService;
 	}
 
 	private const string DataVersionKey = "AppDataVersion";
 
 	public int DataVersion
 	{
-		get => _settingsService.Get(DataVersionKey, 0);
-		set => _settingsService.Set(DataVersionKey, value);
+		get => _preferences.Get(DataVersionKey, 0);
+		set => _preferences.Set(DataVersionKey, value);
 	}
 
 	private const string FirstStartKey = "AppFirstStart";
 
 	public bool FirstStart
 	{
-		get => _settingsService.Get(FirstStartKey, true);
-		set => _settingsService.Set(FirstStartKey, value);
+		get => _preferences.Get(FirstStartKey, true);
+		set => _preferences.Set(FirstStartKey, value);
 	}
 
 	private const string LaunchCountKey = "AppLaunchCount";
 
 	public int LaunchCount
 	{
-		get => _settingsService.Get(LaunchCountKey, 0);
-		set => _settingsService.Set(LaunchCountKey, value);
+		get => _preferences.Get(LaunchCountKey, 0);
+		set => _preferences.Set(LaunchCountKey, value);
 	}
 
 	private const string OfferUserRatingKey = "OfferUserRating";
 
 	public bool OfferUserRating
 	{
-		get => _settingsService.Get(OfferUserRatingKey, true);
-		set => _settingsService.Set(OfferUserRatingKey, value);
+		get => _preferences.Get(OfferUserRatingKey, true);
+		set => _preferences.Set(OfferUserRatingKey, value);
 	}
 
-	private const string ApplicationThemeKey = "ApplicationTheme";
+	private const string ThemeKey = "Theme";
 
-	public AppTheme ApplicationTheme
+	public ElementTheme Theme
 	{
-		get => _settingsService.Get(ApplicationThemeKey, AppTheme.System);
-		set => _settingsService.Set(ApplicationThemeKey, value);
+		get => _preferences.GetComplex<ElementTheme>(ThemeKey, ElementTheme.Default);
+		set => _preferences.SetComplex(ThemeKey, value);
+	}
+
+	private const string KeepScreenOnKey = "KeepScreenOn";
+
+	public bool KeepScreenOn
+	{
+		get => _preferences.Get(KeepScreenOnKey, true);
+		set => _preferences.Set(KeepScreenOnKey, value);
 	}
 }

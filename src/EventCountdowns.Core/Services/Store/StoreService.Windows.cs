@@ -1,6 +1,7 @@
 ﻿#pragma warning disable Uno0001
 
 using System.Globalization;
+using EventCountdowns.Services.Localization;
 using EventCountdowns.Services.Navigation;
 using Microsoft.UI.Xaml.Controls;
 using MZikmund.Services.Dialogs;
