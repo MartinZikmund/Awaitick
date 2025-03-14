@@ -43,11 +43,11 @@ public class AppPreferences : IAppPreferences
 		set => _settingsService.Set(OfferUserRatingKey, value);
 	}
 
-	private const string AppThemeKey = "AppTheme";
+	private const string ApplicationThemeKey = "ApplicationTheme";
 
-	public AppTheme Theme
+	public AppTheme ApplicationTheme
 	{
-		get => _settingsService.Get(AppThemeKey, () => AppTheme.System);
-		set => _settingsService.Set(AppThemeKey, value);
+		get => _settingsService.Get(ApplicationThemeKey, AppTheme.System);
+		set => _settingsService.Set(ApplicationThemeKey, value);
 	}
 }

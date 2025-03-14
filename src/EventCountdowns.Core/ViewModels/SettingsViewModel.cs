@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.WinUI.Helpers;
+using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Services.Navigation;
+using EventCountdowns.Services.Theming;
 using Javax.Sql;
 using Microsoft.UI;
 using MZikmund.Toolkit.WinUI.Infrastructure;
@@ -12,7 +14,6 @@ public partial class SettingsViewModel : PageViewModel
 {
 	private readonly IAppPreferences _appSettings;
 	private readonly IThemeManager _themeManager;
-	private readonly IImagePickerService _imagePickerService;
 	private readonly IXamlRootProvider _xamlRootProvider;
 	private readonly IStoreService _storeService;
 	private readonly IDialogService _dialogService;
@@ -32,7 +33,6 @@ public partial class SettingsViewModel : PageViewModel
 		INavigationService navigationService,
 		IAppPreferences appSettings,
 		IThemeManager themeManager,
-		IImagePickerService imagePickerService,
 		IXamlRootProvider xamlRootProvider,
 		IStoreService storeService,
 		IDialogService dialogService,
@@ -40,7 +40,6 @@ public partial class SettingsViewModel : PageViewModel
 	{
 		_appSettings = appSettings;
 		_themeManager = themeManager;
-		_imagePickerService = imagePickerService;
 		_xamlRootProvider = xamlRootProvider;
 		_storeService = storeService;
 		_dialogService = dialogService;
@@ -55,19 +54,19 @@ public partial class SettingsViewModel : PageViewModel
 			_isInitializing = true;
 			HasProLicense = await _storeService.HasProAsync();
 
-			if (parameter is int stopwatchId)
+			if (parameter is int EventCountdownsId)
 			{
-				if (_dataSource.Stopwatches.Get(stopwatchId) is not { } stopwatch)
+				if (_dataSource.EventCountdownses.Get(EventCountdownsId) is not { } EventCountdowns)
 				{
-					throw new InvalidOperationException("Stopwatch with ID " + stopwatchId + " does not exist.");
+					throw new InvalidOperationException("EventCountdowns with ID " + EventCountdownsId + " does not exist.");
 				}
 
-				_stopwatch = stopwatch;
-				Theme = _stopwatch.Theme;
+				_EventCountdowns = EventCountdowns;
+				Theme = _EventCountdowns.Theme;
 
-				BackgroundImageUri = _stopwatch.BackgroundImageUri is not null ? new(_stopwatch.BackgroundImageUri) : null;
-				BackgroundImageOpacityPercent = _stopwatch.BackgroundImageOpacity * 100;
-				BackgroundColor = ColorHelper.ToColor(_stopwatch.BackgroundColor);
+				BackgroundImageUri = _EventCountdowns.BackgroundImageUri is not null ? new(_EventCountdowns.BackgroundImageUri) : null;
+				BackgroundImageOpacityPercent = _EventCountdowns.BackgroundImageOpacity * 100;
+				BackgroundColor = ColorHelper.ToColor(_EventCountdowns.BackgroundColor);
 			}
 		}
 		finally
@@ -187,10 +186,10 @@ public partial class SettingsViewModel : PageViewModel
 			return;
 		}
 
-		_stopwatch.Theme = Theme;
-		_stopwatch.BackgroundImageUri = BackgroundImageUri?.ToString();
-		_stopwatch.BackgroundImageOpacity = BackgroundImageOpacityPercent / 100;
-		_stopwatch.BackgroundColor = ColorHelper.ToHex(BackgroundColor);
-		_dataSource.Stopwatches.Update(_stopwatch);
+		_EventCountdowns.Theme = Theme;
+		_EventCountdowns.BackgroundImageUri = BackgroundImageUri?.ToString();
+		_EventCountdowns.BackgroundImageOpacity = BackgroundImageOpacityPercent / 100;
+		_EventCountdowns.BackgroundColor = ColorHelper.ToHex(BackgroundColor);
+		_dataSource.EventCountdownses.Update(_EventCountdowns);
 	}
 }

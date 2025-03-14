@@ -10,5 +10,5 @@ public interface IAppPreferences
 
 	bool OfferUserRating { get; set; }
 
-	AppTheme Theme { get; set; }
+	AppTheme ApplicationTheme { get; set; }
 }

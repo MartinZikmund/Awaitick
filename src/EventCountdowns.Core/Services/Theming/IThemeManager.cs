@@ -2,7 +2,9 @@
 
 public interface IThemeManager
 {
-	void SetTheme(AppTheme theme);
+	void SetTheme(ElementTheme theme);
 
-	AppTheme CurrentTheme { get; }
+	ElementTheme CurrentTheme { get; }
+
+	ApplicationTheme ActualTheme { get; }
 }
