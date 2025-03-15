@@ -34,9 +34,6 @@ public partial class CountdownDetailViewModel : PageViewModel
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IStringLocalizer _localizationService;
 
-	[ObservableProperty]
-	private CountdownViewModel _event = null!;
-
 	private bool _isTilePinned;
 	private string _targetDateString = "";
 
@@ -59,6 +56,9 @@ public partial class CountdownDetailViewModel : PageViewModel
 		_localizationService = localizationService;
 	}
 
+	[ObservableProperty]
+	public partial CountdownViewModel EventCountdown { get; private set; }
+
 	public override async void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
@@ -72,17 +72,17 @@ public partial class CountdownDetailViewModel : PageViewModel
 			throw new InvalidOperationException("This event does not exist");
 		}
 
-		Event = new CountdownViewModel(eventInfo, _countdownsManager);
+		EventCountdown = new CountdownViewModel(eventInfo, _countdownsManager);
 
-		TargetDateString = Event.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
-		IsTilePinned = _tileService.IsCountdownPinned(Event.Id);
-		_scheduledNotificationService.SuppressCountdownNotification(Event.Model);
+		TargetDateString = EventCountdown.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
+		IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
+		_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
 	}
 
 	[RelayCommand]
 	private async Task DeleteAsync()
 	{
-		var result = await _countdownsManager.DeleteAsync(Event);
+		var result = await _countdownsManager.DeleteAsync(EventCountdown);
 		if (result)
 		{
 			_navigationService.GoBack();
@@ -90,10 +90,10 @@ public partial class CountdownDetailViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private void Edit() => _countdownsManager.GoToEdit(Event);
+	private void Edit() => _countdownsManager.GoToEdit(EventCountdown);
 
 	[RelayCommand]
-	private async Task ShareAsync() => await _countdownsManager.ShareAsync(Event);
+	private async Task ShareAsync() => await _countdownsManager.ShareAsync(EventCountdown);
 
 	public string TargetDateString
 	{
@@ -110,20 +110,17 @@ public partial class CountdownDetailViewModel : PageViewModel
 	[RelayCommand]
 	private async Task PinAsync()
 	{
-		IsTilePinned = await _tileService.PinCountdownAsync(Event.Model);
-		_tileService.UpdateCountdownTile(Event.Model);
-		_tileService.ScheduleCountdownNotification(Event.Model);
+		IsTilePinned = await _tileService.PinCountdownAsync(EventCountdown.Model);
+		_tileService.UpdateCountdownTile(EventCountdown.Model);
+		_tileService.ScheduleCountdownNotification(EventCountdown.Model);
 	}
 
 	[RelayCommand]
 	private async Task UnPinAsync()
 	{
-		var unpinSuccessful = await _tileService.UnpinCountdownAsync(Event.Model);
+		var unpinSuccessful = await _tileService.UnpinCountdownAsync(EventCountdown.Model);
 		IsTilePinned = !unpinSuccessful;
 	}
 
-	public void UpdateCountdowns()
-	{
-		Event?.UpdateBindings();
-	}
+	public void UpdateCountdowns() => EventCountdown?.UpdateBindings();
 }

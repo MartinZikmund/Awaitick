@@ -58,10 +58,7 @@ public class FileDataService : IDataService
 		}
 	}
 
-	public Task<List<EventCountdown>> GetCountdownsAsync()
-	{
-		return Task.FromResult(new List<EventCountdown>(from eventCountdown in _eventCountdowns orderby eventCountdown.TargetDateTime select eventCountdown));
-	}
+	public Task<List<EventCountdown>> GetCountdownsAsync() => Task.FromResult(new List<EventCountdown>(from eventCountdown in _eventCountdowns orderby eventCountdown.TargetDateTime select eventCountdown));
 
 	public async Task UpdateCountdownAsync(EventCountdown eventCountdown)
 	{
@@ -111,10 +108,7 @@ public class FileDataService : IDataService
 		await SaveDataAsync();
 	}
 
-	public Task<EventCountdown> GetCountdownAsync(string id)
-	{
-		return Task.FromResult((from c in _eventCountdowns where c.Id == id select c).SingleOrDefault());
-	}
+	public Task<EventCountdown> GetCountdownAsync(string id) => Task.FromResult((from c in _eventCountdowns where c.Id == id select c).SingleOrDefault());
 
 	public async Task AddCountdownsAsync(params EventCountdown[] sampleEvents)
 	{

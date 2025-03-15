@@ -15,12 +15,6 @@ public partial class WindowShellViewModel : ViewModelBase
 	private readonly IMessenger _messenger;
 	private RefCountDisposable? _refCountDisposable;
 
-	[ObservableProperty]
-	private bool _isLoading;
-
-	[ObservableProperty]
-	private string _loadingStatusMessage = "";
-
 	public WindowShellViewModel(IWindowShellProvider provider, INavigationService navigationService, IMessenger messenger)
 	{
 		_provider = provider ?? throw new ArgumentNullException(nameof(provider));
@@ -31,10 +25,13 @@ public partial class WindowShellViewModel : ViewModelBase
 
 	public string Title { get; set; } = Localizer.Instance.GetString("AppName");
 
-	public bool CanGoBack => _navigationService.CanGoBack;
+	[ObservableProperty]
+	public partial string LoadingStatusMessage { get; set; } = "";
 
 	[RelayCommand]
 	public void GoBack() => _navigationService.GoBack();
+	
+	public bool CanGoBack => _navigationService.CanGoBack;
 
 	public IDisposable BeginLoading()
 	{
@@ -44,17 +41,17 @@ public partial class WindowShellViewModel : ViewModelBase
 			return _refCountDisposable.GetDisposable();
 		}
 
-		IsLoading = true;
+		IsWorking = true;
 		_refCountDisposable = new RefCountDisposable(Disposable.Create(
 			() => // TODO: Await TryEnequeAsync
 			{
 #if __WASM__
-				IsLoading = false;
+				IsWorking = false;
 				return;
 #else
 				if (_provider.DispatcherQueue.HasThreadAccess)
 				{
-					IsLoading = false;
+					IsWorking = false;
 				}
 				else
 				{
@@ -62,7 +59,7 @@ public partial class WindowShellViewModel : ViewModelBase
 					{
 						if (_refCountDisposable == null || _refCountDisposable.IsDisposed)
 						{
-							IsLoading = false;
+							IsWorking = false;
 						}
 					});
 				}
@@ -71,8 +68,5 @@ public partial class WindowShellViewModel : ViewModelBase
 		return _refCountDisposable;
 	}
 
-	private void OnNavigated(object recipient, NavigatedMessage message)
-	{
-		OnPropertyChanged(nameof(CanGoBack));
-	}
+	private void OnNavigated(object recipient, NavigatedMessage message) => OnPropertyChanged(nameof(CanGoBack));
 }

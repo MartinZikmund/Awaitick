@@ -392,9 +392,6 @@ namespace Microsoft.Toolkit.Uwp.Helpers
 		/// </summary>
 		/// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
 		/// <remarks>This method needs to be called from your UI thread.</remarks>
-		public static Task LaunchStoreForReviewAsync()
-		{
-			return Launcher.LaunchUriAsync(new Uri(string.Format("ms-windows-store://review/?PFN={0}", Package.Current.Id.FamilyName))).AsTask();
-		}
+		public static Task LaunchStoreForReviewAsync() => Launcher.LaunchUriAsync(new Uri(string.Format("ms-windows-store://review/?PFN={0}", Package.Current.Id.FamilyName))).AsTask();
 	}
 }

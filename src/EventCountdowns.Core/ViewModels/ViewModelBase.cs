@@ -8,7 +8,5 @@ namespace EventCountdowns.Core.ViewModels;
 public abstract partial class ViewModelBase : ObservableRecipient
 {
 	[ObservableProperty]
-	private bool _isWorking;
-
-	public bool UserPremium => IoC.GetRequiredService<IInAppPurchaseService>().HasUserAnyProduct();
+	public partial bool IsWorking { get; set; }
 }

@@ -113,10 +113,7 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private void Add()
-	{
-		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
-	}
+	private void Add() => _navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
 
 	[RelayCommand]
 	private void ShowCountdown(CountdownViewModel? eventCountdown)
@@ -128,16 +125,10 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private void AboutApp()
-	{
-		_navigationService.Navigate<AboutViewModel>();
-	}
+	private void AboutApp() => _navigationService.Navigate<AboutViewModel>();
 
 	[RelayCommand]
-	private void BuyMeCoffee()
-	{
-		_navigationService.Navigate<BuyMeCoffeeViewModel>();
-	}
+	private void BuyMeCoffee() => _navigationService.Navigate<BuyMeCoffeeViewModel>();
 
 	[RelayCommand]
 	private async Task RateAppAsync()
@@ -148,10 +139,7 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private async Task SendFeedbackAsync()
-	{
-		await _mailService.ComposeMailAsync("Feedback", "eventcountdownsapp@sphereline.com");
-	}
+	private async Task SendFeedbackAsync() => await _mailService.ComposeMailAsync("Feedback", "eventcountdownsapp@sphereline.com");
 
 	public void UpdateCountdowns()
 	{

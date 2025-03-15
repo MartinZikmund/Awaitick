@@ -13,11 +13,9 @@ public sealed partial class MainView : MainViewBase
 		_timer.Tick += _timer_Tick;
 	}
 
-	private void _timer_Tick(object sender, object e)
-	{
+	private void _timer_Tick(object sender, object e) =>
 		//update data on view model
 		ViewModel.UpdateCountdowns();
-	}
 
 	protected override void OnNavigatedTo(NavigationEventArgs e)
 	{

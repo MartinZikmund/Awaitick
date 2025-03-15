@@ -16,11 +16,9 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 
 	public override bool BlendsInTitleBar => true;
 
-	private void _timer_Tick(object sender, object e)
-	{
+	private void _timer_Tick(object sender, object e) =>
 		//update data on view model
 		ViewModel.UpdateCountdowns();
-	}
 
 	protected override void OnNavigatedTo(NavigationEventArgs e)
 	{

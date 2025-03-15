@@ -34,10 +34,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
 
-	private void WindowShell_Loaded(object sender, RoutedEventArgs e)
-	{
-		SetTitlebarColors();
-	}
+	private void WindowShell_Loaded(object sender, RoutedEventArgs e) => SetTitlebarColors();
 
 	public WindowShellViewModel ViewModel { get; }
 

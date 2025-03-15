@@ -73,11 +73,8 @@ public class ThemeManager : IThemeManager
 #pragma warning restore CS8618
 	}
 
-	private void OnColorValuesChanged(UISettings sender, object args)
-	{
-		_windowShellProvider.DispatcherQueue.TryEnqueue(() =>
-		{
-			UpdateTitleBarTheming();
-		});
-	}
+	private void OnColorValuesChanged(UISettings sender, object args) => _windowShellProvider.DispatcherQueue.TryEnqueue(() =>
+																			  {
+																				  UpdateTitleBarTheming();
+																			  });
 }

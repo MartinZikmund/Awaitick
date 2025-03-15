@@ -30,10 +30,7 @@ public class AppRatingService : IAppRatingService
 		await ratingDialog.ShowAsync();
 	}
 
-	private void DoNotRemindMe(IUICommand command)
-	{
-		_appSettings.OfferUserRating = false;
-	}
+	private void DoNotRemindMe(IUICommand command) => _appSettings.OfferUserRating = false;
 
 	private void LaterHandler(IUICommand command)
 	{

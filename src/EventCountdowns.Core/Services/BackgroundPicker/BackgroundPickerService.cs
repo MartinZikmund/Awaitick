@@ -71,15 +71,9 @@ public class BackgroundPickerService : IBackgroundPickerService
 	}
 
 
-	public void ChoosePictureFromLibrary(int maxPixelDimension, int percentQuality, Action<Stream> pictureAvailable, Action assumeCancelled)
-	{
-		TakePictureCommon(StorageFileFromDisk, maxPixelDimension, percentQuality, pictureAvailable, assumeCancelled);
-	}
+	public void ChoosePictureFromLibrary(int maxPixelDimension, int percentQuality, Action<Stream> pictureAvailable, Action assumeCancelled) => TakePictureCommon(StorageFileFromDisk, maxPixelDimension, percentQuality, pictureAvailable, assumeCancelled);
 
-	public void TakePicture(int maxPixelDimension, int percentQuality, Action<Stream> pictureAvailable, Action assumeCancelled)
-	{
-		TakePictureCommon(StorageFileFromCamera, maxPixelDimension, percentQuality, pictureAvailable, assumeCancelled);
-	}
+	public void TakePicture(int maxPixelDimension, int percentQuality, Action<Stream> pictureAvailable, Action assumeCancelled) => TakePictureCommon(StorageFileFromCamera, maxPixelDimension, percentQuality, pictureAvailable, assumeCancelled);
 
 	public Task<Stream> ChoosePictureFromLibrary(int maxPixelDimension, int percentQuality)
 	{
