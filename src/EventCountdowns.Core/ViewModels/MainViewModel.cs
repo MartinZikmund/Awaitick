@@ -25,6 +25,8 @@ public partial class MainViewModel : PageViewModel
 	private readonly INavigationService _navigationService;
 	private readonly IMessenger _messenger;
 
+	private bool _isFirstNavigation = true;
+
 	public MainViewModel(
 		IDataService dataService,
 		ITileService? tileService,
@@ -78,6 +80,13 @@ public partial class MainViewModel : PageViewModel
 
 		IsLoading = false;
 		_scheduledNotificationService.UnSuppressAllCountdownNotifications();
+
+		if (EventCountdowns.Count == 0 && _isFirstNavigation)
+		{
+			Add();
+		}
+
+		_isFirstNavigation = false;
 	}
 
 	[ObservableProperty]
