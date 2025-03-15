@@ -25,20 +25,11 @@
             <RowDefinition x:Name="MobileAdRow" Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Button
-            Width="48"
-            Height="48"
-            Margin="12"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            CornerRadius="24">
-            <SymbolIcon Symbol="Setting" />
-        </Button>
-        <Grid Grid.Row="1" Background="Transparent">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Row="1" Background="Transparent">
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Tapped">
                     <core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />
@@ -110,5 +101,16 @@
                 FontSize="20"
                 Glyph="&#xE710;" />
         </Button>
+
+		<CommandBar Grid.Row="3">
+			<AppBarButton
+				Label="{xaml:Localize Key=Add}"
+				Icon="Add"
+				Command="{x:Bind ViewModel.AddCommand}" />
+			<AppBarButton
+				Label="{xaml:Localize Key=Settings}"
+				Icon="Setting"
+				Command="{x:Bind ViewModel.SettingsCommand}" />
+		</CommandBar>
     </Grid>
 </local:MainViewBase>
