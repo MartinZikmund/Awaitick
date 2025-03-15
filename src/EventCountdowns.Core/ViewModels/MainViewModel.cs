@@ -145,6 +145,9 @@ public partial class MainViewModel : PageViewModel
 	[RelayCommand]
 	private async Task SendFeedbackAsync() => await _mailService.ComposeMailAsync("Feedback", "eventcountdownsapp@sphereline.com");
 
+	[RelayCommand]
+	private void GoToSettings() => _navigationService.Navigate<SettingsViewModel>();
+
 	public void UpdateCountdowns()
 	{
 		foreach (var countdown in EventCountdowns)

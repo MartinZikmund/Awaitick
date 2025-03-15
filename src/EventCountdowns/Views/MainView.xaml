@@ -110,7 +110,7 @@
 			<AppBarButton
 				Label="{xaml:Localize Key=Settings}"
 				Icon="Setting"
-				Command="{x:Bind ViewModel.SettingsCommand}" />
+				Command="{x:Bind ViewModel.GoToSettingsCommand}" />
 		</CommandBar>
     </Grid>
 </local:MainViewBase>
