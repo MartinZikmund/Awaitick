@@ -85,7 +85,7 @@
                     <TextBlock
                         FontSize="30"
                         Style="{ThemeResource TitleTextBlockStyle}"
-                        Text="{xaml:Localize Key=TapToAddYourFirstEvent}"
+                        Text="{xaml:Localize Key=AddYourFirstEvent}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
                 </StackPanel>

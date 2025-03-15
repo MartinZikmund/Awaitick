@@ -336,4 +336,7 @@
   <data name="TapToAddYourFirstEvent" xml:space="preserve">
     <value>Tap to add your first event</value>
   </data>
+  <data name="AddYourFirstEvent" xml:space="preserve">
+    <value>Add your first event</value>
+  </data>
 </root>
