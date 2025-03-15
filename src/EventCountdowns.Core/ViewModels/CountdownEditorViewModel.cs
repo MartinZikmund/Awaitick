@@ -80,10 +80,10 @@ public partial class CountdownEditorViewModel : PageViewModel
 	public partial string Name { get; set; } = "";
 
 	[ObservableProperty]
-	public partial DateTimeOffset Date { get; set; } = DateTimeOffset.UtcNow.AddDays(14);
+	public partial DateTimeOffset Date { get; set; } = DateTimeOffset.UtcNow.AddDays(7);
 
 	[ObservableProperty]
-	public partial TimeSpan Time { get; set; } = DateTimeOffset.UtcNow.TimeOfDay;
+	public partial TimeSpan Time { get; set; } = TimeSpan.FromHours(DateTimeOffset.UtcNow.TimeOfDay.Hours);
 
 	[ObservableProperty]
 	public partial string CelebrationMessage { get; set; } = "";
