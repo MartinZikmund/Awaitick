@@ -36,8 +36,11 @@ public class NavigationService : INavigationService
 
 	public void Navigate<TViewModel>() => Navigate<TViewModel>(null);
 
-	public void Navigate<TViewModel>(object? parameter)
+	public async void Navigate<TViewModel>(object? parameter)
 	{
+		// This is needed, as Frame would not navigate in case another navigation is currently in progress.
+		await Task.Yield();
+
 		if (!TryFindViewForViewModel(typeof(TViewModel), out var viewType))
 		{
 			throw new InvalidOperationException($"ViewModel type {typeof(TViewModel).Name} is not registered for navigation.");

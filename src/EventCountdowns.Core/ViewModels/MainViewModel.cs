@@ -4,14 +4,12 @@ using EventCountdowns.Core.Messages;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.Countdowns;
 using EventCountdowns.Core.Services.Data;
-using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Services.Mail;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Tiles;
 using EventCountdowns.Services.Navigation;
-using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
@@ -19,31 +17,30 @@ public partial class MainViewModel : PageViewModel
 {
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;
-	private readonly IInAppPurchaseService _inAppPurchaseService;
 	private readonly IMailService _mailService;
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly IStoreLauncherService _storeLauncherService;
-	private readonly IAppSettings _appSettings;
+	private readonly IAppPreferences _appSettings;
 	private readonly INavigationService _navigationService;
 	private readonly IMessenger _messenger;
+
+	private bool _isFirstNavigation = true;
 
 	public MainViewModel(
 		IDataService dataService,
 		ITileService? tileService,
-		IInAppPurchaseService inAppPurchaseService,
 		IMailService mailService,
 		ICountdownsManager countdownsManager,
 		IScheduledNotificationService scheduledNotificationService,
 		IStoreLauncherService storeLauncherService,
 		INavigationService navigationService,
 		IMessenger messenger,
-		IAppSettings appSettings) :
+		IAppPreferences appSettings) :
 		base(navigationService)
 	{
 		_dataService = dataService;
 		_tileService = tileService;
-		_inAppPurchaseService = inAppPurchaseService;
 		_mailService = mailService;
 		_countdownsManager = countdownsManager;
 		_scheduledNotificationService = scheduledNotificationService;
@@ -83,14 +80,17 @@ public partial class MainViewModel : PageViewModel
 
 		IsLoading = false;
 		_scheduledNotificationService.UnSuppressAllCountdownNotifications();
-		if (_appSettings.LaunchCount % 4 == 0 && !_inAppPurchaseService.HasUserAnyProduct())
+
+		if (EventCountdowns.Count == 0 && _isFirstNavigation)
 		{
-			ShowCoffee = true;
+			Add();
 		}
+
+		_isFirstNavigation = false;
 	}
 
 	[ObservableProperty]
-	public partial ObservableCollection<CountdownViewModel> EventCountdowns { get; private set; } = new ObservableCollection<CountdownViewModel>();
+	public partial ObservableCollection<CountdownViewModel> EventCountdowns { get; private set; } = new();
 
 	public bool HasAnyEvents => EventCountdowns.Count > 0;
 
@@ -120,10 +120,7 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private void Add()
-	{
-		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
-	}
+	private void Add() => _navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
 
 	[RelayCommand]
 	private void ShowCountdown(CountdownViewModel? eventCountdown)
@@ -135,16 +132,7 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private void AboutApp()
-	{
-		_navigationService.Navigate<AboutViewModel>();
-	}
-
-	[RelayCommand]
-	private void BuyMeCoffee()
-	{
-		_navigationService.Navigate<BuyMeCoffeeViewModel>();
-	}
+	private void BuyMeCoffee() => _navigationService.Navigate<BuyMeCoffeeViewModel>();
 
 	[RelayCommand]
 	private async Task RateAppAsync()
@@ -155,10 +143,10 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private async Task SendFeedbackAsync()
-	{
-		await _mailService.ComposeMailAsync("Feedback", "eventcountdownsapp@sphereline.com");
-	}
+	private async Task SendFeedbackAsync() => await _mailService.ComposeMailAsync("Feedback", "eventcountdownsapp@sphereline.com");
+
+	[RelayCommand]
+	private void GoToSettings() => _navigationService.Navigate<SettingsViewModel>();
 
 	public void UpdateCountdowns()
 	{

@@ -13,7 +13,7 @@ public class LoadingIndicator : ILoadingIndicator
 
 	public IDisposable BeginLoading() => _windowShellViewModel.BeginLoading();
 
-	public bool IsLoading => _windowShellViewModel.IsLoading;
+	public bool IsLoading => _windowShellViewModel.IsWorking;
 
 	public string StatusMessage
 	{

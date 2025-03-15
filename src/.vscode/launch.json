@@ -26,7 +26,7 @@
       "server": {
         "runtimeExecutable": "dotnet",
         "program": "run",
-        "args": ["--no-build","-f","net8.0-browserwasm","--launch-profile", "EventCountdowns (WebAssembly)"],
+        "args": ["--no-build","-f","net9.0-browserwasm","--launch-profile", "EventCountdowns (WebAssembly)"],
         "outputCapture": "std",
         "timeout": 30000,
         "cwd": "${workspaceFolder}/EventCountdowns"
@@ -41,7 +41,7 @@
       "request": "launch",
       "preLaunchTask": "build-desktop",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/EventCountdowns/bin/Debug/net8.0-desktop/EventCountdowns.dll",
+      "program": "${workspaceFolder}/EventCountdowns/bin/Debug/net9.0-desktop/EventCountdowns.dll",
       "args": [],
       "launchSettingsProfile": "EventCountdowns (Desktop)",
       "env": {

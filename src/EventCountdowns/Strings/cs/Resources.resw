@@ -171,11 +171,11 @@
   <data name="Delete" xml:space="preserve">
     <value>Odstranit</value>
   </data>
-  <data name="DonateDescription" xml:space="preserve">
-    <value>Ahoj, jmenuji se Martin Zikmund a jsem autor této aplikace. Miluji vývoj aplikací na Windows, ale jako student je většinou musím vyvíjet až pozdě v noci. A abych se udržel ve stavu plné pozornosti, je potřeba dostatečné množství kávy! Pokud se vám tato aplikace líbí a chtěli byste podpořit vývoj nových aplikací a dalších funkcí, kupte mi prosím kávu :-) . Děkuji vám moc za podporu vývoje a za to, že používáte Windows :-) !</value>
-  </data>
   <data name="Done" xml:space="preserve">
     <value>Hotovo</value>
+  </data>
+  <data name="DoNotRemindMe" xml:space="preserve">
+    <value>Již nepřipomínat</value>
   </data>
   <data name="DoYouEnjoyAppFormatString" xml:space="preserve">
     <value>Líbí se vám {0}?</value>
@@ -189,14 +189,11 @@
   <data name="EditEvent" xml:space="preserve">
     <value>Úpravit událost</value>
   </data>
+  <data name="EventNamePlaceholder" xml:space="preserve">
+    <value>Název události</value>
+  </data>
   <data name="Feedback" xml:space="preserve">
     <value>Zpětná vazba</value>
-  </data>
-  <data name="GrandeCoffee" xml:space="preserve">
-    <value>Střední</value>
-  </data>
-  <data name="GrandeCoffeePrice" xml:space="preserve">
-    <value>1.99</value>
   </data>
   <data name="Halloween" xml:space="preserve">
     <value>Halloween</value>
@@ -207,11 +204,8 @@
   <data name="Hours" xml:space="preserve">
     <value>hodin</value>
   </data>
-  <data name="InPrague" xml:space="preserve">
-    <value>v Praze v České Republice</value>
-  </data>
-  <data name="MadeWith" xml:space="preserve">
-    <value>Vytvořeno s</value>
+  <data name="Later" xml:space="preserve">
+    <value>Později</value>
   </data>
   <data name="Manage" xml:space="preserve">
     <value>Změnit</value>
@@ -236,6 +230,9 @@
   </data>
   <data name="Preview" xml:space="preserve">
     <value>Ukázka</value>
+  </data>
+  <data name="RateNow" xml:space="preserve">
+    <value>Ohodnotit nyní</value>
   </data>
   <data name="RateThisApp" xml:space="preserve">
     <value>Ohodnotit tuto aplikaci</value>
@@ -267,14 +264,35 @@
   <data name="SharingFormatString" xml:space="preserve">
     <value>{0} za {1} dní, {2} hodin a {3} minut ({4}) [z aplikace {5}]</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Čas</value>
+  </data>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value>Odepnout ze Startu</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="DonateDescription" xml:space="preserve">
+    <value>Ahoj, jmenuji se Martin Zikmund a jsem autor této aplikace. Miluji vývoj aplikací na Windows, ale jako student je většinou musím vyvíjet až pozdě v noci. A abych se udržel ve stavu plné pozornosti, je potřeba dostatečné množství kávy! Pokud se vám tato aplikace líbí a chtěli byste podpořit vývoj nových aplikací a dalších funkcí, kupte mi prosím kávu :-) . Děkuji vám moc za podporu vývoje a za to, že používáte Windows :-) !</value>
+  </data>
+  <data name="GrandeCoffee" xml:space="preserve">
+    <value>Střední</value>
+  </data>
+  <data name="GrandeCoffeePrice" xml:space="preserve">
+    <value>1.99</value>
+  </data>
+  <data name="InPrague" xml:space="preserve">
+    <value>v Praze v České Republice</value>
+  </data>
+  <data name="MadeWith" xml:space="preserve">
+    <value>Vytvořeno s</value>
+  </data>
   <data name="TallCoffee" xml:space="preserve">
     <value>Malá</value>
   </data>
   <data name="TallCoffeePrice" xml:space="preserve">
     <value>.99</value>
-  </data>
-  <data name="Time" xml:space="preserve">
-    <value>Čas</value>
   </data>
   <data name="TrentaCoffee" xml:space="preserve">
     <value>Giga!</value>
@@ -284,9 +302,6 @@
   </data>
   <data name="VentiCoffee" xml:space="preserve">
     <value>Velká</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Ano</value>
   </data>
   <data name="PricesInUsd" xml:space="preserve">
     <value>Ceny v USD</value>
@@ -306,21 +321,6 @@
   <data name="ThankYou" xml:space="preserve">
     <value>Thank you!</value>
   </data>
-  <data name="DoNotRemindMe" xml:space="preserve">
-    <value>Již nepřipomínat</value>
-  </data>
-  <data name="EventNamePlaceholder" xml:space="preserve">
-    <value>Název události</value>
-  </data>
-  <data name="Later" xml:space="preserve">
-    <value>Později</value>
-  </data>
-  <data name="RateNow" xml:space="preserve">
-    <value>Ohodnotit nyní</value>
-  </data>
-  <data name="UnpinFromStart" xml:space="preserve">
-    <value>Odepnout ze Startu</value>
-  </data>
   <data name="HappyNewYear" xml:space="preserve">
     <value>Šťastný nový rok!</value>
   </data>
@@ -335,5 +335,11 @@
   </data>
   <data name="TapToAddYourFirstEvent" xml:space="preserve">
     <value>Klepnutím přidejte svou první událost</value>
+  </data>
+  <data name="AddYourFirstEvent" xml:space="preserve">
+    <value>Přidejte svou první událost</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

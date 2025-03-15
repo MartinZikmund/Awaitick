@@ -5,9 +5,9 @@ namespace EventCountdowns.Core.Infrastructure;
 
 public class AppUpdater : IAppUpdater
 {
-	private readonly IAppSettings _settings;
+	private readonly IAppPreferences _settings;
 
-	public AppUpdater(IAppSettings settings)
+	public AppUpdater(IAppPreferences settings)
 	{
 		_settings = settings;
 	}

@@ -60,20 +60,11 @@ public class CountdownsManager : ICountdownsManager
 		return true;
 	}
 
-	public void EditAsync(CountdownViewModel eventCountdown)
-	{
-		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = eventCountdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
-	}
+	public void EditAsync(CountdownViewModel eventCountdown) => _navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = eventCountdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
 
-	public void GoToDetail(CountdownViewModel countdown)
-	{
-		_navigationService.Navigate<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(countdown.Id));
-	}
+	public void GoToDetail(CountdownViewModel countdown) => _navigationService.Navigate<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(countdown.Id));
 
-	public void GoToEdit(CountdownViewModel countdown)
-	{
-		_navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = countdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
-	}
+	public void GoToEdit(CountdownViewModel countdown) => _navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = countdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
 
 	public async Task ShareAsync(CountdownViewModel countdown)
 	{

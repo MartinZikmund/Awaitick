@@ -34,10 +34,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
 
-	private void WindowShell_Loaded(object sender, RoutedEventArgs e)
-	{
-		SetTitlebarColors();
-	}
+	private void WindowShell_Loaded(object sender, RoutedEventArgs e) => SetTitlebarColors();
 
 	public WindowShellViewModel ViewModel { get; }
 
@@ -52,7 +49,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 #if !HAS_UNO
 			_associatedWindow.ExtendsContentIntoTitleBar = true;
 			_associatedWindow.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
-			TitleBarGrid.Padding = new Thickness(_associatedWindow.AppWindow.TitleBar.LeftInset, 0, _associatedWindow.AppWindow.TitleBar.RightInset, 0);
+			DraggableTitleBar.Margin = new Thickness(_associatedWindow.AppWindow.TitleBar.LeftInset, 0, _associatedWindow.AppWindow.TitleBar.RightInset, 0);
 			_associatedWindow.SetTitleBar(DraggableTitleBar);
 			HasCustomTitleBar = true;
 #endif

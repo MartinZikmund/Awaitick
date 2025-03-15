@@ -13,20 +13,20 @@
     <Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
         <Frame x:Name="InnerFrame" />
 
-        
-        <Grid Height="{ThemeResource TitleBarHeight}" VerticalAlignment="Top" Background="#44000000">
+
+		<Grid Height="{ThemeResource TitleBarHeight}" VerticalAlignment="Top" Background="#44000000">
 			<StackPanel
 				Grid.ColumnSpan="2"
 				HorizontalAlignment="Center"
 				VerticalAlignment="Center"
 				Orientation="Horizontal"
 				Spacing="8">
-							<Image
+				<Image
 					Grid.Column="1"
 					Width="16"
 					Height="16"
 					Source="ms-appx:///Assets/Icons/appicon.png" />
-							<TextBlock
+				<TextBlock
 					Grid.Column="2"
 					VerticalAlignment="Center"
 					Style="{ThemeResource CaptionTextBlockStyle}"
@@ -38,22 +38,17 @@
                 VerticalAlignment="Stretch"
                 ColumnSpacing="8"
                 Visibility="{x:Bind HasCustomTitleBar}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
 
-                <Grid
-                    x:Name="DraggableTitleBar"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2" />
-
-                <Grid
+				<Grid
                     Grid.Column="0"
                     Padding="0"
 					VerticalAlignment="Center"
                     Visibility="{x:Bind ViewModel.CanGoBack, Mode=OneWay}">
-                    <Button
+					<Button
 						Margin="4"
                         x:Name="BackButton"
                         HorizontalAlignment="Center"
@@ -61,11 +56,11 @@
                         Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
                         Style="{StaticResource NavigationBackButtonStyle}"
                         ToolTipService.ToolTip="Back" />
-                </Grid>
-
-
-
-            </Grid>
-        </Grid>
-    </Grid>
+				</Grid>
+				<Grid
+					x:Name="DraggableTitleBar"
+					Grid.Column="1" />
+			</Grid>
+		</Grid>
+	</Grid>
 </Page>

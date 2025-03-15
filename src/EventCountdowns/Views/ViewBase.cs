@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using EventCountdowns.Core.ViewModels;
 using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Views;
@@ -53,10 +54,7 @@ public abstract partial class PageBase<TViewModel> : Page
 		}
 	}
 
-	private void PageLoaded(object sender, RoutedEventArgs e)
-	{
-		ViewModel?.ViewLoaded();
-	}
+	private void PageLoaded(object sender, RoutedEventArgs e) => ViewModel?.ViewLoaded();
 
 	protected override void OnNavigatedTo(NavigationEventArgs e)
 	{
@@ -73,10 +71,7 @@ public abstract partial class PageBase<TViewModel> : Page
 		}
 	}
 
-	private void PageUnloaded(object sender, RoutedEventArgs e)
-	{
-		ViewModel?.ViewUnloaded();
-	}
+	private void PageUnloaded(object sender, RoutedEventArgs e) => ViewModel?.ViewUnloaded();
 
 	private void EnsureViewModel()
 	{

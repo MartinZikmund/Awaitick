@@ -30,15 +30,9 @@ public partial class CountdownEditorViewModel : PageViewModel
 			Id = id;
 		}
 
-		public static NavigationModel CreateAdd()
-		{
-			return new NavigationModel();
-		}
+		public static NavigationModel CreateAdd() => new();
 
-		public static NavigationModel CreateEdit(string id)
-		{
-			return new NavigationModel(id);
-		}
+		public static NavigationModel CreateEdit(string id) => new(id);
 
 		public string Id { get; set; } = "";
 
@@ -51,31 +45,6 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private readonly IStringLocalizer _localizationService;
 	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
-
-	[ObservableProperty]
-	private DefaultBackground? _selectedDefaultBackground;
-
-	[ObservableProperty]
-	private EditorMode _mode = EditorMode.Add;
-
-	[ObservableProperty]
-	private Uri? _lastCustomBackgroundUri;
-
-	[ObservableProperty]
-	private Uri? _backgroundUri = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
-
-	[ObservableProperty]
-	private string _name = "";
-
-	[ObservableProperty]
-	private DateTimeOffset _date = DateTimeOffset.UtcNow.AddDays(1);
-
-	[ObservableProperty]
-	private TimeSpan _time = TimeSpan.Zero;
-
-	[ObservableProperty]
-	private string _celebrationMessage = "";
-
 	private EventCountdown? _editedEventCountdown;
 
 	public CountdownEditorViewModel(
@@ -94,6 +63,30 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 	}
+
+	[ObservableProperty]
+	public partial DefaultBackground? SelectedDefaultBackground { get; set; }
+
+	[ObservableProperty]
+	public partial EditorMode Mode { get; private set; } = EditorMode.Add;
+
+	[ObservableProperty]
+	public partial Uri? LastCustomBackgroundUri { get; set; }
+
+	[ObservableProperty]
+	public partial Uri? BackgroundUri { get; set; } = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
+
+	[ObservableProperty]
+	public partial string Name { get; set; } = "";
+
+	[ObservableProperty]
+	public partial DateTimeOffset Date { get; set; } = DateTimeOffset.UtcNow.AddDays(7);
+
+	[ObservableProperty]
+	public partial TimeSpan Time { get; set; } = TimeSpan.FromHours(DateTimeOffset.UtcNow.TimeOfDay.Hours);
+
+	[ObservableProperty]
+	public partial string CelebrationMessage { get; set; } = "";
 
 	public ObservableCollection<DefaultBackground> DefaultBackgrounds { get; } = new();
 
@@ -184,6 +177,12 @@ public partial class CountdownEditorViewModel : PageViewModel
 		{
 			_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
 		}
+
+		if (_editedEventCountdown is null)
+		{
+			throw new InvalidOperationException("Edited Countdown should be set.");
+		}
+
 		_editedEventCountdown.Name = Name;
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
