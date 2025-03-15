@@ -4,14 +4,12 @@ using EventCountdowns.Core.Messages;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services.Countdowns;
 using EventCountdowns.Core.Services.Data;
-using EventCountdowns.Core.Services.InAppPurchases;
 using EventCountdowns.Core.Services.Mail;
 using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Tiles;
 using EventCountdowns.Services.Navigation;
-using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
@@ -83,7 +81,7 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[ObservableProperty]
-	public partial ObservableCollection<CountdownViewModel> EventCountdowns { get; private set; } = new ObservableCollection<CountdownViewModel>();
+	public partial ObservableCollection<CountdownViewModel> EventCountdowns { get; private set; } = new();
 
 	public bool HasAnyEvents => EventCountdowns.Count > 0;
 
@@ -123,9 +121,6 @@ public partial class MainViewModel : PageViewModel
 			_navigationService.Navigate<CountdownDetailViewModel>(new CountdownDetailViewModel.NavigationModel(eventCountdown.Id));
 		}
 	}
-
-	[RelayCommand]
-	private void AboutApp() => _navigationService.Navigate<AboutViewModel>();
 
 	[RelayCommand]
 	private void BuyMeCoffee() => _navigationService.Navigate<BuyMeCoffeeViewModel>();
