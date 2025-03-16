@@ -24,6 +24,8 @@ using EventCountdowns.Core.Services.Countdowns;
 using MZikmund.Toolkit.WinUI.Services;
 using EventCountdowns.Services.Theming;
 using EventCountdowns.Services.Store;
+using Microsoft.Extensions.DependencyInjection;
+using EventCountdowns.Services;
 
 namespace EventCountdowns;
 
@@ -123,7 +125,6 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IDataService, FileDataService>();
 		services.AddSingleton<IFileService, FileService>();
 		services.AddSingleton<ITileService, TileService>();
-		//services.AddSingleton<IInAppPurchaseService, InAppPurchaseService>();
 		services.AddSingleton<IMailService, MailService>();
 		services.AddSingleton<IScheduledNotificationService, ScheduledNotificationService>();
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
@@ -137,6 +138,7 @@ public partial class CountdownsApp : Application, IApplication
 #else
 		services.AddScoped<IStoreService, StoreService>();
 #endif
+		services.AddSQLiteDbContext("Data Source=eventcountdowns.db");
 	}
 
 	/// <summary>
