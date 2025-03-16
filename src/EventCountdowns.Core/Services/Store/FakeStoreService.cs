@@ -8,7 +8,8 @@ using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Services;
 
 namespace EventCountdowns.Services.Store;
-internal class FakeStoreService : IStoreService
+
+public class FakeStoreService : IStoreService
 {
 	private readonly IPreferences _preferences;
 	private readonly IDialogService _dialogService;

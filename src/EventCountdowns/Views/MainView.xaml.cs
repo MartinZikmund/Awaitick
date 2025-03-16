@@ -1,21 +1,28 @@
 ﻿using EventCountdowns.Core.ViewModels;
+using Microsoft.UI.Dispatching;
 
 namespace EventCountdowns.Views;
 
 public sealed partial class MainView : MainViewBase
 {
-	private DispatcherTimer _timer;
+	private DispatcherQueueTimer _timer;
 
 	public MainView()
 	{
 		InitializeComponent();
-		_timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1000) };
+		_timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+		_timer.Interval = TimeSpan.FromMilliseconds(1000);
 		_timer.Tick += _timer_Tick;
 	}
 
-	private void _timer_Tick(object sender, object e) =>
-		//update data on view model
-		ViewModel.UpdateCountdowns();
+	private void _timer_Tick(DispatcherQueueTimer sender, object args)
+	{
+		if (ViewModel is not null)
+		{
+			//update data on view model
+			ViewModel.UpdateCountdowns();
+		}
+	}
 
 	protected override void OnNavigatedTo(NavigationEventArgs e)
 	{

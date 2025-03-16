@@ -22,6 +22,8 @@ using Uno.Resizetizer;
 using MZikmund.Toolkit.WinUI.Infrastructure;
 using EventCountdowns.Core.Services.Countdowns;
 using MZikmund.Toolkit.WinUI.Services;
+using EventCountdowns.Services.Theming;
+using EventCountdowns.Services.Store;
 
 namespace EventCountdowns;
 
@@ -96,6 +98,7 @@ public partial class CountdownsApp : Application, IApplication
 	private void ConfigureServices(IServiceCollection services)
 	{
 		services.AddScoped<WindowShellViewModel>();
+		services.AddScoped<SettingsViewModel>();
 		services.AddScoped<MainViewModel>();
 		services.AddTransient<CountdownEditorViewModel>();
 		services.AddTransient<CountdownDetailViewModel>();
@@ -126,6 +129,14 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
 		services.AddSingleton<IPreferences, Preferences>();
 		services.AddSingleton<IAppPreferences, AppPreferences>();
+		services.AddScoped<IThemeManager, ThemeManager>();
+#if HAS_UNO
+		services.AddScoped<IStoreService, ProStoreService>();
+#elif DEBUG
+		services.AddScoped<IStoreService, FakeStoreService>();
+#else
+		services.AddScoped<IStoreService, StoreService>();
+#endif
 	}
 
 	/// <summary>

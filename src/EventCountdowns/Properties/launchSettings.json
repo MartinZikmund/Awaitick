@@ -24,8 +24,7 @@
     },
     "EventCountdowns (WinAppSDK Packaged)": {
       "commandName": "MsixPackage",
-      "compatibleTargetFramework": "windows",
-      "nativeDebugging": true
+      "compatibleTargetFramework": "windows"
     },
     "EventCountdowns (Desktop)": {
       "commandName": "Project",

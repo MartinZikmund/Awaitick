@@ -36,8 +36,7 @@
                 x:Name="TitleBarGrid"
                 Padding="0,0"
                 VerticalAlignment="Stretch"
-                ColumnSpacing="8"
-                Visibility="{x:Bind HasCustomTitleBar}">
+                ColumnSpacing="8">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
