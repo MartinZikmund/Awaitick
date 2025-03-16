@@ -354,4 +354,22 @@
   <data name="KeepScreenOnSettingDescription" xml:space="preserve">
     <value>Zabránit vypnutí obrazovky, když je aplikace spuštěna</value>
   </data>
+  <data name="General" xml:space="preserve">
+    <value>Obecné</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Téma</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>O aplikaci</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Název aplikace</value>
+  </data>
+  <data name="AboutAppDescription" xml:space="preserve">
+    <value>Toto je popis aplikace.</value>
+  </data>
+  <data name="ReviewAction" xml:space="preserve">
+    <value>Ohodnotit</value>
+  </data>
 </root>

@@ -360,4 +360,22 @@
   <data name="KeepScreenOnSettingDescription" xml:space="preserve">
     <value>Prevent the screen from turning off while the app is running</value>
   </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Application Name</value>
+  </data>
+  <data name="AboutAppDescription" xml:space="preserve">
+    <value>This is the description of the application.</value>
+  </data>
+  <data name="ReviewAction" xml:space="preserve">
+    <value>Review</value>
+  </data>
 </root>
