@@ -342,4 +342,16 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ReviewApp" xml:space="preserve">
+    <value>Ohodnotit aplikaci</value>
+  </data>
+  <data name="ReviewAppDescription" xml:space="preserve">
+    <value>Dejte nám vědět, co si o této aplikaci myslíte</value>
+  </data>
+  <data name="KeepScreenOn" xml:space="preserve">
+    <value>Ponechat obrazovku zapnutou</value>
+  </data>
+  <data name="KeepScreenOnSettingDescription" xml:space="preserve">
+    <value>Zabránit vypnutí obrazovky, když je aplikace spuštěna</value>
+  </data>
 </root>

@@ -342,4 +342,22 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ReviewApp" xml:space="preserve">
+    <value>Review App</value>
+  </data>
+  <data name="ReviewAppDescription" xml:space="preserve">
+    <value>Let us know what you think about this app</value>
+  </data>
+  <data name="ReviewApp" xml:space="preserve">
+    <value>Review App</value>
+  </data>
+  <data name="ReviewAppDescription" xml:space="preserve">
+    <value>Let us know what you think about this app</value>
+  </data>
+  <data name="KeepScreenOn" xml:space="preserve">
+    <value>Keep Screen On</value>
+  </data>
+  <data name="KeepScreenOnSettingDescription" xml:space="preserve">
+    <value>Prevent the screen from turning off while the app is running</value>
+  </data>
 </root>
