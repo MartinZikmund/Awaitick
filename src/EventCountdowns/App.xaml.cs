@@ -26,6 +26,7 @@ using EventCountdowns.Services.Theming;
 using EventCountdowns.Services.Store;
 using Microsoft.Extensions.DependencyInjection;
 using EventCountdowns.Services;
+using Windows.Devices.WiFiDirect.Services;
 
 namespace EventCountdowns;
 
@@ -137,7 +138,12 @@ public partial class CountdownsApp : Application, IApplication
 #else
 		services.AddScoped<IStoreService, StoreService>();
 #endif
+
+#if HAS_UNO
+		services.AddSingleton<IDataService, FileDataService>();
+#else
 		services.AddSQLiteDbContext();
+#endif
 	}
 
 	/// <summary>

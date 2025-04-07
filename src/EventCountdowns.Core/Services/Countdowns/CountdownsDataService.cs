@@ -21,6 +21,7 @@ public class CountdownsDataService : ICountdownsDataService
 
 	public async Task AddCountdownAsync(EventCountdown eventCountdown)
 	{
+		eventCountdown.Id = Guid.NewGuid().ToString().ToLowerInvariant();
 		await _dataService.AddCountdownAsync(eventCountdown);
 		_tileService.UpdateMainTile((await _dataService.GetCountdownsAsync()).ToArray());
 		_scheduledNotificationService.ScheduleCountdownNotification(eventCountdown);
