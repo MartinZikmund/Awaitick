@@ -122,7 +122,6 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<ICountdownsDataService, CountdownsDataService>();
 		services.AddScoped<IBackgroundPickerService, BackgroundPickerService>();
 		services.AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>();
-		services.AddSingleton<IDataService, FileDataService>();
 		services.AddSingleton<IFileService, FileService>();
 		services.AddSingleton<ITileService, TileService>();
 		services.AddSingleton<IMailService, MailService>();
@@ -138,7 +137,7 @@ public partial class CountdownsApp : Application, IApplication
 #else
 		services.AddScoped<IStoreService, StoreService>();
 #endif
-		services.AddSQLiteDbContext("Data Source=eventcountdowns.db");
+		services.AddSQLiteDbContext();
 	}
 
 	/// <summary>

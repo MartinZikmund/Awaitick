@@ -7,12 +7,14 @@ namespace EventCountdowns.Services
 {
     public static class DbContextFactory
     {
-        public static void AddSQLiteDbContext(this IServiceCollection services, string connectionString)
+        public static void AddSQLiteDbContext(this IServiceCollection services)
         {
+			var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Data", "events.db");
             services.AddDbContext<CountdownDbContext>(options =>
-                options.UseSqlite(connectionString));
+                options.UseSqlite($"Data Source={path}"));
 
             services.AddScoped<IDataService, SQLiteDataService>();
         }
-    }
+
+	}
 }
