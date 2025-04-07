@@ -30,24 +30,24 @@
 			<ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
 		</Grid.ColumnDefinitions>
 		<Grid Grid.Row="1" Background="Transparent">
-            <interactivity:Interaction.Behaviors>
-                <core:EventTriggerBehavior EventName="Tapped">
-                    <core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />
-                </core:EventTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
-            <Grid.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition />
-                </TransitionCollection>
-            </Grid.ChildrenTransitions>
-            <Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                <ScrollViewer HorizontalAlignment="Center" HorizontalContentAlignment="Center">
-                    <ItemsView
+			<interactivity:Interaction.Behaviors>
+				<core:EventTriggerBehavior EventName="Tapped">
+					<core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />
+				</core:EventTriggerBehavior>
+			</interactivity:Interaction.Behaviors>
+			<Grid.ChildrenTransitions>
+				<TransitionCollection>
+					<EntranceThemeTransition />
+				</TransitionCollection>
+			</Grid.ChildrenTransitions>
+			<Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+				<ScrollViewer HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+					<ItemsView
                         HorizontalAlignment="Center"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
                         ItemsSource="{x:Bind ViewModel.EventCountdowns, Mode=OneTime}">
-                        <ItemsView.Layout>
-                            <UniformGridLayout
+						<ItemsView.Layout>
+							<UniformGridLayout
                                 ItemsJustification="Center"
                                 ItemsStretch="Fill"
                                 MaximumRowsOrColumns="3"
@@ -56,51 +56,21 @@
                                 MinItemWidth="480"
                                 MinRowSpacing="20"
                                 Orientation="Horizontal" />
-                        </ItemsView.Layout>
-                    </ItemsView>
-                </ScrollViewer>
-            </Grid>
-            <Button
-                Width="280"
-                Height="280"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                CornerRadius="140"
-                Style="{ThemeResource AccentButtonStyle}"
-                Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
-                <StackPanel Spacing="8">
-                    <FontIcon
-                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                        FontSize="60"
-                        Glyph="&#xE710;" />
-                    <TextBlock
-                        FontSize="30"
-                        Style="{ThemeResource TitleTextBlockStyle}"
-                        Text="{xaml:Localize Key=AddYourFirstEvent}"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
-                </StackPanel>
-            </Button>
-        </Grid>
+						</ItemsView.Layout>
+					</ItemsView>
+				</ScrollViewer>
+			</Grid>
 
-        <Button
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Width="80"
-            Height="80"
-            Margin="20"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            HorizontalContentAlignment="Center"
-            Command="{x:Bind ViewModel.AddCommand}"
-            CornerRadius="140"
-            Style="{ThemeResource AccentButtonStyle}"
-            Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-            <FontIcon
-                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                FontSize="20"
-                Glyph="&#xE710;" />
-        </Button>
+			<StackPanel VerticalAlignment="Center" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+				<Image Source="ms-appx:///Assets/create.png" Width="120" />
+				<TextBlock
+					FontSize="30"
+					Style="{ThemeResource TitleTextBlockStyle}"
+					Text="{xaml:Localize Key=AddYourFirstEvent}"
+					TextAlignment="Center"
+					TextWrapping="Wrap" />
+			</StackPanel>
+		</Grid>
 
 		<CommandBar Grid.Row="3">
 			<AppBarButton

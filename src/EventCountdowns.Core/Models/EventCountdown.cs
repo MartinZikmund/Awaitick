@@ -8,11 +8,11 @@ public class EventCountdown
 
 	public string Name { get; set; }
 
-	public string CelebrationMessage { get; set; }
+	public string? CelebrationMessage { get; set; }
 
 	public DateTimeOffset TargetDateTime { get; set; }
 
-	public string BackgroundImagePath { get; set; }
+	public string? BackgroundImagePath { get; set; }
 
 	public Uri? BackgroundImageUri
 	{
