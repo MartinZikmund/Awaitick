@@ -64,8 +64,8 @@
         x:Key="FormLabelTextBlockStyle"
         BasedOn="{StaticResource SubtitleTextBlockStyle}"
         TargetType="TextBlock">
-        <Setter Property="Margin" Value="0,12,0,8" />
-    </Style>
+		<Setter Property="Margin" Value="0,8,0,0" />
+	</Style>
 
     <SolidColorBrush x:Key="AppThemeColor" Color="#23A0EA" />
 
