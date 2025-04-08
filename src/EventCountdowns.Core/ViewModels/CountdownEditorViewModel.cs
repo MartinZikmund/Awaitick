@@ -2,11 +2,17 @@
 using System.Globalization;
 using EventCountdowns.Core.DefaultData;
 using EventCountdowns.Core.Models;
+using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.Dialogs;
 using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
+using Microsoft.UI;
+using MZikmund.Toolkit.WinUI.Infrastructure;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 
 namespace EventCountdowns.Core.ViewModels;
 
@@ -40,29 +46,35 @@ public partial class CountdownEditorViewModel : PageViewModel
 	}
 
 	private readonly ICountdownsDataService _eventCountdownManager;
-	private readonly IBackgroundPickerService _backgroundPickerService;
+	private readonly IImagePickerService _imagePickerService;
 	private readonly IDataService _dataService;
 	private readonly IStringLocalizer _localizationService;
 	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
+	private readonly IXamlRootProvider _xamlRootProvider;
 	private EventCountdown? _editedEventCountdown;
+	private readonly UISettings _uiSettings = new();
 
 	public CountdownEditorViewModel(
 		ICountdownsDataService eventCountdownManager,
-		IBackgroundPickerService backgroundPickerService,
+		IImagePickerService imagePickerService,
 		IDataService dataService,
 		IStringLocalizer localizationService,
 		INavigationService navigationService,
-		IDefaultBackgrounds defaultBackgrounds) :
+		IDefaultBackgrounds defaultBackgrounds,
+		IXamlRootProvider xamlRootProvider) :
 		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
-		_backgroundPickerService = backgroundPickerService ?? throw new ArgumentNullException(nameof(backgroundPickerService));
+		_imagePickerService = imagePickerService ?? throw new ArgumentNullException(nameof(imagePickerService));
 		_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
 		_localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
+		_xamlRootProvider = xamlRootProvider ?? throw new ArgumentNullException(nameof(xamlRootProvider));
 	}
+
+	public ICountdownEditorViewService? View { get; set; }
 
 	[ObservableProperty]
 	public partial DefaultBackground? SelectedDefaultBackground { get; set; }
@@ -75,6 +87,28 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	[ObservableProperty]
 	public partial Uri? BackgroundUri { get; set; } = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
+
+	[ObservableProperty]
+	private ElementTheme Theme { get; set; }
+
+	[ObservableProperty]
+	private Uri? _lastBackgroundImageUri;
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsBackgroundImageSet))]
+	private Uri? _backgroundImageUri;
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsBackgroundColorSet))]
+	private Color _backgroundColor;
+
+	partial void OnBackgroundImageOpacityPercentChanged(double value) => SaveChanges();
+
+	public double BackgroundImageOpacity => BackgroundImageOpacityPercent / 100;
+
+	public bool IsBackgroundImageSet => BackgroundImageUri is not null;
+
+	public bool IsBackgroundColorSet => BackgroundColor != Colors.Transparent;
 
 	[ObservableProperty]
 	public partial string Name { get; set; } = "";
@@ -165,8 +199,67 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private async Task ChooseYourImageAsync()
 	{
 		IsWorking = true;
-		BackgroundUri = (await _backgroundPickerService.PickBackgroundAsync()) ?? LastCustomBackgroundUri;
+		BackgroundUri = (await _imagePickerService.PickBackgroundAsync()) ?? LastCustomBackgroundUri;
 		IsWorking = false;
+	}
+
+	[RelayCommand]
+	private async Task PickBackgroundImageAsync()
+	{
+		if (!HasProLicense)
+		{
+			var proOnlyFeatureDialog = new ProOnlyFeatureDialog();
+			await _dialogService.ShowAsync(proOnlyFeatureDialog);
+			return;
+		}
+
+		IsWorking = true;
+		try
+		{
+
+			if (await _imagePickerService.PickAsync() is { } imageUri)
+			{
+				BackgroundImageUri = imageUri;
+				OnPropertyChanged(nameof(IsBackgroundImageSet));
+			}
+		}
+		finally
+		{
+			IsWorking = false;
+		}
+	}
+
+	[RelayCommand]
+	private async Task PickBackgroundColor()
+	{
+		IsWorking = true;
+
+		var pickerDialog = new ColorPickerDialog
+		{
+			XamlRoot = _xamlRootProvider.XamlRoot,
+			SelectedColor = IsBackgroundColorSet ? BackgroundColor : _uiSettings.GetColorValue(UIColorType.Accent),
+		};
+
+		if (await pickerDialog.ShowAsync() == ContentDialogResult.Primary)
+		{
+			BackgroundColor = pickerDialog.SelectedColor;
+			OnPropertyChanged(nameof(IsBackgroundColorSet));
+		}
+		IsWorking = false;
+	}
+
+	[RelayCommand]
+	private void RemoveBackgroundImage()
+	{
+		BackgroundImageUri = null;
+		OnPropertyChanged(nameof(IsBackgroundImageSet));
+	}
+
+	[RelayCommand]
+	private void RemoveBackgroundColor()
+	{
+		BackgroundColor = Colors.Transparent;
+		OnPropertyChanged(nameof(IsBackgroundColorSet));
 	}
 
 	[RelayCommand]
