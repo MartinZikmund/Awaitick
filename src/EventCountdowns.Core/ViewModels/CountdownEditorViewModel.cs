@@ -3,14 +3,15 @@ using System.Globalization;
 using EventCountdowns.Core.DefaultData;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services;
-using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Dialogs;
 using EventCountdowns.Services.Navigation;
 using EventCountdowns.ViewModels;
 using Microsoft.UI;
+using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
+using MZikmund.Toolkit.WinUI.Services;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 
@@ -48,6 +49,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private readonly ICountdownsDataService _eventCountdownManager;
 	private readonly IImagePickerService _imagePickerService;
 	private readonly IDataService _dataService;
+	private readonly IDialogService _dialogService;
 	private readonly IStringLocalizer _localizationService;
 	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
@@ -59,6 +61,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		ICountdownsDataService eventCountdownManager,
 		IImagePickerService imagePickerService,
 		IDataService dataService,
+		IDialogService dialogService,
 		IStringLocalizer localizationService,
 		INavigationService navigationService,
 		IDefaultBackgrounds defaultBackgrounds,
@@ -68,6 +71,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
 		_imagePickerService = imagePickerService ?? throw new ArgumentNullException(nameof(imagePickerService));
 		_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+		_dialogService = dialogService;
 		_localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
@@ -75,6 +79,9 @@ public partial class CountdownEditorViewModel : PageViewModel
 	}
 
 	public ICountdownEditorViewService? View { get; set; }
+
+	[ObservableProperty]
+	public partial bool HasProLicense { get; set; }
 
 	[ObservableProperty]
 	public partial DefaultBackground? SelectedDefaultBackground { get; set; }
@@ -89,18 +96,21 @@ public partial class CountdownEditorViewModel : PageViewModel
 	public partial Uri? BackgroundUri { get; set; } = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
 
 	[ObservableProperty]
-	private ElementTheme Theme { get; set; }
+	public partial ElementTheme Theme { get; set; }
 
 	[ObservableProperty]
-	private Uri? _lastBackgroundImageUri;
+	public partial Uri? LastBackgroundImageUri { get; set; }
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(IsBackgroundImageSet))]
-	private Uri? _backgroundImageUri;
+	public partial Uri? BackgroundImageUri { get; set; }
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(IsBackgroundColorSet))]
-	private Color _backgroundColor;
+	public partial Color BackgroundColor { get; set; }
+
+	[ObservableProperty]
+	public partial double BackgroundImageOpacityPercent { get; set; }
 
 	partial void OnBackgroundImageOpacityPercentChanged(double value) => SaveChanges();
 
@@ -194,14 +204,6 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	[RelayCommand]
 	private void Cancel() => _navigationService.GoBack();
-
-	[RelayCommand]
-	private async Task ChooseYourImageAsync()
-	{
-		IsWorking = true;
-		BackgroundUri = (await _imagePickerService.PickBackgroundAsync()) ?? LastCustomBackgroundUri;
-		IsWorking = false;
-	}
 
 	[RelayCommand]
 	private async Task PickBackgroundImageAsync()
