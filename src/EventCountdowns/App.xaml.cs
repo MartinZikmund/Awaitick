@@ -15,7 +15,6 @@ using EventCountdowns.Core.Services.ScheduledNotification;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.EventCountdownManager;
-using EventCountdowns.Core.Services.BackgroundPicker;
 using EventCountdowns.Core.DefaultData;
 using CommunityToolkit.Mvvm.Messaging;
 using Uno.Resizetizer;
@@ -121,7 +120,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddScoped<ISystemSharingService, SystemSharingService>();
 		services.AddScoped<ICountdownsManager, CountdownsManager>();
 		services.AddSingleton<ICountdownsDataService, CountdownsDataService>();
-		services.AddScoped<IBackgroundPickerService, BackgroundPickerService>();
+		services.AddScoped<IImagePickerService, ImagePickerService>();
 		services.AddSingleton<IDefaultBackgrounds, DefaultBackgrounds>();
 		services.AddSingleton<IFileService, FileService>();
 		services.AddSingleton<ITileService, TileService>();

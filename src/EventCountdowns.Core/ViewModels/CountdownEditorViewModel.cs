@@ -112,8 +112,6 @@ public partial class CountdownEditorViewModel : PageViewModel
 	[ObservableProperty]
 	public partial double BackgroundImageOpacityPercent { get; set; }
 
-	partial void OnBackgroundImageOpacityPercentChanged(double value) => SaveChanges();
-
 	public double BackgroundImageOpacity => BackgroundImageOpacityPercent / 100;
 
 	public bool IsBackgroundImageSet => BackgroundImageUri is not null;
@@ -210,8 +208,8 @@ public partial class CountdownEditorViewModel : PageViewModel
 	{
 		if (!HasProLicense)
 		{
-			var proOnlyFeatureDialog = new ProOnlyFeatureDialog();
-			await _dialogService.ShowAsync(proOnlyFeatureDialog);
+			//var proOnlyFeatureDialog = new ProOnlyFeatureDialog();
+			//await _dialogService.ShowAsync(proOnlyFeatureDialog);
 			return;
 		}
 

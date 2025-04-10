@@ -2,16 +2,20 @@
     x:Class="EventCountdowns.Dialogs.ColorPickerDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Stopwatch.Dialogs"
+    xmlns:local="using:EventCountdowns.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:EventCountdowns.Extensions.Xaml"
     Title="{ui:Localize Key=PickColor}"
-	xmlns:ui="using:EventCountdowns.Extensions.Xaml"
-    Style="{ThemeResource DefaultContentDialogStyle}"
-    PrimaryButtonText="{ui:Localize Key=Save}"
-    SecondaryButtonText="{ui:Localize Key=Cancel}"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
-	<Grid>
-		<ColorPicker x:Name="Picker" IsAlphaEnabled="True" IsAlphaSliderVisible="True" IsAlphaTextInputVisible="True" />
-	</Grid>
+    PrimaryButtonText="{ui:Localize Key=Save}"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    SecondaryButtonText="{ui:Localize Key=Cancel}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <Grid>
+        <ColorPicker
+            x:Name="Picker"
+            IsAlphaEnabled="True"
+            IsAlphaSliderVisible="True"
+            IsAlphaTextInputVisible="True" />
+    </Grid>
 </ContentDialog>
