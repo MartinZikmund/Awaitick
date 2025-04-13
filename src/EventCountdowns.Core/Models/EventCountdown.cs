@@ -1,4 +1,5 @@
-﻿namespace EventCountdowns.Core.Models;
+﻿
+namespace EventCountdowns.Core.Models;
 
 public class EventCountdown
 {
@@ -19,4 +20,7 @@ public class EventCountdown
 		get => _backgroundImageUri ?? (Uri.TryCreate(BackgroundImagePath, UriKind.Absolute, out var parsedPath) ? parsedPath : null);
 		set => _backgroundImageUri = value;
 	}
+	public double BackgroundImageOpacity { get; set; }
+
+	public ElementTheme Theme { get; set; }
 }
