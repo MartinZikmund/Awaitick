@@ -9,7 +9,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Microsoft.UI.Xaml.Media;
-using static Android.Telephony.CarrierConfigManager;
 
 namespace EventCountdowns.Droid;
 [global::Android.App.ApplicationAttribute(
