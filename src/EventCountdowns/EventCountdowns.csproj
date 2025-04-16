@@ -27,6 +27,7 @@
 			Configuration;
 			Localization;
 			Toolkit;
+			SkiaRenderer;
 		</UnoFeatures>
 		<UnoIconForegroundScale>1</UnoIconForegroundScale>
 		<UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.65</UnoIconForegroundScale>
@@ -39,6 +40,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" />
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
 		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />
 		<PackageReference Include="LiteDB" />

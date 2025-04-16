@@ -2,67 +2,62 @@
 using System.Globalization;
 using EventCountdowns.Core.DefaultData;
 using EventCountdowns.Core.Models;
-using EventCountdowns.Core.Services.BackgroundPicker;
+using EventCountdowns.Core.Services;
 using EventCountdowns.Core.Services.Data;
 using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.Dialogs;
+using EventCountdowns.Services.Dialogs;
+using EventCountdowns.Services.Localization;
 using EventCountdowns.Services.Navigation;
+using EventCountdowns.Services.Theming;
 using EventCountdowns.ViewModels;
+using Microsoft.UI;
+using MZikmund.Services.Dialogs;
+using MZikmund.Toolkit.WinUI.Infrastructure;
+using MZikmund.Toolkit.WinUI.Services;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 
 namespace EventCountdowns.Core.ViewModels;
 
 public partial class CountdownEditorViewModel : PageViewModel
 {
-	public enum EditorMode
-	{
-		Add, Edit
-	}
-
-	public class NavigationModel
-	{
-		public NavigationModel()
-		{
-		}
-
-		private NavigationModel(string id)
-		{
-			if (id == null) throw new ArgumentNullException(nameof(id));
-			Mode = EditorMode.Edit;
-			Id = id;
-		}
-
-		public static NavigationModel CreateAdd() => new();
-
-		public static NavigationModel CreateEdit(string id) => new(id);
-
-		public string Id { get; set; } = "";
-
-		public EditorMode Mode { get; set; } = EditorMode.Add;
-	}
-
 	private readonly ICountdownsDataService _eventCountdownManager;
-	private readonly IBackgroundPickerService _backgroundPickerService;
+	private readonly IImagePickerService _imagePickerService;
 	private readonly IDataService _dataService;
+	private readonly IDialogService _dialogService;
 	private readonly IStringLocalizer _localizationService;
 	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
+	private readonly IXamlRootProvider _xamlRootProvider;
+	private readonly UISettings _uiSettings = new();
 	private EventCountdown? _editedEventCountdown;
 
 	public CountdownEditorViewModel(
 		ICountdownsDataService eventCountdownManager,
-		IBackgroundPickerService backgroundPickerService,
+		IImagePickerService imagePickerService,
 		IDataService dataService,
+		IDialogService dialogService,
 		IStringLocalizer localizationService,
 		INavigationService navigationService,
-		IDefaultBackgrounds defaultBackgrounds) :
+		IDefaultBackgrounds defaultBackgrounds,
+		IXamlRootProvider xamlRootProvider) :
 		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
-		_backgroundPickerService = backgroundPickerService ?? throw new ArgumentNullException(nameof(backgroundPickerService));
+		_imagePickerService = imagePickerService ?? throw new ArgumentNullException(nameof(imagePickerService));
 		_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+		_dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
 		_localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
+		_xamlRootProvider = xamlRootProvider ?? throw new ArgumentNullException(nameof(xamlRootProvider));
 	}
+
+	public ICountdownEditorViewService? View { get; set; }
+
+	[ObservableProperty]
+	public partial bool HasProLicense { get; set; }
 
 	[ObservableProperty]
 	public partial DefaultBackground? SelectedDefaultBackground { get; set; }
@@ -76,6 +71,25 @@ public partial class CountdownEditorViewModel : PageViewModel
 	[ObservableProperty]
 	public partial Uri? BackgroundUri { get; set; } = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
 
+	public ElementTheme[] ThemeOptions { get; } = [ElementTheme.Default, ElementTheme.Light, ElementTheme.Dark];
+
+	[ObservableProperty]
+	public partial ElementTheme Theme { get; set; }
+
+	[ObservableProperty]
+	public partial Uri? LastBackgroundImageUri { get; set; }
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsBackgroundImageSet))]
+	public partial Uri? BackgroundImageUri { get; set; }
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsBackgroundColorSet))]
+	public partial Color BackgroundColor { get; set; }
+
+	[ObservableProperty]
+	public partial double BackgroundImageOpacityPercent { get; set; }
+	
 	[ObservableProperty]
 	public partial string Name { get; set; } = "";
 
@@ -87,6 +101,12 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	[ObservableProperty]
 	public partial string CelebrationMessage { get; set; } = "";
+
+	public double BackgroundImageOpacity => BackgroundImageOpacityPercent / 100;
+
+	public bool IsBackgroundImageSet => BackgroundImageUri is not null;
+
+	public bool IsBackgroundColorSet => BackgroundColor != Colors.Transparent;
 
 	public ObservableCollection<DefaultBackground> DefaultBackgrounds { get; } = new();
 
@@ -152,7 +172,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		Name = _editedEventCountdown.Name;
 		Date = _editedEventCountdown.TargetDateTime.Date;
 		Time = _editedEventCountdown.TargetDateTime.TimeOfDay;
-		CelebrationMessage = _editedEventCountdown.CelebrationMessage;
+		CelebrationMessage = _editedEventCountdown.CelebrationMessage ?? string.Format(Localizer.Instance.GetString("DefaultCelebration"), Name);
 		BackgroundUri = _editedEventCountdown.BackgroundImageUri;
 		LastCustomBackgroundUri = BackgroundUri;
 	}
@@ -162,11 +182,62 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private void Cancel() => _navigationService.GoBack();
 
 	[RelayCommand]
-	private async Task ChooseYourImageAsync()
+	private async Task PickBackgroundImageAsync()
+	{
+		if (!HasProLicense)
+		{
+			var proOnlyFeatureDialog = new ProOnlyFeatureDialog();
+			await _dialogService.ShowAsync(proOnlyFeatureDialog);
+			return;
+		}
+
+		IsWorking = true;
+		try
+		{
+
+			if (await _imagePickerService.PickAsync() is { } imageUri)
+			{
+				BackgroundImageUri = imageUri;
+				OnPropertyChanged(nameof(IsBackgroundImageSet));
+			}
+		}
+		finally
+		{
+			IsWorking = false;
+		}
+	}
+
+	[RelayCommand]
+	private async Task PickBackgroundColor()
 	{
 		IsWorking = true;
-		BackgroundUri = (await _backgroundPickerService.PickBackgroundAsync()) ?? LastCustomBackgroundUri;
+
+		var pickerDialog = new ColorPickerDialog
+		{
+			XamlRoot = _xamlRootProvider.XamlRoot,
+			SelectedColor = IsBackgroundColorSet ? BackgroundColor : _uiSettings.GetColorValue(UIColorType.Accent),
+		};
+
+		if (await pickerDialog.ShowAsync() == ContentDialogResult.Primary)
+		{
+			BackgroundColor = pickerDialog.SelectedColor;
+			OnPropertyChanged(nameof(IsBackgroundColorSet));
+		}
 		IsWorking = false;
+	}
+
+	[RelayCommand]
+	private void RemoveBackgroundImage()
+	{
+		BackgroundImageUri = null;
+		OnPropertyChanged(nameof(IsBackgroundImageSet));
+	}
+
+	[RelayCommand]
+	private void RemoveBackgroundColor()
+	{
+		BackgroundColor = Colors.Transparent;
+		OnPropertyChanged(nameof(IsBackgroundColorSet));
 	}
 
 	[RelayCommand]
@@ -187,6 +258,8 @@ public partial class CountdownEditorViewModel : PageViewModel
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
 		_editedEventCountdown.BackgroundImageUri = BackgroundUri;
+		_editedEventCountdown.Theme = Theme;
+		_editedEventCountdown.BackgroundImageOpacity = BackgroundImageOpacity;
 		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
 		if (Mode == EditorMode.Edit)
 		{

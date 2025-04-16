@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 
 namespace EventCountdowns.Droid;
+
 [Activity(
     MainLauncher = true,
     ConfigurationChanges = global::Uno.UI.ActivityHelper.AllConfigChanges,
@@ -12,4 +13,10 @@ namespace EventCountdowns.Droid;
 )]
 public class MainActivity : Microsoft.UI.Xaml.ApplicationActivity
 {
+	protected override void OnCreate(Bundle? bundle)
+	{
+		global::AndroidX.Core.SplashScreen.SplashScreen.InstallSplashScreen(this);
+
+		base.OnCreate(bundle);
+	}
 }

@@ -11,35 +11,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <local:SettingsViewBase.Resources>
-        <Style
-            x:Key="SettingsSectionHeaderTextBlockStyle"
-            BasedOn="{StaticResource BodyStrongTextBlockStyle}"
-            TargetType="TextBlock">
-            <Style.Setters>
-                <Setter Property="Margin"
-                        Value="1,30,0,6"/>
-            </Style.Setters>
-        </Style>
-    </local:SettingsViewBase.Resources>
-
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Margin="36,60,36,36"
-                ColumnSpacing="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Command="{x:Bind ViewModel.GoBackCommand}"
-                    Style="{ThemeResource NavigationBackButtonStyle}"/>
+        <Grid Margin="36,60,36,0" ColumnSpacing="8">
             <TextBlock
                 Grid.Column="1"
                 Style="{ThemeResource TitleTextBlockStyle}"
-                Text="{ex:Localize Key=Settings}"/>
+                Text="{ex:Localize Key=Settings}" />
         </Grid>
         <ScrollViewer Grid.Row="1">
             <StackPanel
@@ -47,12 +28,10 @@
                 Orientation="Vertical"
                 Spacing="8">
                 <!--  General  -->
-                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
-                        Text="{ex:Localize Key=General}"/>
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=General}" />
 
 
-                <toolkit:SettingsCard Header="{ex:Localize Key=Theme}"
-                        HeaderIcon="{ui:FontIcon Glyph=&#xE793;}">
+                <toolkit:SettingsCard Header="{ex:Localize Key=Theme}" HeaderIcon="{ui:FontIcon Glyph=&#xE793;}">
                     <ComboBox
                         IsTextSearchEnabled="True"
                         ItemsSource="{x:Bind ViewModel.ThemeOptions}"
@@ -60,7 +39,7 @@
                         Style="{StaticResource DefaultComboBoxStyle}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate x:DataType="ElementTheme">
-                                <TextBlock Text="{x:Bind Converter={StaticResource EnumLocalizationConverter}}"/>
+                                <TextBlock Text="{x:Bind Converter={StaticResource EnumLocalizationConverter}}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -70,27 +49,23 @@
                     Description="{ex:Localize Key=KeepScreenOnSettingDescription}"
                     Header="{ex:Localize Key=KeepScreenOn}"
                     HeaderIcon="{ui:FontIcon Glyph=&#xF182;}">
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.KeepScreenOn, Mode=TwoWay}"/>
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.KeepScreenOn, Mode=TwoWay}" />
                 </toolkit:SettingsCard>
                 <!--  About  -->
-                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
-                        Text="{ex:Localize Key=About}"/>
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=About}" />
 
-                <toolkit:SettingsCard Description="{ex:Localize Key=AboutAppDescription}"
-                        Header="{ex:Localize Key=ApplicationName}">
+                <toolkit:SettingsCard Description="{ex:Localize Key=AboutAppDescription}" Header="{ex:Localize Key=ApplicationName}">
                     <toolkit:SettingsCard.HeaderIcon>
-                        <BitmapIcon ShowAsMonochrome="False"
-                                UriSource="ms-appx:///Assets/Icons/icon_foreground.png"/>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Icons/icon_foreground.png" />
                     </toolkit:SettingsCard.HeaderIcon>
-                    <TextBlock Text="{x:Bind ViewModel.PackageVersionString, Mode=OneWay}"/>
+                    <TextBlock Text="{x:Bind ViewModel.PackageVersionString, Mode=OneWay}" />
                 </toolkit:SettingsCard>
 
                 <toolkit:SettingsCard
                     Description="{ex:Localize Key=ReviewAppDescription}"
                     Header="{ex:Localize Key=ReviewApp}"
                     HeaderIcon="{ui:FontIcon Glyph=&#xE90A;}">
-                    <Button Command="{x:Bind ViewModel.ReviewAppCommand}"
-                            Content="{ex:Localize Key=ReviewAction}"/>
+                    <Button Command="{x:Bind ViewModel.ReviewAppCommand}" Content="{ex:Localize Key=ReviewAction}" />
                 </toolkit:SettingsCard>
             </StackPanel>
         </ScrollViewer>

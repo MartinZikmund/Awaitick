@@ -25,6 +25,8 @@
 			Mvvm;
 			Configuration;
 			Localization;
+			Toolkit;
+			SkiaRenderer;
 		</UnoFeatures>
 	</PropertyGroup>
 

@@ -72,7 +72,7 @@
 			</StackPanel>
 		</Grid>
 
-		<CommandBar Grid.Row="3">
+		<CommandBar Background="#44000000" Grid.Row="3">
 			<AppBarButton
 				Label="{xaml:Localize Key=Add}"
 				Icon="Add"
