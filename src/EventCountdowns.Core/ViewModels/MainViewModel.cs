@@ -10,6 +10,7 @@ using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Tiles;
 using EventCountdowns.Services.Navigation;
+using EventCountdowns.Services.Store;
 
 namespace EventCountdowns.Core.ViewModels;
 
@@ -18,6 +19,7 @@ public partial class MainViewModel : PageViewModel
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;
 	private readonly IMailService _mailService;
+	private readonly IStoreService _storeService;
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly IStoreLauncherService _storeLauncherService;
@@ -31,6 +33,7 @@ public partial class MainViewModel : PageViewModel
 		IDataService dataService,
 		ITileService? tileService,
 		IMailService mailService,
+		IStoreService storeService,
 		ICountdownsManager countdownsManager,
 		IScheduledNotificationService scheduledNotificationService,
 		IStoreLauncherService storeLauncherService,
@@ -42,6 +45,7 @@ public partial class MainViewModel : PageViewModel
 		_dataService = dataService;
 		_tileService = tileService;
 		_mailService = mailService;
+		_storeService = storeService;
 		_countdownsManager = countdownsManager;
 		_scheduledNotificationService = scheduledNotificationService;
 		_storeLauncherService = storeLauncherService;
@@ -68,6 +72,9 @@ public partial class MainViewModel : PageViewModel
 	public override async void ViewNavigatedTo(object? parameter)
 	{
 		IsLoading = true;
+
+		HasProLicense = await _storeService.HasProAsync();
+
 		//load countdowns
 		var countdowns = await _dataService.GetCountdownsAsync();
 		var newCountdowns = new ObservableCollection<CountdownViewModel>();
@@ -93,6 +100,9 @@ public partial class MainViewModel : PageViewModel
 	public partial ObservableCollection<CountdownViewModel> EventCountdowns { get; private set; } = new();
 
 	public bool HasAnyEvents => EventCountdowns.Count > 0;
+
+	[ObservableProperty]
+	public partial bool HasProLicense { get; set; } = true;
 
 	private bool _isLoading;
 
