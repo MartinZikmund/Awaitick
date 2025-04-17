@@ -25,29 +25,32 @@
             <RowDefinition x:Name="MobileAdRow" Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
-		</Grid.ColumnDefinitions>
-		<Grid Grid.Row="1" Background="Transparent">
-			<interactivity:Interaction.Behaviors>
-				<core:EventTriggerBehavior EventName="Tapped">
-					<core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />
-				</core:EventTriggerBehavior>
-			</interactivity:Interaction.Behaviors>
-			<Grid.ChildrenTransitions>
-				<TransitionCollection>
-					<EntranceThemeTransition />
-				</TransitionCollection>
-			</Grid.ChildrenTransitions>
-			<Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-				<ScrollViewer HorizontalAlignment="Center" HorizontalContentAlignment="Center">
-					<ItemsView
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition x:Name="DesktopAdColumn" Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Background="Transparent">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <core:InvokeCommandAction Command="{x:Bind ViewModel.RootTapCommand}" />
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <Grid Padding="12" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ScrollViewer HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                    <ItemsView
                         HorizontalAlignment="Center"
+                        IsItemInvokedEnabled="True"
+						SelectionMode="None"
+                        ItemInvoked="ItemsView_ItemInvoked"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
                         ItemsSource="{x:Bind ViewModel.EventCountdowns, Mode=OneTime}">
-						<ItemsView.Layout>
-							<UniformGridLayout
+                        <ItemsView.Layout>
+                            <UniformGridLayout
                                 ItemsJustification="Center"
                                 ItemsStretch="Fill"
                                 MaximumRowsOrColumns="3"
@@ -56,31 +59,38 @@
                                 MinItemWidth="480"
                                 MinRowSpacing="20"
                                 Orientation="Horizontal" />
-						</ItemsView.Layout>
-					</ItemsView>
-				</ScrollViewer>
-			</Grid>
+                        </ItemsView.Layout>
+                    </ItemsView>
+                </ScrollViewer>
+            </Grid>
 
-			<StackPanel VerticalAlignment="Center" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
-				<Image Source="ms-appx:///Assets/create.png" Width="120" />
-				<TextBlock
-					FontSize="30"
-					Style="{ThemeResource TitleTextBlockStyle}"
-					Text="{xaml:Localize Key=AddYourFirstEvent}"
-					TextAlignment="Center"
-					TextWrapping="Wrap" />
-			</StackPanel>
-		</Grid>
+            <StackPanel VerticalAlignment="Center" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+                <Image Width="120" Source="ms-appx:///Assets/create.png" />
+                <TextBlock
+                    FontSize="30"
+                    Style="{ThemeResource TitleTextBlockStyle}"
+                    Text="{xaml:Localize Key=AddYourFirstEvent}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
 
-		<CommandBar Background="#44000000" Grid.Row="3">
+		<CommandBar Grid.Row="3" Background="{ThemeResource AppOverlayBackgroundBrush}" 
+            ClosedDisplayMode="Compact"
+            OverflowButtonVisibility="Collapsed">
 			<AppBarButton
-				Label="{xaml:Localize Key=Add}"
-				Icon="Add"
-				Command="{x:Bind ViewModel.AddCommand}" />
-			<AppBarButton
-				Label="{xaml:Localize Key=Settings}"
-				Icon="Setting"
-				Command="{x:Bind ViewModel.GoToSettingsCommand}" />
-		</CommandBar>
+                Icon="Add"
+				Command="{x:Bind ViewModel.AddCommand}"
+                Label="{xaml:Localize Key=Add}"
+				ToolTipService.Placement="Top">
+				<AppBarButton.KeyboardAccelerators>
+					<KeyboardAccelerator Key="N" Modifiers="Control" />
+				</AppBarButton.KeyboardAccelerators>
+			</AppBarButton>
+            <AppBarButton
+                Command="{x:Bind ViewModel.GoToSettingsCommand}"
+                Icon="Setting"
+                Label="{xaml:Localize Key=Settings}" />
+        </CommandBar>
     </Grid>
 </local:MainViewBase>

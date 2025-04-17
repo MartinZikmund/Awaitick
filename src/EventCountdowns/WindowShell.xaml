@@ -14,7 +14,7 @@
         <Frame x:Name="InnerFrame" />
 
 
-		<Grid Height="{ThemeResource TitleBarHeight}" VerticalAlignment="Top" Background="#44000000">
+		<Grid Height="{ThemeResource TitleBarHeight}" VerticalAlignment="Top" Background="{ThemeResource AppOverlayBackgroundBrush}">
 			<StackPanel
 				Grid.ColumnSpan="2"
 				HorizontalAlignment="Center"

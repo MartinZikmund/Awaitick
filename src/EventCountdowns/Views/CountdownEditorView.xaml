@@ -243,12 +243,16 @@
                 </StackPanel>
             </Border>
         </ScrollViewer>
-        <CommandBar Grid.Row="2">
-            <AppBarButton
-                Command="{x:Bind ViewModel.SaveCommand}"
-                Icon="Save"
-                Label="{ui:Localize Key=Save}" />
-            <AppBarButton
+		<CommandBar Grid.Row="2"
+					Background="{ThemeResource AppOverlayBackgroundBrush}"
+            ClosedDisplayMode="Compact"
+            OverflowButtonVisibility="Collapsed">
+			<AppBarButton>
+				<AppBarButton.Command>
+					<StandardUICommand Kind="Save" Command="{x:Bind ViewModel.SaveCommand}" />
+				</AppBarButton.Command>
+			</AppBarButton>
+			<AppBarButton
                 Command="{x:Bind ViewModel.CancelCommand}"
                 Icon="Cancel"
                 Label="{ui:Localize Key=Cancel}" />

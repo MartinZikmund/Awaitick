@@ -1,4 +1,5 @@
-﻿using EventCountdowns.Core.ViewModels;
+﻿using EventCountdowns.Core.Models;
+using EventCountdowns.Core.ViewModels;
 using Microsoft.UI.Dispatching;
 
 namespace EventCountdowns.Views;
@@ -36,11 +37,13 @@ public sealed partial class MainView : MainViewBase
 		_timer.Stop();
 	}
 
-	private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
+	private void ItemsView_ItemInvoked(ItemsView sender, ItemsViewItemInvokedEventArgs args)
 	{
-		var vm = ViewModel;
-		vm?.ShowCountdownCommand.Execute(e.ClickedItem);
-	}
+		if (args.InvokedItem is CountdownViewModel vm)
+		{
+			vm.GoToDetail();
+		}
+    }
 }
 
 public abstract partial class MainViewBase : PageBase<MainViewModel>

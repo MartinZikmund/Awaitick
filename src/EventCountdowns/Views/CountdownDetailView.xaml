@@ -86,7 +86,6 @@
                     VerticalAlignment="Center"
                     FontSize="55"
                     FontWeight="SemiLight"
-                    Foreground="White"
                     Text="{x:Bind ViewModel.EventCountdown.CelebrationMessage}"
                     TextAlignment="Center"
                     TextWrapping="Wrap"
@@ -98,13 +97,11 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         FontSize="40"
-                        Foreground="White"
                         Text="{x:Bind ViewModel.EventCountdown.Name, Mode=OneWay}" />
                     <TextBlock
                         Margin="22,0,0,20"
                         HorizontalAlignment="Left"
                         FontSize="18"
-                        Foreground="White"
                         Opacity="0.8"
                         Text="{x:Bind ViewModel.TargetDateString}" />
                 </StackPanel>
@@ -114,44 +111,24 @@
         <CommandBar
             Grid.Row="2"
             Grid.ColumnSpan="2"
-            Background="#44000000"
+            Background="{ThemeResource AppOverlayBackgroundBrush}"
             ClosedDisplayMode="Compact"
             OverflowButtonVisibility="Collapsed">
-            <AppBarButton Command="{x:Bind ViewModel.ShareCommand}" Label="{xaml:Localize Key=Share}">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE72D;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+            <AppBarButton>
+				<AppBarButton.Command>
+					<StandardUICommand Kind="Share" Command="{x:Bind ViewModel.ShareCommand}" />
+				</AppBarButton.Command>
+			</AppBarButton>
             <AppBarButton Command="{x:Bind ViewModel.EditCommand}" Label="{xaml:Localize Key=Share}">
                 <AppBarButton.Icon>
                     <SymbolIcon Symbol="Edit" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Command="{x:Bind ViewModel.DeleteCommand}" Label="{xaml:Localize Key=Share}">
-                <AppBarButton.Icon>
-                    <SymbolIcon Symbol="Delete" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <!--<AppBarButton
-                Command="{x:Bind ViewModel.PinCommand}"
-                Icon="Pin"
-                Label="{xaml:Localize Key=PinToStart}"
-                Visibility="{x:Bind ViewModel.IsTilePinned, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
-            <AppBarButton
-                Command="{x:Bind ViewModel.UnPinCommand}"
-                Icon="UnPin"
-                Label="{xaml:Localize Key=UnpinFromStart}"
-                Visibility="{x:Bind ViewModel.IsTilePinned, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />-->
-            <!--<AppBarButton
-                Command="{x:Bind ViewModel.EditCommand}"
-                Icon="Edit"
-                Label="{xaml:Localize Key=Edit}" />
-            <CommandBar.SecondaryCommands>
-                <AppBarButton
-                    Command="{x:Bind ViewModel.DeletePromptCommand}"
-                    Icon="Delete"
-                    Label="{xaml:Localize Key=Delete}" />
-            </CommandBar.SecondaryCommands>-->
-        </CommandBar>
+			<AppBarButton>
+				<AppBarButton.Command>
+					<StandardUICommand Kind="Delete" Command="{x:Bind ViewModel.DeleteCommand}" />
+				</AppBarButton.Command>
+			</AppBarButton>
+		</CommandBar>
     </Grid>
 </local:CountdownDetailViewBase>
