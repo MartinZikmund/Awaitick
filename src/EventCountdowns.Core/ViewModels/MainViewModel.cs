@@ -11,6 +11,7 @@ using EventCountdowns.Core.Services.StoreLauncher;
 using EventCountdowns.Core.Services.Tiles;
 using EventCountdowns.Services.Navigation;
 using EventCountdowns.Services.Store;
+using EventCountdowns.ViewModels;
 
 namespace EventCountdowns.Core.ViewModels;
 
@@ -119,6 +120,9 @@ public partial class MainViewModel : PageViewModel
 		get => _showCoffee;
 		set => SetProperty(ref _showCoffee, value);
 	}
+
+	[RelayCommand]
+	public void GoToGetPro() => _navigationService.Navigate<GetProViewModel>();
 
 	[RelayCommand]
 	private void RootTap()
