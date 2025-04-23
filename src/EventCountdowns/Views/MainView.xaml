@@ -81,7 +81,6 @@
 			<AppBarButton
 				Command="{x:Bind ViewModel.GoToGetProCommand}"
 				Foreground="Gold"
-				Style="{ThemeResource SubtleButtonStyle}"
 				Visibility="{x:Bind ViewModel.HasProLicense, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
 				<FontIcon Foreground="Gold" Glyph="&#xF133;" />
 			</AppBarButton>

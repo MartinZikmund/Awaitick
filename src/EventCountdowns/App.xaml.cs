@@ -102,6 +102,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddScoped<WindowShellViewModel>();
 		services.AddScoped<SettingsViewModel>();
 		services.AddScoped<MainViewModel>();
+		services.AddScoped<GetProViewModel>();
 		services.AddTransient<CountdownEditorViewModel>();
 		services.AddTransient<CountdownDetailViewModel>();
 
