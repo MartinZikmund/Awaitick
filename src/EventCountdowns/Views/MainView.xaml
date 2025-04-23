@@ -48,7 +48,7 @@
 						SelectionMode="None"
                         ItemInvoked="ItemsView_ItemInvoked"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.EventCountdowns, Mode=OneTime}">
+                        ItemsSource="{x:Bind ViewModel.EventCountdowns, Mode=OneWay}">
                         <ItemsView.Layout>
                             <UniformGridLayout
                                 ItemsJustification="Center"

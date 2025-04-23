@@ -15,7 +15,15 @@ public class Localizer
 	public string GetString(string key)
 	{
 		var result = _stringLocalizer.Value.GetString(key);
-		return !result.ResourceNotFound ? result.Value : $"???{key}???";
+		if (result.ResourceNotFound)
+		{
+			this.Log().LogError($"Key '{key}' not found in localization resources.");
+			return $"??{key}??";
+		}
+		else
+		{
+			return result.Value;
+		}
 	}
 
 	public string this[string key] => GetString(key);

@@ -79,12 +79,13 @@
                         </toolkit:SettingsCard>
 
                         <!-- General -->
+
                         <TextBlock
                             Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                             Text="{ui:Localize Key=Customization}" />
-
                         <toolkit:SettingsCard
-                            Header="{ui:Localize Key=Theme}"
+                            Header="{ui:Localize Key=TextColor}"
+							Description="{ui:Localize Key=TextColorDescription}"
                             HeaderIcon="{ui:FontIcon Glyph=&#xE793;}">
                             <ComboBox
                                 MinWidth="{StaticResource SettingsControlMinWidth}"
@@ -121,7 +122,8 @@
                                 </Button>
                             </StackPanel>
                         </toolkit:SettingsCard>
-                        <toolkit:SettingsCard
+
+                        <toolkit:SettingsExpander
                             Header="{ui:Localize Key=BackgroundImage}"
                             HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}">
                             <StackPanel
@@ -146,46 +148,11 @@
                                         Glyph="&#xE7A7;" />
                                 </Button>
                             </StackPanel>
-                        </toolkit:SettingsCard>
-
-                        <toolkit:SettingsCard
-                            Header="{ui:Localize Key=BackgroundImageOpacity}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE7B3;}"
-                            IsEnabled="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
-                            <StackPanel>
-                                <Slider
-                                    Width="{StaticResource SettingsControlMinWidth}"
-                                    Maximum="100"
-                                    Minimum="0"
-                                    Value="{x:Bind ViewModel.BackgroundImageOpacityPercent, Mode=TwoWay}" />
-                            </StackPanel>
-                        </toolkit:SettingsCard>
-
-                        <Grid
-                            x:Name="BackgroundControlGrid"
-                            Grid.Row="1"
-                            Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                Style="{StaticResource FormLabelTextBlockStyle}"
-                                Text="{ui:Localize Key=Background}" />
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel>
-                                    <Button
-                                        Margin="0,0,0,10"
-                                        Command="{x:Bind ViewModel.PickBackgroundImageCommand}"
-                                        Content="{ui:Localize Key=ChooseYourImage}" />
-                                    <TextBlock
-                                        FontSize="16"
-                                        FontWeight="Normal"
-                                        Text="{ui:Localize Key=DefaultBackgrounds}" />
+                            <toolkit:SettingsExpander.Items>
+                                <toolkit:SettingsCard
+                                    HorizontalContentAlignment="Left"
+                                    ContentAlignment="Vertical"
+                                    Header="{ui:Localize Key=DefaultBackgrounds}">
                                     <GridView
                                         Margin="0,5,0,0"
                                         ItemsSource="{x:Bind ViewModel.DefaultBackgrounds}"
@@ -208,51 +175,64 @@
                                             </DataTemplate>
                                         </GridView.ItemTemplate>
                                     </GridView>
+                                </toolkit:SettingsCard>
 
-                                </StackPanel>
+                                <toolkit:SettingsCard
+                                    Header="{ui:Localize Key=BackgroundImageOpacity}"
+                                    HeaderIcon="{ui:FontIcon Glyph=&#xE7B3;}"
+                                    IsEnabled="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
+                                    <StackPanel>
+                                        <Slider
+                                            Width="{StaticResource SettingsControlMinWidth}"
+                                            Maximum="100"
+                                            Minimum="0"
+                                            Value="{x:Bind ViewModel.BackgroundImageOpacityPercent, Mode=TwoWay}" />
+                                    </StackPanel>
+                                </toolkit:SettingsCard>
+                            </toolkit:SettingsExpander.Items>
+                        </toolkit:SettingsExpander>
+                        <controls:ConstrainedBox
+                            MaxWidth="400"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            AspectRatio="16:9">
+                            <Grid CornerRadius="8">
+                                <Border
+                                    HorizontalAlignment="Stretch"
+                                    Background="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                                <Image
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Stretch="UniformToFill">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{x:Bind ViewModel.BackgroundUri, Mode=OneWay}" />
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    Foreground="#FFF"
+                                    Opacity="0.8"
+                                    Text="{ui:Localize Key=Preview}" />
                             </Grid>
-                        </Grid>
-
+                        </controls:ConstrainedBox>
                     </StackPanel>
-
-                    <controls:ConstrainedBox
-                        MaxWidth="400"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        AspectRatio="16:9">
-                        <Grid CornerRadius="8">
-                            <Border
-                                HorizontalAlignment="Stretch"
-                                Background="{ThemeResource SystemControlBackgroundAccentBrush}" />
-                            <Image
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Stretch="UniformToFill">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind ViewModel.BackgroundUri, Mode=OneWay}" />
-                                </Image.Source>
-                            </Image>
-                            <TextBlock
-                                Margin="10"
-                                VerticalAlignment="Bottom"
-                                Foreground="#FFF"
-                                Opacity="0.8"
-                                Text="{ui:Localize Key=Preview}" />
-                        </Grid>
-                    </controls:ConstrainedBox>
                 </StackPanel>
             </Border>
         </ScrollViewer>
-		<CommandBar Grid.Row="2"
-					Background="{ThemeResource AppOverlayBackgroundBrush}"
+        <CommandBar
+            Grid.Row="2"
+            Background="{ThemeResource AppOverlayBackgroundBrush}"
             ClosedDisplayMode="Compact"
             OverflowButtonVisibility="Collapsed">
-			<AppBarButton>
-				<AppBarButton.Command>
-					<StandardUICommand Kind="Save" Command="{x:Bind ViewModel.SaveCommand}" />
-				</AppBarButton.Command>
-			</AppBarButton>
-			<AppBarButton
+            <AppBarButton>
+                <AppBarButton.Command>
+                    <StandardUICommand
+                        Kind="Save"
+                        Command="{x:Bind ViewModel.SaveCommand}" />
+                </AppBarButton.Command>
+            </AppBarButton>
+            <AppBarButton
                 Command="{x:Bind ViewModel.CancelCommand}"
                 Icon="Cancel"
                 Label="{ui:Localize Key=Cancel}" />

@@ -189,7 +189,7 @@
   <data name="EditEvent" xml:space="preserve">
     <value>Edit event</value>
   </data>
-  <data name="EventNamePlaceholder" xml:space="preserve">
+  <data name="EventName" xml:space="preserve">
     <value>Event name</value>
   </data>
   <data name="Feedback" xml:space="preserve">
@@ -348,12 +348,6 @@
   <data name="ReviewAppDescription" xml:space="preserve">
     <value>Let us know what you think about this app</value>
   </data>
-  <data name="ReviewApp" xml:space="preserve">
-    <value>Review App</value>
-  </data>
-  <data name="ReviewAppDescription" xml:space="preserve">
-    <value>Let us know what you think about this app</value>
-  </data>
   <data name="KeepScreenOn" xml:space="preserve">
     <value>Keep Screen On</value>
   </data>
@@ -377,5 +371,50 @@
   </data>
   <data name="ReviewAction" xml:space="preserve">
     <value>Review</value>
+  </data>
+  <data name="FluentEventCountdownsPro" xml:space="preserve">
+    <value>Event Countdowns Pro</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="PickColor" xml:space="preserve">
+    <value>Pick a color</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Customization</value>
+  </data>
+  <data name="Pick" xml:space="preserve">
+    <value>Pick</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="BackgroundImage" xml:space="preserve">
+    <value>Background image</value>
+  </data>
+  <data name="BackgroundImageOpacity" xml:space="preserve">
+    <value>Background image opacity</value>
+  </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Background color</value>
+  </data>
+  <data name="BackgroundColorSettingDescription" xml:space="preserve">
+    <value>Color of the event background.</value>
+  </data>
+  <data name="ElementTheme_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="ElementTheme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ElementTheme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
 </root>
