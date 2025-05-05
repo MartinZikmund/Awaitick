@@ -160,7 +160,7 @@
                             Text="{xaml:Localize Key=Delete}" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
-				<controls:EventCountdownDisplayControl Grid.Row="1" Countdown="{x:Bind Mode=OneWay}" />
+				<controls:EventCountdownDisplayControl Grid.Row="1" Countdown="{x:Bind Mode=OneWay}" DisplayMode="Compact" />
 			</Grid>
         </ItemContainer>
     </DataTemplate>

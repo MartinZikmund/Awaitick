@@ -198,7 +198,7 @@
                             VerticalAlignment="Top"
                             AspectRatio="16:9">
                             <Grid CornerRadius="8">
-								<controls:EventCountdownDisplayControl Countdown="{x:Bind ViewModel.SampleCountdown, Mode=OneWay}" />
+								<controls:EventCountdownDisplayControl Countdown="{x:Bind ViewModel.SampleCountdown, Mode=OneWay}" DisplayMode="Preview" />
 								<TextBlock
                                     Margin="10"
                                     VerticalAlignment="Bottom"
