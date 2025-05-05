@@ -85,7 +85,7 @@
                             Text="{ui:Localize Key=Customization}" />
                         <toolkit:SettingsCard
                             Header="{ui:Localize Key=TextColor}"
-							Description="{ui:Localize Key=TextColorDescription}"
+                            Description="{ui:Localize Key=TextColorDescription}"
                             HeaderIcon="{ui:FontIcon Glyph=&#xE793;}">
                             <ComboBox
                                 MinWidth="{StaticResource SettingsControlMinWidth}"
@@ -208,6 +208,63 @@
                                         <BitmapImage UriSource="{x:Bind ViewModel.BackgroundUri, Mode=OneWay}" />
                                     </Image.Source>
                                 </Image>
+                                <Grid x:Name="CountdownSample">
+                                    <Viewbox Margin="24">
+                                        <StackPanel
+                                            HorizontalAlignment="Center"
+                                            Orientation="Vertical">
+                                            <StackPanel
+                                                Margin="10,0"
+                                                Orientation="Vertical">
+                                                <TextBlock
+													TextLineBounds="Tight"
+                                                    Style="{StaticResource TimeComponentStyle}"
+                                                    Text="12" />
+                                                <TextBlock
+                                                    Style="{StaticResource TimeComponentDescriptionStyle}"
+                                                    Text="{ui:Localize Key=Days}" />
+                                            </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <StackPanel
+                                                    Margin="10,0"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Vertical">
+                                                    <TextBlock
+                                                        Style="{StaticResource SecondaryTimeComponentStyle}"
+                                                        Text="23" />
+                                                    <TextBlock
+                                                        Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
+                                                        Text="{ui:Localize Key=Hours}" />
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Margin="10,0"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Vertical">
+                                                    <TextBlock
+                                                        Style="{StaticResource SecondaryTimeComponentStyle}"
+                                                        Text="45" />
+                                                    <TextBlock
+                                                        Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
+                                                        Text="{ui:Localize Key=Minutes}" />
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Margin="10,0"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Vertical">
+                                                    <TextBlock
+                                                        Style="{StaticResource SecondaryTimeComponentStyle}"
+                                                        Text="56" />
+                                                    <TextBlock
+                                                        Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
+                                                        Text="{ui:Localize Key=Seconds}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Viewbox>
+                                </Grid>
                                 <TextBlock
                                     Margin="10"
                                     VerticalAlignment="Bottom"

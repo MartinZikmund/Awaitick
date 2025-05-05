@@ -10,7 +10,7 @@
     <DataTemplate x:Key="EventGridItemTemplate" x:DataType="models:CountdownViewModel">
         <UserControl>
             <Grid x:Name="MainGrid" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImage, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
+				<Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Offset="0" Color="#00FFFFFF" />
@@ -18,14 +18,14 @@
                         </LinearGradientBrush>
                     </Border.Background>
                 </Border>
-                <Grid Background="Black" Visibility="{x:Bind BackgroundImage, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
+				<Grid Background="Black" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Opacity="0.8"
                         Stretch="UniformToFill">
                         <Image.Source>
-                            <BitmapImage UriSource="{x:Bind BackgroundImage, Mode=OneWay}" />
+                            <BitmapImage UriSource="{x:Bind BackgroundImageUri, Mode=OneWay}" />
                         </Image.Source>
                     </Image>
                 </Grid>
@@ -158,7 +158,7 @@
                             Text="{xaml:Localize Key=Delete}" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
-                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImage, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
+				<Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                             <GradientStop Offset="0" Color="#00FFFFFF" />
@@ -166,14 +166,14 @@
                         </LinearGradientBrush>
                     </Border.Background>
                 </Border>
-                <Grid Background="Black" Visibility="{x:Bind BackgroundImage, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed}">
+				<Grid Background="Black" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed}">
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Opacity="0.8"
                         Stretch="UniformToFill">
                         <Image.Source>
-                            <BitmapImage UriSource="{x:Bind BackgroundImage, Mode=OneWay}" />
+							<BitmapImage UriSource="{x:Bind BackgroundImageUri, Mode=OneWay}" />
                         </Image.Source>
                     </Image>
                 </Grid>

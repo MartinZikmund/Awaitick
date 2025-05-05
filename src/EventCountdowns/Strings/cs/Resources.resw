@@ -417,4 +417,7 @@
   <data name="TextColor" xml:space="preserve">
     <value>Barva textu</value>
   </data>
+  <data name="TextColorDescription" xml:space="preserve">
+    <value>Vyberte barvu textu odpočtu</value>
+  </data>
 </root>

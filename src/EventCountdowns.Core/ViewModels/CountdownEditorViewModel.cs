@@ -9,6 +9,7 @@ using EventCountdowns.Dialogs;
 using EventCountdowns.Services.Dialogs;
 using EventCountdowns.Services.Localization;
 using EventCountdowns.Services.Navigation;
+using EventCountdowns.Services.Store;
 using EventCountdowns.Services.Theming;
 using EventCountdowns.ViewModels;
 using Microsoft.UI;
@@ -26,6 +27,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private readonly IImagePickerService _imagePickerService;
 	private readonly IDataService _dataService;
 	private readonly IDialogService _dialogService;
+	private readonly IStoreService _storeService;
 	private readonly IStringLocalizer _localizationService;
 	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
@@ -38,6 +40,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		IImagePickerService imagePickerService,
 		IDataService dataService,
 		IDialogService dialogService,
+		IStoreService storeService,
 		IStringLocalizer localizationService,
 		INavigationService navigationService,
 		IDefaultBackgrounds defaultBackgrounds,
@@ -48,6 +51,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_imagePickerService = imagePickerService ?? throw new ArgumentNullException(nameof(imagePickerService));
 		_dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
 		_dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+		_storeService = storeService ?? throw new ArgumentNullException(nameof(storeService));
 		_localizationService = localizationService ?? throw new ArgumentNullException(nameof(localizationService));
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
@@ -120,6 +124,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		}
 
 		Mode = navigationModel.Mode;
+		HasProLicense = await _storeService.HasProAsync();
 
 		if (Mode == EditorMode.Edit)
 		{

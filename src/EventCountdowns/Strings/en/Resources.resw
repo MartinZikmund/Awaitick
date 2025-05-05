@@ -417,4 +417,7 @@
   <data name="TextColor" xml:space="preserve">
     <value>Text color</value>
   </data>
+  <data name="TextColorDescription" xml:space="preserve">
+    <value>Choose the countdown's text color</value>
+  </data>
 </root>

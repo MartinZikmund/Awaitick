@@ -1,4 +1,5 @@
-﻿using EventCountdowns.Core.Services.Countdowns;
+﻿using System.Diagnostics;
+using EventCountdowns.Core.Services.Countdowns;
 
 namespace EventCountdowns.Core.Models;
 
@@ -19,7 +20,13 @@ public partial class CountdownViewModel : ObservableObject
 
 	public string Name => _eventCountdown.Name;
 
-	public Uri? BackgroundImage => _eventCountdown.BackgroundImageUri;
+	public Uri? BackgroundImageUri => _eventCountdown.BackgroundImageUri;
+
+	public double BackgroundImageOpacity => _eventCountdown.BackgroundImageOpacity;
+
+	public ElementTheme Theme => _eventCountdown.Theme;
+
+	public Windows.UI.Color BackgroundColor => ColorHelper.ToColor(_eventCountdown.BackgroundColor);
 
 	public bool HasFinished => _eventCountdown.TargetDateTime < DateTimeOffset.Now;
 
