@@ -103,6 +103,7 @@
                     TextWrapping="Wrap"
                     Visibility="{x:Bind Countdown.HasFinished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
                 <StackPanel
+					x:Name="BottomInfo"
                     Grid.Row="1"
                     VerticalAlignment="Bottom">
                     <TextBlock

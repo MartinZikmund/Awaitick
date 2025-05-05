@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
+using CommunityToolkit.WinUI.Helpers;
 using EventCountdowns.Core.DefaultData;
 using EventCountdowns.Core.Models;
 using EventCountdowns.Core.Services;
@@ -105,6 +106,9 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	[ObservableProperty]
 	public partial string CelebrationMessage { get; set; } = "";
+
+	[ObservableProperty]
+	public partial CountdownViewModel SampleCountdown { get; set; }
 
 	public double BackgroundImageOpacity => BackgroundImageOpacityPercent / 100;
 
@@ -263,6 +267,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
 		_editedEventCountdown.BackgroundImageUri = BackgroundUri;
+		_editedEventCountdown.BackgroundColor = BackgroundColor.ToHex();
 		_editedEventCountdown.Theme = Theme;
 		_editedEventCountdown.BackgroundImageOpacity = BackgroundImageOpacity;
 		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;

@@ -2,7 +2,8 @@
     x:Class="EventCountdowns.Views.CountdownEditorView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:toolkitcontrols="using:CommunityToolkit.WinUI.Controls"
+    xmlns:controls="using:EventCountdowns.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:EventCountdowns.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -191,88 +192,21 @@
                                 </toolkit:SettingsCard>
                             </toolkit:SettingsExpander.Items>
                         </toolkit:SettingsExpander>
-                        <controls:ConstrainedBox
+                        <toolkitcontrols:ConstrainedBox
                             MaxWidth="400"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
                             AspectRatio="16:9">
                             <Grid CornerRadius="8">
-                                <Border
-                                    HorizontalAlignment="Stretch"
-                                    Background="{ThemeResource SystemControlBackgroundAccentBrush}" />
-                                <Image
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Stretch="UniformToFill">
-                                    <Image.Source>
-                                        <BitmapImage UriSource="{x:Bind ViewModel.BackgroundUri, Mode=OneWay}" />
-                                    </Image.Source>
-                                </Image>
-                                <Grid x:Name="CountdownSample">
-                                    <Viewbox Margin="24">
-                                        <StackPanel
-                                            HorizontalAlignment="Center"
-                                            Orientation="Vertical">
-                                            <StackPanel
-                                                Margin="10,0"
-                                                Orientation="Vertical">
-                                                <TextBlock
-													TextLineBounds="Tight"
-                                                    Style="{StaticResource TimeComponentStyle}"
-                                                    Text="12" />
-                                                <TextBlock
-                                                    Style="{StaticResource TimeComponentDescriptionStyle}"
-                                                    Text="{ui:Localize Key=Days}" />
-                                            </StackPanel>
-                                            <StackPanel
-                                                Grid.Row="0"
-                                                HorizontalAlignment="Center"
-                                                Orientation="Horizontal">
-                                                <StackPanel
-                                                    Margin="10,0"
-                                                    VerticalAlignment="Center"
-                                                    Orientation="Vertical">
-                                                    <TextBlock
-                                                        Style="{StaticResource SecondaryTimeComponentStyle}"
-                                                        Text="23" />
-                                                    <TextBlock
-                                                        Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
-                                                        Text="{ui:Localize Key=Hours}" />
-                                                </StackPanel>
-                                                <StackPanel
-                                                    Margin="10,0"
-                                                    VerticalAlignment="Center"
-                                                    Orientation="Vertical">
-                                                    <TextBlock
-                                                        Style="{StaticResource SecondaryTimeComponentStyle}"
-                                                        Text="45" />
-                                                    <TextBlock
-                                                        Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
-                                                        Text="{ui:Localize Key=Minutes}" />
-                                                </StackPanel>
-                                                <StackPanel
-                                                    Margin="10,0"
-                                                    VerticalAlignment="Center"
-                                                    Orientation="Vertical">
-                                                    <TextBlock
-                                                        Style="{StaticResource SecondaryTimeComponentStyle}"
-                                                        Text="56" />
-                                                    <TextBlock
-                                                        Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
-                                                        Text="{ui:Localize Key=Seconds}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Viewbox>
-                                </Grid>
-                                <TextBlock
+								<controls:EventCountdownDisplayControl Countdown="{x:Bind ViewModel.SampleCountdown, Mode=OneWay}" />
+								<TextBlock
                                     Margin="10"
                                     VerticalAlignment="Bottom"
                                     Foreground="#FFF"
                                     Opacity="0.8"
                                     Text="{ui:Localize Key=Preview}" />
                             </Grid>
-                        </controls:ConstrainedBox>
+                        </toolkitcontrols:ConstrainedBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
