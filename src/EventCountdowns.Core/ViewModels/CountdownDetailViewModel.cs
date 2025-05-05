@@ -74,7 +74,6 @@ public partial class CountdownDetailViewModel : PageViewModel
 
 		EventCountdown = new CountdownViewModel(eventInfo, _countdownsManager);
 
-		TargetDateString = EventCountdown.TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
 		IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
 		_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
 	}

@@ -53,5 +53,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Controls\EventCountdownDisplayControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
 
 </Project>

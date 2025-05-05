@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using EventCountdowns.Core.Services.Countdowns;
 
 namespace EventCountdowns.Core.Models;
@@ -41,6 +42,8 @@ public partial class CountdownViewModel : ObservableObject
 	public int SecondsLeft => TimeLeft.Seconds;
 
 	public DateTimeOffset TargetDateTime => _eventCountdown.TargetDateTime;
+	
+	public string TargetDateString => TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
 
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
 

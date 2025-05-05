@@ -6,6 +6,7 @@
     xmlns:local="using:EventCountdowns.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
+	xmlns:controls="using:EventCountdowns.Controls"
     mc:Ignorable="d">
     <local:CountdownDetailViewBase.Transitions>
         <TransitionCollection>
@@ -16,127 +17,16 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </local:CountdownDetailViewBase.Transitions>
-    <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Background color -->
-        <Border Grid.Row="1">
-            <Border.Background>
-                <SolidColorBrush Color="{x:Bind ViewModel.EventCountdown.BackgroundColor, Mode=OneWay}" />
-            </Border.Background>
-        </Border>
+		<controls:EventCountdownDisplayControl Grid.Row="1" Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}" />
 
-        <!-- Background image -->
-        <Border
-            Grid.Row="1"
-            Visibility="{x:Bind ViewModel.EventCountdown.BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
-            <Image
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Opacity="{x:Bind ViewModel.EventCountdown.BackgroundImageOpacity, Mode=OneWay}"
-                Stretch="UniformToFill">
-                <Image.Source>
-                    <BitmapImage UriSource="{x:Bind ViewModel.EventCountdown.BackgroundImageUri, Mode=OneWay}" />
-                </Image.Source>
-            </Image>
-        </Border>
-
-        <Border Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Viewbox
-                    MaxWidth="600"
-                    Margin="20"
-                    Visibility="{x:Bind ViewModel.EventCountdown.HasFinished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay}">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel
-                            Margin="10,0"
-                            Orientation="Vertical">
-                            <TextBlock
-                                Style="{StaticResource TimeComponentStyle}"
-                                Text="{x:Bind ViewModel.EventCountdown.DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                            <TextBlock
-                                Style="{StaticResource TimeComponentDescriptionStyle}"
-                                Text="{xaml:Localize Key=Days}" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="0"
-                            HorizontalAlignment="Center"
-                            Orientation="Horizontal">
-                            <StackPanel
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock
-                                    Style="{StaticResource SecondaryTimeComponentStyle}"
-                                    Text="{x:Bind ViewModel.EventCountdown.HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock
-                                    Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
-                                    Text="{xaml:Localize Key=Hours}" />
-                            </StackPanel>
-                            <StackPanel
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock
-                                    Style="{StaticResource SecondaryTimeComponentStyle}"
-                                    Text="{x:Bind ViewModel.EventCountdown.MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock
-                                    Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
-                                    Text="{xaml:Localize Key=Minutes}" />
-                            </StackPanel>
-                            <StackPanel
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock
-                                    Style="{StaticResource SecondaryTimeComponentStyle}"
-                                    Text="{x:Bind ViewModel.EventCountdown.SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock
-                                    Style="{StaticResource SecondaryTimeComponentDescriptionStyle}"
-                                    Text="{xaml:Localize Key=Seconds}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </StackPanel>
-                </Viewbox>
-                <TextBlock
-                    Margin="20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="55"
-                    FontWeight="SemiLight"
-                    Text="{x:Bind ViewModel.EventCountdown.CelebrationMessage}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap"
-                    Visibility="{x:Bind ViewModel.EventCountdown.HasFinished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
-                <StackPanel
-                    Grid.Row="1"
-                    VerticalAlignment="Bottom">
-                    <TextBlock
-                        Grid.Row="1"
-                        Margin="20,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        FontSize="40"
-                        Text="{x:Bind ViewModel.EventCountdown.Name, Mode=OneWay}" />
-                    <TextBlock
-                        Margin="22,0,0,20"
-                        HorizontalAlignment="Left"
-                        FontSize="18"
-                        Opacity="0.8"
-                        Text="{x:Bind ViewModel.TargetDateString}" />
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <CommandBar
+		<CommandBar
             Grid.Row="2"
             Grid.ColumnSpan="2"
             Background="{ThemeResource AppOverlayBackgroundBrush}"

@@ -6,6 +6,7 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:models="using:EventCountdowns.Core.Models"
     xmlns:utu="using:Uno.Toolkit.UI"
+	xmlns:controls="using:EventCountdowns.Controls"
     xmlns:xaml="using:EventCountdowns.Extensions.Xaml">
     <DataTemplate x:Key="EventGridItemTemplate" x:DataType="models:CountdownViewModel">
         <UserControl>
@@ -140,6 +141,7 @@
     <DataTemplate x:Key="EventListItemTemplate" x:DataType="models:CountdownViewModel">
         <ItemContainer>
             <Grid
+				Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                 x:Name="MainGrid"
                 HorizontalAlignment="Stretch">
                 <Grid.ContextFlyout>
@@ -158,82 +160,8 @@
                             Text="{xaml:Localize Key=Delete}" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
-				<Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Offset="0" Color="#00FFFFFF" />
-                            <GradientStop Offset="1" Color="#22FFFFFF" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                </Border>
-				<Grid Background="Black" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed}">
-                    <Image
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Opacity="0.8"
-                        Stretch="UniformToFill">
-                        <Image.Source>
-							<BitmapImage UriSource="{x:Bind BackgroundImageUri, Mode=OneWay}" />
-                        </Image.Source>
-                    </Image>
-                </Grid>
-                <Border Padding="0" VerticalAlignment="Stretch">
-                    <Grid>
-                        <StackPanel
-                            Margin="0,0,0,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal"
-                            Visibility="{x:Bind HasFinished, Converter={StaticResource InvertedBoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Visible}">
-                            <StackPanel Margin="10,0" Orientation="Vertical">
-                                <TextBlock Style="{StaticResource TimeComponentStyle}" Text="{x:Bind DaysLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource TimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Days}" />
-                            </StackPanel>
-                            <StackPanel
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind HoursLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Hours}" />
-                            </StackPanel>
-                            <StackPanel
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind MinutesLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Minutes}" />
-                            </StackPanel>
-                            <StackPanel
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical">
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentStyle}" Text="{x:Bind SecondsLeft, Mode=OneWay, FallbackValue=00, Converter={StaticResource IntToTimeComponentStringConverter}}" />
-                                <TextBlock Style="{StaticResource SecondaryTimeComponentDescriptionStyle}" Text="{xaml:Localize Key=Seconds}" />
-                            </StackPanel>
-                        </StackPanel>
-                        <TextBlock
-                            Margin="0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="35"
-                            FontWeight="SemiLight"
-                            Foreground="White"
-                            Text="{x:Bind CelebrationMessage}"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap"
-                            Visibility="{x:Bind HasFinished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay, FallbackValue=Collapsed}" />
-                        <TextBlock
-                            Margin="20"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            FontSize="30"
-                            FontWeight="Normal"
-                            Foreground="White"
-                            Text="{x:Bind Name}"
-                            TextLineBounds="Tight" />
-                    </Grid>
-                </Border>
-            </Grid>
+				<controls:EventCountdownDisplayControl Grid.Row="1" Countdown="{x:Bind Mode=OneWay}" />
+			</Grid>
         </ItemContainer>
     </DataTemplate>
 </ResourceDictionary>
