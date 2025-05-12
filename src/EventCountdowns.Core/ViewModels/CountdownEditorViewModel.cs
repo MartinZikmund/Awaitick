@@ -54,6 +54,12 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 		_xamlRootProvider = xamlRootProvider ?? throw new ArgumentNullException(nameof(xamlRootProvider));
+
+		var backgrounds = _defaultBackgrounds.GetDefaultBackgrounds();
+		foreach (var background in backgrounds)
+		{
+			DefaultBackgrounds.Add(background);
+		}
 	}
 
 	public ICountdownEditorViewService? View { get; set; }
@@ -96,6 +102,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
+	[NotifyPropertyChangedFor(nameof(DefaultCelebrationMessage))]
 	public partial string Name { get; set; } = "";
 
 	[ObservableProperty]
@@ -142,48 +149,36 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 		if (Mode == EditorMode.Edit)
 		{
+			Title = _localizationService.GetString("EditEvent");
+		
 			_editedEventCountdown = await _dataService.GetCountdownAsync(navigationModel.Id);
-			if (_editedEventCountdown != null)
-			{
-				LoadEditedCountdown();
-			}
-			else
+			if (_editedEventCountdown is null)
 			{
 				_navigationService.GoBack();
 			}
-
-			Title = _localizationService.GetString("EditEvent");
 		}
 		else
 		{
 			Title = _localizationService.GetString("AddEvent");
+			_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
 		}
-
-		if (DefaultBackgrounds.Count == 0)
-		{
-			var defaultBackgrounds = _defaultBackgrounds.GetDefaultBackgrounds();
-			foreach (var background in defaultBackgrounds)
-			{
-				DefaultBackgrounds.Add(background);
-			}
-		}
+		
+		LoadEditedCountdown();
 	}
 
 	partial void OnSelectedDefaultBackgroundChanged(DefaultBackground? value)
 	{
 		if (SelectedDefaultBackground is not null)
 		{
-			BackgroundUri = SelectedDefaultBackground.BackgroundUri;
+			BackgroundImageUri = SelectedDefaultBackground.BackgroundUri;
 		}
 		else
 		{
-			BackgroundUri = LastCustomBackgroundUri;
+			BackgroundImageUri = LastCustomBackgroundUri;
 		}
 	}
 
-	partial void OnBackgroundUriChanged(Uri? value) => LastCustomBackgroundUri = value;
-
-	partial void OnNameChanged(string value) => OnPropertyChanged(nameof(DefaultCelebrationMessage));
+	partial void OnBackgroundImageUriChanged(Uri? value) => LastCustomBackgroundUri = value;
 
 	private void LoadEditedCountdown()
 	{
@@ -191,9 +186,13 @@ public partial class CountdownEditorViewModel : PageViewModel
 		Name = _editedEventCountdown.Name;
 		Date = _editedEventCountdown.TargetDateTime.Date;
 		Time = _editedEventCountdown.TargetDateTime.TimeOfDay;
-		CelebrationMessage = _editedEventCountdown.CelebrationMessage ?? string.Format(Localizer.Instance.GetString("DefaultCelebration"), Name);
-		BackgroundUri = _editedEventCountdown.BackgroundImageUri;
-		LastCustomBackgroundUri = BackgroundUri;
+		CelebrationMessage = _editedEventCountdown.CelebrationMessage;
+		BackgroundImageUri = _editedEventCountdown.BackgroundImageUri;
+		BackgroundColor = ColorHelper.ToColor(_editedEventCountdown.BackgroundColor);
+		Theme = _editedEventCountdown.Theme;
+		BackgroundImageOpacityPercent = _editedEventCountdown.BackgroundImageOpacity * 100;
+		SelectedDefaultBackground = _defaultBackgrounds.GetDefaultBackgrounds().FirstOrDefault(x => x.BackgroundUri == BackgroundImageUri);
+		LastCustomBackgroundUri = BackgroundImageUri;
 	}
 
 
@@ -263,10 +262,6 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private async Task SaveAsync()
 	{
 		IsWorking = true;
-		if (Mode == EditorMode.Add)
-		{
-			_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
-		}
 
 		if (_editedEventCountdown is null)
 		{
@@ -292,7 +287,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		eventCountdown.Name = Name;
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		eventCountdown.TargetDateTime = Date.Date + fixedTime;
-		eventCountdown.BackgroundImageUri = BackgroundUri;
+		eventCountdown.BackgroundImageUri = BackgroundImageUri;
 		eventCountdown.BackgroundColor = BackgroundColor.ToHex();
 		eventCountdown.Theme = Theme;
 		eventCountdown.BackgroundImageOpacity = BackgroundImageOpacity;

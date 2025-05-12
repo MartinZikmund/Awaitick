@@ -17,7 +17,7 @@ public class EventCountdown
 
 	public string CelebrationMessage { get; set; }
 
-	public DateTimeOffset TargetDateTime { get; set; }
+	public DateTimeOffset TargetDateTime { get; set; } = DateTimeOffset.Now.AddDays(1);
 
 	public string? BackgroundImagePath { get; set; }
 
