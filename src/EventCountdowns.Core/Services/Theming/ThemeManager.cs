@@ -34,7 +34,7 @@ public class ThemeManager : IThemeManager
 
 	private FrameworkElement GetRootElement()
 	{
-		var rootElement = _windowShellProvider.XamlRoot.Content as FrameworkElement;
+		var rootElement = _windowShellProvider.Shell as FrameworkElement;
 		if (rootElement is null)
 		{
 			throw new InvalidOperationException("Root element of the window is not a FrameworkElement");
@@ -73,8 +73,6 @@ public class ThemeManager : IThemeManager
 #pragma warning restore CS8618
 	}
 
-	private void OnColorValuesChanged(UISettings sender, object args) => _windowShellProvider.DispatcherQueue.TryEnqueue(() =>
-																			  {
-																				  UpdateTitleBarTheming();
-																			  });
+	private void OnColorValuesChanged(UISettings sender, object args) =>
+		_windowShellProvider.DispatcherQueue.TryEnqueue(UpdateTitleBarTheming);
 }

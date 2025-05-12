@@ -11,12 +11,9 @@ using EventCountdowns.Services.Dialogs;
 using EventCountdowns.Services.Localization;
 using EventCountdowns.Services.Navigation;
 using EventCountdowns.Services.Store;
-using EventCountdowns.Services.Theming;
-using EventCountdowns.ViewModels;
 using Microsoft.UI;
 using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
-using MZikmund.Toolkit.WinUI.Services;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 
@@ -73,42 +70,55 @@ public partial class CountdownEditorViewModel : PageViewModel
 	[ObservableProperty]
 	public partial Uri? LastCustomBackgroundUri { get; set; }
 
-	[ObservableProperty]
-	public partial Uri? BackgroundUri { get; set; } = new Uri("ms-appx:///Assets/SampleBackgrounds/Thumbnails/BlankBackground.png", UriKind.Absolute);
-
 	public ElementTheme[] ThemeOptions { get; } = [ElementTheme.Default, ElementTheme.Light, ElementTheme.Dark];
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial ElementTheme Theme { get; set; }
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial Uri? LastBackgroundImageUri { get; set; }
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(IsBackgroundImageSet))]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial Uri? BackgroundImageUri { get; set; }
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(IsBackgroundColorSet))]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial Color BackgroundColor { get; set; }
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial double BackgroundImageOpacityPercent { get; set; }
-	
+
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial string Name { get; set; } = "";
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial DateTimeOffset Date { get; set; } = DateTimeOffset.UtcNow.AddDays(7);
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial TimeSpan Time { get; set; } = TimeSpan.FromHours(DateTimeOffset.UtcNow.TimeOfDay.Hours);
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	public partial string CelebrationMessage { get; set; } = "";
 
-	[ObservableProperty]
-	public partial CountdownViewModel SampleCountdown { get; set; }
+	public CountdownViewModel SampleCountdown
+	{
+		get
+		{
+			var sampleCountdown = new EventCountdown();
+			SetCountdownProperties(sampleCountdown);
+			return new(sampleCountdown, null);
+		}
+	}
 
 	public double BackgroundImageOpacity => BackgroundImageOpacityPercent / 100;
 
@@ -263,14 +273,8 @@ public partial class CountdownEditorViewModel : PageViewModel
 			throw new InvalidOperationException("Edited Countdown should be set.");
 		}
 
-		_editedEventCountdown.Name = Name;
-		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
-		_editedEventCountdown.TargetDateTime = Date.Date + fixedTime;
-		_editedEventCountdown.BackgroundImageUri = BackgroundUri;
-		_editedEventCountdown.BackgroundColor = BackgroundColor.ToHex();
-		_editedEventCountdown.Theme = Theme;
-		_editedEventCountdown.BackgroundImageOpacity = BackgroundImageOpacity;
-		_editedEventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
+		SetCountdownProperties(_editedEventCountdown);
+
 		if (Mode == EditorMode.Edit)
 		{
 			await _eventCountdownManager.UpdateCountdownAsync(_editedEventCountdown);
@@ -281,5 +285,17 @@ public partial class CountdownEditorViewModel : PageViewModel
 		}
 		IsWorking = false;
 		_navigationService.GoBack();
+	}
+
+	private void SetCountdownProperties(EventCountdown eventCountdown)
+	{
+		eventCountdown.Name = Name;
+		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
+		eventCountdown.TargetDateTime = Date.Date + fixedTime;
+		eventCountdown.BackgroundImageUri = BackgroundUri;
+		eventCountdown.BackgroundColor = BackgroundColor.ToHex();
+		eventCountdown.Theme = Theme;
+		eventCountdown.BackgroundImageOpacity = BackgroundImageOpacity;
+		eventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
 	}
 }

@@ -20,22 +20,20 @@
         </TransitionCollection>
     </local:CountdownEditorViewBase.Transitions>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <usercontrols:PageHeaderControl
-            Title="{x:Bind ViewModel.Title, Mode=OneWay}"
-            FontWeight="Normal" />
-        <ScrollViewer
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<ScrollViewer
             Grid.Row="1"
             Margin="0">
             <Border
-                Padding="10"
+                Padding="20"
                 HorizontalAlignment="Stretch">
                 <StackPanel>
-                    <StackPanel
+					<usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
+					<StackPanel
                         x:Name="BasicInputFormStack"
                         Margin="10"
                         HorizontalAlignment="Stretch"

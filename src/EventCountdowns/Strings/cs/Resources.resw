@@ -364,10 +364,10 @@
     <value>O aplikaci</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Název aplikace</value>
+    <value>Odpočty</value>
   </data>
   <data name="AboutAppDescription" xml:space="preserve">
-    <value>Toto je popis aplikace.</value>
+    <value>Odpočet do důležitých událostí ve vašem životě</value>
   </data>
   <data name="ReviewAction" xml:space="preserve">
     <value>Ohodnotit</value>

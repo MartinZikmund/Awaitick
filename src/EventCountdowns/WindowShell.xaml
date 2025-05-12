@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mux="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Uno.UI.Toolkit"
+	xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -54,7 +55,7 @@
                         VerticalAlignment="Center"
                         Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
                         Style="{StaticResource NavigationBackButtonStyle}"
-                        ToolTipService.ToolTip="Back" />
+                        ToolTipService.ToolTip="{xaml:Localize Key=Back}" />
 				</Grid>
 				<Grid
 					x:Name="DraggableTitleBar"

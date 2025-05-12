@@ -6,26 +6,27 @@
     xmlns:local="using:EventCountdowns.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Uno.UI.Toolkit"
+	xmlns:xaml="using:EventCountdowns.Extensions.Xaml"
     d:DesignHeight="100"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <Grid
         x:Name="HeaderGrid"
-        toolkit:VisibleBoundsPadding.PaddingMask="Top,Left,Right"
-        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<Button x:Name="BackButton"
-				Visibility="{x:Bind CanGoBack, Mode=OneWay}"
-				Command="{x:Bind GoBackCommand, Mode=OneWay}"
-                Style="{StaticResource NavigationBackButtonStyle}"                
-                ToolTipService.ToolTip="Back"/>
+        toolkit:VisibleBoundsPadding.PaddingMask="Top,Left,Right">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button
+            Visibility="{x:Bind CanGoBack, Mode=OneWay}"
+            ToolTipService.ToolTip="{xaml:Localize Key=Back}"
+            Command="{x:Bind GoBackCommand, Mode=OneWay}"
+            Style="{ThemeResource NavigationBackButtonStyle}" />
         <TextBlock
-            Margin="20"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
+            Grid.Column="1"
             FontWeight="{x:Bind FontWeight, Mode=OneWay}"
             Style="{ThemeResource TitleTextBlockStyle}"
-            Text="{x:Bind Title, Mode=OneWay}"
-            TextLineBounds="Tight" />
+            Text="{x:Bind Title, Mode=OneWay}" />
     </Grid>
 </UserControl>

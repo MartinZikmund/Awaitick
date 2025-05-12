@@ -4,7 +4,7 @@ namespace EventCountdowns.Services.Navigation;
 
 public interface IWindowShellProvider : IWindowShell
 {
-	XamlRoot XamlRoot { get; }
+	IWindowShell Shell { get; }
 
 	Window Window { get; }
 }
