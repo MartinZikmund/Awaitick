@@ -46,6 +46,7 @@ public class CountdownsManager : ICountdownsManager
 			Content = string.Format(_localizer.GetString("AreYouSureDeleteTextFormat"), countdown.Name),
 			PrimaryButtonText = _localizer.GetString("Delete"),
 			CloseButtonText = _localizer.GetString("Cancel"),
+			DefaultButton = ContentDialogButton.Primary,
 			XamlRoot = _xamlRootProvider.XamlRoot
 		};
 

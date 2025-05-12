@@ -6,6 +6,8 @@ using MZikmund.Services.Dialogs;
 using EventCountdowns.Core.Infrastructure;
 using EventCountdowns.ViewModels;
 using Microsoft.UI.Xaml.Media;
+using EventCountdowns.Core.Services.Settings;
+using EventCountdowns.Services.Theming;
 
 namespace EventCountdowns;
 
@@ -22,6 +24,10 @@ public sealed partial class WindowShell : Page, IWindowShell
 		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
 		windowShellProvider.SetShell(this, associatedWindow);
 		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(CountdownsApp).Assembly);
+
+		var settings = ServiceProvider.GetRequiredService<IAppPreferences>();
+		var themeService = ServiceProvider.GetRequiredService<IThemeManager>();
+		themeService.SetTheme(settings.Theme);
 
 		ViewModel = ServiceProvider.GetRequiredService<WindowShellViewModel>();
 

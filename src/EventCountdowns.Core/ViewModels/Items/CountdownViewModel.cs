@@ -1,4 +1,6 @@
-﻿using EventCountdowns.Core.Services.Countdowns;
+﻿using System.Diagnostics;
+using System.Globalization;
+using EventCountdowns.Core.Services.Countdowns;
 
 namespace EventCountdowns.Core.Models;
 
@@ -7,10 +9,10 @@ public partial class CountdownViewModel : ObservableObject
 	private readonly EventCountdown _eventCountdown;
 	private readonly ICountdownsManager _countdownsManager;
 
-	public CountdownViewModel(EventCountdown eventCountdown, ICountdownsManager countdownsManager)
+	public CountdownViewModel(EventCountdown eventCountdown, ICountdownsManager? countdownsManager)
 	{
 		_eventCountdown = eventCountdown ?? throw new ArgumentNullException(nameof(eventCountdown));
-		_countdownsManager = countdownsManager ?? throw new ArgumentNullException(nameof(countdownsManager));
+		_countdownsManager = countdownsManager;
 	}
 
 	public EventCountdown Model => _eventCountdown;
@@ -19,7 +21,13 @@ public partial class CountdownViewModel : ObservableObject
 
 	public string Name => _eventCountdown.Name;
 
-	public Uri? BackgroundImage => _eventCountdown.BackgroundImageUri;
+	public Uri? BackgroundImageUri => _eventCountdown.BackgroundImageUri;
+
+	public double BackgroundImageOpacity => _eventCountdown.BackgroundImageOpacity;
+
+	public ElementTheme Theme => _eventCountdown.Theme;
+
+	public Windows.UI.Color BackgroundColor => ColorHelper.ToColor(_eventCountdown.BackgroundColor);
 
 	public bool HasFinished => _eventCountdown.TargetDateTime < DateTimeOffset.Now;
 
@@ -34,20 +42,22 @@ public partial class CountdownViewModel : ObservableObject
 	public int SecondsLeft => TimeLeft.Seconds;
 
 	public DateTimeOffset TargetDateTime => _eventCountdown.TargetDateTime;
+	
+	public string TargetDateString => TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
 
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
 
 	[RelayCommand]
-	public void GoToDetail() => _countdownsManager.GoToDetail(this);
+	public void GoToDetail() => _countdownsManager?.GoToDetail(this);
 
 	[RelayCommand]
-	public Task ShareAsync() => _countdownsManager.ShareAsync(this);
+	public Task ShareAsync() => _countdownsManager is not null ? _countdownsManager.ShareAsync(this) : Task.CompletedTask;
 
 	[RelayCommand]
-	public void GoToEdit() => _countdownsManager.GoToEdit(this);
+	public void GoToEdit() => _countdownsManager?.GoToEdit(this);
 
 	[RelayCommand]
-	public Task<bool> DeleteAsync() => _countdownsManager.DeleteAsync(this);
+	public Task<bool> DeleteAsync() => _countdownsManager is not null ? _countdownsManager.DeleteAsync(this) : Task.FromResult(false);
 
 	public void UpdateBindings()
 	{

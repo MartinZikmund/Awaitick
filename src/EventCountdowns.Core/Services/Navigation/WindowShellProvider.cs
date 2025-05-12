@@ -29,6 +29,15 @@ public sealed class WindowShellProvider : IWindowShellProvider, IXamlRootProvide
 		_dispatcherQueue = shell.DispatcherQueue;
 	}
 
+	public IWindowShell Shell
+	{
+		get
+		{
+			EnsureInitialized();
+			return _shell;
+		}
+	}
+
 	public Window Window
 	{
 		get

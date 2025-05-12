@@ -1,21 +1,13 @@
-using Uno.UI.Runtime.Skia;
+using Uno.UI.Hosting;
 
-namespace EventCountdowns;
-public class Program
-{
-    [STAThread]
-    public static void Main(string[] args)
-    {
-        CountdownsApp.InitializeLogging();
+CountdownsApp.InitializeLogging();
 
-		var host = SkiaHostBuilder.Create()
-            .App(() => new CountdownsApp())
-            .UseX11()
-            .UseLinuxFrameBuffer()
-            .UseMacOS()
-            .UseWin32()
-            .Build();
+var host = UnoPlatformHostBuilder.Create()
+	.App(() => new CountdownsApp())
+	.UseX11()
+	.UseLinuxFrameBuffer()
+	.UseMacOS()
+	.UseWin32()
+	.Build();
 
-        host.Run();
-    }
-}
+host.Run();
