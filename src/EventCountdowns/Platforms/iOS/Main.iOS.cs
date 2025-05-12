@@ -1,15 +1,10 @@
-using UIKit;
+using Uno.UI.Hosting;
 
-namespace EventCountdowns.iOS;
-public class EntryPoint
-{
-    // This is the main entry point of the application.
-    public static void Main(string[] args)
-    {
-        CountdownsApp.InitializeLogging();
+CountdownsApp.InitializeLogging();
 
-		// if you want to use a different Application Delegate class from "AppDelegate"
-		// you can specify it here.
-		UIApplication.Main(args, null, typeof(CountdownsApp));
-    }
-}
+var host = UnoPlatformHostBuilder.Create()
+	.App(() => new CountdownsApp())
+	.UseAppleUIKit()
+	.Build();
+
+host.Run();

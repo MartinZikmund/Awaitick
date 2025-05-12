@@ -1,14 +1,9 @@
-using Uno.UI.Runtime.Skia.WebAssembly.Browser;
+using Uno.UI.Hosting;
 
-namespace EventCountdowns;
+CountdownsApp.InitializeLogging();
 
-public class Program
-{
-    public static async Task Main(string[] args)
-    {
-        CountdownsApp.InitializeLogging();
+var host = UnoPlatformHostBuilder.Create()
+	.App(() => new CountdownsApp())
+	.Build();
 
-		var host = new WebAssemblyBrowserHost(() => new CountdownsApp());
-		await host.Run();
-    }
-}
+await host.RunAsync();
