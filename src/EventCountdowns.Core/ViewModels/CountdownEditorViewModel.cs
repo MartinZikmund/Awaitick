@@ -65,7 +65,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	public ICountdownEditorViewService? View { get; set; }
 
 	[ObservableProperty]
-	public partial bool HasProLicense { get; set; }
+	public partial bool HasProLicense { get; set; } = false;
 
 	[ObservableProperty]
 	public partial DefaultBackground? SelectedDefaultBackground { get; set; }
@@ -80,7 +80,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
-	public partial ElementTheme Theme { get; set; }
+	public partial ElementTheme Theme { get; set; } = ElementTheme.Default;
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
@@ -94,11 +94,11 @@ public partial class CountdownEditorViewModel : PageViewModel
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(IsBackgroundColorSet))]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
-	public partial Color BackgroundColor { get; set; }
+	public partial Color BackgroundColor { get; set; } = Colors.Transparent;
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
-	public partial double BackgroundImageOpacityPercent { get; set; }
+	public partial double BackgroundImageOpacityPercent { get; set; } = 100;
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
@@ -137,7 +137,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
 
-	public override async void ViewNavigatedTo(object? parameter)
+	public override void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
@@ -145,6 +145,11 @@ public partial class CountdownEditorViewModel : PageViewModel
 		}
 
 		Mode = navigationModel.Mode;
+		_ = InitializeAsync(navigationModel);
+	}
+
+	private async Task InitializeAsync(NavigationModel navigationModel)
+	{
 		HasProLicense = await _storeService.HasProAsync();
 
 		if (Mode == EditorMode.Edit)

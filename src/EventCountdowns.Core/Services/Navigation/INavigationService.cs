@@ -9,6 +9,8 @@ public interface INavigationService
 	void Navigate<TViewModel>();
 
 	void Navigate<TViewModel>(object? parameter);
+	
+	Task NavigateAsync<TViewModel>(object? parameter);
 
 	bool GoBack();
 

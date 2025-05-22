@@ -36,7 +36,7 @@ public class NavigationService : INavigationService
 
 	public void Navigate<TViewModel>() => Navigate<TViewModel>(null);
 
-	public async void Navigate<TViewModel>(object? parameter)
+	public async Task NavigateAsync<TViewModel>(object? parameter)
 	{
 		// This is needed, as Frame would not navigate in case another navigation is currently in progress.
 		await Task.Yield();
@@ -47,6 +47,13 @@ public class NavigationService : INavigationService
 		}
 
 		Frame.Navigate(viewType, parameter);
+	}
+	
+	public async void Navigate<TViewModel>(object? parameter)
+	{
+		// Call the async method but don't await it
+		// This maintains backward compatibility
+		await NavigateAsync<TViewModel>(parameter);
 	}
 
 	private bool TryFindViewForViewModel(Type viewModelType, out Type? viewType)

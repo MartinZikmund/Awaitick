@@ -37,9 +37,14 @@ public partial class SettingsViewModel : PageViewModel
 		_dialogService = dialogService;
 	}
 
-	public override async void ViewNavigatedTo(object? parameter)
+	public override void ViewNavigatedTo(object? parameter)
 	{
 		base.ViewNavigatedTo(parameter);
+		_ = InitializeAsync(parameter);
+	}
+
+	private async Task InitializeAsync(object? parameter)
+	{
 		try
 		{
 			_isInitializing = true;
@@ -60,12 +65,12 @@ public partial class SettingsViewModel : PageViewModel
 	}
 
 	[ObservableProperty]
-	public partial bool HasProLicense { get; private set; }
+	public partial bool HasProLicense { get; private set; } = false;
 
 	public ElementTheme[] ThemeOptions { get; } = [ElementTheme.Default, ElementTheme.Light, ElementTheme.Dark];
 
 	[ObservableProperty]
-	public partial ElementTheme Theme { get; set; }
+	public partial ElementTheme Theme { get; set; } = ElementTheme.Default;
 
 	partial void OnThemeChanged(ElementTheme value)
 	{

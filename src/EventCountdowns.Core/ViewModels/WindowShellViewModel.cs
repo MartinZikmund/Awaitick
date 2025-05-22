@@ -43,7 +43,7 @@ public partial class WindowShellViewModel : ViewModelBase
 
 		IsWorking = true;
 		_refCountDisposable = new RefCountDisposable(Disposable.Create(
-			() => // TODO: Await TryEnequeAsync
+			() =>
 			{
 #if __WASM__
 				IsWorking = false;
@@ -55,7 +55,7 @@ public partial class WindowShellViewModel : ViewModelBase
 				}
 				else
 				{
-					_provider.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, () =>
+					_ = _provider.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, () =>
 					{
 						if (_refCountDisposable == null || _refCountDisposable.IsDisposed)
 						{

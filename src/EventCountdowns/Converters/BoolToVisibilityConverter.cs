@@ -4,7 +4,7 @@ namespace EventCountdowns.Converters;
 
 public class BoolToVisibilityConverter : IValueConverter
 {
-	public bool Inverted { get; set; }
+	public bool Inverted { get; set; } = false;
 
 	public object Convert(object value, Type targetType, object parameter, string language)
 	{

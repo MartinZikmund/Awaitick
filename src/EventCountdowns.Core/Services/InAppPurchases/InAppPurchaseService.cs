@@ -7,7 +7,7 @@ namespace EventCountdowns.Core.Services;
 
 public class InAppPurchaseService : IInAppPurchaseService
 {
-	private LicenseInformation _licenseInformation;
+	private LicenseInformation? _licenseInformation;
 
 	private void InitializeLicenseInformation()
 	{
@@ -26,6 +26,11 @@ public class InAppPurchaseService : IInAppPurchaseService
 		try
 		{
 			InitializeLicenseInformation();
+			if (_licenseInformation == null)
+			{
+				return false;
+			}
+			
 			string[] durableIds = new[]
 			{
 				GetProductId(InAppProducts.SmallCoffee), GetProductId(InAppProducts.MediumCoffee),
@@ -82,6 +87,11 @@ public class InAppPurchaseService : IInAppPurchaseService
 		try
 		{
 			InitializeLicenseInformation();
+			if (_licenseInformation == null)
+			{
+				return false;
+			}
+			
 			var productId = GetProductId(product);
 
 			if (!_licenseInformation.ProductLicenses[productId].IsActive)

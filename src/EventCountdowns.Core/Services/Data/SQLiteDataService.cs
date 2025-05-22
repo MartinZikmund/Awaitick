@@ -67,5 +67,5 @@ public class CountdownDbContext : DbContext
 {
 	public CountdownDbContext(DbContextOptions<CountdownDbContext> options) : base(options) { }
 
-	public DbSet<EventCountdown> Countdowns { get; set; }
+	public DbSet<EventCountdown> Countdowns { get; set; } = null!;
 }

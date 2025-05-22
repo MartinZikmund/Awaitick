@@ -7,7 +7,7 @@ namespace EventCountdowns.Core.ViewModels;
 public abstract partial class PageViewModel : ViewModelBase
 {
 	private readonly INavigationService _navigationService;
-	private readonly IMessenger _messenger;
+	private readonly IMessenger? _messenger;
 
 	protected PageViewModel(INavigationService navigationService)
 	{
