@@ -1,13 +1,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Awaitick.Core.Services.Data;
+using EventCountdowns.Core.Services.Data;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Awaitick.Services
+namespace EventCountdowns.Services
 {
     public static class DbContextFactory
     {
-        public static void AddSQLiteDbContext(this IServiceCollection services)
+		[RequiresUnreferencedCode("EF does not support NativeAOT yet")]
+		public static void AddSQLiteDbContext(this IServiceCollection services)
         {
 			var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Data", "events.db");
             services.AddDbContext<CountdownDbContext>(options =>

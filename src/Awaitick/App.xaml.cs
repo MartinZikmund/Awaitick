@@ -17,7 +17,6 @@ using EventCountdowns.Core.Services.Settings;
 using EventCountdowns.Core.Services.EventCountdownManager;
 using EventCountdowns.Core.DefaultData;
 using CommunityToolkit.Mvvm.Messaging;
-using Uno.Resizetizer;
 using MZikmund.Toolkit.WinUI.Infrastructure;
 using EventCountdowns.Core.Services.Countdowns;
 using MZikmund.Toolkit.WinUI.Services;
@@ -68,8 +67,6 @@ public partial class CountdownsApp : Application, IApplication
 #if DEBUG
 		MainWindow.UseStudio();
 #endif
-
-		MainWindow.SetWindowIcon();
 
 		Host = builder.Build();
 		Ioc.Default.ConfigureServices(Host.Services);

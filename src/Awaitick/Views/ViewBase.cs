@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using Awaitick.Core.ViewModels;
-using Awaitick.ViewModels;
+using EventCountdowns.Core.ViewModels;
+using EventCountdowns.ViewModels;
 
-namespace Awaitick.Views;
+namespace EventCountdowns.Views;
 
 public abstract partial class PageBase<TViewModel> : Page
 	where TViewModel : PageViewModel
@@ -29,7 +29,7 @@ public abstract partial class PageBase<TViewModel> : Page
 
 		if (_isNavigationDelayed)
 		{
-			ViewModel.ViewNavigatedToInternal(_pendingParameter);
+			ViewModel?.ViewNavigatedToInternal(_pendingParameter);
 			_pendingParameter = null;
 		}
 
