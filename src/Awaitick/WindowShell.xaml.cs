@@ -1,15 +1,15 @@
 ﻿using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.Foundation.Metadata;
-using Awaitick.Services.Navigation;
+using EventCountdowns.Services.Navigation;
 using MZikmund.Services.Dialogs;
-using Awaitick.Core.Infrastructure;
-using Awaitick.ViewModels;
+using EventCountdowns.Core.Infrastructure;
+using EventCountdowns.ViewModels;
 using Microsoft.UI.Xaml.Media;
-using Awaitick.Core.Services.Settings;
-using Awaitick.Services.Theming;
+using EventCountdowns.Core.Services.Settings;
+using EventCountdowns.Services.Theming;
 
-namespace Awaitick;
+namespace EventCountdowns;
 
 public sealed partial class WindowShell : Page, IWindowShell
 {
@@ -23,7 +23,6 @@ public sealed partial class WindowShell : Page, IWindowShell
 		_windowScope = serviceProvider.CreateScope();
 		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
 		windowShellProvider.SetShell(this, associatedWindow);
-		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(CountdownsApp).Assembly);
 
 		var settings = ServiceProvider.GetRequiredService<IAppPreferences>();
 		var themeService = ServiceProvider.GetRequiredService<IThemeManager>();

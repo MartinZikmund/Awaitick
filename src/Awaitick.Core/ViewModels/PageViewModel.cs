@@ -1,13 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Awaitick.Core.ViewModels;
-using Awaitick.Services.Navigation;
+using EventCountdowns.Core.ViewModels;
+using EventCountdowns.Services.Navigation;
 
-namespace Awaitick.Core.ViewModels;
+namespace EventCountdowns.Core.ViewModels;
 
 public abstract partial class PageViewModel : ViewModelBase
 {
 	private readonly INavigationService _navigationService;
-	private readonly IMessenger _messenger;
 
 	protected PageViewModel(INavigationService navigationService)
 	{
@@ -20,7 +19,7 @@ public abstract partial class PageViewModel : ViewModelBase
 	public virtual void GoBack() => _navigationService.GoBack();
 
 	[ObservableProperty]
-	private string _title = "";
+	public partial string Title { get; set; } = "";
 
 	public virtual void ViewCreated() { }
 

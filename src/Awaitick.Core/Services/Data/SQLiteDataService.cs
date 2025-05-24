@@ -1,7 +1,8 @@
-using Awaitick.Core.Models;
+using System.Diagnostics.CodeAnalysis;
+using EventCountdowns.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Awaitick.Core.Services.Data;
+namespace EventCountdowns.Core.Services.Data;
 
 public class SQLiteDataService : IDataService
 {
@@ -18,10 +19,7 @@ public class SQLiteDataService : IDataService
 		await _context.Database.EnsureCreatedAsync();
 	}
 
-	public async Task<List<EventCountdown>> GetCountdownsAsync()
-	{
-		return await _context.Countdowns.AsNoTracking().ToListAsync();
-	}
+	public async Task<List<EventCountdown>> GetCountdownsAsync() => await _context.Countdowns.AsNoTracking().ToListAsync();
 
 	public async Task UpdateCountdownAsync(EventCountdown eventCountdown)
 	{
@@ -51,10 +49,7 @@ public class SQLiteDataService : IDataService
 		await _context.SaveChangesAsync();
 	}
 
-	public async Task<EventCountdown> GetCountdownAsync(string id)
-	{
-		return await _context.Countdowns.FindAsync(id);
-	}
+	public async Task<EventCountdown?> GetCountdownAsync(string id) => await _context.Countdowns.FindAsync(id);
 
 	public async Task AddCountdownsAsync(params EventCountdown[] sampleEvents)
 	{
@@ -65,6 +60,7 @@ public class SQLiteDataService : IDataService
 
 public class CountdownDbContext : DbContext
 {
+	[RequiresUnreferencedCode("EF does not support NativeAOT yet")]
 	public CountdownDbContext(DbContextOptions<CountdownDbContext> options) : base(options) { }
 
 	public DbSet<EventCountdown> Countdowns { get; set; }

@@ -7,7 +7,7 @@ namespace Awaitick.Core.Models;
 public partial class CountdownViewModel : ObservableObject
 {
 	private readonly EventCountdown _eventCountdown;
-	private readonly ICountdownsManager _countdownsManager;
+	private readonly ICountdownsManager? _countdownsManager;
 
 	public CountdownViewModel(EventCountdown eventCountdown, ICountdownsManager? countdownsManager)
 	{

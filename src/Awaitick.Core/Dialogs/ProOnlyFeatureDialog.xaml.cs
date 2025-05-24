@@ -1,10 +1,9 @@
-﻿using Awaitick.Extensions;
-using Awaitick.Services.Localization;
-using Awaitick.Services.Navigation;
-using Awaitick.ViewModels;
-using Awaitick.Extensions;
+﻿using EventCountdowns.Extensions;
+using EventCountdowns.Services.Localization;
+using EventCountdowns.Services.Navigation;
+using EventCountdowns.ViewModels;
 
-namespace Awaitick.Services.Dialogs;
+namespace EventCountdowns.Services.Dialogs;
 public sealed partial class ProOnlyFeatureDialog : ContentDialog
 {
 	public ProOnlyFeatureDialog()

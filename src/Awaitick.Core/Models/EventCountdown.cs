@@ -11,11 +11,11 @@ public class EventCountdown
 
 	private Uri? _backgroundImageUri;
 
-	public string Id { get; set; }
+	public string Id { get; set; } = "";
 
-	public string Name { get; set; }
+	public string Name { get; set; } = "";
 
-	public string CelebrationMessage { get; set; }
+	public string CelebrationMessage { get; set; } = "";
 
 	public DateTimeOffset TargetDateTime { get; set; } = DateTimeOffset.Now.AddDays(1);
 

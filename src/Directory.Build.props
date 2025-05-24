@@ -11,6 +11,8 @@
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+		<WarningsNotAsErrors>Uno0001</WarningsNotAsErrors>
 		
 		<!--
 			Adding NoWarn to remove build warnings

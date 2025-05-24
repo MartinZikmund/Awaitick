@@ -17,6 +17,8 @@ using Windows.System.Profile;
 using Windows.System.UserProfile;
 using Windows.UI.Core;
 
+#pragma warning disable Uno0001
+
 namespace Microsoft.Toolkit.Uwp.Helpers
 {
 	/// <summary>
@@ -87,7 +89,7 @@ namespace Microsoft.Toolkit.Uwp.Helpers
 		/// <summary>
 		/// Gets the user's most preferred culture.
 		/// </summary>
-		public CultureInfo Culture { get; }
+		public CultureInfo? Culture { get; }
 
 		/// <summary>
 		/// Gets the device's family.
@@ -247,7 +249,7 @@ namespace Microsoft.Toolkit.Uwp.Helpers
 		/// </summary>
 		/// <param name="args">Details about the launch request and process.</param>
 		/// <param name="xamlRoot">The XamlRoot object from your visual tree.</param>
-		public void TrackAppUse(IActivatedEventArgs args, XamlRoot xamlRoot = null)
+		public void TrackAppUse(IActivatedEventArgs args, XamlRoot? xamlRoot = null)
 		{
 			if (args.PreviousExecutionState is ApplicationExecutionState.ClosedByUser or ApplicationExecutionState.NotRunning)
 			{

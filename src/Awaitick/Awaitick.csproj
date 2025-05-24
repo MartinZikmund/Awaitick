@@ -14,7 +14,7 @@
 		<!-- Display name -->
 		<ApplicationTitle>Event Countdowns</ApplicationTitle>
 		<!-- App Identifier -->
-		<ApplicationId>dev.mzikmund.awaitick</ApplicationId>
+		<ApplicationId>dev.mzikmund.eventcountdowns</ApplicationId>
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
@@ -27,6 +27,7 @@
 			Localization;
 			Toolkit;
 			SkiaRenderer;
+			Lottie;
 		</UnoFeatures>
 		<UnoIconForegroundScale>1</UnoIconForegroundScale>
 		<UnoIconForegroundScale Condition="'$(IsAndroid)' == 'true'">0.65</UnoIconForegroundScale>
@@ -50,7 +51,7 @@
 		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="$(TargetFramework.Contains('windows10'))" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Awaitick.Core\Awaitick.Core.csproj" />
+		<ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="Controls\EventCountdownDisplayControl.xaml">

@@ -23,6 +23,13 @@ public class FileDataService : IDataService
 		{
 			_eventCountdowns.Clear();
 			var eventsJson = await _fileService.GetDataFileContentsAsync(DataFileName);
+			if (string.IsNullOrEmpty(eventsJson))
+			{
+				// No data file found or empty, initialize with an empty list
+				_eventCountdowns = new List<EventCountdown>();
+				return;
+			}
+
 			var eventsArray = JArray.Parse(eventsJson);
 			foreach (var item in eventsArray)
 			{
@@ -108,7 +115,7 @@ public class FileDataService : IDataService
 		await SaveDataAsync();
 	}
 
-	public Task<EventCountdown> GetCountdownAsync(string id) => Task.FromResult((from c in _eventCountdowns where c.Id == id select c).SingleOrDefault());
+	public Task<EventCountdown?> GetCountdownAsync(string id) => Task.FromResult((from c in _eventCountdowns where c.Id == id select c).SingleOrDefault());
 
 	public async Task AddCountdownsAsync(params EventCountdown[] sampleEvents)
 	{

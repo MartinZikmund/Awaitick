@@ -1,7 +1,7 @@
-﻿using Awaitick.Core.Configuration;
-using Awaitick.Core.Services.Settings;
+﻿using EventCountdowns.Core.Configuration;
+using EventCountdowns.Core.Services.Settings;
 
-namespace Awaitick.Core.Infrastructure;
+namespace EventCountdowns.Core.Infrastructure;
 
 public class AppUpdater : IAppUpdater
 {
@@ -39,7 +39,5 @@ public class AppUpdater : IAppUpdater
 		}
 	}
 
-	public async Task UpdateFromVersion0ToVersion1Async()
-	{
-	}
+	public Task UpdateFromVersion0ToVersion1Async() => Task.CompletedTask; // No changes needed for this version update
 }

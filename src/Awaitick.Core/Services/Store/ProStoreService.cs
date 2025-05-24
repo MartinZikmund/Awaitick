@@ -9,7 +9,7 @@ namespace Awaitick.Services.Store;
 
 public class ProStoreService : IStoreService
 {
-	public Task<string?> GetPriceAsync() => Task.FromResult("Nada");
+	public Task<string?> GetPriceAsync() => Task.FromResult<string?>("Nada");
 	public Task<bool> HasProAsync() => Task.FromResult(true);
 	public Task<bool> TryPurchaseProAsync() => Task.FromResult(true);
 }
