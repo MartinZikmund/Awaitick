@@ -1,33 +1,35 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Awaitick.Core.Configuration;
-using Awaitick.Core.Infrastructure;
-using Awaitick.Core.ViewModels;
-using Awaitick.Services.Navigation;
-using Awaitick.ViewModels;
+using EventCountdowns.Core.Configuration;
+using EventCountdowns.Core.Infrastructure;
+using EventCountdowns.Core.ViewModels;
+using EventCountdowns.Services.Navigation;
+using EventCountdowns.ViewModels;
 using MZikmund.Services.Loading;
 using MZikmund.Services.Dialogs;
-using Awaitick.Core.Services.Data;
-using Awaitick.Core.Services.Tiles;
-using Awaitick.Core.Services;
-using Awaitick.Core.Services.InAppPurchases;
-using Awaitick.Core.Services.Mail;
-using Awaitick.Core.Services.ScheduledNotification;
-using Awaitick.Core.Services.StoreLauncher;
-using Awaitick.Core.Services.Settings;
-using Awaitick.Core.Services.EventCountdownManager;
-using Awaitick.Core.DefaultData;
+using EventCountdowns.Core.Services.Data;
+using EventCountdowns.Core.Services.Tiles;
+using EventCountdowns.Core.Services;
+using EventCountdowns.Core.Services.InAppPurchases;
+using EventCountdowns.Core.Services.Mail;
+using EventCountdowns.Core.Services.ScheduledNotification;
+using EventCountdowns.Core.Services.StoreLauncher;
+using EventCountdowns.Core.Services.Settings;
+using EventCountdowns.Core.Services.EventCountdownManager;
+using EventCountdowns.Core.DefaultData;
 using CommunityToolkit.Mvvm.Messaging;
 using Uno.Resizetizer;
 using MZikmund.Toolkit.WinUI.Infrastructure;
-using Awaitick.Core.Services.Countdowns;
+using EventCountdowns.Core.Services.Countdowns;
 using MZikmund.Toolkit.WinUI.Services;
-using Awaitick.Services.Theming;
-using Awaitick.Services.Store;
+using EventCountdowns.Services.Theming;
+using EventCountdowns.Services.Store;
 using Microsoft.Extensions.DependencyInjection;
-using Awaitick.Services;
+using EventCountdowns.Services;
 using Windows.Devices.WiFiDirect.Services;
+using EventCountdowns.Core.Services.Navigation;
+using EventCountdowns.Views;
 
-namespace Awaitick;
+namespace EventCountdowns;
 
 public partial class CountdownsApp : Application, IApplication
 {
@@ -139,6 +141,19 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddScoped<IStoreService, StoreService>();
 #endif
 		services.AddSingleton<IDataService, FileDataService>();
+
+		ConfigureNavigation(services);
+	}
+
+	private void ConfigureNavigation(IServiceCollection services)
+	{
+		var viewProvider = new ViewProvider();
+		viewProvider.RegisterView<MainView, MainViewModel>();
+		viewProvider.RegisterView<SettingsView, SettingsViewModel>();
+		viewProvider.RegisterView<GetProView, GetProViewModel>();
+		viewProvider.RegisterView<CountdownEditorView, CountdownEditorViewModel>();
+		viewProvider.RegisterView<CountdownDetailView, CountdownDetailViewModel>();
+		services.AddSingleton<IViewProvider>(viewProvider);
 	}
 
 	/// <summary>

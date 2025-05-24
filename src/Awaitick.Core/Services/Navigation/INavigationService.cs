@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace Awaitick.Services.Navigation;
 
@@ -15,6 +16,4 @@ public interface INavigationService
 	bool CanGoBack { get; }
 
 	void Initialize();
-
-	void RegisterViewsFromAssembly(Assembly sourceAssembly);
 }

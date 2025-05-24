@@ -1,20 +1,23 @@
 ﻿using System.Reflection;
 using CommunityToolkit.Mvvm.Messaging;
 using Windows.UI.Core;
-using Awaitick.Core.Messages;
+using EventCountdowns.Core.Messages;
+using System.Diagnostics.CodeAnalysis;
+using EventCountdowns.Core.Services.Navigation;
 
-namespace Awaitick.Services.Navigation;
+namespace EventCountdowns.Services.Navigation;
 
 public class NavigationService : INavigationService
 {
-	private readonly Dictionary<string, Type> _views = new();
 	private readonly IFrameProvider _frameProvider;
 	private readonly IMessenger _messenger;
+	private readonly IViewProvider _viewProvider;
 
-	public NavigationService(IFrameProvider frameProvider, IMessenger messenger)
+	public NavigationService(IFrameProvider frameProvider, IMessenger messenger, IViewProvider viewProvider)
 	{
 		_frameProvider = frameProvider ?? throw new ArgumentNullException(nameof(frameProvider));
-		_messenger = messenger;
+		_messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+		_viewProvider = viewProvider ?? throw new ArgumentNullException(nameof(viewProvider));
 		_frameProvider.GetForCurrentView().Navigated += OnNavigated;
 	}
 
@@ -41,7 +44,7 @@ public class NavigationService : INavigationService
 		// This is needed, as Frame would not navigate in case another navigation is currently in progress.
 		await Task.Yield();
 
-		if (!TryFindViewForViewModel(typeof(TViewModel), out var viewType))
+		if (!_viewProvider.TryFindViewForViewModel(typeof(TViewModel), out var viewType))
 		{
 			throw new InvalidOperationException($"ViewModel type {typeof(TViewModel).Name} is not registered for navigation.");
 		}
@@ -49,30 +52,7 @@ public class NavigationService : INavigationService
 		Frame.Navigate(viewType, parameter);
 	}
 
-	private bool TryFindViewForViewModel(Type viewModelType, out Type? viewType)
-	{
-		if (!viewModelType.Name.EndsWith("ViewModel", StringComparison.OrdinalIgnoreCase))
-		{
-			throw new InvalidOperationException("ViewModel name must end with 'ViewModel' by convention.");
-		}
-
-		var viewModelName = viewModelType.Name;
-		return _views.TryGetValue(viewModelName.Substring(0, viewModelName.Length - "Model".Length), out viewType);
-	}
-
-	public void RegisterViewsFromAssembly(Assembly sourceAssembly)
-	{
-		// TODO: Avoid reflection
-		var pageType = typeof(Page);
-		var pages = sourceAssembly.GetTypes().Where(t => pageType.IsAssignableFrom(t) && t.Name.EndsWith("View", StringComparison.OrdinalIgnoreCase)).ToArray();
-		foreach (var viewType in pages)
-		{
-			_views.Add(viewType.Name, viewType);
-		}
-	}
-
-	public void Initialize() =>
-		SystemNavigationManager.GetForCurrentView().BackRequested += NavigationManagerBackRequested;
+	public void Initialize() => SystemNavigationManager.GetForCurrentView().BackRequested += NavigationManagerBackRequested;
 
 	private void NavigationManagerBackRequested(object? sender, BackRequestedEventArgs? e) => GoBack();
 
