@@ -33,4 +33,4 @@ jobs:
 
       - name: Build Event Countdowns (Debug)
         shell: pwsh
-        run: msbuild ./src/EventCountdowns/EventCountdowns.csproj /r
+        run: msbuild ./src/Awaitick/Awaitick.csproj /r

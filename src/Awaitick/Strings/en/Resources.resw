@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutApp" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddEvent" xml:space="preserve">
+    <value>Add event</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Event Countdowns</value>
+  </data>
+  <data name="AreYouSureDeleteTextFormat" xml:space="preserve">
+    <value>Are you sure you want to delete "{0}"?</value>
+  </data>
+  <data name="Background" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="BuyMeCoffee" xml:space="preserve">
+    <value>Buy me coffee</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Celebration" xml:space="preserve">
+    <value>Celebration</value>
+  </data>
+  <data name="ChooseYourImage" xml:space="preserve">
+    <value>Choose your image</value>
+  </data>
+  <data name="Christmas" xml:space="preserve">
+    <value>Christmas</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Confirm deletion</value>
+  </data>
+  <data name="CopyrightNotice" xml:space="preserve">
+    <value>© Copyright Sphereline, 2016</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="DefaultBackgrounds" xml:space="preserve">
+    <value>Default backgrounds</value>
+  </data>
+  <data name="DefaultCelebration" xml:space="preserve">
+    <value>It's {0}!</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="DoNotRemindMe" xml:space="preserve">
+    <value>Do not remind me</value>
+  </data>
+  <data name="DoYouEnjoyAppFormatString" xml:space="preserve">
+    <value>Are you enjoying {0}?</value>
+  </data>
+  <data name="Easter" xml:space="preserve">
+    <value>Easter</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditEvent" xml:space="preserve">
+    <value>Edit event</value>
+  </data>
+  <data name="EventName" xml:space="preserve">
+    <value>Event name</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="Halloween" xml:space="preserve">
+    <value>Halloween</value>
+  </data>
+  <data name="HappyEaster" xml:space="preserve">
+    <value>Happy Easter!</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="MerryChristmas" xml:space="preserve">
+    <value>Merry Christmas!</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="MoreAppsBySphereline" xml:space="preserve">
+    <value>More apps by Sphereline</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Pin to Start</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="RateNow" xml:space="preserve">
+    <value>Review now</value>
+  </data>
+  <data name="RateThisApp" xml:space="preserve">
+    <value>Rate this app</value>
+  </data>
+  <data name="RatingDialogContentFormatString" xml:space="preserve">
+    <value>Please, review {0} in the Windows Store. If there is anything that can be fixed or you have ideas for improvement, send me a message by clicking the "Send feedback" option in the main menu of the app :-) .</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ScaryHalloween" xml:space="preserve">
+    <value>Scary Halloween!</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="SendFeedback" xml:space="preserve">
+    <value>Send feedback</value>
+  </data>
+  <data name="SetAsLockscreen" xml:space="preserve">
+    <value>Set as lockscreen</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="SharingFormatString" xml:space="preserve">
+    <value>{0} in {1} days, {2} hours and {3} minutes ({4}) [from {5} app]</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value>Unpin from Start</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="DonateDescription" xml:space="preserve">
+    <value>Hi, my name is Martin Zikmund and I am the developer of this app. I love building apps for Windows, but as I am a full time student, I usually build them at night. And to fuel myself and stay alert, coffee is really necessary! If you like this app and want to keep me awake to bring more new apps and features, please consider buying me a coffee :-) . Thank you very much for your support and for using Windows :-) !</value>
+  </data>
+  <data name="GrandeCoffee" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="GrandeCoffeePrice" xml:space="preserve">
+    <value>1.99</value>
+  </data>
+  <data name="InPrague" xml:space="preserve">
+    <value>in Prague, Czech Republic</value>
+  </data>
+  <data name="MadeWith" xml:space="preserve">
+    <value>Made with</value>
+  </data>
+  <data name="TallCoffee" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="TallCoffeePrice" xml:space="preserve">
+    <value>.99</value>
+  </data>
+  <data name="TrentaCoffee" xml:space="preserve">
+    <value>Giga!</value>
+  </data>
+  <data name="TrentaCoffeePrice" xml:space="preserve">
+    <value>4.99</value>
+  </data>
+  <data name="VentiCoffee" xml:space="preserve">
+    <value>Venti</value>
+  </data>
+  <data name="PricesInUsd" xml:space="preserve">
+    <value>Prices in USD</value>
+  </data>
+  <data name="ShortAppName" xml:space="preserve">
+    <value>Countdowns</value>
+  </data>
+  <data name="VentiCoffeePrice" xml:space="preserve">
+    <value>2.99</value>
+  </data>
+  <data name="CoffeeThankYou" xml:space="preserve">
+    <value>Thank you very much for the coffee :-) !</value>
+  </data>
+  <data name="SharingFinishedEventFormatString" xml:space="preserve">
+    <value>{0} [from {1} app]</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Thank you!</value>
+  </data>
+  <data name="HappyNewYear" xml:space="preserve">
+    <value>Happy new year!</value>
+  </data>
+  <data name="NewYear" xml:space="preserve">
+    <value>New Year</value>
+  </data>
+  <data name="PurchaseUnsuccessful" xml:space="preserve">
+    <value>Purchase unsuccessful</value>
+  </data>
+  <data name="PurchaseUnsuccessfulText" xml:space="preserve">
+    <value>An error occured trying to purchase the coffee... Please, try it again later.</value>
+  </data>
+  <data name="TapToAddYourFirstEvent" xml:space="preserve">
+    <value>Tap to add your first event</value>
+  </data>
+  <data name="AddYourFirstEvent" xml:space="preserve">
+    <value>Add your first event</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ReviewApp" xml:space="preserve">
+    <value>Review App</value>
+  </data>
+  <data name="ReviewAppDescription" xml:space="preserve">
+    <value>Let us know what you think about this app</value>
+  </data>
+  <data name="KeepScreenOn" xml:space="preserve">
+    <value>Keep Screen On</value>
+  </data>
+  <data name="KeepScreenOnSettingDescription" xml:space="preserve">
+    <value>Prevent the screen from turning off while the app is running</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Event Countdowns</value>
+  </data>
+  <data name="AboutAppDescription" xml:space="preserve">
+    <value>Countdown to important events in your life</value>
+  </data>
+  <data name="ReviewAction" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="FluentAwaitickPro" xml:space="preserve">
+    <value>Event Countdowns Pro</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="PickColor" xml:space="preserve">
+    <value>Pick a color</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Customization</value>
+  </data>
+  <data name="Pick" xml:space="preserve">
+    <value>Pick</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="BackgroundImage" xml:space="preserve">
+    <value>Background image</value>
+  </data>
+  <data name="BackgroundImageOpacity" xml:space="preserve">
+    <value>Background image opacity</value>
+  </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Background color</value>
+  </data>
+  <data name="BackgroundColorSettingDescription" xml:space="preserve">
+    <value>Color of the event background.</value>
+  </data>
+  <data name="ElementTheme_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="ElementTheme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="ElementTheme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
+  </data>
+  <data name="TextColorDescription" xml:space="preserve">
+    <value>Choose the countdown's text color</value>
+  </data>
+</root>
