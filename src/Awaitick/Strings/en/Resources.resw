@@ -127,7 +127,7 @@
     <value>Add event</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>Event Countdowns</value>
+    <value>Awaitick</value>
   </data>
   <data name="AreYouSureDeleteTextFormat" xml:space="preserve">
     <value>Are you sure you want to delete "{0}"?</value>
@@ -364,7 +364,7 @@
     <value>About</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Event Countdowns</value>
+    <value>Awaitick</value>
   </data>
   <data name="AboutAppDescription" xml:space="preserve">
     <value>Countdown to important events in your life</value>
@@ -373,7 +373,7 @@
     <value>Review</value>
   </data>
   <data name="FluentAwaitickPro" xml:space="preserve">
-    <value>Event Countdowns Pro</value>
+    <value>Awaitick Pro</value>
   </data>
   <data name="LearnMore" xml:space="preserve">
     <value>Learn more</value>

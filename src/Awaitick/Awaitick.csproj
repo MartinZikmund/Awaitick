@@ -12,7 +12,7 @@
 		<UnoSingleProject>true</UnoSingleProject>
 
 		<!-- Display name -->
-		<ApplicationTitle>Event Countdowns</ApplicationTitle>
+		<ApplicationTitle>Awaitick</ApplicationTitle>
 		<!-- App Identifier -->
 		<ApplicationId>dev.mzikmund.awaitick</ApplicationId>
 		<!-- Versions -->
