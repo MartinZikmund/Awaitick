@@ -1,0 +1,21 @@
+﻿<ContentDialog
+    x:Class="Awaitick.Dialogs.ColorPickerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Awaitick.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Awaitick.Extensions.Xaml"
+    Title="{ui:Localize Key=PickColor}"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    PrimaryButtonText="{ui:Localize Key=Save}"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    SecondaryButtonText="{ui:Localize Key=Cancel}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <Grid>
+        <ColorPicker
+            x:Name="Picker"
+            IsAlphaEnabled="True"
+            IsAlphaSliderVisible="True"
+            IsAlphaTextInputVisible="True" />
+    </Grid>
+</ContentDialog>

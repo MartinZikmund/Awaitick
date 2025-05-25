@@ -26,7 +26,7 @@ jobs:
     inputs:
       command: 'publish'
       publishWebProjects: false
-      projects: '$(Build.SourcesDirectory)\src\EventCountdowns.Wasm\EventCountdowns.Wasm.csproj'
+      projects: '$(Build.SourcesDirectory)\src\Awaitick.Wasm\Awaitick.Wasm.csproj'
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: appwasm'
@@ -43,7 +43,7 @@ jobs:
   - name: 'solution'
     value: '**/*.sln'
   - name: project
-    value: 'src/EventCountdowns.UWP/EventCountdowns.UWP.csproj'
+    value: 'src/Awaitick.UWP/Awaitick.UWP.csproj'
   - name: buildPlatform
     value: 'x86|x64|ARM|ARM64'
   - name: buildConfiguration

@@ -20,8 +20,8 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      Solution_Fullname: src/EventCountdowns.sln
-      Solution_Path: src/EventCountdowns
+      Solution_Fullname: src/Awaitick.sln
+      Solution_Path: src/Awaitick
       STEP_TIMEOUT_MINUTES: 60
 
     steps:

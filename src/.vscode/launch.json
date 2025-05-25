@@ -19,17 +19,17 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:5000",
-      "webRoot": "${workspaceFolder}/EventCountdowns",
+      "webRoot": "${workspaceFolder}/Awaitick",
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "timeout": 30000,
       "preLaunchTask": "build-wasm",
       "server": {
         "runtimeExecutable": "dotnet",
         "program": "run",
-        "args": ["--no-build","-f","net9.0-browserwasm","--launch-profile", "EventCountdowns (WebAssembly)"],
+        "args": ["--no-build","-f","net9.0-browserwasm","--launch-profile", "Awaitick (WebAssembly)"],
         "outputCapture": "std",
         "timeout": 30000,
-        "cwd": "${workspaceFolder}/EventCountdowns"
+        "cwd": "${workspaceFolder}/Awaitick"
       }
     },
     {
@@ -41,13 +41,13 @@
       "request": "launch",
       "preLaunchTask": "build-desktop",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/EventCountdowns/bin/Debug/net9.0-desktop/EventCountdowns.dll",
+      "program": "${workspaceFolder}/Awaitick/bin/Debug/net9.0-desktop/Awaitick.dll",
       "args": [],
-      "launchSettingsProfile": "EventCountdowns (Desktop)",
+      "launchSettingsProfile": "Awaitick (Desktop)",
       "env": {
         "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
       },
-      "cwd": "${workspaceFolder}/EventCountdowns",
+      "cwd": "${workspaceFolder}/Awaitick",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
       "console": "internalConsole",
       "stopAtEntry": false
