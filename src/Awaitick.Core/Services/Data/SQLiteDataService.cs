@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
-using EventCountdowns.Core.Models;
+using Awaitick.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventCountdowns.Core.Services.Data;
+namespace Awaitick.Core.Services.Data;
 
 public class SQLiteDataService : IDataService
 {

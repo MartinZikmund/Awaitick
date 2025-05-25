@@ -1,10 +1,10 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using EventCountdowns.Core.Services.Data;
+using Awaitick.Core.Services.Data;
 using System.Diagnostics.CodeAnalysis;
 
-namespace EventCountdowns.Services
+namespace Awaitick.Services
 {
     public static class DbContextFactory
     {

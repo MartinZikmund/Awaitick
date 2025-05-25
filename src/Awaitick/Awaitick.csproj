@@ -14,7 +14,7 @@
 		<!-- Display name -->
 		<ApplicationTitle>Event Countdowns</ApplicationTitle>
 		<!-- App Identifier -->
-		<ApplicationId>dev.mzikmund.eventcountdowns</ApplicationId>
+		<ApplicationId>dev.mzikmund.awaitick</ApplicationId>
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
@@ -51,7 +51,7 @@
 		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="$(TargetFramework.Contains('windows10'))" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\EventCountdowns.Core\EventCountdowns.Core.csproj" />
+		<ProjectReference Include="..\Awaitick.Core\Awaitick.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="Controls\EventCountdownDisplayControl.xaml">

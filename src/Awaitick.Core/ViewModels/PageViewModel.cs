@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using EventCountdowns.Core.ViewModels;
-using EventCountdowns.Services.Navigation;
+using Awaitick.Core.ViewModels;
+using Awaitick.Services.Navigation;
 
-namespace EventCountdowns.Core.ViewModels;
+namespace Awaitick.Core.ViewModels;
 
 public abstract partial class PageViewModel : ViewModelBase
 {

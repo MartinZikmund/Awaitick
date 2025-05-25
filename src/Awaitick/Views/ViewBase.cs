@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using EventCountdowns.Core.ViewModels;
-using EventCountdowns.ViewModels;
+using Awaitick.Core.ViewModels;
+using Awaitick.ViewModels;
 
-namespace EventCountdowns.Views;
+namespace Awaitick.Views;
 
 public abstract partial class PageBase<TViewModel> : Page
 	where TViewModel : PageViewModel

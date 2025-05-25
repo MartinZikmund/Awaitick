@@ -1,15 +1,15 @@
 ﻿using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.Foundation.Metadata;
-using EventCountdowns.Services.Navigation;
+using Awaitick.Services.Navigation;
 using MZikmund.Services.Dialogs;
-using EventCountdowns.Core.Infrastructure;
-using EventCountdowns.ViewModels;
+using Awaitick.Core.Infrastructure;
+using Awaitick.ViewModels;
 using Microsoft.UI.Xaml.Media;
-using EventCountdowns.Core.Services.Settings;
-using EventCountdowns.Services.Theming;
+using Awaitick.Core.Services.Settings;
+using Awaitick.Services.Theming;
 
-namespace EventCountdowns;
+namespace Awaitick;
 
 public sealed partial class WindowShell : Page, IWindowShell
 {

@@ -1,7 +1,7 @@
-﻿using EventCountdowns.Core.Configuration;
-using EventCountdowns.Core.Services.Settings;
+﻿using Awaitick.Core.Configuration;
+using Awaitick.Core.Services.Settings;
 
-namespace EventCountdowns.Core.Infrastructure;
+namespace Awaitick.Core.Infrastructure;
 
 public class AppUpdater : IAppUpdater
 {

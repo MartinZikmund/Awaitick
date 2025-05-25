@@ -1,34 +1,34 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using EventCountdowns.Core.Configuration;
-using EventCountdowns.Core.Infrastructure;
-using EventCountdowns.Core.ViewModels;
-using EventCountdowns.Services.Navigation;
-using EventCountdowns.ViewModels;
+using Awaitick.Core.Configuration;
+using Awaitick.Core.Infrastructure;
+using Awaitick.Core.ViewModels;
+using Awaitick.Services.Navigation;
+using Awaitick.ViewModels;
 using MZikmund.Services.Loading;
 using MZikmund.Services.Dialogs;
-using EventCountdowns.Core.Services.Data;
-using EventCountdowns.Core.Services.Tiles;
-using EventCountdowns.Core.Services;
-using EventCountdowns.Core.Services.InAppPurchases;
-using EventCountdowns.Core.Services.Mail;
-using EventCountdowns.Core.Services.ScheduledNotification;
-using EventCountdowns.Core.Services.StoreLauncher;
-using EventCountdowns.Core.Services.Settings;
-using EventCountdowns.Core.Services.EventCountdownManager;
-using EventCountdowns.Core.DefaultData;
+using Awaitick.Core.Services.Data;
+using Awaitick.Core.Services.Tiles;
+using Awaitick.Core.Services;
+using Awaitick.Core.Services.InAppPurchases;
+using Awaitick.Core.Services.Mail;
+using Awaitick.Core.Services.ScheduledNotification;
+using Awaitick.Core.Services.StoreLauncher;
+using Awaitick.Core.Services.Settings;
+using Awaitick.Core.Services.EventCountdownManager;
+using Awaitick.Core.DefaultData;
 using CommunityToolkit.Mvvm.Messaging;
 using MZikmund.Toolkit.WinUI.Infrastructure;
-using EventCountdowns.Core.Services.Countdowns;
+using Awaitick.Core.Services.Countdowns;
 using MZikmund.Toolkit.WinUI.Services;
-using EventCountdowns.Services.Theming;
-using EventCountdowns.Services.Store;
+using Awaitick.Services.Theming;
+using Awaitick.Services.Store;
 using Microsoft.Extensions.DependencyInjection;
-using EventCountdowns.Services;
+using Awaitick.Services;
 using Windows.Devices.WiFiDirect.Services;
-using EventCountdowns.Core.Services.Navigation;
-using EventCountdowns.Views;
+using Awaitick.Core.Services.Navigation;
+using Awaitick.Views;
 
-namespace EventCountdowns;
+namespace Awaitick;
 
 public partial class CountdownsApp : Application, IApplication
 {

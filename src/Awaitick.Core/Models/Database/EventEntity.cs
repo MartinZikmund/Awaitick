@@ -1,4 +1,4 @@
-﻿namespace EventCountdowns.Core.Models.Database;
+﻿namespace Awaitick.Core.Models.Database;
 
 public class EventEntity
 {

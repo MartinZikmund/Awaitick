@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace EventCountdowns.Core.Services.Navigation;
+namespace Awaitick.Core.Services.Navigation;
 
 public interface IViewProvider
 {

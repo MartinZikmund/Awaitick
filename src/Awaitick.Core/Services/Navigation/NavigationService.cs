@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using CommunityToolkit.Mvvm.Messaging;
 using Windows.UI.Core;
-using EventCountdowns.Core.Messages;
+using Awaitick.Core.Messages;
 using System.Diagnostics.CodeAnalysis;
-using EventCountdowns.Core.Services.Navigation;
+using Awaitick.Core.Services.Navigation;
 
-namespace EventCountdowns.Services.Navigation;
+namespace Awaitick.Services.Navigation;
 
 public class NavigationService : INavigationService
 {

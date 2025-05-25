@@ -4,8 +4,8 @@ using Windows.UI.Popups;
 using Awaitick.Core.Services.InAppPurchases;
 using Awaitick.Core.Infrastructure;
 ========
-using EventCountdowns.Core.Services.InAppPurchases;
-using EventCountdowns.Core.Infrastructure;
+using Awaitick.Core.Services.InAppPurchases;
+using Awaitick.Core.Infrastructure;
 using System.Diagnostics.CodeAnalysis;
 >>>>>>>> 365f6b3 (feat: Enhance build settings and improve code quality):src/Awaitick.Core/Services/InAppPurchases/InAppPurchaseService.WinAppSDK.cs
 
