@@ -18,6 +18,7 @@
 		-->
 		<NoWarn>$(NoWarn);NU1507;NETSDK1201;PRI257</NoWarn>
 
+		<!-- Workaround for https://github.com/unoplatform/uno/issues/20792 -->
 		<UnoExtensionsVersion>5.4.0-dev.27</UnoExtensionsVersion>
 	</PropertyGroup>
 
