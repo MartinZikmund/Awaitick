@@ -1,7 +1,7 @@
-﻿using Windows.ApplicationModel.Store;
-using Windows.UI.Popups;
+﻿using Awaitick.Core.Infrastructure;
 using Awaitick.Core.Services.InAppPurchases;
-using Awaitick.Core.Infrastructure;
+using Windows.ApplicationModel.Store;
+using Windows.UI.Popups;
 
 namespace Awaitick.Core.Services;
 
