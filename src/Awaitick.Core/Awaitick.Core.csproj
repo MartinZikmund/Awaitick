@@ -4,7 +4,7 @@
 			net9.0-android;
 			net9.0-ios;
 			net9.0-maccatalyst;
-			net9.0-windows10.0.22621;
+			net9.0-windows10.0.26100;
 			net9.0-desktop;
 			net9.0-browserwasm;
 		</TargetFrameworks>
@@ -37,8 +37,8 @@
     the "Microsoft.Windows.SDK.BuildTools" package above, and the "revision" version number
     must be the highest found in https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref.
     -->
-		<!-- <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22621.28" />
-    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22621.28" /> -->
+		<!-- <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.26100.28" />
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.26100.28" /> -->
 	</ItemGroup>
 
 	<ItemGroup>
