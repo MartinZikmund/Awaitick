@@ -26,6 +26,8 @@ using Awaitick.Services.Store;
 using Microsoft.Extensions.DependencyInjection;
 using Awaitick.Services;
 using Windows.Devices.WiFiDirect.Services;
+using Awaitick.Core.Models;
+using System.Text.Json;
 
 namespace Awaitick;
 
@@ -57,6 +59,12 @@ public partial class CountdownsApp : Application, IApplication
 						.EmbeddedSource<CountdownsApp>()
 						.Section<AppConfig>()
 				)
+				.UseSerialization(services =>
+				{
+					services.AddSingleton(new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+					services
+						.AddJsonTypeInfo(EventCountdownSerializerContext.Default.EventCountdown);
+				})
 				// Enable localization (see appsettings.json for supported languages)
 				.UseLocalization()
 				.ConfigureServices((context, services) => ConfigureServices(services))

@@ -25,6 +25,7 @@
 			Mvvm;
 			Configuration;
 			Localization;
+			Serialization;
 			Toolkit;
 			SkiaRenderer;
 		</UnoFeatures>
@@ -42,7 +43,6 @@
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" />
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
 		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />
-		<PackageReference Include="LiteDB" />
 		<PackageReference Include="MZikmund.Toolkit.WinUI" />
 		<PackageReference Include="Plugin.InAppBilling" />
 		<PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI" Condition="!$(TargetFramework.Contains('windows10'))" />

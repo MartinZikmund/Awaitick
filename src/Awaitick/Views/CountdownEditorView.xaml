@@ -35,7 +35,6 @@
 					<usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
 					<StackPanel
                         x:Name="BasicInputFormStack"
-                        Margin="10"
                         HorizontalAlignment="Stretch"
                         Spacing="8">
                         <TextBlock

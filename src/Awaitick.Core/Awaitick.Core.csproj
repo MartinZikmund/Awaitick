@@ -21,6 +21,7 @@
 			Mvvm;
 			Configuration;
 			Localization;
+			Serialization;
 			Toolkit;
 			SkiaRenderer;
 		</UnoFeatures>
@@ -45,9 +46,7 @@
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" />
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
 		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />
-		<PackageReference Include="LiteDB" />
 		<PackageReference Include="MZikmund.Toolkit.WinUI" />
-		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="Plugin.InAppBilling" />
 	</ItemGroup>
 
