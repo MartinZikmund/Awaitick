@@ -1,6 +1,5 @@
-﻿using Awaitick.Core.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using Awaitick.Core.Models;
 
 namespace Awaitick.Core.Services.Data;
 
@@ -9,39 +8,26 @@ public class FileDataService : IDataService
 	private const string DataFileName = "events.data";
 
 	private readonly IFileService _fileService;
-
+	private readonly ILogger<FileDataService> _logger;
 	private List<EventCountdown> _eventCountdowns = new();
 
-	public FileDataService(IFileService fileService)
+	public FileDataService(IFileService fileService, ILogger<FileDataService> logger)
 	{
 		_fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
+		_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 	}
 
 	public async Task InitializeAsync()
 	{
 		try
 		{
-			_eventCountdowns.Clear();
 			var eventsJson = await _fileService.GetDataFileContentsAsync(DataFileName);
-			var eventsArray = JArray.Parse(eventsJson);
-			foreach (var item in eventsArray)
-			{
-				try
-				{
-					var parsedItem = item.ToObject<EventCountdown>();
-					if (parsedItem != null)
-					{
-						_eventCountdowns.Add(parsedItem);
-					}
-				}
-				catch
-				{
-					//TODO:LOG
-				}
-			}
+			_eventCountdowns = JsonSerializer.Deserialize(eventsJson, EventCountdownSerializerContext.Default.ListEventCountdown) ?? new List<EventCountdown>();
 		}
-		catch
+		catch (Exception ex)
 		{
+			_logger.LogError(ex, "Failed to initialize data from file: {FileName}", DataFileName);
+			// If the file is corrupted or unreadable, reset the list
 			_eventCountdowns = new List<EventCountdown>();
 		}
 	}
@@ -50,11 +36,11 @@ public class FileDataService : IDataService
 	{
 		try
 		{
-			await _fileService.SetDataFileContentsAsync(DataFileName, JsonConvert.SerializeObject(_eventCountdowns));
+			await _fileService.SetDataFileContentsAsync(DataFileName, JsonSerializer.Serialize(_eventCountdowns, EventCountdownSerializerContext.Default.ListEventCountdown));
 		}
-		catch
+		catch (Exception ex)
 		{
-			//TODO:LOG
+			_logger.LogError(ex, "Failed to save data to file: {FileName}", DataFileName);
 		}
 	}
 
@@ -73,10 +59,13 @@ public class FileDataService : IDataService
 								 select countdown).SingleOrDefault();
 		if (existingCountdown != null)
 		{
-			//update values                
 			existingCountdown.Name = eventCountdown.Name;
+			existingCountdown.CelebrationMessage = eventCountdown.CelebrationMessage;
 			existingCountdown.TargetDateTime = eventCountdown.TargetDateTime;
-			existingCountdown.BackgroundImagePath = eventCountdown.BackgroundImagePath;
+			existingCountdown.BackgroundImageUri = eventCountdown.BackgroundImageUri;
+			existingCountdown.Theme = eventCountdown.Theme;
+			existingCountdown.BackgroundImageOpacity = eventCountdown.BackgroundImageOpacity;
+			existingCountdown.BackgroundColor = eventCountdown.BackgroundColor;
 			return true;
 		}
 		return false;
@@ -108,7 +97,7 @@ public class FileDataService : IDataService
 		await SaveDataAsync();
 	}
 
-	public Task<EventCountdown> GetCountdownAsync(string id) => Task.FromResult((from c in _eventCountdowns where c.Id == id select c).SingleOrDefault());
+	public Task<EventCountdown?> GetCountdownAsync(string id) => Task.FromResult((from c in _eventCountdowns where c.Id == id select c).SingleOrDefault());
 
 	public async Task AddCountdownsAsync(params EventCountdown[] sampleEvents)
 	{

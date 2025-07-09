@@ -31,7 +31,7 @@
             </Image>
         </Border>
 
-        <Border>
+        <Border Padding="{x:Bind Padding, Mode=OneWay}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

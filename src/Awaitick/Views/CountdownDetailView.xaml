@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-		<controls:EventCountdownDisplayControl Grid.Row="1" Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}" DisplayMode="Full" />
+		<controls:EventCountdownDisplayControl Padding="0,48" Grid.Row="1" Grid.RowSpan="2" Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}" DisplayMode="Full" />
 
 		<CommandBar
             Grid.Row="2"
