@@ -14,10 +14,12 @@ public abstract partial class PageViewModel : ViewModelBase
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 	}
 
-	public bool CanGoBack => _navigationService.CanGoBack;
+	public bool CanGoBack => NavigationService.CanGoBack;
+
+	public INavigationService NavigationService => _navigationService;
 
 	[RelayCommand]
-	public virtual void GoBack() => _navigationService.GoBack();
+	public virtual void GoBack() => NavigationService.GoBack();
 
 	[ObservableProperty]
 	private string _title = "";
