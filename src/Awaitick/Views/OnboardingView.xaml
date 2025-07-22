@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="Awaitick.Views.OnboardingView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Awaitick.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid Margin="0,48,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image Source="ms-appx:///Assets/onboarding.jpg" Stretch="UniformToFill" />
+        <FlipView Grid.Column="1">
+            <FlipView.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Spacing" Value="8" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+            </FlipView.Resources>
+            <FlipViewItem>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource TitleTextBlockStyle}"
+                        Text="Welcome to Awaitick!" />
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Your countdown to everything important." />
+                    <TextBlock Text="Keep track of your events and never miss a beat!" />
+                    <Button HorizontalAlignment="Center" Style="{ThemeResource AccentButtonStyle}">Get started</Button>
+                </StackPanel>
+            </FlipViewItem>
+            <FlipViewItem>
+                <StackPanel>
+                    <TextBlock
+                        Margin="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="32"
+                        Text="Start with presets" />
+                    <TextBlock Text="Here are some of our favorites!" />
+                    <ItemsView SelectionMode="Multiple" />
+                    <Button>Save</Button>
+                    <Button>Skip</Button>
+
+                </StackPanel>
+            </FlipViewItem>
+            <FlipViewItem>
+                <StackPanel>
+                    <TextBlock
+                        Margin="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="32"
+                        Text="Get Started!" />
+                    <TextBlock Text="Let's get you set up." />
+                    <TextBlock
+                        Margin="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Text="Click below to begin using Awaitick." />
+                </StackPanel>
+            </FlipViewItem>
+        </FlipView>
+    </Grid>
+</Page>

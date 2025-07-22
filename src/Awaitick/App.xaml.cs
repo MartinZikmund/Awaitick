@@ -82,6 +82,8 @@ public partial class CountdownsApp : Application, IApplication
 
 		await Host.Services.GetRequiredService<IDataService>().InitializeAsync();
 
+		var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
+
 		// Do not repeat app initialization when the Window already has content,
 		// just ensure that the window is active
 		if (MainWindow.Content is not WindowShell windowShell)
@@ -95,10 +97,14 @@ public partial class CountdownsApp : Application, IApplication
 
 		if (windowShell.RootFrame.Content is null)
 		{
-			// When the navigation stack isn't restored navigate to the first page,
-			// configuring the new page by passing required information as a navigation
-			// parameter
-			windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<MainViewModel>(args.Arguments);
+			if (appPreferences.FirstStart)
+			{
+				windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<OnboardingViewModel>(args.Arguments);
+			}
+			else
+			{
+				windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<MainViewModel>(args.Arguments);
+			}
 		}
 
 		// Ensure the current window is active
@@ -110,6 +116,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddScoped<WindowShellViewModel>();
 		services.AddScoped<SettingsViewModel>();
 		services.AddScoped<MainViewModel>();
+		services.AddScoped<OnboardingViewModel>();
 		services.AddScoped<GetProViewModel>();
 		services.AddTransient<CountdownEditorViewModel>();
 		services.AddTransient<CountdownDetailViewModel>();
