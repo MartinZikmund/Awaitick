@@ -5,7 +5,7 @@ using Windows.UI;
 namespace Awaitick.Core.Models.Presets;
 
 public abstract class EventPreset(
-	EventCategory category,
+	EventCategory Category,
 	string EventPresetKey,
 	double BackgroundImageOpacity = 0.8,
 	Color? BackgroundColor = null,

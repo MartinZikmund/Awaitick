@@ -27,7 +27,7 @@
             Height="{ThemeResource TitleBarHeight}"
             VerticalAlignment="Top"
             Background="{ThemeResource AppOverlayBackgroundBrush}"
-            Visibility="{x:Bind HasCustomTitleBar, Mode=OneWay}">
+            Visibility="{x:Bind HasCustomTitleBar}">
             <StackPanel
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
