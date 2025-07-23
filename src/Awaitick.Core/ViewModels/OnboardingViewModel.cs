@@ -1,6 +1,6 @@
-﻿using Awaitick.Core.Services.Settings;
+﻿using Awaitick.Core.Models.Presets;
+using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Navigation;
-using Windows.UI.StartScreen;
 
 namespace Awaitick.Core.ViewModels;
 
@@ -12,6 +12,8 @@ public partial class OnboardingViewModel : PageViewModel
 	{
 		_appPreferences = appPreferences;
 	}
+
+	public EventPreset[] Presets => EventPresets.Presets;
 
 	[ObservableProperty]
 	public partial int Step { get; set; } = 0;

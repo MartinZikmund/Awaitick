@@ -8,8 +8,8 @@ namespace Awaitick.Core.Models.Presets;
 
 public class EventPresets
 {
-	public static readonly List<EventPreset> Presets = new()
-	{
+	public static readonly EventPreset[] Presets =
+	[
 		// General / Secular Holidays
 		new FixedDateEventPreset(EventCategory.GeneralHoliday, "NewYear", new DateTimeOffset(DateTimeOffset.Now.Year, 1, 1, 0, 0, 0, DateTimeOffset.Now.Offset)),
 		new FixedDateEventPreset(EventCategory.GeneralHoliday, "NewYearsEve", new DateTimeOffset(DateTimeOffset.Now.Year, 12, 31, 0, 0, 0, DateTimeOffset.Now.Offset)),
@@ -34,5 +34,5 @@ public class EventPresets
 
 		// Variable-date holidays
 		new EasterEventPreset(),
-	};
+	];
 }

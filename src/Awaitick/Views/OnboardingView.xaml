@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:presets="using:Awaitick.Core.Models.Presets"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -52,7 +53,45 @@
                         FontSize="32"
                         Text="Start with presets" />
                     <TextBlock Text="Here are some of our favorites!" />
-                    <ItemsView SelectionMode="Multiple" />
+
+                    <ItemsView
+                        Width="500"
+                        Height="400"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{x:Bind ViewModel.Presets}"
+                        SelectionMode="Multiple">
+                        <ItemsView.Layout>
+                            <UniformGridLayout
+                                MaximumRowsOrColumns="3"
+                                MinColumnSpacing="5"
+                                MinRowSpacing="5" />
+                        </ItemsView.Layout>
+                        <ItemsView.ItemTemplate>
+                            <DataTemplate x:DataType="presets:EventPreset">
+                                <ItemContainer AutomationProperties.Name="{x:Bind Name}">
+                                    <Grid Width="150">
+                                        <Image
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Stretch="UniformToFill">
+                                            <Image.Source>
+                                                <BitmapImage UriSource="{x:Bind BackgroundImageUri}" />
+                                            </Image.Source>
+                                        </Image>
+                                        <StackPanel
+                                            Height="40"
+                                            Padding="5,1,5,1"
+                                            VerticalAlignment="Bottom"
+                                            Background="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                                            Opacity=".75"
+                                            Orientation="Vertical">
+                                            <TextBlock Foreground="{ThemeResource SystemControlForegroundAltHighBrush}" Text="{x:Bind Name}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </ItemContainer>
+                            </DataTemplate>
+                        </ItemsView.ItemTemplate>
+                    </ItemsView>
                     <Button>Save</Button>
                     <Button Command="{x:Bind ViewModel.StartAppCommand}">Skip</Button>
 

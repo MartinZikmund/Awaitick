@@ -4,13 +4,36 @@ using Windows.UI;
 
 namespace Awaitick.Core.Models.Presets;
 
-public abstract class EventPreset(
-	EventCategory Category,
-	string EventPresetKey,
-	double BackgroundImageOpacity = 0.8,
-	Color? BackgroundColor = null,
-	ElementTheme Theme = ElementTheme.Default)
+public abstract class EventPreset
 {
+	private string _eventPresetKey;
+	
+	public EventPreset(
+		EventCategory category,
+		string eventPresetKey,
+		double backgroundImageOpacity = 0.8,
+		Color? backgroundColor = null,
+		ElementTheme theme = ElementTheme.Default)
+	{
+		_eventPresetKey = eventPresetKey;
+		Category = category;
+		BackgroundImageOpacity = backgroundImageOpacity;
+		BackgroundColor = backgroundColor;
+		Theme = theme;
+	}
+
+	public string Name => Localizer.Instance.GetString($"EventPreset.{_eventPresetKey}.Name");
+
+	public Uri BackgroundImageUri => new Uri($"ms-appx:///Assets/EventPresets/{_eventPresetKey}.jpg", UriKind.Absolute);
+
+	public EventCategory Category { get; }
+
+	public double BackgroundImageOpacity { get; }
+
+	public Color? BackgroundColor { get; }
+
+	public ElementTheme Theme { get; }
+
 	protected abstract DateTimeOffset GetTargetDate();
 
 	protected DateTimeOffset GetDateInFuture(DateTimeOffset date)
@@ -25,18 +48,15 @@ public abstract class EventPreset(
 
 	public EventCountdown Create()
 	{
-		var displayNameKey = $"EventCountdown.{EventPresetKey}.Name";
-		var celebrationMessageKey = $"EventCountdown.{EventPresetKey}.CelebrationMessage";
-		var backgroundImageUri = new Uri($"ms-appx:///Assets/Events/{EventPresetKey}.jpg", UriKind.Absolute);
+		var celebrationMessageKey = $"EventCountdown.{_eventPresetKey}.CelebrationMessage";
 
-		var displayName = Localizer.Instance.GetString(displayNameKey);
 		var celebrationMessage = Localizer.Instance.GetString(celebrationMessageKey);
 
 		return new EventCountdown
 		{
-			Name = displayName,
+			Name = Name,
 			CelebrationMessage = celebrationMessage,
-			BackgroundImageUri = backgroundImageUri,
+			BackgroundImageUri = BackgroundImageUri,
 			BackgroundImageOpacity = BackgroundImageOpacity,
 			BackgroundColor = BackgroundColor is not null ? ColorHelper.ToHex(BackgroundColor.Value) : ColorHelper.ToHex(Colors.Transparent),
 			Theme = Theme,
