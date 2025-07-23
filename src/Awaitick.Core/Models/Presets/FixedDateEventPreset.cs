@@ -1,7 +1,7 @@
 ﻿
 namespace Awaitick.Core.Models.Presets;
 
-internal record SimpleYearlyEventPreset(string DisplayNameKey, string CelebrationMessageKey, Uri? BackgroundImageUri, double BackgroundImageOpacity, string BackgroundColor, ElementTheme Theme) :
+internal record FixedDateEventPreset(string DisplayNameKey, string CelebrationMessageKey, Uri? BackgroundImageUri, double BackgroundImageOpacity, string BackgroundColor, ElementTheme Theme) :
 	EventPreset(DisplayNameKey, CelebrationMessageKey, BackgroundImageUri, BackgroundImageOpacity, BackgroundColor, Theme)
 {
 	protected override DateTimeOffset GetTargetDate()

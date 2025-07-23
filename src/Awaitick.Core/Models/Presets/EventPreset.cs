@@ -1,24 +1,33 @@
-﻿namespace Awaitick.Core.Models.Presets;
+﻿using Awaitick.Services.Localization;
+using Microsoft.UI;
+using Windows.UI;
 
-public abstract record EventPreset(
-	string DisplayNameKey,
-	string CelebrationMessageKey,
-	Uri? BackgroundImageUri,
-	double BackgroundImageOpacity,
-	string BackgroundColor,
-	ElementTheme Theme)
+namespace Awaitick.Core.Models.Presets;
+
+public abstract class EventPreset(
+	string EventPresetKey,
+	double BackgroundImageOpacity = 0.8,
+	Color? BackgroundColor = null,
+	ElementTheme Theme = ElementTheme.Default)
 {
 	protected abstract DateTimeOffset GetTargetDate();
 
 	public EventCountdown Create()
 	{
+		var displayNameKey = $"EventCountdown.{EventPresetKey}.Name";
+		var celebrationMessageKey = $"EventCountdown.{EventPresetKey}.CelebrationMessage";
+		var backgroundImageUri = new Uri($"ms-appx:///Assets/Events/{EventPresetKey}.jpg", UriKind.Absolute);
+
+		var displayName = Localizer.Instance.GetString(displayNameKey);
+		var celebrationMessage = Localizer.Instance.GetString(celebrationMessageKey);
+
 		return new EventCountdown
 		{
-			Name = DisplayNameKey,
-			CelebrationMessage = CelebrationMessageKey,
-			BackgroundImageUri = BackgroundImageUri,
+			Name = displayName,
+			CelebrationMessage = celebrationMessage,
+			BackgroundImageUri = backgroundImageUri,
 			BackgroundImageOpacity = BackgroundImageOpacity,
-			BackgroundColor = BackgroundColor,
+			BackgroundColor = BackgroundColor is not null ? ColorHelper.ToHex(BackgroundColor.Value) : ColorHelper.ToHex(Colors.Transparent),
 			Theme = Theme,
 			TargetDateTime = GetTargetDate(),
 		};
