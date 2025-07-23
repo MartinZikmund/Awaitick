@@ -12,6 +12,16 @@ public abstract class EventPreset(
 {
 	protected abstract DateTimeOffset GetTargetDate();
 
+	protected DateTimeOffset GetDateInFuture(DateTimeOffset date)
+	{
+		while (date < DateTimeOffset.Now)
+		{
+			date = date.AddYears(1);
+		}
+
+		return date;
+	}
+
 	public EventCountdown Create()
 	{
 		var displayNameKey = $"EventCountdown.{EventPresetKey}.Name";
