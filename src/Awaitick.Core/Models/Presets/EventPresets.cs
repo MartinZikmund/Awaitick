@@ -10,5 +10,9 @@ public class EventPresets
 {
 	public static readonly List<EventPreset> Presets = new()
 	{
+		new EasterEventPreset(),
+		new ChristmasEventPreset(),
+		new FixedDateEventPreset(EventCategory.GeneralHoliday, "NewYear", new DateTimeOffset(DateTime.Now.Year, 1, 1, 0, 0, 0, DateTimeOffset.Now.Offset)),
+
 	};
 }

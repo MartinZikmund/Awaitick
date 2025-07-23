@@ -2,7 +2,7 @@
 
 public class EasterEventPreset : EventPreset
 {
-	public EasterEventPreset() : base("Easter")
+	public EasterEventPreset() : base(EventCategory.ChristianHoliday, "Easter")
 	{
 	}
 

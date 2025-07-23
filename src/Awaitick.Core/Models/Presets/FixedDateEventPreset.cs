@@ -1,11 +1,16 @@
 ﻿
+using Windows.UI;
+
 namespace Awaitick.Core.Models.Presets;
 
-internal record FixedDateEventPreset(string DisplayNameKey, string CelebrationMessageKey, Uri? BackgroundImageUri, double BackgroundImageOpacity, string BackgroundColor, ElementTheme Theme) :
-	EventPreset(DisplayNameKey, CelebrationMessageKey, BackgroundImageUri, BackgroundImageOpacity, BackgroundColor, Theme)
+public class FixedDateEventPreset : EventPreset
 {
-	protected override DateTimeOffset GetTargetDate()
-	{
-		return new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
+	private DateTimeOffset _targetDate;
+
+	public FixedDateEventPreset(EventCategory category, string eventPresetKey, DateTimeOffset targetDate, double backgroundImageOpacity = 0.8, Color? backgroundColor = null, ElementTheme theme = ElementTheme.Default)
+		: base(category, eventPresetKey, backgroundImageOpacity, backgroundColor, theme)
+	{		
 	}
+
+	protected override DateTimeOffset GetTargetDate() => GetDateInFuture(_targetDate);
 }
