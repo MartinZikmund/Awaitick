@@ -420,4 +420,55 @@
   <data name="TextColorDescription" xml:space="preserve">
     <value>Choose the countdown's text color</value>
   </data>
+  <data name="EventPreset.NewYear.Name" xml:space="preserve">
+    <value>New Year</value>
+  </data>
+  <data name="EventPreset.NewYearsEve.Name" xml:space="preserve">
+    <value>New Year's Eve</value>
+  </data>
+  <data name="EventPreset.ValentinesDay.Name" xml:space="preserve">
+    <value>Valentine's Day</value>
+  </data>
+  <data name="EventPreset.InternationalWomensDay.Name" xml:space="preserve">
+    <value>International Women's Day</value>
+  </data>
+  <data name="EventPreset.AprilFoolsDay.Name" xml:space="preserve">
+    <value>April Fools' Day</value>
+  </data>
+  <data name="EventPreset.EarthDay.Name" xml:space="preserve">
+    <value>Earth Day</value>
+  </data>
+  <data name="EventPreset.Halloween.Name" xml:space="preserve">
+    <value>Halloween</value>
+  </data>
+  <data name="EventPreset.Christmas.Name" xml:space="preserve">
+    <value>Christmas</value>
+  </data>
+  <data name="EventPreset.AllSaintsDay.Name" xml:space="preserve">
+    <value>All Saints' Day</value>
+  </data>
+  <data name="EventPreset.IndependenceDayUSA.Name" xml:space="preserve">
+    <value>Independence Day (USA)</value>
+  </data>
+  <data name="EventPreset.BastilleDay.Name" xml:space="preserve">
+    <value>Bastille Day</value>
+  </data>
+  <data name="EventPreset.CanadaDay.Name" xml:space="preserve">
+    <value>Canada Day</value>
+  </data>
+  <data name="EventPreset.AustraliaDay.Name" xml:space="preserve">
+    <value>Australia Day</value>
+  </data>
+  <data name="EventPreset.IndianIndependenceDay.Name" xml:space="preserve">
+    <value>Indian Independence Day</value>
+  </data>
+  <data name="EventPreset.BrazilIndependenceDay.Name" xml:space="preserve">
+    <value>Brazil Independence Day</value>
+  </data>
+  <data name="EventPreset.SouthAfricaFreedomDay.Name" xml:space="preserve">
+    <value>South Africa Freedom Day</value>
+  </data>
+  <data name="EventPreset.Easter.Name" xml:space="preserve">
+    <value>Easter</value>
+  </data>
 </root>

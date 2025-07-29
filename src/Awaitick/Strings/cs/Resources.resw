@@ -274,7 +274,7 @@
     <value>Ano</value>
   </data>
   <data name="DonateDescription" xml:space="preserve">
-    <value>Ahoj, jmenuji se Martin Zikmund a jsem autor této aplikace. Miluji vývoj aplikací na Windows, ale jako student je většinou musím vyvíjet až pozdě v noci. A abych se udržel ve stavu plné pozornosti, je potřeba dostatečné množství kávy! Pokud se vám tato aplikace líbí a chtěli byste podpořit vývoj nových aplikací a dalších funkcí, kupte mi prosím kávu :-) . Děkuji vám moc za podporu vývoje a za to, že používáte Windows :-) !</value>
+    <value>Ahoj, jmenuji se Martin Zikmund a jsem autor této aplikace. Miluji vývoj aplikací na Windows, ale jako student je většinu musím vyvíjet až pozdě v noci. A abych se udržel ve stavu plné pozornosti, je potřeba dostatečné množství kávy! Pokud se vám tato aplikace líbí a chtěli byste podpořit vývoj nových aplikací a dalších funkcí, kupte mi prosím kávu :-) . Děkuji vám moc za podporu vývoje a za to, že používáte Windows :-) !</value>
   </data>
   <data name="GrandeCoffee" xml:space="preserve">
     <value>Střední</value>
@@ -419,5 +419,56 @@
   </data>
   <data name="TextColorDescription" xml:space="preserve">
     <value>Vyberte barvu textu odpočtu</value>
+  </data>
+  <data name="EventPreset.NewYear.Name" xml:space="preserve">
+    <value>Nový rok</value>
+  </data>
+  <data name="EventPreset.NewYearsEve.Name" xml:space="preserve">
+    <value>Silvestr</value>
+  </data>
+  <data name="EventPreset.ValentinesDay.Name" xml:space="preserve">
+    <value>Den svatého Valentýna</value>
+  </data>
+  <data name="EventPreset.InternationalWomensDay.Name" xml:space="preserve">
+    <value>Mezinárodní den žen</value>
+  </data>
+  <data name="EventPreset.AprilFoolsDay.Name" xml:space="preserve">
+    <value>Apríl</value>
+  </data>
+  <data name="EventPreset.EarthDay.Name" xml:space="preserve">
+    <value>Den Země</value>
+  </data>
+  <data name="EventPreset.Halloween.Name" xml:space="preserve">
+    <value>Halloween</value>
+  </data>
+  <data name="EventPreset.Christmas.Name" xml:space="preserve">
+    <value>Vánoce</value>
+  </data>
+  <data name="EventPreset.AllSaintsDay.Name" xml:space="preserve">
+    <value>Dušičky</value>
+  </data>
+  <data name="EventPreset.IndependenceDayUSA.Name" xml:space="preserve">
+    <value>Den nezávislosti (USA)</value>
+  </data>
+  <data name="EventPreset.BastilleDay.Name" xml:space="preserve">
+    <value>Den Bastily</value>
+  </data>
+  <data name="EventPreset.CanadaDay.Name" xml:space="preserve">
+    <value>Den Kanady</value>
+  </data>
+  <data name="EventPreset.AustraliaDay.Name" xml:space="preserve">
+    <value>Den Austrálie</value>
+  </data>
+  <data name="EventPreset.IndianIndependenceDay.Name" xml:space="preserve">
+    <value>Den nezávislosti Indie</value>
+  </data>
+  <data name="EventPreset.BrazilIndependenceDay.Name" xml:space="preserve">
+    <value>Den nezávislosti Brazílie</value>
+  </data>
+  <data name="EventPreset.SouthAfricaFreedomDay.Name" xml:space="preserve">
+    <value>Den svobody Jižní Afriky</value>
+  </data>
+  <data name="EventPreset.Easter.Name" xml:space="preserve">
+    <value>Velikonoce</value>
   </data>
 </root>

@@ -45,7 +45,7 @@
                 </StackPanel>
             </FlipViewItem>
             <FlipViewItem>
-                <StackPanel>
+                <StackPanel Padding="8">
                     <TextBlock
                         Margin="20"
                         HorizontalAlignment="Center"
@@ -55,8 +55,6 @@
                     <TextBlock Text="Here are some of our favorites!" />
 
                     <ItemsView
-                        Width="500"
-                        Height="400"
                         HorizontalAlignment="Left"
                         ItemsSource="{x:Bind ViewModel.Presets}"
                         SelectionMode="Multiple">
@@ -69,7 +67,7 @@
                         <ItemsView.ItemTemplate>
                             <DataTemplate x:DataType="presets:EventPreset">
                                 <ItemContainer AutomationProperties.Name="{x:Bind Name}">
-                                    <Grid Width="150">
+                                    <Grid Width="150" Height="80">
                                         <Image
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
