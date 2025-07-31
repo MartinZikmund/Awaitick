@@ -60,6 +60,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 			HasCustomTitleBar = true;
 #endif
 		}
+
 		if (ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.Window", "SystemBackdrop"))
 		{
 			_associatedWindow.SystemBackdrop = new MicaBackdrop();

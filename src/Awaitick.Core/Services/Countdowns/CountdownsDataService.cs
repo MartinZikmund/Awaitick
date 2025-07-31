@@ -47,4 +47,15 @@ public class CountdownsDataService : ICountdownsDataService
 		_tileService.UnscheduleCountdownNotification(eventCountdown);
 		await _tileService.UnpinCountdownAsync(eventCountdown);
 	}
+
+	public async Task AddCountdownsAsync(params EventCountdown[] eventCountdowns)
+	{
+		foreach (var countdown in eventCountdowns)
+		{
+			countdown.Id = Guid.NewGuid().ToString().ToLowerInvariant();
+		}
+
+		await _dataService.AddCountdownsAsync(eventCountdowns);
+		// TODO: Schedule notifications for all added countdowns
+	}
 }

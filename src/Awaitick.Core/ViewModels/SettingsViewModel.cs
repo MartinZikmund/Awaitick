@@ -7,6 +7,7 @@ using Microsoft.Toolkit.Uwp.Helpers;
 using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
 using Windows.UI.ViewManagement;
+using MZikmund.Toolkit.WinUI.Services;
 
 namespace Awaitick.Core.ViewModels;
 
@@ -59,6 +60,13 @@ public partial class SettingsViewModel : PageViewModel
 		base.GoBack();
 	}
 
+	public bool IsDebug =>
+#if DEBUG
+		true;
+#else
+		false;
+#endif
+
 	[ObservableProperty]
 	public partial bool HasProLicense { get; private set; }
 
@@ -91,6 +99,15 @@ public partial class SettingsViewModel : PageViewModel
 
 	[RelayCommand]
 	private async Task ReviewAppAsync() => await SystemInformation.LaunchStoreForReviewAsync();
+
+	[RelayCommand]
+	private void GoToOnboarding() => NavigationService.Navigate<OnboardingViewModel>();
+
+	[RelayCommand]
+	private void ClearPreferences()
+	{
+		ApplicationData.Current.LocalSettings.Values.Clear();
+	}
 
 	private void SaveChanges()
 	{

@@ -6,8 +6,8 @@
         <ResourceDictionary x:Key="Default">
             <Color x:Key="PageBackgroundSolidColor">#202020</Color>
             <Color x:Key="PageHeaderBackgroundSolidColor">#101010</Color>
-			<SolidColorBrush x:Key="AppOverlayBackgroundBrush"  Color="#44000000" />
-			<SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="{ThemeResource PageHeaderBackgroundSolidColor}" />
+            <SolidColorBrush x:Key="AppOverlayBackgroundBrush" Color="#44000000" />
+            <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="{ThemeResource PageHeaderBackgroundSolidColor}" />
             <AcrylicBrush
                 x:Key="PageBackgroundBrush"
                 TintColor="{ThemeResource PageBackgroundSolidColor}"
@@ -16,8 +16,8 @@
         <ResourceDictionary x:Key="Light">
             <Color x:Key="PageBackgroundSolidColor">#F3F3F3</Color>
             <Color x:Key="PageHeaderBackgroundSolidColor">#F6F6F6</Color>
-			<SolidColorBrush x:Key="AppOverlayBackgroundBrush"  Color="#44FFFFFF" />
-			<AcrylicBrush
+            <SolidColorBrush x:Key="AppOverlayBackgroundBrush" Color="#44FFFFFF" />
+            <AcrylicBrush
                 x:Key="PageHeaderBackgroundBrush"
                 TintColor="{ThemeResource PageHeaderBackgroundSolidColor}"
                 TintOpacity="0.9" />

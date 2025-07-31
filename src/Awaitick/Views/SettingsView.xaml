@@ -27,9 +27,9 @@
                 Margin="36,0,36,36"
                 Orientation="Vertical"
                 Spacing="8">
+
                 <!--  General  -->
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=General}" />
-
 
                 <toolkit:SettingsCard Header="{ex:Localize Key=Theme}" HeaderIcon="{ui:FontIcon Glyph=&#xE793;}">
                     <ComboBox
@@ -67,6 +67,18 @@
                     HeaderIcon="{ui:FontIcon Glyph=&#xE90A;}">
                     <Button Command="{x:Bind ViewModel.ReviewAppCommand}" Content="{ex:Localize Key=ReviewAction}" />
                 </toolkit:SettingsCard>
+
+                <StackPanel Visibility="{x:Bind ViewModel.IsDebug}">
+                    <!--  Debugging  -->
+                    <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="Debugging" />
+                    <toolkit:SettingsCard Header="Test data">
+                        <Button Command="{x:Bind ViewModel.ClearPreferencesCommand}" Content="Clear preferences" />
+                    </toolkit:SettingsCard>
+
+                    <toolkit:SettingsCard Header="Go to onboarding">
+                        <Button Command="{x:Bind ViewModel.GoToOnboardingCommand}" Content="{ex:Localize Key=Open}" />
+                    </toolkit:SettingsCard>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -2,16 +2,16 @@
     x:Class="Awaitick.Resources.DataTemplates"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Awaitick.Controls"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:models="using:Awaitick.Core.Models"
     xmlns:utu="using:Uno.Toolkit.UI"
-	xmlns:controls="using:Awaitick.Controls"
     xmlns:xaml="using:Awaitick.Extensions.Xaml">
     <DataTemplate x:Key="EventGridItemTemplate" x:DataType="models:CountdownViewModel">
         <UserControl>
             <Grid x:Name="MainGrid" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-				<Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
+                <Border VerticalAlignment="Stretch" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource EmptyStringToVisibilityConverter}, FallbackValue=Visible}">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Offset="0" Color="#00FFFFFF" />
@@ -19,7 +19,7 @@
                         </LinearGradientBrush>
                     </Border.Background>
                 </Border>
-				<Grid Background="Black" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
+                <Grid Background="Black" Visibility="{x:Bind BackgroundImageUri, Converter={StaticResource NonEmptyStringToVisibilityConverter}, FallbackValue=Collapsed}">
                     <Image
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -141,9 +141,9 @@
     <DataTemplate x:Key="EventListItemTemplate" x:DataType="models:CountdownViewModel">
         <ItemContainer>
             <Grid
-				Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                 x:Name="MainGrid"
-                HorizontalAlignment="Stretch">
+                HorizontalAlignment="Stretch"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem
@@ -160,8 +160,11 @@
                             Text="{xaml:Localize Key=Delete}" />
                     </MenuFlyout>
                 </Grid.ContextFlyout>
-				<controls:EventCountdownDisplayControl Grid.Row="1" Countdown="{x:Bind Mode=OneWay}" DisplayMode="Compact" />
-			</Grid>
+                <controls:EventCountdownDisplayControl
+                    Grid.Row="1"
+                    Countdown="{x:Bind Mode=OneWay}"
+                    DisplayMode="Compact" />
+            </Grid>
         </ItemContainer>
     </DataTemplate>
 </ResourceDictionary>

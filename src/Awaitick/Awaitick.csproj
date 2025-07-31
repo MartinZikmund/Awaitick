@@ -52,10 +52,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Awaitick.Core\Awaitick.Core.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Controls\EventCountdownDisplayControl.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
 
 </Project>

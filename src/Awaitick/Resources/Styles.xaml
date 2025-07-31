@@ -9,8 +9,8 @@
         <Setter Property="FontWeight" Value="Light" />
         <Setter Property="FontSize" Value="55" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-		<win:Setter Property="FontFamily" Value="Segoe UI" />
-	</Style>
+        <win:Setter Property="FontFamily" Value="Segoe UI" />
+    </Style>
     <Style
         x:Key="SecondaryTimeComponentStyle"
         BasedOn="{StaticResource TimeComponentStyle}"
@@ -62,8 +62,8 @@
         x:Key="FormLabelTextBlockStyle"
         BasedOn="{StaticResource SubtitleTextBlockStyle}"
         TargetType="TextBlock">
-		<Setter Property="Margin" Value="0,8,0,0" />
-	</Style>
+        <Setter Property="Margin" Value="0,8,0,0" />
+    </Style>
 
     <SolidColorBrush x:Key="AppThemeColor" Color="#23A0EA" />
 
@@ -302,12 +302,12 @@
         </Setter>
     </Style>
 
-	<Style
+    <Style
         x:Key="SettingsSectionHeaderTextBlockStyle"
         BasedOn="{StaticResource BodyStrongTextBlockStyle}"
         TargetType="TextBlock">
-		<Style.Setters>
-			<Setter Property="Margin" Value="1,30,0,6" />
-		</Style.Setters>
-	</Style>
+        <Style.Setters>
+            <Setter Property="Margin" Value="1,30,0,6" />
+        </Style.Setters>
+    </Style>
 </ResourceDictionary>
