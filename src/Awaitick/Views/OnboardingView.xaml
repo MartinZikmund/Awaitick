@@ -62,7 +62,7 @@
 
                     <ScrollViewer Grid.Row="2" HorizontalAlignment="Stretch">
                         <ItemsView
-							SelectionChanged="PresetsSelectionChanged"
+                            SelectionChanged="PresetsSelectionChanged"
                             HorizontalAlignment="Center"
                             ItemsSource="{x:Bind ViewModel.Presets}"
                             SelectionMode="Multiple">

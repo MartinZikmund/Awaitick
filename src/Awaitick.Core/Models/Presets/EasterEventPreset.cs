@@ -29,7 +29,7 @@ public class EasterEventPreset : EventPreset
 	{
 		int g = year % 19;
 		int c = year / 100;
-		int h = h = (c - (int)(c / 4) - (int)((8 * c + 13) / 25)
+		int h = (c - (int)(c / 4) - (int)((8 * c + 13) / 25)
 											+ 19 * g + 15) % 30;
 		int i = h - (int)(h / 28) * (1 - (int)(h / 28) *
 					(int)(29 / (h + 1)) * (int)((21 - g) / 11));
