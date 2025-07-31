@@ -38,7 +38,7 @@ public partial class SettingsViewModel : PageViewModel
 		_dialogService = dialogService;
 	}
 
-	public override async void ViewNavigatedTo(object? parameter)
+	protected override async void ViewNavigatedTo(object? parameter)
 	{
 		base.ViewNavigatedTo(parameter);
 		try

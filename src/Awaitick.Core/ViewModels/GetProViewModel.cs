@@ -16,7 +16,7 @@ public partial class GetProViewModel : PageViewModel
 		_storeService = storeService;
 	}
 
-	public override async void ViewNavigatedTo(object? parameter)
+	protected override async void ViewNavigatedTo(object? parameter)
 	{
 		var price = await _storeService.GetPriceAsync();
 		if (price is not null)

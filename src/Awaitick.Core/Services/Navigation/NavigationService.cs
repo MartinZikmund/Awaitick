@@ -18,7 +18,7 @@ public class NavigationService : INavigationService
 		_frameProvider.GetForCurrentView().Navigated += OnNavigated;
 	}
 
-	private void OnNavigated(object sender, NavigationEventArgs e) => _messenger.Send(new NavigatedMessage());
+	private void OnNavigated(object sender, NavigationEventArgs e) => _messenger.Send(new NavigationChanged());
 
 	private Frame Frame => _frameProvider.GetForCurrentView();
 
@@ -76,5 +76,9 @@ public class NavigationService : INavigationService
 
 	private void NavigationManagerBackRequested(object? sender, BackRequestedEventArgs? e) => GoBack();
 
-	public void ClearBackStack() => Frame.BackStack.Clear();
+	public void ClearBackStack()
+	{
+		Frame.BackStack.Clear();
+		_messenger.Send(new NavigationChanged());
+	}
 }

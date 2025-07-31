@@ -71,6 +71,14 @@ public abstract partial class PageBase<TViewModel> : Page
 		}
 	}
 
+	protected override void OnNavigatedFrom(NavigationEventArgs e)
+	{
+		if (ViewModel is not null)
+		{
+			ViewModel.ViewNavigatedFromInternal(e.Parameter);
+		}
+	}
+
 	private void PageUnloaded(object sender, RoutedEventArgs e) => ViewModel?.ViewUnloaded();
 
 	private void EnsureViewModel()

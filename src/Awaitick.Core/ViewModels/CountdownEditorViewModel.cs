@@ -137,7 +137,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	public string DefaultCelebrationMessage => string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name);
 
-	public override async void ViewNavigatedTo(object? parameter)
+	protected override async void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{

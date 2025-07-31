@@ -70,7 +70,7 @@ public partial class MainViewModel : PageViewModel
 		}
 	}
 
-	public override async void ViewNavigatedTo(object? parameter)
+	protected override async void ViewNavigatedTo(object? parameter)
 	{
 		IsLoading = true;
 

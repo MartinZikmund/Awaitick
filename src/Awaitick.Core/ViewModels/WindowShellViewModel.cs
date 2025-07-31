@@ -20,7 +20,7 @@ public partial class WindowShellViewModel : ViewModelBase
 		_provider = provider ?? throw new ArgumentNullException(nameof(provider));
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-		_messenger.Register<NavigatedMessage>(this, OnNavigated);
+		_messenger.Register<NavigationChanged>(this, OnNavigated);
 	}
 
 	public string Title { get; set; } = Localizer.Instance.GetString("AppName");
@@ -68,5 +68,5 @@ public partial class WindowShellViewModel : ViewModelBase
 		return _refCountDisposable;
 	}
 
-	private void OnNavigated(object recipient, NavigatedMessage message) => OnPropertyChanged(nameof(CanGoBack));
+	private void OnNavigated(object recipient, NavigationChanged message) => OnPropertyChanged(nameof(CanGoBack));
 }

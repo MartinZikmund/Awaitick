@@ -22,7 +22,7 @@ public abstract partial class PageViewModel : ViewModelBase
 	public virtual void GoBack() => NavigationService.GoBack();
 
 	[ObservableProperty]
-	private string _title = "";
+	public partial string Title { get; set; } = "";
 
 	public virtual void ViewCreated() { }
 
@@ -32,11 +32,18 @@ public abstract partial class PageViewModel : ViewModelBase
 
 	public virtual void ViewUnloaded() { }
 
-	public void ViewNavigatedToInternal(object? parameter)
+	internal void ViewNavigatedToInternal(object? parameter)
 	{
 		OnPropertyChanged(nameof(CanGoBack));
 		ViewNavigatedTo(parameter);
 	}
 
-	public virtual void ViewNavigatedTo(object? parameter) { }
+	internal void ViewNavigatedFromInternal(object? parameter)
+	{
+		ViewNavigatedFrom(parameter);
+	}
+
+	protected virtual void ViewNavigatedTo(object? parameter) { }
+
+	protected virtual void ViewNavigatedFrom(object? parameter) { }
 }

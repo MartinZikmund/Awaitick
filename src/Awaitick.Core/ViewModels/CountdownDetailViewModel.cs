@@ -59,7 +59,7 @@ public partial class CountdownDetailViewModel : PageViewModel
 	[ObservableProperty]
 	public partial CountdownViewModel EventCountdown { get; private set; }
 
-	public override async void ViewNavigatedTo(object? parameter)
+	protected override async void ViewNavigatedTo(object? parameter)
 	{
 		if (parameter is not NavigationModel navigationModel)
 		{
