@@ -105,20 +105,21 @@
                 <StackPanel
 					x:Name="BottomInfo"
                     Grid.Row="1"
+					Margin="20"
+					Spacing="8"
                     VerticalAlignment="Bottom">
                     <TextBlock
                         Grid.Row="1"
-                        Margin="20,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
-                        FontSize="40"
+						FontSize="24"
                         Text="{x:Bind Countdown.Name, Mode=OneWay}" />
                     <TextBlock
-                        Margin="22,0,0,20"
+						x:Name="TargetDate"
                         HorizontalAlignment="Left"
                         FontSize="18"
                         Opacity="0.8"
-                        Text="{x:Bind Countdown.TargetDateTime}" />
+                        Text="{x:Bind Countdown.TargetDateString}" />
                 </StackPanel>
             </Grid>
         </Border>
