@@ -108,7 +108,7 @@
                             </ItemsView.ItemTemplate>
                         </ItemsView>
                     </ScrollViewer>
-					<Button HorizontalAlignment="Center" Grid.Row="3" Command="{x:Bind ViewModel.NextStepCommand}">Next</Button>
+					<Button HorizontalAlignment="Center" Style="{ThemeResource AccentButtonStyle}" Grid.Row="3" Command="{x:Bind ViewModel.NextStepCommand}">Next</Button>
                 </Grid>
             </FlipViewItem>
             <FlipViewItem>
@@ -120,10 +120,10 @@
                     <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                Text="You can now add your own countdown or skip for now and create it later." />
 					<StackPanel Grid.Row="4"
-                                Orientation="Horizontal"
+                                Orientation="Vertical"
                                 Spacing="8">
-						<Button Command="{x:Bind ViewModel.CreateCustomEventCommand}">Create</Button>
-						<Button Command="{x:Bind ViewModel.StartAppCommand}">Skip</Button>
+						<Button HorizontalAlignment="Stretch" Style="{ThemeResource AccentButtonStyle}" Command="{x:Bind ViewModel.CreateCustomEventCommand}">Create</Button>
+						<Button HorizontalAlignment="Stretch" Command="{x:Bind ViewModel.StartAppCommand}">Skip</Button>
 					</StackPanel>
 				</StackPanel>
             </FlipViewItem>
