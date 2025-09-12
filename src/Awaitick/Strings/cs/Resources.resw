@@ -471,4 +471,25 @@
   <data name="EventPreset.Easter.Name" xml:space="preserve">
     <value>Velikonoce</value>
   </data>
+  <data name="Onboarding_WelcomeTitle" xml:space="preserve">
+    <value>Vítejte v Awaitick!</value>
+  </data>
+  <data name="Onboarding_WelcomeSubtitle" xml:space="preserve">
+    <value>Váš odpočet ke všemu důležitému.</value>
+  </data>
+  <data name="Onboarding_WelcomeDescription" xml:space="preserve">
+    <value>Mějte přehled o svých událostech a na nic nezapomeňte!</value>
+  </data>
+  <data name="Onboarding_PresetsTitle" xml:space="preserve">
+    <value>Začněte s předvolbami</value>
+  </data>
+  <data name="Onboarding_PresetsSubtitle" xml:space="preserve">
+    <value>Vyberte jednu nebo více událostí, se kterými začít.</value>
+  </data>
+  <data name="Onboarding_CustomTitle" xml:space="preserve">
+    <value>Je čas přidat vlastní událost!</value>
+  </data>
+  <data name="Onboarding_CustomSubtitle" xml:space="preserve">
+    <value>Nyní můžete přidat vlastní odpočet nebo to přeskočit a vytvořit jej později.</value>
+  </data>
 </root>

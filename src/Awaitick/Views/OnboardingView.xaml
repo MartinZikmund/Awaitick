@@ -5,6 +5,7 @@
                           xmlns:local="using:Awaitick.Views"
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                           xmlns:presets="using:Awaitick.Core.Models.Presets"
+                          xmlns:xaml="using:Awaitick.Extensions.Xaml"
                           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                           mc:Ignorable="d">
 
@@ -38,10 +39,10 @@
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Style="{ThemeResource TitleTextBlockStyle}"
-                               Text="Welcome to Awaitick!" />
+                               Text="{xaml:Localize Key=Onboarding_WelcomeTitle}" />
                     <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="Your countdown to everything important." />
-                    <TextBlock Text="Keep track of your events and never miss a beat!" />
+                               Text="{xaml:Localize Key=Onboarding_WelcomeSubtitle}" />
+                    <TextBlock Text="{xaml:Localize Key=Onboarding_WelcomeDescription}" />
                     <Button HorizontalAlignment="Center"
                             Command="{x:Bind ViewModel.NextStepCommand}"
                             Style="{ThemeResource AccentButtonStyle}">
@@ -60,12 +61,12 @@
                     <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Text="Start with presets" />
+                               Text="{xaml:Localize Key=Onboarding_PresetsTitle}" />
                     <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
                                Grid.Row="1"
 							   HorizontalAlignment="Center"
 							   TextAlignment="Center"
-                               Text="Select one or more events to start with." />
+                               Text="{xaml:Localize Key=Onboarding_PresetsSubtitle}" />
 
                     <ScrollViewer Grid.Row="2"
                                   HorizontalAlignment="Stretch">
@@ -116,9 +117,9 @@
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Style="{ThemeResource TitleTextBlockStyle}"
-                               Text="Time to add your own event!" />
+                               Text="{xaml:Localize Key=Onboarding_CustomTitle}" />
                     <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
-                               Text="You can now add your own countdown or skip for now and create it later." />
+                               Text="{xaml:Localize Key=Onboarding_CustomSubtitle}" />
 					<StackPanel Grid.Row="4"
                                 Orientation="Vertical"
                                 Spacing="8">

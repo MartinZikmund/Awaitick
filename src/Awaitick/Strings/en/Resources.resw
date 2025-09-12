@@ -471,4 +471,25 @@
   <data name="EventPreset.Easter.Name" xml:space="preserve">
     <value>Easter</value>
   </data>
+  <data name="Onboarding_WelcomeTitle" xml:space="preserve">
+    <value>Welcome to Awaitick!</value>
+  </data>
+  <data name="Onboarding_WelcomeSubtitle" xml:space="preserve">
+    <value>Your countdown to everything important.</value>
+  </data>
+  <data name="Onboarding_WelcomeDescription" xml:space="preserve">
+    <value>Keep track of your events and never miss a beat!</value>
+  </data>
+  <data name="Onboarding_PresetsTitle" xml:space="preserve">
+    <value>Start with presets</value>
+  </data>
+  <data name="Onboarding_PresetsSubtitle" xml:space="preserve">
+    <value>Select one or more events to start with.</value>
+  </data>
+  <data name="Onboarding_CustomTitle" xml:space="preserve">
+    <value>Time to add your own event!</value>
+  </data>
+  <data name="Onboarding_CustomSubtitle" xml:space="preserve">
+    <value>You can now add your own countdown or skip for now and create it later.</value>
+  </data>
 </root>
