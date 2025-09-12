@@ -1,0 +1,107 @@
+name: Build Android Packages
+
+on:
+  workflow_dispatch:
+
+env:
+  # App Configuration
+  APP_NAME: Awaitick
+  DOTNET_VERSION: 9.0.x
+  SOLUTION_FILE: src/Awaitick.slnx
+  PROJECT_PATH: src/Awaitick
+  PROJECT_FILE: src/Awaitick/Awaitick.csproj
+  ANDROID_TARGET_FRAMEWORK: net9.0-android
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest
+
+    env:
+      STEP_TIMEOUT_MINUTES: 60
+
+      # .NET niceties
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      ContinuousIntegrationBuild: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Cache NuGet to speed up restores
+      - name: NuGet cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.sln*', '**/*.csproj', '**/Directory.Packages.props', '**/global.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            ${{ env.DOTNET_VERSION }}
+
+      - name: Install .NET workloads
+        run:
+          dotnet workload restore "${{ env.SOLUTION_FILE }}"
+
+      - name: Restore solution
+        run: dotnet restore "${{ env.SOLUTION_FILE }}"
+
+      # --- Signing setup (requires your keystore + secrets) ---
+      # Create upload keystore file from a base64 secret
+      - name: Decode Android upload keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > "$GITHUB_WORKSPACE/android-upload.keystore"
+
+      # --- Build Google Play bundle (AAB) ---
+      - name: Publish AAB (signed with Upload Key)
+        run: |
+          dotnet publish "${{ env.PROJECT_FILE }}" -c Release -f ${{ env.ANDROID_TARGET_FRAMEWORK }} \
+            -p:AndroidKeyStore=true \
+            -p:AndroidSigningKeyStore="$GITHUB_WORKSPACE/android-upload.keystore" \
+            -p:AndroidSigningKeyAlias='${{ secrets.ANDROID_KEY_ALIAS }}' \
+            -p:AndroidSigningKeyPass='${{ secrets.ANDROID_KEY_PASSWORD }}' \
+            -p:AndroidSigningStorePass='${{ secrets.ANDROID_STORE_PASSWORD }}' \
+            -p:AndroidPackageFormat=aab -p:PackageFormat=aab
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android_AAB
+          path: |
+            ${{ env.PROJECT_PATH }}/bin/Release/${{ env.ANDROID_TARGET_FRAMEWORK }}/publish/*.aab
+
+      # --- Optional: also build a signed APK for sideload/internal testing ---
+      - name: (Optional) Publish APK (signed) - ARM64
+        if: ${{ always() }} # flip to "false" to disable or delete this step
+        run: |
+          dotnet publish "${{ env.PROJECT_FILE }}" -c Release -f ${{ env.ANDROID_TARGET_FRAMEWORK }} -r android-arm64 \
+            -p:AndroidKeyStore=true \
+            -p:AndroidSigningKeyStore="$GITHUB_WORKSPACE/android-upload.keystore" \
+            -p:AndroidSigningKeyAlias='${{ secrets.ANDROID_KEY_ALIAS }}' \
+            -p:AndroidSigningKeyPass='${{ secrets.ANDROID_KEY_PASSWORD }}' \
+            -p:AndroidSigningStorePass='${{ secrets.ANDROID_STORE_PASSWORD }}' \
+            -p:AndroidPackageFormat=apk -p:PackageFormat=apk \
+            --self-contained false
+
+      - name: Upload APK artifact (optional)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android_APK_arm64
+          path: |
+            ${{ env.PROJECT_PATH }}/bin/Release/${{ env.ANDROID_TARGET_FRAMEWORK }}/android-arm64/publish/*.apk
+
+      # Clean up keystore
+      - name: Remove keystore
+        if: ${{ always() }}
+        run: rm -f "$GITHUB_WORKSPACE/android-upload.keystore"
