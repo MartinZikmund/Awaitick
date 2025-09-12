@@ -8,6 +8,13 @@ on:
       - release/**
 
 env:
+  # App Configuration
+  APP_NAME: Awaitick
+  DOTNET_VERSION: 9.0.x
+  SOLUTION_FILE: src/Awaitick.slnx
+  PROJECT_PATH: src/Awaitick
+  PROJECT_FILE: src/Awaitick/Awaitick.csproj
+  
   STEP_TIMEOUT_MINUTES: 60
 
 concurrency:
@@ -16,21 +23,36 @@ concurrency:
 
 jobs:
   smoke_test:
-    name: Smoke Test (Debug Build of Awaitick)
+    name: Smoke Test (Debug Build)
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Install Dependencies
-        timeout-minutes: ${{ fromJSON(env.STEP_TIMEOUT_MINUTES) }}
-        uses: "./.github/steps/install_dependencies"
+      # Cache NuGet to speed up restores
+      - name: NuGet cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.sln*', '**/*.csproj', '**/Directory.Packages.props', '**/global.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-          
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            ${{ env.DOTNET_VERSION }}
+
+      - name: Install .NET workloads
+        run:
+          dotnet workload restore "$env:SOLUTION_FILE"
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
 
-      - name: Build Awaitick (Debug)
+      - name: Build ${{ env.APP_NAME }} (Debug)
         shell: pwsh
-        run: msbuild ./src/Awaitick/Awaitick.csproj /r
+        run: msbuild $env:PROJECT_FILE /r
