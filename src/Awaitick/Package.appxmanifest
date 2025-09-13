@@ -9,7 +9,7 @@
   <Identity
     Name="Awaitick"
     Publisher="O=Martin Zikmund"
-    Version="1.0.0.0" />
+    Version="0.1.0.0" />
 
   <Properties>
     <DisplayName>Awaitick</DisplayName>
@@ -33,6 +33,7 @@
         DisplayName="Awaitick"
         Description="Awaitick">
         <uap:SplashScreen />
+        <uap:DefaultTile/>
       </uap:VisualElements>
     </Application>
   </Applications>
