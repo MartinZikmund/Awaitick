@@ -4,16 +4,17 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  IgnorableNamespaces="uap rescap mp">
 
   <Identity
-    Name="Awaitick"
-    Publisher="O=Martin Zikmund"
+    Name="5143MartinZikmund.Awaitick"
+    Publisher="CN=5EDFBB6C-AD5D-4B76-B479-1C5F44017714"
     Version="0.1.0.0" />
 
   <Properties>
     <DisplayName>Awaitick</DisplayName>
-    <PublisherDisplayName>Awaitick</PublisherDisplayName>
+    <PublisherDisplayName>Martin Zikmund</PublisherDisplayName>
   </Properties>
 
   <Dependencies>
@@ -41,4 +42,6 @@
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
+
+  <mp:PhoneIdentity PhoneProductId="457cb7c8-8e08-421e-8f14-d5c785cb6344"/>
 </Package>
