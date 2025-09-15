@@ -9,6 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
+    <!-- 
+    Adaptive Onboarding Layout:
+    - Wide screens (>=640px): Two-column layout with image on left, content on right
+    - Narrow screens (<640px): Single-column layout with reduced opacity background image and overlaid content
+    -->
     <Grid x:Name="RootGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">
