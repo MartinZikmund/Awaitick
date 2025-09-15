@@ -43,5 +43,5 @@
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 
-  <mp:PhoneIdentity PhoneProductId="457cb7c8-8e08-421e-8f14-d5c785cb6344"/>
+  <mp:PhoneIdentity PhoneProductId="457cb7c8-8e08-421e-8f14-d5c785cb6344" PhonePublisherId="457cb7c8-8e08-421e-8f14-d5c785cb6344" />
 </Package>
