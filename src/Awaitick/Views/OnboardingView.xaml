@@ -22,6 +22,7 @@
                         <AdaptiveTrigger MinWindowWidth="640" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <!-- Root layout setters -->
                         <Setter Target="RootGrid.ColumnDefinitions[0].Width" Value="*" />
                         <Setter Target="RootGrid.ColumnDefinitions[1].Width" Value="*" />
                         <Setter Target="BackgroundImage.Grid.Column" Value="0" />
@@ -30,6 +31,11 @@
                         <Setter Target="OnboardingFlipView.Grid.Column" Value="1" />
                         <Setter Target="OnboardingFlipView.Grid.ColumnSpan" Value="1" />
                         <Setter Target="OnboardingFlipView.Background" Value="Transparent" />
+                        
+                        <!-- Content background setters for wide screens (transparent backgrounds) -->
+                        <Setter Target="WelcomeContentBorder.Background" Value="Transparent" />
+                        <Setter Target="PresetsContentBorder.Background" Value="Transparent" />
+                        <Setter Target="FinalContentBorder.Background" Value="Transparent" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
@@ -37,6 +43,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <!-- Root layout setters -->
                         <Setter Target="RootGrid.ColumnDefinitions[0].Width" Value="*" />
                         <Setter Target="RootGrid.ColumnDefinitions[1].Width" Value="0" />
                         <Setter Target="BackgroundImage.Grid.Column" Value="0" />
@@ -45,6 +52,11 @@
                         <Setter Target="OnboardingFlipView.Grid.Column" Value="0" />
                         <Setter Target="OnboardingFlipView.Grid.ColumnSpan" Value="2" />
                         <Setter Target="OnboardingFlipView.Background" Value="Transparent" />
+                        
+                        <!-- Content background setters for narrow screens (acrylic backgrounds) -->
+                        <Setter Target="WelcomeContentBorder.Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
+                        <Setter Target="PresetsContentBorder.Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
+                        <Setter Target="FinalContentBorder.Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -70,30 +82,10 @@
             </FlipView.Resources>
             <FlipViewItem>
                 <Border x:Name="WelcomeContentBorder" 
-                        Background="{ThemeResource SystemControlAcrylicElementBrush}" 
+                        Background="Transparent" 
                         CornerRadius="8" 
                         Margin="20"
                         Padding="24">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="ContentStates">
-                            <VisualState x:Name="WideContentState">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="640" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="WelcomeContentBorder.Background" Value="Transparent" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="NarrowContentState">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="WelcomeContentBorder.Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             HorizontalAlignment="Center"
@@ -113,30 +105,10 @@
             </FlipViewItem>
             <FlipViewItem>
                 <Border x:Name="PresetsContentBorder" 
-                        Background="{ThemeResource SystemControlAcrylicElementBrush}" 
+                        Background="Transparent" 
                         CornerRadius="8" 
                         Margin="20"
                         Padding="8">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="PresetsContentStates">
-                            <VisualState x:Name="WidePresetsContentState">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="640" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="PresetsContentBorder.Background" Value="Transparent" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="NarrowPresetsContentState">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="PresetsContentBorder.Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -208,30 +180,10 @@
             </FlipViewItem>
             <FlipViewItem>
                 <Border x:Name="FinalContentBorder" 
-                        Background="{ThemeResource SystemControlAcrylicElementBrush}" 
+                        Background="Transparent" 
                         CornerRadius="8" 
                         Margin="20"
                         Padding="24">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="FinalContentStates">
-                            <VisualState x:Name="WideFinalContentState">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="640" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="FinalContentBorder.Background" Value="Transparent" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="NarrowFinalContentState">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="FinalContentBorder.Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
                     <StackPanel>
                         <TextBlock
                             Margin="20"
