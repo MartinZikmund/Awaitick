@@ -1,13 +1,13 @@
-﻿using CommunityToolkit.WinUI.Helpers;
-using Awaitick.Core.Services.Settings;
+﻿using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Navigation;
 using Awaitick.Services.Store;
 using Awaitick.Services.Theming;
+using CommunityToolkit.WinUI.Helpers;
 using Microsoft.Toolkit.Uwp.Helpers;
 using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
-using Windows.UI.ViewManagement;
 using MZikmund.Toolkit.WinUI.Services;
+using Windows.UI.ViewManagement;
 
 namespace Awaitick.Core.ViewModels;
 
@@ -29,13 +29,16 @@ public partial class SettingsViewModel : PageViewModel
 		IThemeManager themeManager,
 		IXamlRootProvider xamlRootProvider,
 		IStoreService storeService,
-		IDialogService dialogService) : base(navigationService)
+		IDialogService dialogService,
+		IStringLocalizer stringLocalizer) : base(navigationService)
 	{
 		_appSettings = appSettings;
 		_themeManager = themeManager;
 		_xamlRootProvider = xamlRootProvider;
 		_storeService = storeService;
 		_dialogService = dialogService;
+
+		Title = stringLocalizer.GetString("Settings");
 	}
 
 	public override async void ViewNavigatedTo(object? parameter)

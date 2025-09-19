@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     xmlns:ui="using:Awaitick.Extensions.Xaml"
+    xmlns:usercontrols="using:Awaitick.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -16,17 +17,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Margin="36,60,36,0" ColumnSpacing="8">
-            <TextBlock
-                Grid.Column="1"
-                Style="{ThemeResource TitleTextBlockStyle}"
-                Text="{ex:Localize Key=Settings}" />
-        </Grid>
+
         <ScrollViewer Grid.Row="1">
             <StackPanel
-                Margin="36,0,36,36"
+                x:Name="ContentRoot"
                 Orientation="Vertical"
                 Spacing="8">
+                <usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
 
                 <!--  General  -->
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=General}" />
@@ -81,5 +78,25 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentRoot.Padding" Value="12" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="768" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentRoot.Padding" Value="24" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </local:SettingsViewBase>
