@@ -504,4 +504,19 @@
   <data name="Onboarding_FinalDescription" xml:space="preserve">
     <value>Klikněte níže pro spuštění Awaitick.</value>
   </data>
+  <data name="Onboarding_Continue" xml:space="preserve">
+    <value>Pokračovat</value>
+  </data>
+  <data name="Onboarding_CustomEventTitle" xml:space="preserve">
+    <value>Přidejte vlastní událost</value>
+  </data>
+  <data name="Onboarding_CustomEventSubtitle" xml:space="preserve">
+    <value>Nyní můžete přidat vlastní odpočet nebo to přeskočit a vytvořit jej později.</value>
+  </data>
+  <data name="Onboarding_CreateCustomEvent" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="Onboarding_StartApp" xml:space="preserve">
+    <value>Přeskočit</value>
+  </data>
 </root>

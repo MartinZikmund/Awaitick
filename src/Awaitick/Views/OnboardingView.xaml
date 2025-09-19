@@ -6,7 +6,7 @@
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:presets="using:Awaitick.Core.Models.Presets"
-	xmlns:ui="using:Awaitick.Extensions.Xaml"
+    xmlns:ui="using:Awaitick.Extensions.Xaml"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -38,17 +38,23 @@
                 <Style TargetType="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center" />
                     <Setter Property="HorizontalAlignment" Value="Center" />
-					<Setter Property="TextAlignment" Value="Center" />
-					<Setter Property="TextWrapping" Value="Wrap" />
-				</Style>
-				<Style x:Name="SubtitleStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
-					<Setter Property="TextAlignment" Value="Center" />
-				</Style>
-				<Style x:Name="TitleStyle" TargetType="TextBlock" BasedOn="{StaticResource TitleTextBlockStyle}">
-					<Setter Property="TextAlignment" Value="Center" />
-					<Setter Property="Margin" Value="12" />
-					<Setter Property="FontSize" Value="40" />
-				</Style>
+                    <Setter Property="TextAlignment" Value="Center" />
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                </Style>
+                <Style
+                    x:Name="SubtitleStyle"
+                    BasedOn="{StaticResource SubtitleTextBlockStyle}"
+                    TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Center" />
+                </Style>
+                <Style
+                    x:Name="TitleStyle"
+                    BasedOn="{StaticResource TitleTextBlockStyle}"
+                    TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="12" />
+                    <Setter Property="FontSize" Value="40" />
+                </Style>
             </FlipView.Resources>
             <FlipViewItem>
                 <Border
@@ -58,10 +64,8 @@
                     Background="Transparent"
                     CornerRadius="8">
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock
-                            Style="{ThemeResource TitleStyle}"
-                            Text="{ui:Localize Key=Onboarding_WelcomeTitle}" />
-						<TextBlock Style="{ThemeResource SubtitleStyle}" Text="{ui:Localize Key=Onboarding_WelcomeSubtitle}" />
+                        <TextBlock Style="{ThemeResource TitleStyle}" Text="{ui:Localize Key=Onboarding_WelcomeTitle}" />
+                        <TextBlock Style="{ThemeResource SubtitleStyle}" Text="{ui:Localize Key=Onboarding_WelcomeSubtitle}" />
                         <TextBlock Text="{ui:Localize Key=Onboarding_WelcomeDescription}" />
                         <Button
                             HorizontalAlignment="Center"
@@ -86,10 +90,11 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+                        <TextBlock Style="{ThemeResource TitleStyle}" Text="{ui:Localize Key=Onboarding_PresetsTitle}" />
                         <TextBlock
-                            Style="{ThemeResource TitleStyle}"
-                            Text="{ui:Localize Key=Onboarding_PresetsTitle}" />
-                        <TextBlock Grid.Row="1" Style="{ThemeResource SubtitleStyle}" Text="{ui:Localize Key=Onboarding_PresetsSubtitle}" />
+                            Grid.Row="1"
+                            Style="{ThemeResource SubtitleStyle}"
+                            Text="{ui:Localize Key=Onboarding_PresetsSubtitle}" />
 
                         <ScrollViewer Grid.Row="2" HorizontalAlignment="Stretch">
                             <ItemsView
@@ -135,17 +140,13 @@
                                 </ItemsView.ItemTemplate>
                             </ItemsView>
                         </ScrollViewer>
-                        <StackPanel
+                        <Button
                             Grid.Row="4"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <Button Command="{x:Bind ViewModel.SavePresetsCommand}">
-                                <TextBlock Text="{ui:Localize Key=Onboarding_Save}" />
-                            </Button>
-                            <Button Command="{x:Bind ViewModel.SkipPresetsCommand}">
-                                <TextBlock Text="{ui:Localize Key=Onboarding_Skip}" />
-                            </Button>
-                        </StackPanel>
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.NextStepCommand}"
+                            Style="{ThemeResource AccentButtonStyle}">
+                            <TextBlock Text="{ui:Localize Key=Onboarding_Continue}" />
+                        </Button>
                     </Grid>
                 </Border>
             </FlipViewItem>
@@ -157,16 +158,22 @@
                     Background="Transparent"
                     CornerRadius="8">
                     <StackPanel>
+                        <TextBlock Style="{ThemeResource TitleStyle}" Text="{ui:Localize Key=Onboarding_CustomEventTitle}" />
                         <TextBlock
-                            Style="{ThemeResource TitleStyle}"
-                            Text="{ui:Localize Key=Onboarding_FinalTitle}" />
-                        <TextBlock Style="{ThemeResource SubtitleStyle}" Text="{ui:Localize Key=Onboarding_FinalSubtitle}" />
-                        <TextBlock
-                            Margin="20"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="24"
-                            Text="{ui:Localize Key=Onboarding_FinalDescription}" />
+                            Grid.Row="1"
+                            Style="{ThemeResource SubtitleStyle}"
+                            Text="{ui:Localize Key=Onboarding_CustomEventSubtitle}" />
+                        <StackPanel
+                            Grid.Row="4"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <Button Command="{x:Bind ViewModel.CreateCustomEventCommand}" Style="{ThemeResource AccentButtonStyle}">
+                                <TextBlock Text="{ui:Localize Key=Onboarding_CreateCustomEvent}" />
+                            </Button>
+                            <Button Command="{x:Bind ViewModel.StartAppCommand}">
+                                <TextBlock Text="{ui:Localize Key=Onboarding_StartApp}" />
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </FlipViewItem>
