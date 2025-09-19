@@ -37,7 +37,17 @@
                 <Style TargetType="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center" />
                     <Setter Property="HorizontalAlignment" Value="Center" />
-                </Style>
+					<Setter Property="TextAlignment" Value="Center" />
+					<Setter Property="TextWrapping" Value="Wrap" />
+				</Style>
+				<Style x:Name="SubtitleStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
+					<Setter Property="TextAlignment" Value="Center" />
+				</Style>
+				<Style x:Name="TitleStyle" TargetType="TextBlock" BasedOn="{StaticResource TitleTextBlockStyle}">
+					<Setter Property="TextAlignment" Value="Center" />
+					<Setter Property="Margin" Value="12" />
+					<Setter Property="FontSize" Value="40" />
+				</Style>
             </FlipView.Resources>
             <FlipViewItem>
                 <Border
@@ -48,11 +58,9 @@
                     CornerRadius="8">
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Style="{ThemeResource TitleTextBlockStyle}"
+                            Style="{ThemeResource TitleStyle}"
                             Text="Welcome to Awaitick!" />
-                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Your countdown to everything important." />
+						<TextBlock Style="{ThemeResource SubtitleStyle}" Text="Your countdown to everything important." />
                         <TextBlock Text="Keep track of your events and never miss a beat!" />
                         <Button
                             HorizontalAlignment="Center"
@@ -70,7 +78,7 @@
                     Padding="8"
                     Background="Transparent"
                     CornerRadius="8">
-                    <Grid>
+                    <Grid RowSpacing="8">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -78,12 +86,9 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock
-                            Margin="20"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="32"
+                            Style="{ThemeResource TitleStyle}"
                             Text="Start with presets" />
-                        <TextBlock Grid.Row="1" Text="Here are some of our favorites!" />
+                        <TextBlock Grid.Row="1" Style="{ThemeResource SubtitleStyle}" Text="Here are some of our favorites!" />
 
                         <ScrollViewer Grid.Row="2" HorizontalAlignment="Stretch">
                             <ItemsView
@@ -148,12 +153,9 @@
                     CornerRadius="8">
                     <StackPanel>
                         <TextBlock
-                            Margin="20"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="32"
+                            Style="{ThemeResource TitleStyle}"
                             Text="Get Started!" />
-                        <TextBlock Text="Let's get you set up." />
+                        <TextBlock Style="{ThemeResource SubtitleStyle}" Text="Let's get you set up." />
                         <TextBlock
                             Margin="20"
                             HorizontalAlignment="Center"

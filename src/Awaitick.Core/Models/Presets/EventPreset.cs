@@ -22,7 +22,7 @@ public abstract class EventPreset
 		Theme = theme;
 	}
 
-	public string Name => Localizer.Instance.GetString($"EventPreset.{_eventPresetKey}.Name");
+	public string Name => Localizer.Instance.GetString($"EventPreset_{_eventPresetKey}_Name");
 
 	public Uri BackgroundImageUri => new Uri($"ms-appx:///Assets/EventPresets/{_eventPresetKey}.jpg", UriKind.Absolute);
 
