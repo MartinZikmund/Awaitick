@@ -55,7 +55,6 @@ public sealed partial class WindowShell : Page, IWindowShell
 #if !HAS_UNO
 			_associatedWindow.ExtendsContentIntoTitleBar = true;
 			_associatedWindow.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
-			DraggableTitleBar.Margin = new Thickness(_associatedWindow.AppWindow.TitleBar.LeftInset, 0, _associatedWindow.AppWindow.TitleBar.RightInset, 0);
 			_associatedWindow.SetTitleBar(DraggableTitleBar);
 			HasCustomTitleBar = true;
 #endif
