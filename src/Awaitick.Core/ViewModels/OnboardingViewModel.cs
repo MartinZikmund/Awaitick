@@ -1,4 +1,5 @@
-﻿using Awaitick.Core.Models.Presets;
+﻿using Android.Health.Connect.DataTypes;
+using Awaitick.Core.Models.Presets;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
 using Awaitick.Core.Services.Settings;
@@ -25,7 +26,13 @@ public partial class OnboardingViewModel : PageViewModel
 	public partial int Step { get; set; } = 0;
 
 	[RelayCommand]
-	private void NextStep() => Step += 1;
+	private void NextStep()
+	{
+		if (Step < 2)
+		{
+			Step++;
+		}
+	}
 
 	[RelayCommand]
 	private async Task CreateCustomEventAsync()
