@@ -540,4 +540,7 @@
   <data name="GoToOnboarding" xml:space="preserve">
     <value>Přejít na onboarding</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zpět</value>
+  </data>
 </root>
