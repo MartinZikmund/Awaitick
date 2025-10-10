@@ -519,4 +519,13 @@
   <data name="Onboarding_StartApp" xml:space="preserve">
     <value>Skip</value>
   </data>
+  <data name="DateDescription" xml:space="preserve">
+    <value>Date of the event.</value>
+  </data>
+  <data name="TimeDescription" xml:space="preserve">
+    <value>Time of day of the event.</value>
+  </data>
+  <data name="CelebrationDescription" xml:space="preserve">
+    <value>Text that will be shown when the event time comes!</value>
+  </data>
 </root>

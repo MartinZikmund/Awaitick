@@ -519,4 +519,13 @@
   <data name="Onboarding_StartApp" xml:space="preserve">
     <value>Přeskočit</value>
   </data>
+  <data name="DateDescription" xml:space="preserve">
+    <value>Datum konání události.</value>
+  </data>
+  <data name="TimeDescription" xml:space="preserve">
+    <value>Čas konání události.</value>
+  </data>
+  <data name="CelebrationDescription" xml:space="preserve">
+    <value>Text, který se zobrazí po dosažení času události!</value>
+  </data>
 </root>
