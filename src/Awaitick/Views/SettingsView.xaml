@@ -67,12 +67,12 @@
 
                 <StackPanel Visibility="{x:Bind ViewModel.IsDebug}">
                     <!--  Debugging  -->
-                    <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="Debugging" />
-                    <toolkit:SettingsCard Header="Test data">
-                        <Button Command="{x:Bind ViewModel.ClearPreferencesCommand}" Content="Clear preferences" />
+                    <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=Debugging}" />
+                    <toolkit:SettingsCard Header="{ex:Localize Key=TestData}">
+                        <Button Command="{x:Bind ViewModel.ClearPreferencesCommand}" Content="{ex:Localize Key=ClearPreferences}" />
                     </toolkit:SettingsCard>
 
-                    <toolkit:SettingsCard Header="Go to onboarding">
+                    <toolkit:SettingsCard Header="{ex:Localize Key=GoToOnboarding}">
                         <Button Command="{x:Bind ViewModel.GoToOnboardingCommand}" Content="{ex:Localize Key=Open}" />
                     </toolkit:SettingsCard>
                 </StackPanel>

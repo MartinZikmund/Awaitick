@@ -528,4 +528,16 @@
   <data name="CelebrationDescription" xml:space="preserve">
     <value>Text that will be shown when the event time comes!</value>
   </data>
+  <data name="Debugging" xml:space="preserve">
+    <value>Debugging</value>
+  </data>
+  <data name="TestData" xml:space="preserve">
+    <value>Test data</value>
+  </data>
+  <data name="ClearPreferences" xml:space="preserve">
+    <value>Clear preferences</value>
+  </data>
+  <data name="GoToOnboarding" xml:space="preserve">
+    <value>Go to onboarding</value>
+  </data>
 </root>

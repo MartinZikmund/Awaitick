@@ -528,4 +528,16 @@
   <data name="CelebrationDescription" xml:space="preserve">
     <value>Text, který se zobrazí po dosažení času události!</value>
   </data>
+  <data name="Debugging" xml:space="preserve">
+    <value>Ladění</value>
+  </data>
+  <data name="TestData" xml:space="preserve">
+    <value>Testovací data</value>
+  </data>
+  <data name="ClearPreferences" xml:space="preserve">
+    <value>Vymazat předvolby</value>
+  </data>
+  <data name="GoToOnboarding" xml:space="preserve">
+    <value>Přejít na onboarding</value>
+  </data>
 </root>
