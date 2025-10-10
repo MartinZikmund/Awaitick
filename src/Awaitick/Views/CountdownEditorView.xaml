@@ -50,7 +50,7 @@
                         <toolkit:SettingsCard
                             Description="Time of day of the event."
                             Header="{ui:Localize Key=Time}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE917;}">
+                            HeaderIcon="{ui:FontIcon Glyph=&#xE823;}">
                             <TimePicker
                                 Grid.Row="1"
                                 Grid.Column="1"

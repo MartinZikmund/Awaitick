@@ -19,13 +19,4 @@ public class DefaultBackgrounds : IDefaultBackgrounds
 	};
 
 	public DefaultBackground[] GetDefaultBackgrounds() => _defaultBackgrounds.Values.ToArray();
-
-	public DefaultBackground GetSampleEventBackground(EventPreset sampleEventKind) => sampleEventKind switch
-	{
-		EventPreset.Christmas => _defaultBackgrounds["christmas"],
-		EventPreset.Easter => _defaultBackgrounds["easter"],
-		EventPreset.Halloween => _defaultBackgrounds["halloween"],
-		EventPreset.NewYear => _defaultBackgrounds["newyear"],
-		_ => throw new ArgumentOutOfRangeException(nameof(sampleEventKind), sampleEventKind, null),
-	};
 }
