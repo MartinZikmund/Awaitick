@@ -1,5 +1,4 @@
-﻿using Android.Health.Connect.DataTypes;
-using Awaitick.Core.Models.Presets;
+﻿using Awaitick.Core.Models.Presets;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
 using Awaitick.Core.Services.Settings;
@@ -49,6 +48,8 @@ public partial class OnboardingViewModel : PageViewModel
 		
 		_appPreferences.FirstStart = false;
 		NavigationService.Navigate<MainViewModel>();
+
+		NavigationService.ClearBackStack();
 	}
 
 	private async Task SavePresetsAsync()
