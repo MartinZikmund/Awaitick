@@ -543,4 +543,34 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="MultipleAwaitickes" xml:space="preserve">
+    <value>Multiple countdowns</value>
+  </data>
+  <data name="MultipleAwaitickesDescription" xml:space="preserve">
+    <value>Create and manage more than one countdown.</value>
+  </data>
+  <data name="NoAds" xml:space="preserve">
+    <value>No ads</value>
+  </data>
+  <data name="NoAdsDescription" xml:space="preserve">
+    <value>Enjoy an ad-free experience.</value>
+  </data>
+  <data name="EndlessCustomization" xml:space="preserve">
+    <value>Endless customization</value>
+  </data>
+  <data name="EndlessCustomizationDescription" xml:space="preserve">
+    <value>Customize your countdowns with more options.</value>
+  </data>
+  <data name="FutureProFeatures" xml:space="preserve">
+    <value>More Pro features are coming soon</value>
+  </data>
+  <data name="InAppPriceOnly" xml:space="preserve">
+    <value>Only</value>
+  </data>
+  <data name="GetProNow" xml:space="preserve">
+    <value>Get Pro now</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
 </root>

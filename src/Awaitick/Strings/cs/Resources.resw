@@ -340,7 +340,7 @@
     <value>Přidejte svou první událost</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavení</value>
   </data>
   <data name="ReviewApp" xml:space="preserve">
     <value>Ohodnotit aplikaci</value>
@@ -542,5 +542,35 @@
   </data>
   <data name="Back" xml:space="preserve">
     <value>Zpět</value>
+  </data>
+  <data name="MultipleAwaitickes" xml:space="preserve">
+    <value>Více odpočtů</value>
+  </data>
+  <data name="MultipleAwaitickesDescription" xml:space="preserve">
+    <value>Vytvářejte a spravujte více než jeden odpočet.</value>
+  </data>
+  <data name="NoAds" xml:space="preserve">
+    <value>Bez reklam</value>
+  </data>
+  <data name="NoAdsDescription" xml:space="preserve">
+    <value>Užívejte si aplikaci bez reklam.</value>
+  </data>
+  <data name="EndlessCustomization" xml:space="preserve">
+    <value>Nekonečné přizpůsobení</value>
+  </data>
+  <data name="EndlessCustomizationDescription" xml:space="preserve">
+    <value>Přizpůsobte své odpočty díky více možnostem.</value>
+  </data>
+  <data name="FutureProFeatures" xml:space="preserve">
+    <value>Další Pro funkce už brzy</value>
+  </data>
+  <data name="InAppPriceOnly" xml:space="preserve">
+    <value>Jenom</value>
+  </data>
+  <data name="GetProNow" xml:space="preserve">
+    <value>Získat Pro nyní</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Otevřít</value>
   </data>
 </root>
