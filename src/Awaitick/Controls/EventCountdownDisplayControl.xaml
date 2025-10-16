@@ -80,7 +80,7 @@
                     VerticalAlignment="Center"
                     FontSize="55"
                     FontWeight="SemiLight"
-                    Text="{x:Bind Countdown.CelebrationMessage}"
+                    Text="{x:Bind Countdown.CelebrationMessage, Mode=OneWay}"
                     TextAlignment="Center"
                     TextWrapping="Wrap"
                     Visibility="{x:Bind Countdown.HasFinished, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
