@@ -29,7 +29,7 @@ public abstract partial class PageBase<TViewModel> : Page
 
 		if (_isNavigationDelayed)
 		{
-			ViewModel.ViewNavigatedToInternal(_pendingParameter);
+			ViewModel?.ViewNavigatedToInternal(_pendingParameter);
 			_pendingParameter = null;
 		}
 

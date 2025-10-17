@@ -21,6 +21,7 @@
         <!--  Background image  -->
         <Border Visibility="{x:Bind Countdown.BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
             <Image
+                Margin="-1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Opacity="{x:Bind Countdown.BackgroundImageOpacity, Mode=OneWay}"
