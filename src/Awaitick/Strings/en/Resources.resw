@@ -414,12 +414,6 @@
   <data name="ElementTheme_Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
-  <data name="TextColor" xml:space="preserve">
-    <value>Text color</value>
-  </data>
-  <data name="TextColorDescription" xml:space="preserve">
-    <value>Choose the countdown's text color</value>
-  </data>
   <data name="EventPreset_NewYear_Name" xml:space="preserve">
     <value>New Year</value>
   </data>
@@ -572,5 +566,17 @@
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="SupportDevelopment" xml:space="preserve">
+    <value>Support development</value>
+  </data>
+  <data name="SupportDevelopmentDescription" xml:space="preserve">
+    <value>Help support ongoing development of the app.</value>
+  </data>
+  <data name="TextColorDescription" xml:space="preserve">
+    <value>Choose the countdown's text color</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
 </root>

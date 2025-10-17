@@ -414,12 +414,6 @@
   <data name="ElementTheme_Dark" xml:space="preserve">
     <value>Temný</value>
   </data>
-  <data name="TextColor" xml:space="preserve">
-    <value>Barva textu</value>
-  </data>
-  <data name="TextColorDescription" xml:space="preserve">
-    <value>Vyberte barvu textu odpočtu</value>
-  </data>
   <data name="EventPreset_NewYear_Name" xml:space="preserve">
     <value>Nový rok</value>
   </data>
@@ -572,5 +566,17 @@
   </data>
   <data name="Open" xml:space="preserve">
     <value>Otevřít</value>
+  </data>
+  <data name="SupportDevelopment" xml:space="preserve">
+    <value>Podpořte vývoj</value>
+  </data>
+  <data name="SupportDevelopmentDescription" xml:space="preserve">
+    <value>Pomozte podpořit průběžný vývoj aplikace.</value>
+  </data>
+  <data name="TextColorDescription" xml:space="preserve">
+    <value>Vyberte barvu textu odpočtu</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Barva textu</value>
   </data>
 </root>
