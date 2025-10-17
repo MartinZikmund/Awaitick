@@ -60,5 +60,6 @@ public sealed partial class EventCountdownDisplayControl : UserControl
 	private void UpdateDisplay()
 	{
 		TargetDateTimeTextBlock.Visibility = DisplayMode == CountdownDisplayMode.Full ? Visibility.Visible : Visibility.Collapsed;
+		CountdownNameTextBlock.FontSize = DisplayMode == CountdownDisplayMode.Full ? 40 : 24;
 	}
 }

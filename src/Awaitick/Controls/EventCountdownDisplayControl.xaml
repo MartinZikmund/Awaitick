@@ -87,18 +87,18 @@
                 <StackPanel
                     x:Name="BottomInfo"
                     Grid.Row="1"
-                    VerticalAlignment="Bottom">
+                    Padding="12"
+                    VerticalAlignment="Bottom"
+                    Spacing="8">
                     <TextBlock
                         x:Name="CountdownNameTextBlock"
                         Grid.Row="1"
-                        Margin="20,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         FontSize="40"
                         Text="{x:Bind Countdown.Name, Mode=OneWay}" />
                     <TextBlock
                         x:Name="TargetDateTimeTextBlock"
-                        Margin="22,0,0,20"
                         HorizontalAlignment="Left"
                         FontSize="18"
                         Opacity="0.8"
