@@ -63,7 +63,7 @@ public class FileDataService : IDataService
 			existingCountdown.CelebrationMessage = eventCountdown.CelebrationMessage;
 			existingCountdown.TargetDateTime = eventCountdown.TargetDateTime;
 			existingCountdown.BackgroundImageUri = eventCountdown.BackgroundImageUri;
-			existingCountdown.Theme = eventCountdown.Theme;
+			existingCountdown.TextTheme = eventCountdown.TextTheme;
 			existingCountdown.BackgroundImageOpacity = eventCountdown.BackgroundImageOpacity;
 			existingCountdown.BackgroundColor = eventCountdown.BackgroundColor;
 			return true;

@@ -7,8 +7,8 @@ public class FixedDateEventPreset : EventPreset
 {
 	private DateTimeOffset _targetDate;
 
-	public FixedDateEventPreset(EventCategory category, string eventPresetKey, DateTimeOffset targetDate, double backgroundImageOpacity = 0.8, Color? backgroundColor = null, ElementTheme theme = ElementTheme.Default)
-		: base(category, eventPresetKey, backgroundImageOpacity, backgroundColor, theme)
+	public FixedDateEventPreset(EventCategory category, string eventPresetKey, DateTimeOffset targetDate, TextTheme textTheme, double backgroundImageOpacity = 0.8, Color? backgroundColor = null)
+		: base(category, eventPresetKey, textTheme, backgroundImageOpacity, backgroundColor)
 	{		
 		_targetDate = targetDate;
 	}

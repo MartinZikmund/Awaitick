@@ -19,7 +19,7 @@ public class EventCountdown
 
 	public Uri? BackgroundImageUri { get; set; }
 
-	public ElementTheme Theme { get; set; }
+	public TextTheme TextTheme { get; set; }
 
 	public double BackgroundImageOpacity { get; set; } = 0.8;
 
