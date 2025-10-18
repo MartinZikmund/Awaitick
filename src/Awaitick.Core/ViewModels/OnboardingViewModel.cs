@@ -17,39 +17,47 @@ public partial class OnboardingViewModel : PageViewModel
 		_dataService = dataService;
 	}
 
-	public override void ViewLoaded()
-	{
-		_appPreferences.FirstStart = false;
-	}
-
 	public EventPreset[] Presets => EventPresets.Presets;
 
-	public EventPreset[] SelectedPresets { get; set; }
+	public EventPreset[] SelectedPresets { get; set; } = Array.Empty<EventPreset>();
 
 	[ObservableProperty]
 	public partial int Step { get; set; } = 0;
 
 	[RelayCommand]
-	public void NextStep() => Step = 1;
-
-	[RelayCommand]
-	public void SkipPresets() => StartApp();
-
-	[RelayCommand]
-	public async Task SavePresets()
+	private void NextStep()
 	{
-		foreach(var preset in SelectedPresets)
+		if (Step < 2)
+		{
+			Step++;
+		}
+	}
+
+	[RelayCommand]
+	private async Task CreateCustomEventAsync()
+	{
+		await StartAppAsync();
+
+		NavigationService.Navigate<CountdownEditorViewModel>(CountdownEditorViewModel.NavigationModel.CreateAdd());
+	}
+
+	[RelayCommand]
+	private async Task StartAppAsync()
+	{
+		await SavePresetsAsync();
+		
+		_appPreferences.FirstStart = false;
+		NavigationService.Navigate<MainViewModel>();
+
+		NavigationService.ClearBackStack();
+	}
+
+	private async Task SavePresetsAsync()
+	{
+		foreach (var preset in SelectedPresets)
 		{
 			var eventCountdown = preset.Create();
 			await _dataService.AddCountdownAsync(eventCountdown);
 		}
-
-		StartApp();
-	}
-
-	private void StartApp()
-	{
-		_appPreferences.FirstStart = false;
-		NavigationService.Navigate<MainViewModel>();
 	}
 }

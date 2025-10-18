@@ -25,7 +25,12 @@ public partial class CountdownViewModel : ObservableObject
 
 	public double BackgroundImageOpacity => _eventCountdown.BackgroundImageOpacity;
 
-	public ElementTheme Theme => _eventCountdown.Theme;
+	public ElementTheme Theme => _eventCountdown.TextTheme switch
+	{
+		TextTheme.Light => ElementTheme.Dark,
+		TextTheme.Dark => ElementTheme.Light,
+		_ => ElementTheme.Default,
+	};
 
 	public Windows.UI.Color BackgroundColor => ColorHelper.ToColor(_eventCountdown.BackgroundColor);
 

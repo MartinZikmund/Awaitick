@@ -2,7 +2,7 @@
 
 public class EasterEventPreset : EventPreset
 {
-	public EasterEventPreset() : base(EventCategory.ChristianHoliday, "Easter")
+	public EasterEventPreset() : base(EventCategory.ChristianHoliday, "Easter", TextTheme.Light)
 	{
 	}
 

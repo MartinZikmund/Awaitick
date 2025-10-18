@@ -2,13 +2,13 @@
     x:Class="Awaitick.Views.CountdownEditorView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:toolkitcontrols="using:CommunityToolkit.WinUI.Controls"
     xmlns:controls="using:Awaitick.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Awaitick.Core.Models"
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:toolkitcontrols="using:CommunityToolkit.WinUI.Controls"
     xmlns:ui="using:Awaitick.Extensions.Xaml"
     xmlns:usercontrols="using:Awaitick.Controls"
     mc:Ignorable="d">
@@ -20,191 +20,185 @@
         </TransitionCollection>
     </local:CountdownEditorViewBase.Transitions>
     <Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<ScrollViewer
-            Grid.Row="1"
-            Margin="0">
-            <Border
-                Padding="20"
-                HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1" Margin="0">
+            <Border x:Name="ContentRoot" HorizontalAlignment="Stretch">
                 <StackPanel>
-					<usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
-					<StackPanel
-                        x:Name="BasicInputFormStack"
-                        HorizontalAlignment="Stretch"
-                        Spacing="8">
-                        <TextBlock
-                            Style="{StaticResource FormLabelTextBlockStyle}"
-                            Text="{ui:Localize Key=EventName}" />
-                        <TextBox
-                            FontSize="30"
-                            Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <!-- General -->
-                        <TextBlock
-                            Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
-                            Text="{ui:Localize Key=General}" />
-                        <toolkit:SettingsCard
-                            Description="Date of the event."
-                            Header="{ui:Localize Key=Date}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE787;}">
-                            <CalendarDatePicker
-                                Grid.Row="1"
-                                HorizontalAlignment="Center"
-                                Date="{x:Bind ViewModel.Date, Mode=TwoWay}" />
-                        </toolkit:SettingsCard>
-                        <toolkit:SettingsCard
-                            Description="Time of day of the event."
-                            Header="{ui:Localize Key=Time}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE917;}">
-                            <TimePicker
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center"
-                                Time="{x:Bind ViewModel.Time, Mode=TwoWay}" />
-                        </toolkit:SettingsCard>
+                    <usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
+                    <Grid ColumnSpacing="16" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition x:Name="RightColumn" Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            x:Name="BasicInputFormStack"
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Stretch"
+                            Spacing="8">
+                            <TextBlock Style="{StaticResource FormLabelTextBlockStyle}" Text="{ui:Localize Key=EventName}" />
+                            <TextBox FontSize="30" Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <!--  General  -->
+                            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ui:Localize Key=General}" />
+                            <toolkit:SettingsCard
+                                Description="{ui:Localize Key=DateDescription}"
+                                Header="{ui:Localize Key=Date}"
+                                HeaderIcon="{ui:FontIcon Glyph=&#xE787;}">
+                                <CalendarDatePicker
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    Date="{x:Bind ViewModel.Date, Mode=TwoWay}" />
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard
+                                Description="{ui:Localize Key=TimeDescription}"
+                                Header="{ui:Localize Key=Time}"
+                                HeaderIcon="{ui:FontIcon Glyph=&#xE823;}">
+                                <TimePicker
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    Time="{x:Bind ViewModel.Time, Mode=TwoWay}" />
+                            </toolkit:SettingsCard>
 
-                        <toolkit:SettingsCard
-                            Description="Text that will be shown when the event time comes!"
-                            Header="{ui:Localize Key=Celebration}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xED55;}">
-                            <TextBox
-                                PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}"
-                                Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay}" />
-                        </toolkit:SettingsCard>
+                            <toolkit:SettingsCard
+                                Description="{ui:Localize Key=CelebrationDescription}"
+                                Header="{ui:Localize Key=Celebration}"
+                                HeaderIcon="{ui:FontIcon Glyph=&#xED55;}">
+                                <TextBox PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}" Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </toolkit:SettingsCard>
 
-                        <!-- General -->
+                            <!--  General  -->
 
-                        <TextBlock
-                            Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
-                            Text="{ui:Localize Key=Customization}" />
-                        <toolkit:SettingsCard
-                            Header="{ui:Localize Key=TextColor}"
-                            Description="{ui:Localize Key=TextColorDescription}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE793;}">
-                            <ComboBox
-                                MinWidth="{StaticResource SettingsControlMinWidth}"
-                                IsTextSearchEnabled="True"
-                                ItemsSource="{x:Bind ViewModel.ThemeOptions}"
-                                SelectedItem="{x:Bind ViewModel.Theme, Mode=TwoWay}"
-                                Style="{StaticResource DefaultComboBoxStyle}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate x:DataType="ElementTheme">
-                                        <TextBlock Text="{x:Bind Converter={StaticResource EnumLocalizationConverter}}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </toolkit:SettingsCard>
-                        <toolkit:SettingsCard
-                            Description="{ui:Localize Key=BackgroundColorSettingDescription}"
-                            Header="{ui:Localize Key=BackgroundColor}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE790;}">
-                            <StackPanel
-                                Orientation="Horizontal"
-                                Spacing="8">
-                                <Button
+                            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ui:Localize Key=Customization}" />
+                            <toolkit:SettingsCard
+                                Description="{ui:Localize Key=TextColorDescription}"
+                                Header="{ui:Localize Key=TextColor}"
+                                HeaderIcon="{ui:FontIcon Glyph=&#xE793;}">
+                                <ComboBox
                                     MinWidth="{StaticResource SettingsControlMinWidth}"
-                                    Command="{x:Bind ViewModel.PickBackgroundColorCommand}"
-                                    Content="{ui:Localize Key=Pick}" />
-                                <Button
-                                    VerticalAlignment="Stretch"
-                                    Command="{x:Bind ViewModel.RemoveBackgroundColorCommand}"
-                                    ToolTipService.ToolTip="{ui:Localize Key=Clear}"
-                                    Visibility="{x:Bind ViewModel.IsBackgroundColorSet, Mode=OneWay}">
+                                    IsTextSearchEnabled="True"
+                                    ItemsSource="{x:Bind ViewModel.TextThemeOptions}"
+                                    SelectedItem="{x:Bind ViewModel.TextTheme, Mode=TwoWay}"
+                                    Style="{StaticResource DefaultComboBoxStyle}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate x:DataType="models:TextTheme">
+                                            <TextBlock Text="{x:Bind Converter={StaticResource EnumLocalizationConverter}}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </toolkit:SettingsCard>
+                            <toolkit:SettingsCard
+                                Description="{ui:Localize Key=BackgroundColorSettingDescription}"
+                                Header="{ui:Localize Key=BackgroundColor}"
+                                HeaderIcon="{ui:FontIcon Glyph=&#xE790;}">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Button
+                                        MinWidth="{StaticResource SettingsControlMinWidth}"
+                                        Command="{x:Bind ViewModel.PickBackgroundColorCommand}"
+                                        Content="{ui:Localize Key=Pick}" />
+                                    <Button
+                                        VerticalAlignment="Stretch"
+                                        Command="{x:Bind ViewModel.RemoveBackgroundColorCommand}"
+                                        ToolTipService.ToolTip="{ui:Localize Key=Clear}"
+                                        Visibility="{x:Bind ViewModel.IsBackgroundColorSet, Mode=OneWay}">
+                                        <FontIcon FontSize="{ThemeResource InfoBarIconFontSize}" Glyph="&#xE7A7;" />
+                                    </Button>
+                                </StackPanel>
+                            </toolkit:SettingsCard>
+
+                            <toolkit:SettingsExpander Header="{ui:Localize Key=BackgroundImage}" HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}">
+                                <StackPanel Orientation="Horizontal" Spacing="16">
                                     <FontIcon
-                                        FontSize="{ThemeResource InfoBarIconFontSize}"
-                                        Glyph="&#xE7A7;" />
-                                </Button>
-                            </StackPanel>
-                        </toolkit:SettingsCard>
+                                        Foreground="Gold"
+                                        Glyph="&#xF133;"
+                                        Visibility="{x:Bind ViewModel.HasProLicense, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
 
-                        <toolkit:SettingsExpander
-                            Header="{ui:Localize Key=BackgroundImage}"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}">
-                            <StackPanel
-                                Orientation="Horizontal"
-                                Spacing="16">
-                                <FontIcon
-                                    Foreground="Gold"
-                                    Glyph="&#xF133;"
-                                    Visibility="{x:Bind ViewModel.HasProLicense, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
+                                    <Button
+                                        MinWidth="{StaticResource SettingsControlMinWidth}"
+                                        Command="{x:Bind ViewModel.PickBackgroundImageCommand}"
+                                        Content="{ui:Localize Key=Browse}" />
+                                    <Button
+                                        VerticalAlignment="Stretch"
+                                        Command="{x:Bind ViewModel.RemoveBackgroundImageCommand}"
+                                        ToolTipService.ToolTip="{ui:Localize Key=Clear}"
+                                        Visibility="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
+                                        <FontIcon FontSize="{ThemeResource InfoBarIconFontSize}" Glyph="&#xE7A7;" />
+                                    </Button>
+                                </StackPanel>
+                                <toolkit:SettingsExpander.Items>
+                                    <toolkit:SettingsCard
+                                        HorizontalContentAlignment="Left"
+                                        ContentAlignment="Vertical"
+                                        Header="{ui:Localize Key=DefaultBackgrounds}">
+                                        <GridView
+                                            Margin="0,5,0,0"
+                                            ItemsSource="{x:Bind ViewModel.DefaultBackgrounds}"
+                                            SelectedItem="{x:Bind ViewModel.SelectedDefaultBackground, Mode=TwoWay}"
+                                            SelectionMode="Single">
+                                            <GridView.ItemTemplate>
+                                                <DataTemplate x:DataType="models:DefaultBackground">
+                                                    <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="4">
+                                                        <Image
+                                                            Width="70"
+                                                            Height="70"
+                                                            Stretch="UniformToFill">
+                                                            <Image.Source>
+                                                                <BitmapImage UriSource="{x:Bind ThumbnailUri}" />
+                                                            </Image.Source>
+                                                        </Image>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridView.ItemTemplate>
+                                        </GridView>
+                                    </toolkit:SettingsCard>
 
-                                <Button
-                                    MinWidth="{StaticResource SettingsControlMinWidth}"
-                                    Command="{x:Bind ViewModel.PickBackgroundImageCommand}"
-                                    Content="{ui:Localize Key=Browse}" />
-                                <Button
-                                    VerticalAlignment="Stretch"
-                                    Command="{x:Bind ViewModel.RemoveBackgroundImageCommand}"
-                                    ToolTipService.ToolTip="{ui:Localize Key=Clear}"
-                                    Visibility="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
-                                    <FontIcon
-                                        FontSize="{ThemeResource InfoBarIconFontSize}"
-                                        Glyph="&#xE7A7;" />
-                                </Button>
-                            </StackPanel>
-                            <toolkit:SettingsExpander.Items>
-                                <toolkit:SettingsCard
-                                    HorizontalContentAlignment="Left"
-                                    ContentAlignment="Vertical"
-                                    Header="{ui:Localize Key=DefaultBackgrounds}">
-                                    <GridView
-                                        Margin="0,5,0,0"
-                                        ItemsSource="{x:Bind ViewModel.DefaultBackgrounds}"
-                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultBackground, Mode=TwoWay}"
-                                        SelectionMode="Single">
-                                        <GridView.ItemTemplate>
-                                            <DataTemplate x:DataType="models:DefaultBackground">
-                                                <Border
-                                                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-                                                    CornerRadius="4">
-                                                    <Image
-                                                        Width="70"
-                                                        Height="70"
-                                                        Stretch="UniformToFill">
-                                                        <Image.Source>
-                                                            <BitmapImage UriSource="{x:Bind ThumbnailUri}" />
-                                                        </Image.Source>
-                                                    </Image>
-                                                </Border>
-                                            </DataTemplate>
-                                        </GridView.ItemTemplate>
-                                    </GridView>
-                                </toolkit:SettingsCard>
-
-                                <toolkit:SettingsCard
-                                    Header="{ui:Localize Key=BackgroundImageOpacity}"
-                                    HeaderIcon="{ui:FontIcon Glyph=&#xE7B3;}"
-                                    IsEnabled="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
-                                    <StackPanel>
-                                        <Slider
-                                            Width="{StaticResource SettingsControlMinWidth}"
-                                            Maximum="100"
-                                            Minimum="0"
-                                            Value="{x:Bind ViewModel.BackgroundImageOpacityPercent, Mode=TwoWay}" />
-                                    </StackPanel>
-                                </toolkit:SettingsCard>
-                            </toolkit:SettingsExpander.Items>
-                        </toolkit:SettingsExpander>
-                        <toolkitcontrols:ConstrainedBox
-                            MaxWidth="400"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
-                            AspectRatio="16:9">
-                            <Grid CornerRadius="8">
-								<controls:EventCountdownDisplayControl Countdown="{x:Bind ViewModel.SampleCountdown, Mode=OneWay}" DisplayMode="Preview" />
-								<TextBlock
-                                    Margin="10"
-                                    VerticalAlignment="Bottom"
-                                    Foreground="#FFF"
-                                    Opacity="0.8"
-                                    Text="{ui:Localize Key=Preview}" />
-                            </Grid>
-                        </toolkitcontrols:ConstrainedBox>
-                    </StackPanel>
+                                    <toolkit:SettingsCard
+                                        Header="{ui:Localize Key=BackgroundImageOpacity}"
+                                        HeaderIcon="{ui:FontIcon Glyph=&#xE7B3;}"
+                                        IsEnabled="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
+                                        <StackPanel>
+                                            <Slider
+                                                Width="{StaticResource SettingsControlMinWidth}"
+                                                Maximum="100"
+                                                Minimum="0"
+                                                Value="{x:Bind ViewModel.BackgroundImageOpacityPercent, Mode=TwoWay}" />
+                                        </StackPanel>
+                                    </toolkit:SettingsCard>
+                                </toolkit:SettingsExpander.Items>
+                            </toolkit:SettingsExpander>
+                        </StackPanel>
+                        <StackPanel
+                            x:Name="PreviewBox"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center">
+                            <toolkitcontrols:ConstrainedBox
+                                MaxWidth="640"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                AspectRatio="16:9">
+                                <Grid
+                                    BorderBrush="{ThemeResource TextControlForegroundDisabled}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <controls:EventCountdownDisplayControl Countdown="{x:Bind ViewModel.SampleCountdown, Mode=OneWay}" DisplayMode="Preview" />
+                                </Grid>
+                            </toolkitcontrols:ConstrainedBox>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                Foreground="{ThemeResource TextControlForeground}"
+                                Opacity="0.8"
+                                Text="{ui:Localize Key=Preview}" />
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
             </Border>
         </ScrollViewer>
@@ -215,9 +209,7 @@
             OverflowButtonVisibility="Collapsed">
             <AppBarButton>
                 <AppBarButton.Command>
-                    <StandardUICommand
-                        Kind="Save"
-                        Command="{x:Bind ViewModel.SaveCommand}" />
+                    <StandardUICommand Command="{x:Bind ViewModel.SaveCommand}" Kind="Save" />
                 </AppBarButton.Command>
             </AppBarButton>
             <AppBarButton
@@ -227,26 +219,37 @@
         </CommandBar>
         <Grid
             Grid.RowSpan="3"
-            Background="#88FFFFFF"
+            Background="{ThemeResource AppOverlayBackgroundBrush}"
             Visibility="{x:Bind ViewModel.IsWorking, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}">
             <ProgressRing
                 Width="50"
                 Height="50"
-                BorderBrush="Black"
-                Foreground="Black"
+                BorderBrush="{ThemeResource TextControlForeground}"
+                Foreground="{ThemeResource TextControlForeground}"
                 IsActive="{x:Bind ViewModel.IsWorking, Mode=OneWay}" />
         </Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="768" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="WrapperGridMaxColumn.MaxWidth" Value="1000" />
-                        <Setter Target="FormSecondaryColumn.Width" Value="*" />
-                        <Setter Target="BackgroundControlGrid.(Grid.Column)" Value="1" />
-                        <Setter Target="BackgroundControlGrid.(Grid.Row)" Value="0" />
+                        <Setter Target="ContentRoot.Padding" Value="12" />
+                        <Setter Target="RightColumn.Width" Value="0" />
+                        <Setter Target="PreviewBox.(Grid.Row)" Value="1" />
+                        <Setter Target="PreviewBox.(Grid.Column)" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="600" MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentRoot.Padding" Value="24" />
+                        <Setter Target="RightColumn.Width" Value="*" />
+                        <Setter Target="PreviewBox.(Grid.Row)" Value="0" />
+                        <Setter Target="PreviewBox.(Grid.Column)" Value="1" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

@@ -13,7 +13,7 @@ namespace Awaitick.Services.Store;
 
 public class StoreService : IStoreService
 {
-	private const string AwaitickProId = "9PJRM3NWXGBN";
+	private const string AwaitickProId = "9NPNW4QSWBGK";
 
 	private readonly IWindowShellProvider _shellProvider;
 	private readonly IDialogService _dialogService;

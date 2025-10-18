@@ -11,18 +11,18 @@ public abstract class EventPreset
 	public EventPreset(
 		EventCategory category,
 		string eventPresetKey,
+		TextTheme textTheme,
 		double backgroundImageOpacity = 0.8,
-		Color? backgroundColor = null,
-		ElementTheme theme = ElementTheme.Default)
+		Color? backgroundColor = null)
 	{
 		_eventPresetKey = eventPresetKey;
 		Category = category;
 		BackgroundImageOpacity = backgroundImageOpacity;
 		BackgroundColor = backgroundColor;
-		Theme = theme;
+		TextTheme = textTheme;
 	}
 
-	public string Name => Localizer.Instance.GetString($"EventPreset.{_eventPresetKey}.Name");
+	public string Name => Localizer.Instance.GetString($"EventPreset_{_eventPresetKey}_Name");
 
 	public Uri BackgroundImageUri => new Uri($"ms-appx:///Assets/EventPresets/{_eventPresetKey}.jpg", UriKind.Absolute);
 
@@ -32,7 +32,7 @@ public abstract class EventPreset
 
 	public Color? BackgroundColor { get; }
 
-	public ElementTheme Theme { get; }
+	public TextTheme TextTheme { get; }
 
 	protected abstract DateTimeOffset GetTargetDate();
 
@@ -59,7 +59,7 @@ public abstract class EventPreset
 			BackgroundImageUri = BackgroundImageUri,
 			BackgroundImageOpacity = BackgroundImageOpacity,
 			BackgroundColor = BackgroundColor is not null ? ColorHelper.ToHex(BackgroundColor.Value) : ColorHelper.ToHex(Colors.Transparent),
-			Theme = Theme,
+			TextTheme = TextTheme,
 			TargetDateTime = GetTargetDate(),
 		};
 	}

@@ -76,11 +76,11 @@ public partial class CountdownEditorViewModel : PageViewModel
 	[ObservableProperty]
 	public partial Uri? LastCustomBackgroundUri { get; set; }
 
-	public ElementTheme[] ThemeOptions { get; } = [ElementTheme.Default, ElementTheme.Light, ElementTheme.Dark];
+	public TextTheme[] TextThemeOptions { get; } = [TextTheme.Default, TextTheme.Light, TextTheme.Dark];
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
-	public partial ElementTheme Theme { get; set; }
+	public partial TextTheme TextTheme { get; set; }
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
@@ -189,7 +189,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		CelebrationMessage = _editedEventCountdown.CelebrationMessage;
 		BackgroundImageUri = _editedEventCountdown.BackgroundImageUri;
 		BackgroundColor = ColorHelper.ToColor(_editedEventCountdown.BackgroundColor);
-		Theme = _editedEventCountdown.Theme;
+		TextTheme = _editedEventCountdown.TextTheme;
 		BackgroundImageOpacityPercent = _editedEventCountdown.BackgroundImageOpacity * 100;
 		SelectedDefaultBackground = _defaultBackgrounds.GetDefaultBackgrounds().FirstOrDefault(x => x.BackgroundUri == BackgroundImageUri);
 		LastCustomBackgroundUri = BackgroundImageUri;
@@ -289,7 +289,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		eventCountdown.TargetDateTime = Date.Date + fixedTime;
 		eventCountdown.BackgroundImageUri = BackgroundImageUri;
 		eventCountdown.BackgroundColor = BackgroundColor.ToHex();
-		eventCountdown.Theme = Theme;
+		eventCountdown.TextTheme = TextTheme;
 		eventCountdown.BackgroundImageOpacity = BackgroundImageOpacity;
 		eventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
 	}

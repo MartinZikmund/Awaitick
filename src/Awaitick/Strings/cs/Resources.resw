@@ -340,7 +340,7 @@
     <value>Přidejte svou první událost</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavení</value>
   </data>
   <data name="ReviewApp" xml:space="preserve">
     <value>Ohodnotit aplikaci</value>
@@ -414,61 +414,169 @@
   <data name="ElementTheme_Dark" xml:space="preserve">
     <value>Temný</value>
   </data>
-  <data name="TextColor" xml:space="preserve">
-    <value>Barva textu</value>
+  <data name="EventPreset_NewYear_Name" xml:space="preserve">
+    <value>Nový rok</value>
+  </data>
+  <data name="EventPreset_NewYearsEve_Name" xml:space="preserve">
+    <value>Silvestr</value>
+  </data>
+  <data name="EventPreset_ValentinesDay_Name" xml:space="preserve">
+    <value>Den svatého Valentýna</value>
+  </data>
+  <data name="EventPreset_InternationalWomensDay_Name" xml:space="preserve">
+    <value>Mezinárodní den žen</value>
+  </data>
+  <data name="EventPreset_AprilFoolsDay_Name" xml:space="preserve">
+    <value>Apríl</value>
+  </data>
+  <data name="EventPreset_EarthDay_Name" xml:space="preserve">
+    <value>Den Země</value>
+  </data>
+  <data name="EventPreset_Halloween_Name" xml:space="preserve">
+    <value>Halloween</value>
+  </data>
+  <data name="EventPreset_Christmas_Name" xml:space="preserve">
+    <value>Vánoce</value>
+  </data>
+  <data name="EventPreset_AllSaintsDay_Name" xml:space="preserve">
+    <value>Dušičky</value>
+  </data>
+  <data name="EventPreset_IndependenceDayUSA_Name" xml:space="preserve">
+    <value>Den nezávislosti (USA)</value>
+  </data>
+  <data name="EventPreset_BastilleDay_Name" xml:space="preserve">
+    <value>Den Bastily</value>
+  </data>
+  <data name="EventPreset_CanadaDay_Name" xml:space="preserve">
+    <value>Den Kanady</value>
+  </data>
+  <data name="EventPreset_AustraliaDay_Name" xml:space="preserve">
+    <value>Den Austrálie</value>
+  </data>
+  <data name="EventPreset_IndianIndependenceDay_Name" xml:space="preserve">
+    <value>Den nezávislosti Indie</value>
+  </data>
+  <data name="EventPreset_BrazilIndependenceDay_Name" xml:space="preserve">
+    <value>Den nezávislosti Brazílie</value>
+  </data>
+  <data name="EventPreset_SouthAfricaFreedomDay_Name" xml:space="preserve">
+    <value>Den svobody Jižní Afriky</value>
+  </data>
+  <data name="EventPreset_Easter_Name" xml:space="preserve">
+    <value>Velikonoce</value>
+  </data>
+  <data name="Onboarding_WelcomeTitle" xml:space="preserve">
+    <value>Vítejte v Awaitick!</value>
+  </data>
+  <data name="Onboarding_WelcomeSubtitle" xml:space="preserve">
+    <value>Váš odpočet ke všemu důležitému.</value>
+  </data>
+  <data name="Onboarding_WelcomeDescription" xml:space="preserve">
+    <value>Mějte přehled o svých událostech a na nic nezapomeňte!</value>
+  </data>
+  <data name="Onboarding_GetStarted" xml:space="preserve">
+    <value>Začít</value>
+  </data>
+  <data name="Onboarding_PresetsTitle" xml:space="preserve">
+    <value>Začněte s předvolbami</value>
+  </data>
+  <data name="Onboarding_PresetsSubtitle" xml:space="preserve">
+    <value>Zde jsou některé z našich oblíbených!</value>
+  </data>
+  <data name="Onboarding_Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="Onboarding_Skip" xml:space="preserve">
+    <value>Přeskočit</value>
+  </data>
+  <data name="Onboarding_FinalTitle" xml:space="preserve">
+    <value>Začínáme!</value>
+  </data>
+  <data name="Onboarding_FinalSubtitle" xml:space="preserve">
+    <value>Pojďme vás nastavit.</value>
+  </data>
+  <data name="Onboarding_FinalDescription" xml:space="preserve">
+    <value>Klikněte níže pro spuštění Awaitick.</value>
+  </data>
+  <data name="Onboarding_Continue" xml:space="preserve">
+    <value>Pokračovat</value>
+  </data>
+  <data name="Onboarding_CustomEventTitle" xml:space="preserve">
+    <value>Přidejte vlastní událost</value>
+  </data>
+  <data name="Onboarding_CustomEventSubtitle" xml:space="preserve">
+    <value>Nyní můžete přidat vlastní odpočet nebo to přeskočit a vytvořit jej později.</value>
+  </data>
+  <data name="Onboarding_CreateCustomEvent" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="Onboarding_StartApp" xml:space="preserve">
+    <value>Přeskočit</value>
+  </data>
+  <data name="DateDescription" xml:space="preserve">
+    <value>Datum konání události.</value>
+  </data>
+  <data name="TimeDescription" xml:space="preserve">
+    <value>Čas konání události.</value>
+  </data>
+  <data name="CelebrationDescription" xml:space="preserve">
+    <value>Text, který se zobrazí po dosažení času události!</value>
+  </data>
+  <data name="Debugging" xml:space="preserve">
+    <value>Ladění</value>
+  </data>
+  <data name="TestData" xml:space="preserve">
+    <value>Testovací data</value>
+  </data>
+  <data name="ClearPreferences" xml:space="preserve">
+    <value>Vymazat předvolby</value>
+  </data>
+  <data name="GoToOnboarding" xml:space="preserve">
+    <value>Přejít na onboarding</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zpět</value>
+  </data>
+  <data name="MultipleAwaitickes" xml:space="preserve">
+    <value>Více odpočtů</value>
+  </data>
+  <data name="MultipleAwaitickesDescription" xml:space="preserve">
+    <value>Vytvářejte a spravujte více než jeden odpočet.</value>
+  </data>
+  <data name="NoAds" xml:space="preserve">
+    <value>Bez reklam</value>
+  </data>
+  <data name="NoAdsDescription" xml:space="preserve">
+    <value>Užívejte si aplikaci bez reklam.</value>
+  </data>
+  <data name="EndlessCustomization" xml:space="preserve">
+    <value>Nekonečné přizpůsobení</value>
+  </data>
+  <data name="EndlessCustomizationDescription" xml:space="preserve">
+    <value>Přizpůsobte své odpočty díky více možnostem.</value>
+  </data>
+  <data name="FutureProFeatures" xml:space="preserve">
+    <value>Další Pro funkce už brzy</value>
+  </data>
+  <data name="InAppPriceOnly" xml:space="preserve">
+    <value>Jenom</value>
+  </data>
+  <data name="GetProNow" xml:space="preserve">
+    <value>Získat Pro nyní</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Otevřít</value>
+  </data>
+  <data name="SupportDevelopment" xml:space="preserve">
+    <value>Podpořte vývoj</value>
+  </data>
+  <data name="SupportDevelopmentDescription" xml:space="preserve">
+    <value>Pomozte podpořit průběžný vývoj aplikace.</value>
   </data>
   <data name="TextColorDescription" xml:space="preserve">
     <value>Vyberte barvu textu odpočtu</value>
   </data>
-  <data name="EventPreset.NewYear.Name" xml:space="preserve">
-    <value>Nový rok</value>
-  </data>
-  <data name="EventPreset.NewYearsEve.Name" xml:space="preserve">
-    <value>Silvestr</value>
-  </data>
-  <data name="EventPreset.ValentinesDay.Name" xml:space="preserve">
-    <value>Den svatého Valentýna</value>
-  </data>
-  <data name="EventPreset.InternationalWomensDay.Name" xml:space="preserve">
-    <value>Mezinárodní den žen</value>
-  </data>
-  <data name="EventPreset.AprilFoolsDay.Name" xml:space="preserve">
-    <value>Apríl</value>
-  </data>
-  <data name="EventPreset.EarthDay.Name" xml:space="preserve">
-    <value>Den Země</value>
-  </data>
-  <data name="EventPreset.Halloween.Name" xml:space="preserve">
-    <value>Halloween</value>
-  </data>
-  <data name="EventPreset.Christmas.Name" xml:space="preserve">
-    <value>Vánoce</value>
-  </data>
-  <data name="EventPreset.AllSaintsDay.Name" xml:space="preserve">
-    <value>Dušičky</value>
-  </data>
-  <data name="EventPreset.IndependenceDayUSA.Name" xml:space="preserve">
-    <value>Den nezávislosti (USA)</value>
-  </data>
-  <data name="EventPreset.BastilleDay.Name" xml:space="preserve">
-    <value>Den Bastily</value>
-  </data>
-  <data name="EventPreset.CanadaDay.Name" xml:space="preserve">
-    <value>Den Kanady</value>
-  </data>
-  <data name="EventPreset.AustraliaDay.Name" xml:space="preserve">
-    <value>Den Austrálie</value>
-  </data>
-  <data name="EventPreset.IndianIndependenceDay.Name" xml:space="preserve">
-    <value>Den nezávislosti Indie</value>
-  </data>
-  <data name="EventPreset.BrazilIndependenceDay.Name" xml:space="preserve">
-    <value>Den nezávislosti Brazílie</value>
-  </data>
-  <data name="EventPreset.SouthAfricaFreedomDay.Name" xml:space="preserve">
-    <value>Den svobody Jižní Afriky</value>
-  </data>
-  <data name="EventPreset.Easter.Name" xml:space="preserve">
-    <value>Velikonoce</value>
+  <data name="TextColor" xml:space="preserve">
+    <value>Barva textu</value>
   </data>
 </root>

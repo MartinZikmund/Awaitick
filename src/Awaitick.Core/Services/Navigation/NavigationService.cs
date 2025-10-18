@@ -18,7 +18,7 @@ public class NavigationService : INavigationService
 		_frameProvider.GetForCurrentView().Navigated += OnNavigated;
 	}
 
-	private void OnNavigated(object sender, NavigationEventArgs e) => _messenger.Send(new NavigatedMessage());
+	private void OnNavigated(object sender, NavigationEventArgs e) => _messenger.Send(new NavigationChangedMessage());
 
 	private Frame Frame => _frameProvider.GetForCurrentView();
 
@@ -38,9 +38,6 @@ public class NavigationService : INavigationService
 
 	public async void Navigate<TViewModel>(object? parameter)
 	{
-		// This is needed, as Frame would not navigate in case another navigation is currently in progress.
-		await Task.Yield();
-
 		if (!TryFindViewForViewModel(typeof(TViewModel), out var viewType))
 		{
 			throw new InvalidOperationException($"ViewModel type {typeof(TViewModel).Name} is not registered for navigation.");
@@ -76,5 +73,9 @@ public class NavigationService : INavigationService
 
 	private void NavigationManagerBackRequested(object? sender, BackRequestedEventArgs? e) => GoBack();
 
-	public void ClearBackStack() => Frame.BackStack.Clear();
+	public void ClearBackStack()
+	{
+		Frame.BackStack.Clear();
+		_messenger.Send(new NavigationChangedMessage());
+	}
 }
