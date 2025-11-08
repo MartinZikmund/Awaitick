@@ -33,11 +33,13 @@
 		<string>Assets.xcassets/icon.appiconset</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
-
-		<!--
-		Adjust this to your application's encryption usage.
+		<key>CFBundleIdentifier</key>
+		<string>dev.mzikmund.awaitick</string>
+		<key>CFBundleName</key>
+		<string>Awaitick</string>
+		<key>CFBundleDisplayName</key>
+		<string>Awaitick</string>
 		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
-		-->
 	</dict>
 </plist>
