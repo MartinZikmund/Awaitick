@@ -12,7 +12,7 @@ on:
 env:
   # App Configuration
   APP_NAME: Awaitick
-  DOTNET_VERSION: 9.x
+  DOTNET_VERSION: 10.0.x
   PROJECT_PATH: src/Awaitick
   WASM_TARGET_FRAMEWORK: net10.0-browserwasm
 
