@@ -5,7 +5,7 @@ Awaitick is a cross-platform event countdown application built with Uno Platform
 
 ## Technology Stack
 - **Framework**: Uno Platform (cross-platform .NET UI framework)
-- **Language**: C# with .NET 9.0
+- **Language**: C# with .NET 10.0
 - **UI Technology**: XAML with WinUI controls
 - **Architecture**: MVVM pattern with CommunityToolkit.Mvvm
 - **Target Platforms**: Android, iOS, Windows, macOS, WebAssembly, Desktop

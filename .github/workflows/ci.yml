@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
@@ -10,7 +12,7 @@ on:
 env:
   # App Configuration
   APP_NAME: Awaitick
-  DOTNET_VERSION: 9.0.x
+  DOTNET_VERSION: 10.0.x
   SOLUTION_FILE: src/Awaitick.slnx
   PROJECT_PATH: src/Awaitick
   PROJECT_FILE: src/Awaitick/Awaitick.csproj
@@ -46,8 +48,9 @@ jobs:
             ${{ env.DOTNET_VERSION }}
 
       - name: Install .NET workloads
-        run:
+        run: |
           dotnet workload restore "$env:SOLUTION_FILE"
+          dotnet workload install wasm-tools
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild

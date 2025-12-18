@@ -26,7 +26,7 @@
       "server": {
         "runtimeExecutable": "dotnet",
         "program": "run",
-        "args": ["--no-build","-f","net9.0-browserwasm","--launch-profile", "Awaitick (WebAssembly)"],
+        "args": ["--no-build","-f","net10.0-browserwasm","--launch-profile", "Awaitick (WebAssembly)"],
         "outputCapture": "std",
         "timeout": 30000,
         "cwd": "${workspaceFolder}/Awaitick"
@@ -41,7 +41,7 @@
       "request": "launch",
       "preLaunchTask": "build-desktop",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/Awaitick/bin/Debug/net9.0-desktop/Awaitick.dll",
+      "program": "${workspaceFolder}/Awaitick/bin/Debug/net10.0-desktop/Awaitick.dll",
       "args": [],
       "launchSettingsProfile": "Awaitick (Desktop)",
       "env": {
