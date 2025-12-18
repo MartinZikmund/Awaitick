@@ -10,7 +10,7 @@ env:
   SOLUTION_FILE: src/Awaitick.slnx
   PROJECT_PATH: src/Awaitick
   PROJECT_FILE: src/Awaitick/Awaitick.csproj
-  IOS_TARGET_FRAMEWORK: net9.0-ios
+  IOS_TARGET_FRAMEWORK: net10.0-ios
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
