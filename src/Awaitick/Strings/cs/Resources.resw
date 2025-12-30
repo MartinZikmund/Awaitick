@@ -192,6 +192,9 @@
   <data name="EventName" xml:space="preserve">
     <value>Název události</value>
   </data>
+  <data name="EventNameRequired" xml:space="preserve">
+    <value>Název události je povinný.</value>
+  </data>
   <data name="Feedback" xml:space="preserve">
     <value>Zpětná vazba</value>
   </data>
@@ -231,6 +234,12 @@
   <data name="Preview" xml:space="preserve">
     <value>Ukázka</value>
   </data>
+  <data name="PastDateWarning" xml:space="preserve">
+    <value>Minulé datum</value>
+  </data>
+  <data name="PastDateWarningMessage" xml:space="preserve">
+    <value>Vybrané datum je v minulosti. Chcete pokračovat?</value>
+  </data>
   <data name="RateNow" xml:space="preserve">
     <value>Ohodnotit nyní</value>
   </data>
@@ -242,6 +251,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Uložit</value>
+  </data>
+  <data name="SaveError" xml:space="preserve">
+    <value>Chyba ukládání</value>
+  </data>
+  <data name="SaveErrorMessage" xml:space="preserve">
+    <value>Došlo k chybě při ukládání události. Zkuste to prosím znovu.</value>
   </data>
   <data name="ScaryHalloween" xml:space="preserve">
     <value>Strašidelný Halloween!</value>
@@ -578,5 +593,8 @@
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>Barva textu</value>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>Chyba validace</value>
   </data>
 </root>

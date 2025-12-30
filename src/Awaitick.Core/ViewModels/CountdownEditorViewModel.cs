@@ -139,31 +139,40 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	public override async void ViewNavigatedTo(object? parameter)
 	{
-		if (parameter is not NavigationModel navigationModel)
+		try
 		{
-			throw new ArgumentException("Parameter must be CountdownEditorViewModel.NavigationModel.", nameof(parameter));
-		}
-
-		Mode = navigationModel.Mode;
-		HasProLicense = await _storeService.HasProAsync();
-
-		if (Mode == EditorMode.Edit)
-		{
-			Title = _localizationService.GetString("EditEvent");
-		
-			_editedEventCountdown = await _dataService.GetCountdownAsync(navigationModel.Id);
-			if (_editedEventCountdown is null)
+			if (parameter is not NavigationModel navigationModel)
 			{
 				_navigationService.GoBack();
+				return;
 			}
+
+			Mode = navigationModel.Mode;
+			HasProLicense = await _storeService.HasProAsync();
+
+			if (Mode == EditorMode.Edit)
+			{
+				Title = _localizationService.GetString("EditEvent");
+
+				_editedEventCountdown = await _dataService.GetCountdownAsync(navigationModel.Id);
+				if (_editedEventCountdown is null)
+				{
+					_navigationService.GoBack();
+					return;
+				}
+			}
+			else
+			{
+				Title = _localizationService.GetString("AddEvent");
+				_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			}
+
+			LoadEditedCountdown();
 		}
-		else
+		catch (Exception)
 		{
-			Title = _localizationService.GetString("AddEvent");
-			_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			_navigationService.GoBack();
 		}
-		
-		LoadEditedCountdown();
 	}
 
 	partial void OnSelectedDefaultBackgroundChanged(DefaultBackground? value)
@@ -261,30 +270,76 @@ public partial class CountdownEditorViewModel : PageViewModel
 	[RelayCommand]
 	private async Task SaveAsync()
 	{
+		// Validate required name
+		var trimmedName = Name?.Trim() ?? "";
+		if (string.IsNullOrWhiteSpace(trimmedName))
+		{
+			await _dialogService.ShowAsync(
+				_localizationService.GetString("ValidationError"),
+				_localizationService.GetString("EventNameRequired"));
+			return;
+		}
+
+		// Check for past date and show confirmation dialog
+		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
+		var targetDateTime = Date.Date + fixedTime;
+
+		if (targetDateTime <= DateTimeOffset.Now)
+		{
+			var confirmDialog = new ContentDialog
+			{
+				Title = _localizationService.GetString("PastDateWarning"),
+				Content = _localizationService.GetString("PastDateWarningMessage"),
+				PrimaryButtonText = _localizationService.GetString("Yes"),
+				CloseButtonText = _localizationService.GetString("Cancel")
+			};
+
+			var result = await _dialogService.ShowAsync(confirmDialog);
+			if (result != ContentDialogResult.Primary)
+			{
+				return;
+			}
+		}
+
 		IsWorking = true;
 
-		if (_editedEventCountdown is null)
+		try
 		{
-			throw new InvalidOperationException("Edited Countdown should be set.");
-		}
+			if (_editedEventCountdown is null)
+			{
+				throw new InvalidOperationException("Edited Countdown should be set.");
+			}
 
-		SetCountdownProperties(_editedEventCountdown);
+			SetCountdownProperties(_editedEventCountdown);
 
-		if (Mode == EditorMode.Edit)
-		{
-			await _eventCountdownManager.UpdateCountdownAsync(_editedEventCountdown);
+			if (Mode == EditorMode.Edit)
+			{
+				await _eventCountdownManager.UpdateCountdownAsync(_editedEventCountdown);
+			}
+			else
+			{
+				await _eventCountdownManager.AddCountdownAsync(_editedEventCountdown);
+			}
+
+			_navigationService.GoBack();
 		}
-		else
+		catch (Exception)
 		{
-			await _eventCountdownManager.AddCountdownAsync(_editedEventCountdown);
+			await _dialogService.ShowAsync(
+				_localizationService.GetString("SaveError"),
+				_localizationService.GetString("SaveErrorMessage"));
 		}
-		IsWorking = false;
-		_navigationService.GoBack();
+		finally
+		{
+			IsWorking = false;
+		}
 	}
 
 	private void SetCountdownProperties(EventCountdown eventCountdown)
 	{
-		eventCountdown.Name = Name;
+		eventCountdown.Name = Name?.Trim() ?? "";
+		// Construct target datetime preserving the user's local timezone offset
+		// Date.Date returns midnight in the same offset as Date, then we add the time component
 		TimeSpan fixedTime = new TimeSpan(Time.Hours, Time.Minutes, 0);
 		eventCountdown.TargetDateTime = Date.Date + fixedTime;
 		eventCountdown.BackgroundImageUri = BackgroundImageUri;

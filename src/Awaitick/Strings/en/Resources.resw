@@ -192,6 +192,9 @@
   <data name="EventName" xml:space="preserve">
     <value>Event name</value>
   </data>
+  <data name="EventNameRequired" xml:space="preserve">
+    <value>Event name is required.</value>
+  </data>
   <data name="Feedback" xml:space="preserve">
     <value>Feedback</value>
   </data>
@@ -231,6 +234,12 @@
   <data name="Preview" xml:space="preserve">
     <value>Preview</value>
   </data>
+  <data name="PastDateWarning" xml:space="preserve">
+    <value>Past Date</value>
+  </data>
+  <data name="PastDateWarningMessage" xml:space="preserve">
+    <value>The selected date is in the past. Do you want to continue?</value>
+  </data>
   <data name="RateNow" xml:space="preserve">
     <value>Review now</value>
   </data>
@@ -242,6 +251,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SaveError" xml:space="preserve">
+    <value>Save Error</value>
+  </data>
+  <data name="SaveErrorMessage" xml:space="preserve">
+    <value>An error occurred while saving the event. Please try again.</value>
   </data>
   <data name="ScaryHalloween" xml:space="preserve">
     <value>Scary Halloween!</value>
@@ -578,5 +593,8 @@
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>Text color</value>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>Validation Error</value>
   </data>
 </root>
