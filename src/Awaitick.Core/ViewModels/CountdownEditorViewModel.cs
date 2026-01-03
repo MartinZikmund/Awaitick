@@ -139,31 +139,43 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	public override async void ViewNavigatedTo(object? parameter)
 	{
-		if (parameter is not NavigationModel navigationModel)
+		try
 		{
-			throw new ArgumentException("Parameter must be CountdownEditorViewModel.NavigationModel.", nameof(parameter));
-		}
-
-		Mode = navigationModel.Mode;
-		HasProLicense = await _storeService.HasProAsync();
-
-		if (Mode == EditorMode.Edit)
-		{
-			Title = _localizationService.GetString("EditEvent");
-		
-			_editedEventCountdown = await _dataService.GetCountdownAsync(navigationModel.Id);
-			if (_editedEventCountdown is null)
+			if (parameter is not NavigationModel navigationModel)
 			{
+				System.Diagnostics.Debug.WriteLine($"[CountdownEditorViewModel] Invalid navigation parameter: expected NavigationModel, got {parameter?.GetType().Name ?? "null"}");
 				_navigationService.GoBack();
+				return;
 			}
+
+			Mode = navigationModel.Mode;
+			HasProLicense = await _storeService.HasProAsync();
+
+			if (Mode == EditorMode.Edit)
+			{
+				Title = _localizationService.GetString("EditEvent");
+
+				_editedEventCountdown = await _dataService.GetCountdownAsync(navigationModel.Id);
+				if (_editedEventCountdown is null)
+				{
+					System.Diagnostics.Debug.WriteLine($"[CountdownEditorViewModel] Countdown not found: {navigationModel.Id}");
+					_navigationService.GoBack();
+					return;
+				}
+			}
+			else
+			{
+				Title = _localizationService.GetString("AddEvent");
+				_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			}
+
+			LoadEditedCountdown();
 		}
-		else
+		catch (Exception ex)
 		{
-			Title = _localizationService.GetString("AddEvent");
-			_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			System.Diagnostics.Debug.WriteLine($"[CountdownEditorViewModel] Error in ViewNavigatedTo: {ex}");
+			_navigationService.GoBack();
 		}
-		
-		LoadEditedCountdown();
 	}
 
 	partial void OnSelectedDefaultBackgroundChanged(DefaultBackground? value)

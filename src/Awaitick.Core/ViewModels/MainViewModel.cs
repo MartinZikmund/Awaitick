@@ -72,29 +72,39 @@ public partial class MainViewModel : PageViewModel
 
 	public override async void ViewNavigatedTo(object? parameter)
 	{
-		IsLoading = true;
-
-		HasProLicense = await _storeService.HasProAsync();
-
-		//load countdowns
-		var countdowns = await _dataService.GetCountdownsAsync();
-		var newCountdowns = new ObservableCollection<CountdownViewModel>();
-		foreach (var countdown in countdowns)
+		try
 		{
-			newCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
+			IsLoading = true;
+
+			HasProLicense = await _storeService.HasProAsync();
+
+			//load countdowns
+			var countdowns = await _dataService.GetCountdownsAsync();
+			var newCountdowns = new ObservableCollection<CountdownViewModel>();
+			foreach (var countdown in countdowns)
+			{
+				newCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
+			}
+			Awaitick = newCountdowns;
+			OnPropertyChanged(nameof(HasAnyEvents));
+
+			_scheduledNotificationService.UnSuppressAllCountdownNotifications();
+
+			if (Awaitick.Count == 0 && _isFirstNavigation)
+			{
+				Add();
+			}
+
+			_isFirstNavigation = false;
 		}
-		Awaitick = newCountdowns;
-		OnPropertyChanged(nameof(HasAnyEvents));
-
-		IsLoading = false;
-		_scheduledNotificationService.UnSuppressAllCountdownNotifications();
-
-		if (Awaitick.Count == 0 && _isFirstNavigation)
+		catch (Exception ex)
 		{
-			Add();
+			System.Diagnostics.Debug.WriteLine($"[MainViewModel] Error in ViewNavigatedTo: {ex}");
 		}
-
-		_isFirstNavigation = false;
+		finally
+		{
+			IsLoading = false;
+		}
 	}
 
 	[ObservableProperty]

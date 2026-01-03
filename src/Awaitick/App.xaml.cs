@@ -48,67 +48,77 @@ public partial class CountdownsApp : Application, IApplication
 
 	protected override async void OnLaunched(LaunchActivatedEventArgs args)
 	{
-		var builder = this.CreateBuilder(args)
-			.Configure(host => host
+		try
+		{
+			var builder = this.CreateBuilder(args)
+				.Configure(host => host
 #if DEBUG
-				// Switch to Development environment when running in DEBUG
-				.UseEnvironment(Environments.Development)
+					// Switch to Development environment when running in DEBUG
+					.UseEnvironment(Environments.Development)
 #endif
-				.UseConfiguration(configure: configBuilder =>
-					configBuilder
-						.EmbeddedSource<CountdownsApp>()
-						.Section<AppConfig>()
-				)
-				.UseSerialization(services =>
+					.UseConfiguration(configure: configBuilder =>
+						configBuilder
+							.EmbeddedSource<CountdownsApp>()
+							.Section<AppConfig>()
+					)
+					.UseSerialization(services =>
+					{
+						services.AddSingleton(new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+						services
+							.AddJsonTypeInfo(EventCountdownSerializerContext.Default.EventCountdown);
+					})
+					// Enable localization (see appsettings.json for supported languages)
+					.UseLocalization()
+					.ConfigureServices((context, services) => ConfigureServices(services))
+				);
+			MainWindow = builder.Window;
+
+#if DEBUG
+			MainWindow.UseStudio();
+#endif
+
+			MainWindow.SetWindowIcon();
+
+			Host = builder.Build();
+			Ioc.Default.ConfigureServices(Host.Services);
+
+			await Host.Services.GetRequiredService<IDataService>().InitializeAsync();
+
+			var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
+
+			// Do not repeat app initialization when the Window already has content,
+			// just ensure that the window is active
+			if (MainWindow.Content is not WindowShell windowShell)
+			{
+				// Create a Frame to act as the navigation context and navigate to the first page
+				windowShell = new WindowShell(Host.Services, MainWindow);
+
+				// Place the frame in the current Window
+				MainWindow.Content = windowShell;
+			}
+
+			if (windowShell.RootFrame.Content is null)
+			{
+				if (appPreferences.FirstStart)
 				{
-					services.AddSingleton(new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-					services
-						.AddJsonTypeInfo(EventCountdownSerializerContext.Default.EventCountdown);
-				})
-				// Enable localization (see appsettings.json for supported languages)
-				.UseLocalization()
-				.ConfigureServices((context, services) => ConfigureServices(services))
-			);
-		MainWindow = builder.Window;
-
-#if DEBUG
-		MainWindow.UseStudio();
-#endif
-
-		MainWindow.SetWindowIcon();
-
-		Host = builder.Build();
-		Ioc.Default.ConfigureServices(Host.Services);
-
-		await Host.Services.GetRequiredService<IDataService>().InitializeAsync();
-
-		var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
-
-		// Do not repeat app initialization when the Window already has content,
-		// just ensure that the window is active
-		if (MainWindow.Content is not WindowShell windowShell)
-		{
-			// Create a Frame to act as the navigation context and navigate to the first page
-			windowShell = new WindowShell(Host.Services, MainWindow);
-
-			// Place the frame in the current Window
-			MainWindow.Content = windowShell;
-		}
-
-		if (windowShell.RootFrame.Content is null)
-		{
-			if (appPreferences.FirstStart)
-			{
-				windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<OnboardingViewModel>(args.Arguments);
+					windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<OnboardingViewModel>(args.Arguments);
+				}
+				else
+				{
+					windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<MainViewModel>(args.Arguments);
+				}
 			}
-			else
-			{
-				windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<MainViewModel>(args.Arguments);
-			}
-		}
 
-		// Ensure the current window is active
-		MainWindow.Activate();
+			// Ensure the current window is active
+			MainWindow.Activate();
+		}
+		catch (Exception ex)
+		{
+			System.Diagnostics.Debug.WriteLine($"[App] Critical error during application launch: {ex}");
+			// Re-throw to let the platform handle fatal errors
+			// In production, you might want to show an error dialog first
+			throw;
+		}
 	}
 
 	private void ConfigureServices(IServiceCollection services)

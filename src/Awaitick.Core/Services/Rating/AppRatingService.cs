@@ -39,8 +39,16 @@ public class AppRatingService : IAppRatingService
 
 	private async void RateNowHandler(IUICommand command)
 	{
-		//launch store review
-		_appSettings.OfferUserRating = false;
-		await _storeLauncherService.RateAppAsync();
+		try
+		{
+			//launch store review
+			_appSettings.OfferUserRating = false;
+			await _storeLauncherService.RateAppAsync();
+		}
+		catch (Exception ex)
+		{
+			System.Diagnostics.Debug.WriteLine($"[AppRatingService] Error launching store review: {ex}");
+			// Silently fail - rating is non-critical
+		}
 	}
 }

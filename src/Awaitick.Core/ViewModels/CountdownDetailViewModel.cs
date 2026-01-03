@@ -61,21 +61,33 @@ public partial class CountdownDetailViewModel : PageViewModel
 
 	public override async void ViewNavigatedTo(object? parameter)
 	{
-		if (parameter is not NavigationModel navigationModel)
+		try
 		{
-			throw new ArgumentException("Parameter must be CountdownDetailViewModel.NavigationModel.", nameof(parameter));
-		}
+			if (parameter is not NavigationModel navigationModel)
+			{
+				System.Diagnostics.Debug.WriteLine($"[CountdownDetailViewModel] Invalid navigation parameter: expected NavigationModel, got {parameter?.GetType().Name ?? "null"}");
+				_navigationService.GoBack();
+				return;
+			}
 
-		var eventInfo = await _dataService.GetCountdownAsync(navigationModel.CountdownId);
-		if (eventInfo is null)
+			var eventInfo = await _dataService.GetCountdownAsync(navigationModel.CountdownId);
+			if (eventInfo is null)
+			{
+				System.Diagnostics.Debug.WriteLine($"[CountdownDetailViewModel] Countdown not found: {navigationModel.CountdownId}");
+				_navigationService.GoBack();
+				return;
+			}
+
+			EventCountdown = new CountdownViewModel(eventInfo, _countdownsManager);
+
+			IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
+			_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
+		}
+		catch (Exception ex)
 		{
-			throw new InvalidOperationException("This event does not exist");
+			System.Diagnostics.Debug.WriteLine($"[CountdownDetailViewModel] Error in ViewNavigatedTo: {ex}");
+			_navigationService.GoBack();
 		}
-
-		EventCountdown = new CountdownViewModel(eventInfo, _countdownsManager);
-
-		IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
-		_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
 	}
 
 	[RelayCommand]

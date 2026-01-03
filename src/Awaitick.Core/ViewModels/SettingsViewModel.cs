@@ -50,6 +50,13 @@ public partial class SettingsViewModel : PageViewModel
 			HasProLicense = await _storeService.HasProAsync();
 			Theme = _appSettings.Theme;
 		}
+		catch (Exception ex)
+		{
+			System.Diagnostics.Debug.WriteLine($"[SettingsViewModel] Error in ViewNavigatedTo: {ex}");
+			// Use defaults on error
+			HasProLicense = false;
+			Theme = ElementTheme.Default;
+		}
 		finally
 		{
 			_isInitializing = false;

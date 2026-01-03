@@ -36,11 +36,12 @@ public class NavigationService : INavigationService
 
 	public void Navigate<TViewModel>() => Navigate<TViewModel>(null);
 
-	public async void Navigate<TViewModel>(object? parameter)
+	public void Navigate<TViewModel>(object? parameter)
 	{
 		if (!TryFindViewForViewModel(typeof(TViewModel), out var viewType))
 		{
-			throw new InvalidOperationException($"ViewModel type {typeof(TViewModel).Name} is not registered for navigation.");
+			System.Diagnostics.Debug.WriteLine($"[NavigationService] ViewModel type {typeof(TViewModel).Name} is not registered for navigation.");
+			return;
 		}
 
 		Frame.Navigate(viewType, parameter);
