@@ -201,7 +201,11 @@ public partial class CountdownEditorViewModel : PageViewModel
 		TextTheme = _editedEventCountdown.TextTheme;
 		BackgroundImageOpacityPercent = _editedEventCountdown.BackgroundImageOpacity * 100;
 		SelectedDefaultBackground = _defaultBackgrounds.GetDefaultBackgrounds().FirstOrDefault(x => x.BackgroundUri == BackgroundImageUri);
-		LastCustomBackgroundUri = BackgroundImageUri;
+		// Only set LastCustomBackgroundUri if this is NOT a default background
+		if (SelectedDefaultBackground == null && BackgroundImageUri != null)
+		{
+			LastCustomBackgroundUri = BackgroundImageUri;
+		}
 	}
 
 
@@ -221,11 +225,9 @@ public partial class CountdownEditorViewModel : PageViewModel
 		IsWorking = true;
 		try
 		{
-
-			if (await _imagePickerService.PickAsync() is { } imageUri)
 			{
 				BackgroundImageUri = imageUri;
-				OnPropertyChanged(nameof(IsBackgroundImageSet));
+				// IsBackgroundImageSet will be notified automatically via [NotifyPropertyChangedFor]
 			}
 		}
 		finally
@@ -248,7 +250,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		if (await pickerDialog.ShowAsync() == ContentDialogResult.Primary)
 		{
 			BackgroundColor = pickerDialog.SelectedColor;
-			OnPropertyChanged(nameof(IsBackgroundColorSet));
+			// IsBackgroundColorSet will be notified automatically via [NotifyPropertyChangedFor]
 		}
 		IsWorking = false;
 	}
@@ -257,14 +259,14 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private void RemoveBackgroundImage()
 	{
 		BackgroundImageUri = null;
-		OnPropertyChanged(nameof(IsBackgroundImageSet));
+		// IsBackgroundImageSet will be notified automatically via [NotifyPropertyChangedFor]
 	}
 
 	[RelayCommand]
 	private void RemoveBackgroundColor()
 	{
 		BackgroundColor = Colors.Transparent;
-		OnPropertyChanged(nameof(IsBackgroundColorSet));
+		// IsBackgroundColorSet will be notified automatically via [NotifyPropertyChangedFor]
 	}
 
 	[RelayCommand]
