@@ -4,6 +4,7 @@ using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using Awaitick.Core.Services.Countdowns;
 using Awaitick.Core.Services.Data;
+using Awaitick.Core.Services.DeepLink;
 using Awaitick.Core.Services.Mail;
 using Awaitick.Core.Services.ScheduledNotification;
 using Awaitick.Core.Services.Settings;
@@ -24,6 +25,7 @@ public partial class MainViewModel : PageViewModel
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly IStoreLauncherService _storeLauncherService;
+	private readonly IDeepLinkService _deepLinkService;
 	private readonly IAppPreferences _appSettings;
 	private readonly INavigationService _navigationService;
 	private readonly IMessenger _messenger;
@@ -38,6 +40,7 @@ public partial class MainViewModel : PageViewModel
 		ICountdownsManager countdownsManager,
 		IScheduledNotificationService scheduledNotificationService,
 		IStoreLauncherService storeLauncherService,
+		IDeepLinkService deepLinkService,
 		INavigationService navigationService,
 		IMessenger messenger,
 		IAppPreferences appSettings) :
@@ -50,6 +53,7 @@ public partial class MainViewModel : PageViewModel
 		_countdownsManager = countdownsManager;
 		_scheduledNotificationService = scheduledNotificationService;
 		_storeLauncherService = storeLauncherService;
+		_deepLinkService = deepLinkService;
 		_navigationService = navigationService;
 		_messenger = messenger;
 		_appSettings = appSettings;
@@ -88,6 +92,16 @@ public partial class MainViewModel : PageViewModel
 
 		IsLoading = false;
 		_scheduledNotificationService.UnSuppressAllCountdownNotifications();
+
+		// Check for pending deep link navigation (e.g., from notification tap)
+		var pendingCountdownId = _deepLinkService.ConsumePendingNavigation();
+		if (!string.IsNullOrEmpty(pendingCountdownId))
+		{
+			// Navigate to the countdown detail view
+			_navigationService.Navigate<CountdownDetailViewModel>(
+				new CountdownDetailViewModel.NavigationModel(pendingCountdownId));
+			return; // Skip auto-add for first navigation if deep linking
+		}
 
 		if (Awaitick.Count == 0 && _isFirstNavigation)
 		{
