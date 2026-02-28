@@ -2,7 +2,8 @@
 
 namespace Awaitick.Core.Services.ScheduledNotification;
 
-public class ScheduledNotificationService : IScheduledNotificationService
+#if !__WASM__
+public partial class ScheduledNotificationService : IScheduledNotificationService
 {
 	public void ScheduleCountdownNotification(EventCountdown eventCountdown)
 	{
@@ -20,3 +21,4 @@ public class ScheduledNotificationService : IScheduledNotificationService
 	{
 	}
 }
+#endif

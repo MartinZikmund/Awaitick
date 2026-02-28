@@ -141,7 +141,11 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IFileService, FileService>();
 		services.AddSingleton<ITileService, TileService>();
 		services.AddSingleton<IMailService, MailService>();
-		services.AddSingleton<IScheduledNotificationService, ScheduledNotificationService>();
+#if __WASM__
+		services.AddSingleton<IScheduledNotificationService, Awaitick.Services.ScheduledNotification.ScheduledNotificationService>();
+#else
+		services.AddSingleton<IScheduledNotificationService, Core.Services.ScheduledNotification.ScheduledNotificationService>();
+#endif
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
 		services.AddSingleton<IPreferences, Preferences>();
 		services.AddSingleton<IAppPreferences, AppPreferences>();
