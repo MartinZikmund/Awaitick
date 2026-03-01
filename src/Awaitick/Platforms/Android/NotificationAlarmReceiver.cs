@@ -98,7 +98,7 @@ public class NotificationAlarmReceiver : BroadcastReceiver
 
 		// Build the notification
 		var builder = new NotificationCompat.Builder(context, NotificationConstants.AndroidChannelId)
-			.SetSmallIcon(Resource.Mipmap.iconapp)
+			.SetSmallIcon(Resource.Mipmap.icon_foreground)
 			.SetContentTitle(name)
 			.SetContentText(message)
 			.SetPriority(NotificationCompat.PriorityHigh)
