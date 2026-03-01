@@ -87,7 +87,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 
 			var pendingIntent = PendingIntent.GetBroadcast(
 				_context,
-				eventCountdown.Id.GetHashCode(),
+				NotificationConstants.GetStableId(eventCountdown.Id),
 				intent,
 				PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
@@ -113,7 +113,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 			var intent = new Intent(_context, typeof(NotificationAlarmReceiver));
 			var pendingIntent = PendingIntent.GetBroadcast(
 				_context,
-				eventCountdown.Id.GetHashCode(),
+				NotificationConstants.GetStableId(eventCountdown.Id),
 				intent,
 				PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
@@ -121,7 +121,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 
 			// Also cancel any showing notification
 			var notificationManager = NotificationManagerCompat.From(_context);
-			notificationManager.Cancel(eventCountdown.Id.GetHashCode());
+			notificationManager.Cancel(NotificationConstants.GetStableId(eventCountdown.Id));
 		}
 		catch (Exception)
 		{
@@ -134,7 +134,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		_suppressedNotifications.Add(eventCountdown.Id);
 		// On Android, we can't suppress a scheduled alarm, but we can cancel any showing notification
 		var notificationManager = NotificationManagerCompat.From(_context);
-		notificationManager.Cancel(eventCountdown.Id.GetHashCode());
+		notificationManager.Cancel(NotificationConstants.GetStableId(eventCountdown.Id));
 	}
 
 	public void UnSuppressAllCountdownNotifications()
@@ -146,16 +146,28 @@ public class ScheduledNotificationService : IScheduledNotificationService
 	{
 		if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
 		{
-			// For Android 13+, we need to request POST_NOTIFICATIONS permission
-			// This should be handled by the activity, not here
-			// For now, just check and return current status
 			CheckPermission();
+			if (_hasPermission)
+			{
+				return true;
+			}
+
+			var activity = global::Uno.UI.ContextHelper.Current as Android.App.Activity;
+			if (activity != null)
+			{
+				ActivityCompat.RequestPermissions(activity,
+					new[] { Android.Manifest.Permission.PostNotifications }, 0);
+				// Brief delay for permission dialog result
+				await Task.Delay(500);
+				CheckPermission();
+			}
+
 			return _hasPermission;
 		}
 
 		// For older versions, permission is always granted
 		_hasPermission = true;
-		return await Task.FromResult(true);
+		return true;
 	}
 
 	public Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns)

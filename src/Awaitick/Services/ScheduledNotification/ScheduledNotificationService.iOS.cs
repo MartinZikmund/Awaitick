@@ -60,6 +60,11 @@ public class ScheduledNotificationService : IScheduledNotificationService
 			return;
 		}
 
+		if (_suppressedNotifications.Contains(eventCountdown.Id))
+		{
+			return;
+		}
+
 		// Remove any existing notification first
 		UnscheduleCountdownNotification(eventCountdown);
 
@@ -74,14 +79,17 @@ public class ScheduledNotificationService : IScheduledNotificationService
 				new NSString(eventCountdown.Id))
 		};
 
+		// Convert to local time since UNCalendarNotificationTrigger interprets
+		// date components in the device's local calendar/timezone
+		var localDate = targetDate.LocalDateTime;
 		var dateComponents = new NSDateComponents
 		{
-			Year = targetDate.Year,
-			Month = targetDate.Month,
-			Day = targetDate.Day,
-			Hour = targetDate.Hour,
-			Minute = targetDate.Minute,
-			Second = targetDate.Second
+			Year = localDate.Year,
+			Month = localDate.Month,
+			Day = localDate.Day,
+			Hour = localDate.Hour,
+			Minute = localDate.Minute,
+			Second = localDate.Second
 		};
 
 		var trigger = UNCalendarNotificationTrigger.CreateTrigger(dateComponents, false);

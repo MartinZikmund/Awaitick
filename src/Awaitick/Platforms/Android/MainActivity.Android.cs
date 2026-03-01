@@ -5,7 +5,9 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Awaitick.Core.Infrastructure;
+using Awaitick.Core.Messages;
 using Awaitick.Core.Services.DeepLink;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Awaitick.Droid;
 
@@ -17,6 +19,12 @@ namespace Awaitick.Droid;
 )]
 public class MainActivity : Microsoft.UI.Xaml.ApplicationActivity
 {
+	/// <summary>
+	/// Static property to hold pending countdown ID during cold start
+	/// when IoC is not yet initialized.
+	/// </summary>
+	public static string? PendingCountdownId { get; set; }
+
 	protected override void OnCreate(Bundle? bundle)
 	{
 		global::AndroidX.Core.SplashScreen.SplashScreen.InstallSplashScreen(this);
@@ -50,11 +58,16 @@ public class MainActivity : Microsoft.UI.Xaml.ApplicationActivity
 			{
 				var deepLinkService = IoC.GetService<IDeepLinkService>();
 				deepLinkService?.SetPendingNavigation(countdownId);
+
+				// If app is already running, notify MainViewModel to handle the deep link
+				var messenger = IoC.GetService<IMessenger>();
+				messenger?.Send(new DeepLinkReceivedMessage());
 			}
 			catch
 			{
 				// IoC may not be initialized yet during cold start
-				// The deep link will be handled when MainViewModel loads
+				// Store for later consumption by App.xaml.cs
+				PendingCountdownId = countdownId;
 			}
 		}
 	}

@@ -29,9 +29,6 @@ using Windows.Devices.WiFiDirect.Services;
 using Awaitick.Core.Models;
 using System.Text.Json;
 using Awaitick.Core.Services.DeepLink;
-#if WINDOWS
-using Awaitick.Services.ScheduledNotification;
-#endif
 
 namespace Awaitick;
 
@@ -73,7 +70,7 @@ public partial class CountdownsApp : Application, IApplication
 			{
 				// Navigation will be handled by MainViewModel when it checks for pending navigation
 				var messenger = Host?.Services.GetService<IMessenger>();
-				messenger?.Send(new Core.Messages.NavigationChangedMessage());
+				messenger?.Send(new Core.Messages.DeepLinkReceivedMessage());
 			});
 		}
 	}
@@ -116,6 +113,23 @@ public partial class CountdownsApp : Application, IApplication
 
 		Host = builder.Build();
 		Ioc.Default.ConfigureServices(Host.Services);
+		IoC.SetProvider(Host.Services);
+
+#if __IOS__
+		if (!string.IsNullOrEmpty(Awaitick.iOS.NotificationDelegate.PendingCountdownId))
+		{
+			var deepLinkService = Host.Services.GetService<IDeepLinkService>();
+			deepLinkService?.SetPendingNavigation(Awaitick.iOS.NotificationDelegate.PendingCountdownId);
+			Awaitick.iOS.NotificationDelegate.PendingCountdownId = null;
+		}
+#elif __ANDROID__
+		if (!string.IsNullOrEmpty(Awaitick.Droid.MainActivity.PendingCountdownId))
+		{
+			var deepLinkService = Host.Services.GetService<IDeepLinkService>();
+			deepLinkService?.SetPendingNavigation(Awaitick.Droid.MainActivity.PendingCountdownId);
+			Awaitick.Droid.MainActivity.PendingCountdownId = null;
+		}
+#endif
 
 		var dataService = Host.Services.GetRequiredService<IDataService>();
 		await dataService.InitializeAsync();
@@ -194,11 +208,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<ITileService, TileService>();
 		services.AddSingleton<IMailService, MailService>();
 		services.AddSingleton<IDeepLinkService, DeepLinkService>();
-#if WINDOWS
-		services.AddSingleton<IScheduledNotificationService, Awaitick.Services.ScheduledNotification.ScheduledNotificationService>();
-#elif __ANDROID__
-		services.AddSingleton<IScheduledNotificationService, Awaitick.Services.ScheduledNotification.ScheduledNotificationService>();
-#elif __IOS__
+#if WINDOWS || __ANDROID__ || __IOS__
 		services.AddSingleton<IScheduledNotificationService, Awaitick.Services.ScheduledNotification.ScheduledNotificationService>();
 #else
 		services.AddSingleton<IScheduledNotificationService, Awaitick.Core.Services.ScheduledNotification.ScheduledNotificationService>();

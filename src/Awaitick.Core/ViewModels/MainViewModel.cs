@@ -58,6 +58,21 @@ public partial class MainViewModel : PageViewModel
 		_messenger = messenger;
 		_appSettings = appSettings;
 		_messenger.Register<CountdownDeletedMessage>(this, CountdownDeletedHandler);
+		_messenger.Register<DeepLinkReceivedMessage>(this, DeepLinkReceivedHandler);
+	}
+
+	private static void DeepLinkReceivedHandler(object recipient, DeepLinkReceivedMessage message)
+	{
+		var viewModel = recipient as MainViewModel;
+		if (viewModel != null)
+		{
+			var pendingCountdownId = viewModel._deepLinkService.ConsumePendingNavigation();
+			if (!string.IsNullOrEmpty(pendingCountdownId))
+			{
+				viewModel._navigationService.Navigate<CountdownDetailViewModel>(
+					new CountdownDetailViewModel.NavigationModel(pendingCountdownId));
+			}
+		}
 	}
 
 	private static void CountdownDeletedHandler(object recipient, CountdownDeletedMessage message)
@@ -97,6 +112,7 @@ public partial class MainViewModel : PageViewModel
 		var pendingCountdownId = _deepLinkService.ConsumePendingNavigation();
 		if (!string.IsNullOrEmpty(pendingCountdownId))
 		{
+			_isFirstNavigation = false;
 			// Navigate to the countdown detail view
 			_navigationService.Navigate<CountdownDetailViewModel>(
 				new CountdownDetailViewModel.NavigationModel(pendingCountdownId));

@@ -5,7 +5,7 @@ using Android.OS;
 using AndroidX.Core.App;
 using Awaitick.Core.Infrastructure;
 using Awaitick.Core.Services.DeepLink;
-using Awaitick.Services.ScheduledNotification;
+using Awaitick.Core.Services.ScheduledNotification;
 
 namespace Awaitick.Droid;
 
@@ -58,7 +58,7 @@ public class NotificationAlarmReceiver : BroadcastReceiver
 		var countdownId = intent.GetStringExtra(ExtraCountdownId) ?? "";
 		var name = intent.GetStringExtra(ExtraCountdownName) ?? "Countdown Complete";
 		var message = intent.GetStringExtra(ExtraCountdownMessage) ?? "";
-		var notificationId = countdownId.GetHashCode();
+		var notificationId = NotificationConstants.GetStableId(countdownId);
 
 		// Create tap intent to open the app and navigate to the countdown
 		var tapIntent = new Intent(context, typeof(MainActivity));
@@ -134,7 +134,7 @@ public class NotificationAlarmReceiver : BroadcastReceiver
 		intent.PutExtra(ExtraCountdownMessage, message);
 
 		// Use a different request code for snooze to avoid conflicts
-		var snoozeNotificationId = $"{countdownId}_snooze".GetHashCode();
+		var snoozeNotificationId = NotificationConstants.GetStableId($"{countdownId}_snooze");
 
 		var pendingIntent = PendingIntent.GetBroadcast(
 			context,
@@ -155,7 +155,7 @@ public class NotificationAlarmReceiver : BroadcastReceiver
 	private void DismissNotification(Context context, string countdownId)
 	{
 		var notificationManager = NotificationManagerCompat.From(context);
-		notificationManager.Cancel(countdownId.GetHashCode());
+		notificationManager.Cancel(NotificationConstants.GetStableId(countdownId));
 	}
 }
 #endif

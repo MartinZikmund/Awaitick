@@ -83,11 +83,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 
 	public void UnSuppressAllCountdownNotifications()
 	{
-		var previouslySuppressed = _suppressedNotifications.ToList();
 		_suppressedNotifications.Clear();
-
-		// Note: To fully unsuppress, we would need to reschedule the notifications
-		// This is handled by the caller if needed
 	}
 
 	public Task<bool> RequestPermissionAsync()

@@ -1,7 +1,9 @@
 #if __IOS__
 using Awaitick.Core.Infrastructure;
+using Awaitick.Core.Messages;
 using Awaitick.Core.Services.DeepLink;
-using Awaitick.Services.ScheduledNotification;
+using Awaitick.Core.Services.ScheduledNotification;
+using CommunityToolkit.Mvvm.Messaging;
 using Foundation;
 using UserNotifications;
 
@@ -42,6 +44,10 @@ public class NotificationDelegate : UNUserNotificationCenterDelegate
 				{
 					var deepLinkService = IoC.GetService<IDeepLinkService>();
 					deepLinkService?.SetPendingNavigation(countdownId);
+
+					// If app is already running, notify MainViewModel to handle the deep link
+					var messenger = IoC.GetService<IMessenger>();
+					messenger?.Send(new DeepLinkReceivedMessage());
 				}
 				catch
 				{
@@ -96,14 +102,15 @@ public class NotificationDelegate : UNUserNotificationCenterDelegate
 				new NSString(countdownId))
 		};
 
+		var localSnoozeTime = snoozeTime.LocalDateTime;
 		var dateComponents = new NSDateComponents
 		{
-			Year = snoozeTime.Year,
-			Month = snoozeTime.Month,
-			Day = snoozeTime.Day,
-			Hour = snoozeTime.Hour,
-			Minute = snoozeTime.Minute,
-			Second = snoozeTime.Second
+			Year = localSnoozeTime.Year,
+			Month = localSnoozeTime.Month,
+			Day = localSnoozeTime.Day,
+			Hour = localSnoozeTime.Hour,
+			Minute = localSnoozeTime.Minute,
+			Second = localSnoozeTime.Second
 		};
 
 		var trigger = UNCalendarNotificationTrigger.CreateTrigger(dateComponents, false);
