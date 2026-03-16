@@ -9,7 +9,7 @@
 		<PackageVersion Include="CommunityToolkit.WinUI.Converters" Version="8.1.240916" />
 		<PackageVersion Include="CommunityToolkit.WinUI.Helpers" Version="8.1.240916" />
 		<PackageVersion Include="LiteDB" Version="5.0.20" />
-		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.201" />
 		<PackageVersion Include="MZikmund.Toolkit.WinUI" Version="0.1.13-dev.43" />
 		<PackageVersion Include="Plugin.InAppBilling" Version="7.1.0" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
