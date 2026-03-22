@@ -58,4 +58,12 @@ public class AppPreferences : IAppPreferences
 		get => _preferences.Get(KeepScreenOnKey, true);
 		set => _preferences.Set(KeepScreenOnKey, value);
 	}
+
+	private const string NotificationsEnabledKey = "NotificationsEnabled";
+
+	public bool NotificationsEnabled
+	{
+		get => _preferences.Get(NotificationsEnabledKey, true);
+		set => _preferences.Set(NotificationsEnabledKey, value);
+	}
 }

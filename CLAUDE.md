@@ -18,18 +18,18 @@ Awaitick is a cross-platform event countdown application built with **Uno Platfo
 ### Setup and Build
 ```bash
 # Restore .NET workloads (required for Uno Platform)
-dotnet workload restore src/Awaitick.slnx
+dotnet workload restore Awaitick.slnx
 dotnet workload install wasm-tools
 
 # Build the main project (builds all target frameworks)
 msbuild src/Awaitick/Awaitick.csproj /r
 
 # Build solution
-msbuild src/Awaitick.slnx /r
+msbuild Awaitick.slnx /r
 ```
 
 ### Platform-Specific Development
-- **Solution file**: `src/Awaitick.slnx`
+- **Solution file**: `Awaitick.slnx`
 - **Main project**: `src/Awaitick/Awaitick.csproj`
 - **Core library**: `src/Awaitick.Core/Awaitick.Core.csproj`
 

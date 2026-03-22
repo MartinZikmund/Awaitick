@@ -6,6 +6,8 @@ using Awaitick.Core.Models;
 using Awaitick.Core.Services;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
+using Awaitick.Core.Services.ScheduledNotification;
+using Awaitick.Core.Services.Settings;
 using Awaitick.Dialogs;
 using Awaitick.Services.Dialogs;
 using Awaitick.Services.Localization;
@@ -30,6 +32,9 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private readonly INavigationService _navigationService;
 	private readonly IDefaultBackgrounds _defaultBackgrounds;
 	private readonly IXamlRootProvider _xamlRootProvider;
+	private readonly INotificationPermissionService _notificationPermissionService;
+	private readonly IAppPreferences _appPreferences;
+	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly UISettings _uiSettings = new();
 	private EventCountdown? _editedEventCountdown;
 
@@ -42,7 +47,10 @@ public partial class CountdownEditorViewModel : PageViewModel
 		IStringLocalizer localizationService,
 		INavigationService navigationService,
 		IDefaultBackgrounds defaultBackgrounds,
-		IXamlRootProvider xamlRootProvider) :
+		IXamlRootProvider xamlRootProvider,
+		INotificationPermissionService notificationPermissionService,
+		IAppPreferences appPreferences,
+		IScheduledNotificationService scheduledNotificationService) :
 		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
@@ -54,6 +62,9 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 		_defaultBackgrounds = defaultBackgrounds ?? throw new ArgumentNullException(nameof(defaultBackgrounds));
 		_xamlRootProvider = xamlRootProvider ?? throw new ArgumentNullException(nameof(xamlRootProvider));
+		_notificationPermissionService = notificationPermissionService ?? throw new ArgumentNullException(nameof(notificationPermissionService));
+		_appPreferences = appPreferences ?? throw new ArgumentNullException(nameof(appPreferences));
+		_scheduledNotificationService = scheduledNotificationService ?? throw new ArgumentNullException(nameof(scheduledNotificationService));
 
 		var backgrounds = _defaultBackgrounds.GetDefaultBackgrounds();
 		foreach (var background in backgrounds)
@@ -269,6 +280,12 @@ public partial class CountdownEditorViewModel : PageViewModel
 		}
 
 		SetCountdownProperties(_editedEventCountdown);
+
+		// Request notification permission if notifications are enabled but not yet granted
+		if (_appPreferences.NotificationsEnabled && !_scheduledNotificationService.HasPermission)
+		{
+			await _notificationPermissionService.RequestPermissionWithDialogsAsync();
+		}
 
 		if (Mode == EditorMode.Edit)
 		{

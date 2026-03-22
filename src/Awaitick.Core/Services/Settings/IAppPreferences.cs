@@ -13,4 +13,6 @@ public interface IAppPreferences
 	ElementTheme Theme { get; set; }
 
 	bool KeepScreenOn { get; set; }
+
+	bool NotificationsEnabled { get; set; }
 }

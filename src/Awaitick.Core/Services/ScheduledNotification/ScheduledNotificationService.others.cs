@@ -28,4 +28,6 @@ public class ScheduledNotificationService : IScheduledNotificationService
 	public Task<bool> RequestPermissionAsync() => Task.FromResult(false);
 
 	public Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns) => Task.CompletedTask;
+
+	public Task OpenNotificationSettingsAsync() => Task.CompletedTask;
 }

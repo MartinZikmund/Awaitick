@@ -579,4 +579,28 @@
   <data name="TextColor" xml:space="preserve">
     <value>Barva textu</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Oznámení</value>
+  </data>
+  <data name="NotificationsSettingDescription" xml:space="preserve">
+    <value>Dostávejte oznámení, když nastanou vaše odpočítávané události</value>
+  </data>
+  <data name="NotificationPermission_PreDialog_Title" xml:space="preserve">
+    <value>Povolit oznámení</value>
+  </data>
+  <data name="NotificationPermission_PreDialog_Content" xml:space="preserve">
+    <value>Awaitick vás může upozornit, když nastanou vaše odpočítávané události. K tomu potřebujeme vaše povolení k odesílání oznámení.</value>
+  </data>
+  <data name="NotificationPermission_Denied_Title" xml:space="preserve">
+    <value>Oznámení nejsou povolena</value>
+  </data>
+  <data name="NotificationPermission_Denied_Content" xml:space="preserve">
+    <value>Oznámení jsou momentálně zakázána. Můžete je povolit v nastavení systému vašeho zařízení.</value>
+  </data>
+  <data name="NotificationPermission_OpenSettings" xml:space="preserve">
+    <value>Otevřít nastavení</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Pokračovat</value>
+  </data>
 </root>

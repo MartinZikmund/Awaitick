@@ -135,10 +135,14 @@ public partial class CountdownsApp : Application, IApplication
 		await dataService.InitializeAsync();
 
 		// Reschedule all notifications on startup to ensure they persist after device restart or app updates
-		var notificationService = Host.Services.GetRequiredService<IScheduledNotificationService>();
-		var countdowns = await dataService.GetCountdownsAsync();
-		var futureCountdowns = countdowns.Where(c => c.TargetDateTime > DateTimeOffset.Now);
-		await notificationService.RescheduleAllNotificationsAsync(futureCountdowns);
+		var appPreferencesStartup = Host.Services.GetRequiredService<IAppPreferences>();
+		if (appPreferencesStartup.NotificationsEnabled)
+		{
+			var notificationService = Host.Services.GetRequiredService<IScheduledNotificationService>();
+			var countdowns = await dataService.GetCountdownsAsync();
+			var futureCountdowns = countdowns.Where(c => c.TargetDateTime > DateTimeOffset.Now);
+			await notificationService.RescheduleAllNotificationsAsync(futureCountdowns);
+		}
 
 #if WINDOWS
 		// Handle toast notification activation (launch arguments contain the toast launch string)
@@ -213,6 +217,7 @@ public partial class CountdownsApp : Application, IApplication
 #else
 		services.AddSingleton<IScheduledNotificationService, Awaitick.Core.Services.ScheduledNotification.ScheduledNotificationService>();
 #endif
+		services.AddScoped<INotificationPermissionService, NotificationPermissionService>();
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
 		services.AddSingleton<IPreferences, Preferences>();
 		services.AddSingleton<IAppPreferences, AppPreferences>();

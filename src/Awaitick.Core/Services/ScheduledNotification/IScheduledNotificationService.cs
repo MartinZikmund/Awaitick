@@ -28,4 +28,9 @@ public interface IScheduledNotificationService
 	/// Used on app startup to ensure notifications persist after device restart or app updates.
 	/// </summary>
 	Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns);
+
+	/// <summary>
+	/// Opens the system notification settings for the app.
+	/// </summary>
+	Task OpenNotificationSettingsAsync();
 }

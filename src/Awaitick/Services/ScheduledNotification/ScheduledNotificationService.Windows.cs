@@ -92,6 +92,8 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		return Task.FromResult(true);
 	}
 
+	public Task OpenNotificationSettingsAsync() => Task.CompletedTask;
+
 	public Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns)
 	{
 		// Clear all existing scheduled notifications

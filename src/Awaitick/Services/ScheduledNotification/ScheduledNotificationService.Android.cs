@@ -170,6 +170,26 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		return true;
 	}
 
+	public Task OpenNotificationSettingsAsync()
+	{
+		try
+		{
+			var intent = new Intent(Android.Provider.Settings.ActionAppNotificationSettings);
+			intent.PutExtra(Android.Provider.Settings.ExtraAppPackage, _context.PackageName);
+			intent.AddFlags(ActivityFlags.NewTask);
+			_context.StartActivity(intent);
+		}
+		catch (Exception)
+		{
+			// Fallback to general app settings
+			var intent = new Intent(Android.Provider.Settings.ActionApplicationDetailsSettings);
+			intent.SetData(Android.Net.Uri.FromParts("package", _context.PackageName, null));
+			intent.AddFlags(ActivityFlags.NewTask);
+			_context.StartActivity(intent);
+		}
+		return Task.CompletedTask;
+	}
+
 	public Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns)
 	{
 		// Cancel all existing countdown alarms

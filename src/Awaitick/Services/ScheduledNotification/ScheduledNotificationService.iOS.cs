@@ -146,6 +146,13 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		}
 	}
 
+	public Task OpenNotificationSettingsAsync()
+	{
+		var url = new NSUrl(UIKit.UIApplication.OpenSettingsUrlString);
+		UIKit.UIApplication.SharedApplication.OpenUrl(url, new UIKit.UIApplicationOpenUrlOptions(), null);
+		return Task.CompletedTask;
+	}
+
 	public async Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns)
 	{
 		// Remove all pending countdown notifications

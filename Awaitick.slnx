@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Directory.Build.targets" />
+    <File Path="src/Directory.Packages.props" />
+    <File Path="global.json" />
+  </Folder>
+  <Project Path="src/Awaitick.Core/Awaitick.Core.csproj" />
+  <Project Path="src/Awaitick/Awaitick.csproj">
+    <Deploy />
+  </Project>
+</Solution>

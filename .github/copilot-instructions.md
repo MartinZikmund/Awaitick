@@ -116,7 +116,7 @@ services.AddTransient<MainViewModel>();
 ## Build and Development
 
 ### Build Commands
-- **Restore workloads**: `dotnet workload restore src/Awaitick.slnx`
+- **Restore workloads**: `dotnet workload restore Awaitick.slnx`
 - **Build solution**: `msbuild src/Awaitick/Awaitick.csproj /r`
 - **Build specific platform**: Use platform-specific commands in CI workflows
 

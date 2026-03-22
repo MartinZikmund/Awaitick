@@ -1,6 +1,7 @@
 ﻿using Awaitick.Core.Models;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.ScheduledNotification;
+using Awaitick.Core.Services.Settings;
 using Awaitick.Core.Services.Tiles;
 
 namespace Awaitick.Core.Services.EventCountdownManager;
@@ -10,13 +11,15 @@ public class CountdownsDataService : ICountdownsDataService
 	private readonly IDataService _dataService;
 	private readonly ITileService _tileService;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
+	private readonly IAppPreferences _appPreferences;
 
 	public CountdownsDataService(IDataService dataService, ITileService tileService,
-		IScheduledNotificationService scheduledNotificationService)
+		IScheduledNotificationService scheduledNotificationService, IAppPreferences appPreferences)
 	{
 		_dataService = dataService;
 		_tileService = tileService;
 		_scheduledNotificationService = scheduledNotificationService;
+		_appPreferences = appPreferences;
 	}
 
 	public async Task AddCountdownAsync(EventCountdown eventCountdown)
@@ -24,7 +27,10 @@ public class CountdownsDataService : ICountdownsDataService
 		eventCountdown.Id = Guid.NewGuid().ToString().ToLowerInvariant();
 		await _dataService.AddCountdownAsync(eventCountdown);
 		_tileService.UpdateMainTile((await _dataService.GetCountdownsAsync()).ToArray());
-		_scheduledNotificationService.ScheduleCountdownNotification(eventCountdown);
+		if (_appPreferences.NotificationsEnabled && _scheduledNotificationService.HasPermission)
+		{
+			_scheduledNotificationService.ScheduleCountdownNotification(eventCountdown);
+		}
 		_tileService.ScheduleCountdownNotification(eventCountdown);
 	}
 
@@ -33,7 +39,10 @@ public class CountdownsDataService : ICountdownsDataService
 		await _dataService.UpdateCountdownAsync(eventCountdown);
 		_tileService.UpdateMainTile((await _dataService.GetCountdownsAsync()).ToArray());
 		_scheduledNotificationService.UnscheduleCountdownNotification(eventCountdown);
-		_scheduledNotificationService.ScheduleCountdownNotification(eventCountdown);
+		if (_appPreferences.NotificationsEnabled && _scheduledNotificationService.HasPermission)
+		{
+			_scheduledNotificationService.ScheduleCountdownNotification(eventCountdown);
+		}
 		_tileService.UnscheduleCountdownNotification(eventCountdown);
 		_tileService.ScheduleCountdownNotification(eventCountdown);
 		_tileService.UpdateCountdownTile(eventCountdown);
