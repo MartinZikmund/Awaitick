@@ -91,7 +91,13 @@ public class ScheduledNotificationService : IScheduledNotificationService
 				intent,
 				PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
-			if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.S &&
+				!_alarmManager.CanScheduleExactAlarms())
+			{
+				// Exact alarms not permitted on Android 12+; fall back to inexact
+				_alarmManager.SetAndAllowWhileIdle(AlarmType.RtcWakeup, triggerTime, pendingIntent);
+			}
+			else if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
 			{
 				_alarmManager.SetExactAndAllowWhileIdle(AlarmType.RtcWakeup, triggerTime, pendingIntent);
 			}
@@ -142,14 +148,14 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		_suppressedNotifications.Clear();
 	}
 
-	public async Task<bool> RequestPermissionAsync()
+	public Task<bool> RequestPermissionAsync()
 	{
 		if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
 		{
 			CheckPermission();
 			if (_hasPermission)
 			{
-				return true;
+				return Task.FromResult(true);
 			}
 
 			var activity = global::Uno.UI.ContextHelper.Current as Android.App.Activity;
@@ -157,17 +163,16 @@ public class ScheduledNotificationService : IScheduledNotificationService
 			{
 				ActivityCompat.RequestPermissions(activity,
 					new[] { Android.Manifest.Permission.PostNotifications }, 0);
-				// Brief delay for permission dialog result
-				await Task.Delay(500);
-				CheckPermission();
 			}
 
-			return _hasPermission;
+			// Permission result is asynchronous; return false now.
+			// HasPermission will be updated on next CheckPermission() call.
+			return Task.FromResult(false);
 		}
 
 		// For older versions, permission is always granted
 		_hasPermission = true;
-		return true;
+		return Task.FromResult(true);
 	}
 
 	public Task OpenNotificationSettingsAsync()

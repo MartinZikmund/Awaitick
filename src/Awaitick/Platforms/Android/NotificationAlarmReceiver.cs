@@ -81,7 +81,7 @@ public class NotificationAlarmReceiver : BroadcastReceiver
 
 		var snoozePendingIntent = PendingIntent.GetBroadcast(
 			context,
-			notificationId + 1,
+			NotificationConstants.GetStableId(countdownId + "_action_snooze"),
 			snoozeIntent,
 			PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
@@ -92,7 +92,7 @@ public class NotificationAlarmReceiver : BroadcastReceiver
 
 		var dismissPendingIntent = PendingIntent.GetBroadcast(
 			context,
-			notificationId + 2,
+			NotificationConstants.GetStableId(countdownId + "_action_dismiss"),
 			dismissIntent,
 			PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable);
 
@@ -110,7 +110,14 @@ public class NotificationAlarmReceiver : BroadcastReceiver
 			.SetDefaults((int)NotificationDefaults.All);
 
 		var notificationManager = NotificationManagerCompat.From(context);
-		notificationManager.Notify(notificationId, builder.Build());
+		try
+		{
+			notificationManager.Notify(notificationId, builder.Build());
+		}
+		catch (Java.Lang.SecurityException)
+		{
+			// POST_NOTIFICATIONS permission not granted on Android 13+
+		}
 	}
 
 	private void HandleSnooze(Context context, string countdownId, Intent originalIntent)

@@ -84,6 +84,35 @@ public class ScheduledNotificationService : IScheduledNotificationService
 	public void UnSuppressAllCountdownNotifications()
 	{
 		_suppressedNotifications.Clear();
+
+		// Reschedule any toasts that were created with SuppressPopup = true
+		try
+		{
+			var notifier = ToastNotificationManager.CreateToastNotifier();
+			var scheduledNotifications = notifier.GetScheduledToastNotifications();
+
+			foreach (var notification in scheduledNotifications)
+			{
+				if (notification.Tag == "Countdown" && notification.SuppressPopup)
+				{
+					notifier.RemoveFromSchedule(notification);
+
+					var rescheduled = new ScheduledToastNotification(notification.Content, notification.DeliveryTime)
+					{
+						Id = notification.Id,
+						Tag = notification.Tag,
+						Group = notification.Group,
+						SuppressPopup = false
+					};
+
+					notifier.AddToSchedule(rescheduled);
+				}
+			}
+		}
+		catch (Exception)
+		{
+			// TODO: Log error
+		}
 	}
 
 	public Task<bool> RequestPermissionAsync()
@@ -154,8 +183,8 @@ public class ScheduledNotificationService : IScheduledNotificationService
             <selection id=""30"" content=""30 minutes""/>
             <selection id=""60"" content=""1 hour""/>
         </input>
-        <action activationType=""system"" arguments=""snooze"" hint-inputId=""snoozeTime"" content=""""/>
-        <action activationType=""system"" arguments=""dismiss"" content=""""/>
+        <action activationType=""system"" arguments=""snooze"" hint-inputId=""snoozeTime"" content=""Snooze""/>
+        <action activationType=""system"" arguments=""dismiss"" content=""Dismiss""/>
     </actions>
 </toast>";
 

@@ -40,21 +40,26 @@ public class NotificationDelegate : UNUserNotificationCenterDelegate
 			else if (!string.IsNullOrEmpty(countdownId))
 			{
 				// Default tap action - navigate to countdown
-				try
+				// DidReceiveNotificationResponse may be called on a background queue,
+				// so dispatch to main thread for UI-bound operations
+				NSRunLoop.Main.BeginInvokeOnMainThread(() =>
 				{
-					var deepLinkService = IoC.GetService<IDeepLinkService>();
-					deepLinkService?.SetPendingNavigation(countdownId);
+					try
+					{
+						var deepLinkService = IoC.GetService<IDeepLinkService>();
+						deepLinkService?.SetPendingNavigation(countdownId);
 
-					// If app is already running, notify MainViewModel to handle the deep link
-					var messenger = IoC.GetService<IMessenger>();
-					messenger?.Send(new DeepLinkReceivedMessage());
-				}
-				catch
-				{
-					// IoC may not be initialized during cold start
-					// Store in static field to be picked up later
-					PendingCountdownId = countdownId;
-				}
+						// If app is already running, notify MainViewModel to handle the deep link
+						var messenger = IoC.GetService<IMessenger>();
+						messenger?.Send(new DeepLinkReceivedMessage());
+					}
+					catch
+					{
+						// IoC may not be initialized during cold start
+						// Store in static field to be picked up later
+						PendingCountdownId = countdownId;
+					}
+				});
 			}
 		}
 		finally

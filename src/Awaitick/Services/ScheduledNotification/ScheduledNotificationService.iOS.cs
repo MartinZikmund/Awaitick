@@ -48,7 +48,10 @@ public class ScheduledNotificationService : IScheduledNotificationService
 	{
 		UNUserNotificationCenter.Current.GetNotificationSettings(settings =>
 		{
-			_hasPermission = settings.AuthorizationStatus == UNAuthorizationStatus.Authorized;
+			_hasPermission =
+				settings.AuthorizationStatus == UNAuthorizationStatus.Authorized ||
+				settings.AuthorizationStatus == UNAuthorizationStatus.Provisional ||
+				settings.AuthorizationStatus == UNAuthorizationStatus.Ephemeral;
 		});
 	}
 
@@ -119,7 +122,9 @@ public class ScheduledNotificationService : IScheduledNotificationService
 	{
 		_suppressedNotifications.Add(eventCountdown.Id);
 
-		// On iOS, we can remove the delivered notification
+		// Remove both pending and delivered notifications so suppressed countdowns don't fire later
+		UNUserNotificationCenter.Current.RemovePendingNotificationRequests(
+			new[] { eventCountdown.Id });
 		UNUserNotificationCenter.Current.RemoveDeliveredNotifications(
 			new[] { eventCountdown.Id });
 	}
