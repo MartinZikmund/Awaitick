@@ -22,14 +22,21 @@ public class ThemeManager : IThemeManager
 		UpdateTitleBarTheming();
 	}
 
+	public void SetTitleBarTheme(ElementTheme theme)
+	{
+		UpdateTitleBarTheming(theme);
+	}
+
 	public ElementTheme CurrentTheme => GetRootElement().RequestedTheme;
 
-	public ApplicationTheme ActualTheme => CurrentTheme switch
+	public ApplicationTheme ActualTheme => GetApplicationTheme(CurrentTheme);
+
+	private static ApplicationTheme GetApplicationTheme(ElementTheme theme) => theme switch
 	{
 		ElementTheme.Default => Application.Current.RequestedTheme,
 		ElementTheme.Light => ApplicationTheme.Light,
 		ElementTheme.Dark => ApplicationTheme.Dark,
-		_ => throw new ArgumentOutOfRangeException()
+		_ => throw new ArgumentOutOfRangeException(nameof(theme), theme, null)
 	};
 
 	private FrameworkElement GetRootElement()
@@ -43,15 +50,18 @@ public class ThemeManager : IThemeManager
 		return rootElement;
 	}
 
-	private void UpdateTitleBarTheming()
+	private void UpdateTitleBarTheming(ElementTheme? themeOverride = null)
 	{
+		var effectiveTheme = themeOverride.HasValue
+			? GetApplicationTheme(themeOverride.Value)
+			: ActualTheme;
 #pragma warning disable CS8618
 #pragma warning disable Uno0001
 		var titleBar = _windowShellProvider.Window.AppWindow.TitleBar;
 		titleBar.BackgroundColor = Colors.Transparent;
 		titleBar.ButtonBackgroundColor = Colors.Transparent;
 		titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-		if (ActualTheme == ApplicationTheme.Dark)
+		if (effectiveTheme == ApplicationTheme.Dark)
 		{
 			titleBar.ButtonForegroundColor = Colors.White;
 			titleBar.ButtonInactiveForegroundColor = Colors.Gray;
