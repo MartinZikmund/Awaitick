@@ -2,11 +2,11 @@
     x:Class="Awaitick.Views.CountdownDetailView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Awaitick.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Awaitick.Extensions.Xaml"
-    xmlns:controls="using:Awaitick.Controls"
     mc:Ignorable="d">
     <local:CountdownDetailViewBase.Transitions>
         <TransitionCollection>
@@ -18,6 +18,48 @@
         </TransitionCollection>
     </local:CountdownDetailViewBase.Transitions>
     <Grid>
+        <!--  Bottom padding reserves space for the floating toolbar: button height (~52px) + 24px bottom margin + spacing  -->
+        <controls:EventCountdownDisplayControl
+            Padding="16,48,0,16"
+            Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}"
+            DisplayMode="Full" />
+
+        <!--  Floating pill toolbar  -->
+        <Border
+            x:Name="FloatingToolbar"
+            Margin="0,0,16,16"
+            Padding="8,4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Background="{ThemeResource FloatingToolbarBackgroundBrush}"
+            CornerRadius="24">
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+            <StackPanel Orientation="Horizontal" Spacing="4">
+                <Button
+                    AutomationProperties.Name="{xaml:Localize Key=Share}"
+                    Command="{x:Bind ViewModel.ShareCommand}"
+                    Style="{StaticResource FloatingToolbarButtonStyle}"
+                    ToolTipService.ToolTip="{xaml:Localize Key=Share}">
+                    <SymbolIcon Symbol="Share" />
+                </Button>
+                <Button
+                    AutomationProperties.Name="{xaml:Localize Key=Edit}"
+                    Command="{x:Bind ViewModel.EditCommand}"
+                    Style="{StaticResource FloatingToolbarButtonStyle}"
+                    ToolTipService.ToolTip="{xaml:Localize Key=Edit}">
+                    <SymbolIcon Symbol="Edit" />
+                </Button>
+                <Button
+                    AutomationProperties.Name="{xaml:Localize Key=Delete}"
+                    Command="{x:Bind ViewModel.DeleteCommand}"
+                    Style="{StaticResource FloatingToolbarButtonStyle}"
+                    ToolTipService.ToolTip="{xaml:Localize Key=Delete}">
+                    <SymbolIcon Symbol="Delete" />
+                </Button>
+            </StackPanel>
+        </Border>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ToolbarLayoutStates">
                 <VisualState x:Name="NarrowState">
@@ -27,8 +69,8 @@
                     <VisualState.Setters>
                         <Setter Target="FloatingToolbar.HorizontalAlignment" Value="Center" />
                         <Setter Target="FloatingToolbar.VerticalAlignment" Value="Top" />
-                        <!-- 80px = title bar height (~48px) + spacing, keeps toolbar below the back button -->
-                        <Setter Target="FloatingToolbar.Margin" Value="0,80,0,0" />
+                        <!--  80px = title bar height (~48px) + spacing, keeps toolbar below the back button  -->
+                        <Setter Target="FloatingToolbar.Margin" Value="0,48,0,0" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideState">
@@ -38,55 +80,10 @@
                     <VisualState.Setters>
                         <Setter Target="FloatingToolbar.HorizontalAlignment" Value="Right" />
                         <Setter Target="FloatingToolbar.VerticalAlignment" Value="Bottom" />
-                        <Setter Target="FloatingToolbar.Margin" Value="0,0,16,24" />
+                        <Setter Target="FloatingToolbar.Margin" Value="0,0,16,16" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
-        <!-- Bottom padding reserves space for the floating toolbar: button height (~52px) + 24px bottom margin + spacing -->
-        <controls:EventCountdownDisplayControl
-            Padding="0,48,0,96"
-            Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}"
-            DisplayMode="Full" />
-
-        <!-- Floating pill toolbar -->
-        <Border
-            x:Name="FloatingToolbar"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Margin="0,0,16,24"
-            Padding="8,4"
-            CornerRadius="24"
-            Background="{ThemeResource FloatingToolbarBackgroundBrush}">
-            <Border.Shadow>
-                <ThemeShadow />
-            </Border.Shadow>
-            <StackPanel
-                Orientation="Horizontal"
-                Spacing="4">
-                <Button
-                    Command="{x:Bind ViewModel.ShareCommand}"
-                    Style="{StaticResource FloatingToolbarButtonStyle}"
-                    AutomationProperties.Name="{xaml:Localize Key=Share}"
-                    ToolTipService.ToolTip="{xaml:Localize Key=Share}">
-                    <SymbolIcon Symbol="Share" />
-                </Button>
-                <Button
-                    Command="{x:Bind ViewModel.EditCommand}"
-                    Style="{StaticResource FloatingToolbarButtonStyle}"
-                    AutomationProperties.Name="{xaml:Localize Key=Edit}"
-                    ToolTipService.ToolTip="{xaml:Localize Key=Edit}">
-                    <SymbolIcon Symbol="Edit" />
-                </Button>
-                <Button
-                    Command="{x:Bind ViewModel.DeleteCommand}"
-                    Style="{StaticResource FloatingToolbarButtonStyle}"
-                    AutomationProperties.Name="{xaml:Localize Key=Delete}"
-                    ToolTipService.ToolTip="{xaml:Localize Key=Delete}">
-                    <SymbolIcon Symbol="Delete" />
-                </Button>
-            </StackPanel>
-        </Border>
     </Grid>
 </local:CountdownDetailViewBase>
