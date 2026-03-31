@@ -11,11 +11,13 @@ namespace Awaitick.Services.ScheduledNotification;
 /// </summary>
 public class ScheduledNotificationService : IScheduledNotificationService
 {
+	private readonly ILogger<ScheduledNotificationService> _logger;
 	private readonly HashSet<string> _suppressedNotifications = [];
 	private bool _hasPermission;
 
-	public ScheduledNotificationService()
+	public ScheduledNotificationService(ILogger<ScheduledNotificationService> logger)
 	{
+		_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		RegisterNotificationCategories();
 		CheckPermission();
 	}
@@ -102,8 +104,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		{
 			if (error != null)
 			{
-				// TODO: Log error
-				System.Diagnostics.Debug.WriteLine($"Failed to schedule notification: {error}");
+				_logger.LogError("Failed to schedule notification: {Error}", error.LocalizedDescription);
 			}
 		});
 	}
@@ -144,8 +145,9 @@ public class ScheduledNotificationService : IScheduledNotificationService
 			_hasPermission = granted;
 			return granted;
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
+			_logger.LogError(ex, "Failed to request notification permission");
 			_hasPermission = false;
 			return false;
 		}
