@@ -140,31 +140,37 @@
 
     <DataTemplate x:Key="EventListItemTemplate" x:DataType="models:CountdownViewModel">
         <ItemContainer>
-            <Grid
-                x:Name="MainGrid"
-                HorizontalAlignment="Stretch"
-                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Grid.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem
-                            Command="{x:Bind ShareCommand}"
-                            Icon="{xaml:FontIcon Glyph={StaticResource ShareIcon}}"
-                            Text="{xaml:Localize Key=Share}" />
-                        <MenuFlyoutItem
-                            Command="{x:Bind GoToEditCommand}"
-                            Icon="Edit"
-                            Text="{xaml:Localize Key=Edit}" />
-                        <MenuFlyoutItem
-                            Command="{x:Bind DeleteCommand}"
-                            Icon="Delete"
-                            Text="{xaml:Localize Key=Delete}" />
-                    </MenuFlyout>
-                </Grid.ContextFlyout>
-                <controls:EventCountdownDisplayControl
-                    Grid.Row="1"
-                    Countdown="{x:Bind Mode=OneWay}"
-                    DisplayMode="Compact" />
-            </Grid>
+            <Border
+                CornerRadius="8"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1">
+                <Grid
+                    x:Name="MainGrid"
+                    HorizontalAlignment="Stretch"
+                    CornerRadius="8"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem
+                                Command="{x:Bind ShareCommand}"
+                                Icon="{xaml:FontIcon Glyph={StaticResource ShareIcon}}"
+                                Text="{xaml:Localize Key=Share}" />
+                            <MenuFlyoutItem
+                                Command="{x:Bind GoToEditCommand}"
+                                Icon="Edit"
+                                Text="{xaml:Localize Key=Edit}" />
+                            <MenuFlyoutItem
+                                Command="{x:Bind DeleteCommand}"
+                                Icon="Delete"
+                                Text="{xaml:Localize Key=Delete}" />
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <controls:EventCountdownDisplayControl
+                        Grid.Row="1"
+                        Countdown="{x:Bind Mode=OneWay}"
+                        DisplayMode="Compact" />
+                </Grid>
+            </Border>
         </ItemContainer>
     </DataTemplate>
 </ResourceDictionary>
