@@ -114,7 +114,7 @@
                             </toolkit:SettingsCard>
 
                             <toolkit:SettingsExpander IsExpanded="True" Header="{ui:Localize Key=BackgroundImage}" HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}">
-                                <StackPanel Orientation="Horizontal" Spacing="16">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
                                     <FontIcon
                                         Foreground="Gold"
                                         Glyph="&#xF133;"
