@@ -37,6 +37,7 @@ public class SystemSharingService : ISystemSharingService
 		sender.DataRequested -= OnDataRequested;
 		args.Request.Data.SetText(_data ?? "");
 		args.Request.Data.Properties.Title = _localizationService.GetString("AppName");
+		_completionSource?.TrySetResult();
 	}
 
 #if HAS_UNO
@@ -47,11 +48,10 @@ public class SystemSharingService : ISystemSharingService
 		try
 		{
 			DataTransferManager.ShowShareUI();
-			_completionSource?.SetResult();
 		}
 		catch (Exception ex)
 		{
-			_completionSource?.SetException(ex);
+			_completionSource?.TrySetException(ex);
 		}
 	}
 #else
@@ -68,11 +68,10 @@ public class SystemSharingService : ISystemSharingService
 		try
 		{
 			interop.ShowShareUIForWindow(windowHandle);
-			_completionSource?.SetResult();
 		}
 		catch (Exception ex)
 		{
-			_completionSource?.SetException(ex);
+			_completionSource?.TrySetException(ex);
 		}
 	}
 
