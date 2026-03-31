@@ -71,7 +71,11 @@
                                 Description="{ui:Localize Key=CelebrationDescription}"
                                 Header="{ui:Localize Key=Celebration}"
                                 HeaderIcon="{ui:FontIcon Glyph=&#xED55;}">
-                                <TextBox PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}" Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox
+                                    MaxWidth="200"
+                                    MinWidth="{StaticResource SettingsControlMinWidth}"
+                                    PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </toolkit:SettingsCard>
 
                             <!--  General  -->
