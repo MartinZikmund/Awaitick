@@ -4,6 +4,7 @@ using Awaitick.Core.Infrastructure;
 using Awaitick.ViewModels;
 using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Theming;
+using Awaitick.Views;
 
 namespace Awaitick;
 
@@ -43,9 +44,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 	private void OnFrameNavigated(object sender, NavigationEventArgs e)
 	{
-		var blendsInTitleBar = InnerFrame.Content?.GetType()
-			.GetProperty("BlendsInTitleBar")?
-			.GetValue(InnerFrame.Content) is true;
+		var blendsInTitleBar = InnerFrame.Content is IBlendsInTitleBar page && page.BlendsInTitleBar;
 
 		if (blendsInTitleBar)
 		{
@@ -53,7 +52,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 		}
 		else
 		{
-			TitleBar.Background = (Brush)Application.Current.Resources["AppOverlayBackgroundBrush"];
+			TitleBar.ClearValue(Panel.BackgroundProperty);
 		}
 	}
 

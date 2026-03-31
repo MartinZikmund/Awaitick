@@ -1,10 +1,14 @@
-﻿using System.Reflection;
-using Awaitick.Core.ViewModels;
+﻿using Awaitick.Core.ViewModels;
 using Awaitick.ViewModels;
 
 namespace Awaitick.Views;
 
-public abstract partial class PageBase<TViewModel> : Page
+public interface IBlendsInTitleBar
+{
+	bool BlendsInTitleBar { get; }
+}
+
+public abstract partial class PageBase<TViewModel> : Page, IBlendsInTitleBar
 	where TViewModel : PageViewModel
 {
 	private object? _pendingParameter;

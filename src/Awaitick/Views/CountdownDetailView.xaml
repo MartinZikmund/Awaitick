@@ -18,16 +18,44 @@
         </TransitionCollection>
     </local:CountdownDetailViewBase.Transitions>
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ToolbarLayoutStates">
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="FloatingToolbar.HorizontalAlignment" Value="Center" />
+                        <Setter Target="FloatingToolbar.VerticalAlignment" Value="Top" />
+                        <!-- 80px = title bar height (~48px) + spacing, keeps toolbar below the back button -->
+                        <Setter Target="FloatingToolbar.Margin" Value="0,80,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="FloatingToolbar.HorizontalAlignment" Value="Right" />
+                        <Setter Target="FloatingToolbar.VerticalAlignment" Value="Bottom" />
+                        <Setter Target="FloatingToolbar.Margin" Value="0,0,16,24" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!-- Bottom padding reserves space for the floating toolbar: button height (~52px) + 24px bottom margin + spacing -->
         <controls:EventCountdownDisplayControl
-            Padding="0,48,0,0"
+            Padding="0,48,0,96"
             Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}"
             DisplayMode="Full" />
 
         <!-- Floating pill toolbar -->
         <Border
-            HorizontalAlignment="Center"
+            x:Name="FloatingToolbar"
+            HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Margin="0,0,0,24"
+            Margin="0,0,16,24"
             Padding="8,4"
             CornerRadius="24"
             Background="{ThemeResource FloatingToolbarBackgroundBrush}">
@@ -40,18 +68,21 @@
                 <Button
                     Command="{x:Bind ViewModel.ShareCommand}"
                     Style="{StaticResource FloatingToolbarButtonStyle}"
+                    AutomationProperties.Name="{xaml:Localize Key=Share}"
                     ToolTipService.ToolTip="{xaml:Localize Key=Share}">
                     <SymbolIcon Symbol="Share" />
                 </Button>
                 <Button
                     Command="{x:Bind ViewModel.EditCommand}"
                     Style="{StaticResource FloatingToolbarButtonStyle}"
+                    AutomationProperties.Name="{xaml:Localize Key=Edit}"
                     ToolTipService.ToolTip="{xaml:Localize Key=Edit}">
                     <SymbolIcon Symbol="Edit" />
                 </Button>
                 <Button
                     Command="{x:Bind ViewModel.DeleteCommand}"
                     Style="{StaticResource FloatingToolbarButtonStyle}"
+                    AutomationProperties.Name="{xaml:Localize Key=Delete}"
                     ToolTipService.ToolTip="{xaml:Localize Key=Delete}">
                     <SymbolIcon Symbol="Delete" />
                 </Button>
