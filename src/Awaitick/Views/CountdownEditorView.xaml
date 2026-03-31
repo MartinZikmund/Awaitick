@@ -53,6 +53,7 @@
                                 HeaderIcon="{ui:FontIcon Glyph=&#xE787;}">
                                 <CalendarDatePicker
                                     Grid.Row="1"
+                                    MinWidth="{StaticResource SettingsControlMinWidth}"
                                     HorizontalAlignment="Center"
                                     Date="{x:Bind ViewModel.Date, Mode=TwoWay}" />
                             </toolkit:SettingsCard>
@@ -63,6 +64,7 @@
                                 <TimePicker
                                     Grid.Row="1"
                                     Grid.Column="1"
+                                    MinWidth="{StaticResource SettingsControlMinWidth}"
                                     HorizontalAlignment="Center"
                                     Time="{x:Bind ViewModel.Time, Mode=TwoWay}" />
                             </toolkit:SettingsCard>
@@ -71,7 +73,7 @@
                                 Description="{ui:Localize Key=CelebrationDescription}"
                                 Header="{ui:Localize Key=Celebration}"
                                 HeaderIcon="{ui:FontIcon Glyph=&#xED55;}">
-                                <TextBox PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}" Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox MinWidth="{StaticResource SettingsControlMinWidth}" PlaceholderText="{x:Bind ViewModel.DefaultCelebrationMessage, Mode=OneWay}" Text="{x:Bind ViewModel.CelebrationMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </toolkit:SettingsCard>
 
                             <!--  General  -->
@@ -165,7 +167,7 @@
                                         IsEnabled="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
                                         <StackPanel>
                                             <Slider
-                                                Width="{StaticResource SettingsControlMinWidth}"
+                                                MinWidth="{StaticResource SettingsControlMinWidth}"
                                                 Maximum="100"
                                                 Minimum="0"
                                                 Value="{x:Bind ViewModel.BackgroundImageOpacityPercent, Mode=TwoWay}" />
