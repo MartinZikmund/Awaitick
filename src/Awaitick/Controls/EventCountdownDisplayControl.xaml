@@ -103,7 +103,7 @@
                         HorizontalAlignment="Left"
                         FontSize="18"
                         Opacity="0.8"
-                        Text="{x:Bind Countdown.TargetDateTime}" />
+                        Text="{x:Bind Countdown.TargetDateString, Mode=OneWay}" />
                 </StackPanel>
             </Grid>
         </Border>

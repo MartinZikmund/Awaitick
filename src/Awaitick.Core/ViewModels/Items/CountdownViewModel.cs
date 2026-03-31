@@ -48,7 +48,7 @@ public partial class CountdownViewModel : ObservableObject
 
 	public DateTimeOffset TargetDateTime => _eventCountdown.TargetDateTime;
 	
-	public string TargetDateString => TargetDateTime.ToString("f", CultureInfo.CurrentCulture);
+	public string TargetDateString => TargetDateTime.LocalDateTime.ToString("MMMM d, yyyy h:mm tt", CultureInfo.CurrentCulture);
 
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
 
