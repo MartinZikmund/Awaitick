@@ -22,6 +22,7 @@
             <DoubleAnimation
                 Storyboard.TargetName="OverlayContainer"
                 Storyboard.TargetProperty="Opacity"
+                From="0"
                 To="1"
                 Duration="0:0:0.25" />
         </Storyboard>

@@ -35,8 +35,11 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 		InnerFrame.Navigated += OnFrameNavigated;
 
+		TitleBarFadeOutStoryboard.Completed += TitleBarFadeOutStoryboard_Completed;
+
 		var messenger = ServiceProvider.GetRequiredService<IMessenger>();
 		messenger.Register<FullScreenChangedMessage>(this, OnFullScreenChanged);
+		messenger.Register<OverlayVisibilityChangedMessage>(this, OnOverlayVisibilityChanged);
 	}
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
@@ -63,10 +66,37 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 	private void OnFullScreenChanged(object recipient, FullScreenChangedMessage message)
 	{
-		if (HasCustomTitleBar)
+#if !HAS_UNO
+		var presenter = message.IsFullScreen
+			? Microsoft.UI.Windowing.AppWindowPresenterKind.FullScreen
+			: Microsoft.UI.Windowing.AppWindowPresenterKind.Default;
+		_associatedWindow.AppWindow.SetPresenter(presenter);
+#endif
+	}
+
+	private void OnOverlayVisibilityChanged(object recipient, OverlayVisibilityChangedMessage message)
+	{
+		if (!HasCustomTitleBar)
 		{
-			TitleBar.Visibility = message.IsFullScreen ? Visibility.Collapsed : Visibility.Visible;
+			return;
 		}
+
+		if (message.IsVisible)
+		{
+			TitleBarFadeOutStoryboard.Stop();
+			TitleBar.Visibility = Visibility.Visible;
+			TitleBarFadeInStoryboard.Begin();
+		}
+		else
+		{
+			TitleBarFadeInStoryboard.Stop();
+			TitleBarFadeOutStoryboard.Begin();
+		}
+	}
+
+	private void TitleBarFadeOutStoryboard_Completed(object? sender, object e)
+	{
+		TitleBar.Visibility = Visibility.Collapsed;
 	}
 
 	private void CustomizeWindow()

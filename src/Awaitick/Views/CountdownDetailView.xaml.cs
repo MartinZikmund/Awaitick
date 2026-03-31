@@ -1,5 +1,8 @@
 using System.ComponentModel;
+using Awaitick.Core.Infrastructure;
+using Awaitick.Core.Messages;
 using Awaitick.Core.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Dispatching;
 
 namespace Awaitick.Views;
@@ -7,7 +10,7 @@ namespace Awaitick.Views;
 public sealed partial class CountdownDetailView : CountdownDetailViewBase
 {
 	private readonly DispatcherQueueTimer _timer;
-	private readonly DispatcherQueueTimer _fullScreenHideTimer;
+	private readonly DispatcherQueueTimer _autoHideTimer;
 	private bool _overlayVisible = true;
 	private bool _subscribedToViewModel;
 
@@ -18,10 +21,12 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		_timer.Interval = TimeSpan.FromMilliseconds(1000);
 		_timer.Tick += _timer_Tick;
 
-		_fullScreenHideTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
-		_fullScreenHideTimer.Interval = TimeSpan.FromSeconds(3);
-		_fullScreenHideTimer.IsRepeating = false;
-		_fullScreenHideTimer.Tick += FullScreenHideTimer_Tick;
+		_autoHideTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+		_autoHideTimer.Interval = TimeSpan.FromSeconds(3);
+		_autoHideTimer.IsRepeating = false;
+		_autoHideTimer.Tick += AutoHideTimer_Tick;
+
+		FadeOutStoryboard.Completed += FadeOutStoryboard_Completed;
 
 		Loaded += CountdownDetailView_Loaded;
 		Unloaded += CountdownDetailView_Unloaded;
@@ -66,9 +71,9 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		}
 	}
 
-	private void FullScreenHideTimer_Tick(DispatcherQueueTimer sender, object args)
+	private void AutoHideTimer_Tick(DispatcherQueueTimer sender, object args)
 	{
-		if (ViewModel?.IsFullScreen == true && _overlayVisible)
+		if (_overlayVisible)
 		{
 			FadeOutOverlay();
 		}
@@ -78,6 +83,7 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 	{
 		base.OnNavigatedTo(e);
 		_timer.Start();
+		_autoHideTimer.Start();
 		SubscribeToViewModel();
 	}
 
@@ -85,7 +91,17 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 	{
 		base.OnNavigatedFrom(e);
 		_timer.Stop();
-		_fullScreenHideTimer.Stop();
+		_autoHideTimer.Stop();
+
+		// Restore overlay and notify WindowShell to show title bar
+		FadeInStoryboard.Stop();
+		FadeOutStoryboard.Stop();
+		OverlayContainer.Visibility = Visibility.Visible;
+		OverlayContainer.Opacity = 1;
+		OverlayContainer.IsHitTestVisible = true;
+		_overlayVisible = true;
+		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(true));
+
 		UnsubscribeFromViewModel();
 	}
 
@@ -109,42 +125,35 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 
 	private void HandleUserInteraction()
 	{
-		if (ViewModel?.IsFullScreen != true)
-		{
-			return;
-		}
-
 		if (!_overlayVisible)
 		{
 			FadeInOverlay();
 		}
 
 		// Reset the auto-hide timer
-		_fullScreenHideTimer.Stop();
-		_fullScreenHideTimer.Start();
+		_autoHideTimer.Stop();
+		_autoHideTimer.Start();
 	}
 
 	private void OnFullScreenChanged(bool isFullScreen)
 	{
-		if (isFullScreen)
+		if (!isFullScreen)
 		{
-			// Start the auto-hide timer
-			_fullScreenHideTimer.Start();
-		}
-		else
-		{
-			// Show overlay and stop the timer
-			_fullScreenHideTimer.Stop();
+			// Exiting full screen - show overlay and reset timer
 			FadeInOverlay();
+			_autoHideTimer.Stop();
+			_autoHideTimer.Start();
 		}
 	}
 
 	private void FadeInOverlay()
 	{
 		FadeOutStoryboard.Stop();
+		OverlayContainer.Visibility = Visibility.Visible;
 		FadeInStoryboard.Begin();
 		OverlayContainer.IsHitTestVisible = true;
 		_overlayVisible = true;
+		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(true));
 	}
 
 	private void FadeOutOverlay()
@@ -153,6 +162,12 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		FadeOutStoryboard.Begin();
 		OverlayContainer.IsHitTestVisible = false;
 		_overlayVisible = false;
+		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(false));
+	}
+
+	private void FadeOutStoryboard_Completed(object? sender, object e)
+	{
+		OverlayContainer.Visibility = Visibility.Collapsed;
 	}
 }
 
