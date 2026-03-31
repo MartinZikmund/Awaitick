@@ -6,6 +6,7 @@
     xmlns:ex="using:Awaitick.Extensions.Xaml"
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:usercontrols="using:Awaitick.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -15,18 +16,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Margin="36,60,36,36" ColumnSpacing="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Button Command="{x:Bind ViewModel.GoBackCommand}" Style="{ThemeResource NavigationBackButtonStyle}" />
-            <TextBlock
-                Grid.Column="1"
-                Style="{ThemeResource TitleTextBlockStyle}"
-                Text="{ex:Localize Key=FluentAwaitickPro}" />
-        </Grid>
+        <usercontrols:PageHeaderControl Title="{ex:Localize Key=FluentAwaitickPro}" />
         <ScrollViewer
             Grid.Row="1"
             Padding="8"
