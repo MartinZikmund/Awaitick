@@ -128,7 +128,6 @@ public class NotificationDelegate : UNUserNotificationCenterDelegate
 		{
 			if (error != null)
 			{
-				// TODO: Log error
 				System.Diagnostics.Debug.WriteLine($"Failed to schedule snooze notification: {error}");
 			}
 		});

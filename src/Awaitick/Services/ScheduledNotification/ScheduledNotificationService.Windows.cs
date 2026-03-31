@@ -45,9 +45,9 @@ public class ScheduledNotificationService : IScheduledNotificationService
 			var notifier = ToastNotificationManager.CreateToastNotifier();
 			notifier.AddToSchedule(notification);
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			// TODO: Log error
+			System.Diagnostics.Debug.WriteLine($"Failed to schedule countdown notification: {ex}");
 		}
 	}
 
@@ -67,9 +67,9 @@ public class ScheduledNotificationService : IScheduledNotificationService
 				}
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			// TODO: Log error
+			System.Diagnostics.Debug.WriteLine($"Failed to unschedule countdown notification: {ex}");
 		}
 	}
 
@@ -109,9 +109,9 @@ public class ScheduledNotificationService : IScheduledNotificationService
 				}
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			// TODO: Log error
+			System.Diagnostics.Debug.WriteLine($"Failed to unsuppress countdown notifications: {ex}");
 		}
 	}
 
@@ -139,9 +139,9 @@ public class ScheduledNotificationService : IScheduledNotificationService
 				}
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			// TODO: Log error
+			System.Diagnostics.Debug.WriteLine($"Failed to clear existing scheduled notifications: {ex}");
 		}
 
 		// Schedule all future countdowns

@@ -102,7 +102,6 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		{
 			if (error != null)
 			{
-				// TODO: Log error
 				System.Diagnostics.Debug.WriteLine($"Failed to schedule notification: {error}");
 			}
 		});
@@ -144,8 +143,9 @@ public class ScheduledNotificationService : IScheduledNotificationService
 			_hasPermission = granted;
 			return granted;
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
+			System.Diagnostics.Debug.WriteLine($"Failed to request notification permission: {ex}");
 			_hasPermission = false;
 			return false;
 		}
