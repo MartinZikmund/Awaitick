@@ -4,6 +4,7 @@ using Awaitick.Core.Infrastructure;
 using Awaitick.ViewModels;
 using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Theming;
+using Awaitick.Views;
 
 namespace Awaitick;
 
@@ -29,6 +30,8 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 		_associatedWindow = associatedWindow;
 		CustomizeWindow();
+
+		InnerFrame.Navigated += OnFrameNavigated;
 	}
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
@@ -38,6 +41,20 @@ public sealed partial class WindowShell : Page, IWindowShell
 	public Frame RootFrame => InnerFrame;
 
 	public bool HasCustomTitleBar { get; private set; }
+
+	private void OnFrameNavigated(object sender, NavigationEventArgs e)
+	{
+		var blendsInTitleBar = InnerFrame.Content is IBlendsInTitleBar page && page.BlendsInTitleBar;
+
+		if (blendsInTitleBar)
+		{
+			TitleBar.Background = new SolidColorBrush(Microsoft.UI.Colors.Transparent);
+		}
+		else
+		{
+			TitleBar.ClearValue(Panel.BackgroundProperty);
+		}
+	}
 
 	private void CustomizeWindow()
 	{
