@@ -16,11 +16,13 @@ public class ScheduledNotificationService : IScheduledNotificationService
 {
 	private readonly Context _context;
 	private readonly AlarmManager _alarmManager;
+	private readonly ILogger<ScheduledNotificationService> _logger;
 	private readonly HashSet<string> _suppressedNotifications = [];
 	private bool _hasPermission;
 
-	public ScheduledNotificationService()
+	public ScheduledNotificationService(ILogger<ScheduledNotificationService> logger)
 	{
+		_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		_context = Android.App.Application.Context;
 		_alarmManager = (AlarmManager?)_context.GetSystemService(Context.AlarmService)
 			?? throw new InvalidOperationException("AlarmManager not available");
@@ -108,7 +110,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		}
 		catch (Exception ex)
 		{
-			System.Diagnostics.Debug.WriteLine($"Failed to schedule countdown notification: {ex}");
+			_logger.LogError(ex, "Failed to schedule countdown notification");
 		}
 	}
 
@@ -131,7 +133,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		}
 		catch (Exception ex)
 		{
-			System.Diagnostics.Debug.WriteLine($"Failed to unschedule countdown notification: {ex}");
+			_logger.LogError(ex, "Failed to unschedule countdown notification");
 		}
 	}
 

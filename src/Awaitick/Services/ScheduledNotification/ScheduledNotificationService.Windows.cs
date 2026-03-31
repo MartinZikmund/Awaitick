@@ -12,7 +12,13 @@ namespace Awaitick.Services.ScheduledNotification;
 /// </summary>
 public class ScheduledNotificationService : IScheduledNotificationService
 {
+	private readonly ILogger<ScheduledNotificationService> _logger;
 	private readonly HashSet<string> _suppressedNotifications = [];
+
+	public ScheduledNotificationService(ILogger<ScheduledNotificationService> logger)
+	{
+		_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+	}
 
 	public bool HasPermission => true; // Windows always has permission for toast notifications
 
@@ -47,7 +53,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		}
 		catch (Exception ex)
 		{
-			System.Diagnostics.Debug.WriteLine($"Failed to schedule countdown notification: {ex}");
+			_logger.LogError(ex, "Failed to schedule countdown notification");
 		}
 	}
 
@@ -69,7 +75,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		}
 		catch (Exception ex)
 		{
-			System.Diagnostics.Debug.WriteLine($"Failed to unschedule countdown notification: {ex}");
+			_logger.LogError(ex, "Failed to unschedule countdown notification");
 		}
 	}
 
@@ -111,7 +117,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		}
 		catch (Exception ex)
 		{
-			System.Diagnostics.Debug.WriteLine($"Failed to unsuppress countdown notifications: {ex}");
+			_logger.LogError(ex, "Failed to unsuppress countdown notifications");
 		}
 	}
 
@@ -141,7 +147,7 @@ public class ScheduledNotificationService : IScheduledNotificationService
 		}
 		catch (Exception ex)
 		{
-			System.Diagnostics.Debug.WriteLine($"Failed to clear existing scheduled notifications: {ex}");
+			_logger.LogError(ex, "Failed to clear existing scheduled notifications");
 		}
 
 		// Schedule all future countdowns
