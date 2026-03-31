@@ -29,6 +29,8 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 		_associatedWindow = associatedWindow;
 		CustomizeWindow();
+
+		InnerFrame.Navigated += OnFrameNavigated;
 	}
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
@@ -38,6 +40,22 @@ public sealed partial class WindowShell : Page, IWindowShell
 	public Frame RootFrame => InnerFrame;
 
 	public bool HasCustomTitleBar { get; private set; }
+
+	private void OnFrameNavigated(object sender, NavigationEventArgs e)
+	{
+		var blendsInTitleBar = InnerFrame.Content?.GetType()
+			.GetProperty("BlendsInTitleBar")?
+			.GetValue(InnerFrame.Content) is true;
+
+		if (blendsInTitleBar)
+		{
+			TitleBar.Background = new SolidColorBrush(Microsoft.UI.Colors.Transparent);
+		}
+		else
+		{
+			TitleBar.Background = (Brush)Application.Current.Resources["AppOverlayBackgroundBrush"];
+		}
+	}
 
 	private void CustomizeWindow()
 	{

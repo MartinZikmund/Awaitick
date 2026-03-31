@@ -6,7 +6,7 @@
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Awaitick.Extensions.Xaml"
-	xmlns:controls="using:Awaitick.Controls"
+    xmlns:controls="using:Awaitick.Controls"
     mc:Ignorable="d">
     <local:CountdownDetailViewBase.Transitions>
         <TransitionCollection>
@@ -18,41 +18,44 @@
         </TransitionCollection>
     </local:CountdownDetailViewBase.Transitions>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+        <controls:EventCountdownDisplayControl
+            Padding="0,48,0,0"
+            Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}"
+            DisplayMode="Full" />
 
-		<controls:EventCountdownDisplayControl Padding="0,48" Grid.Row="1" Grid.RowSpan="2" Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}" DisplayMode="Full" />
-
-		<CommandBar
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            Background="{ThemeResource AppOverlayBackgroundBrush}"
-            ClosedDisplayMode="Compact"
-            OverflowButtonVisibility="Collapsed">
-            <AppBarButton>
-                <AppBarButton.Command>
-                    <StandardUICommand
-                        Kind="Share"
-                        Command="{x:Bind ViewModel.ShareCommand}" />
-                </AppBarButton.Command>
-            </AppBarButton>
-            <AppBarButton
-                Command="{x:Bind ViewModel.EditCommand}"
-                Label="{xaml:Localize Key=Share}">
-                <AppBarButton.Icon>
+        <!-- Floating pill toolbar -->
+        <Border
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="0,0,0,24"
+            Padding="8,4"
+            CornerRadius="24"
+            Background="{ThemeResource FloatingToolbarBackgroundBrush}">
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="4">
+                <Button
+                    Command="{x:Bind ViewModel.ShareCommand}"
+                    Style="{StaticResource FloatingToolbarButtonStyle}"
+                    ToolTipService.ToolTip="{xaml:Localize Key=Share}">
+                    <SymbolIcon Symbol="Share" />
+                </Button>
+                <Button
+                    Command="{x:Bind ViewModel.EditCommand}"
+                    Style="{StaticResource FloatingToolbarButtonStyle}"
+                    ToolTipService.ToolTip="{xaml:Localize Key=Edit}">
                     <SymbolIcon Symbol="Edit" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarButton>
-                <AppBarButton.Command>
-                    <StandardUICommand
-                        Kind="Delete"
-                        Command="{x:Bind ViewModel.DeleteCommand}" />
-                </AppBarButton.Command>
-            </AppBarButton>
-        </CommandBar>
+                </Button>
+                <Button
+                    Command="{x:Bind ViewModel.DeleteCommand}"
+                    Style="{StaticResource FloatingToolbarButtonStyle}"
+                    ToolTipService.ToolTip="{xaml:Localize Key=Delete}">
+                    <SymbolIcon Symbol="Delete" />
+                </Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </local:CountdownDetailViewBase>

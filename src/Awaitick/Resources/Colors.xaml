@@ -12,6 +12,11 @@
                 x:Key="PageBackgroundBrush"
                 TintColor="{ThemeResource PageBackgroundSolidColor}"
                 TintOpacity="0.8" />
+            <AcrylicBrush
+                x:Key="FloatingToolbarBackgroundBrush"
+                TintColor="#000000"
+                TintOpacity="0.6"
+                FallbackColor="#CC000000" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <Color x:Key="PageBackgroundSolidColor">#F3F3F3</Color>
@@ -25,6 +30,11 @@
                 x:Key="PageBackgroundBrush"
                 TintColor="{ThemeResource PageBackgroundSolidColor}"
                 TintOpacity="0.8" />
+            <AcrylicBrush
+                x:Key="FloatingToolbarBackgroundBrush"
+                TintColor="#FFFFFF"
+                TintOpacity="0.6"
+                FallbackColor="#CCFFFFFF" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
