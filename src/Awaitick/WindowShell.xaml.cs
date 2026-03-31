@@ -1,10 +1,12 @@
-﻿using Windows.Foundation.Metadata;
+using Windows.Foundation.Metadata;
 using Awaitick.Services.Navigation;
 using Awaitick.Core.Infrastructure;
+using Awaitick.Core.Messages;
 using Awaitick.ViewModels;
 using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Theming;
 using Awaitick.Views;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Awaitick;
 
@@ -32,6 +34,9 @@ public sealed partial class WindowShell : Page, IWindowShell
 		CustomizeWindow();
 
 		InnerFrame.Navigated += OnFrameNavigated;
+
+		var messenger = ServiceProvider.GetRequiredService<IMessenger>();
+		messenger.Register<FullScreenChangedMessage>(this, OnFullScreenChanged);
 	}
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
@@ -53,6 +58,14 @@ public sealed partial class WindowShell : Page, IWindowShell
 		else
 		{
 			TitleBar.ClearValue(Panel.BackgroundProperty);
+		}
+	}
+
+	private void OnFullScreenChanged(object recipient, FullScreenChangedMessage message)
+	{
+		if (HasCustomTitleBar)
+		{
+			TitleBar.Visibility = message.IsFullScreen ? Visibility.Collapsed : Visibility.Visible;
 		}
 	}
 
