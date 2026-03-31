@@ -13,7 +13,7 @@ env:
   # App Configuration
   APP_NAME: Awaitick
   DOTNET_VERSION: 10.0.x
-  SOLUTION_FILE: src/Awaitick.slnx
+  SOLUTION_FILE: Awaitick.slnx
   PROJECT_PATH: src/Awaitick
   PROJECT_FILE: src/Awaitick/Awaitick.csproj
   

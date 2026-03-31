@@ -1,4 +1,6 @@
-﻿using Awaitick.Core.Services.Settings;
+﻿using Awaitick.Core.Services.Data;
+using Awaitick.Core.Services.ScheduledNotification;
+using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Navigation;
 using Awaitick.Services.Store;
 using Awaitick.Services.Theming;
@@ -18,6 +20,9 @@ public partial class SettingsViewModel : PageViewModel
 	private readonly IXamlRootProvider _xamlRootProvider;
 	private readonly IStoreService _storeService;
 	private readonly IDialogService _dialogService;
+	private readonly IScheduledNotificationService _scheduledNotificationService;
+	private readonly INotificationPermissionService _notificationPermissionService;
+	private readonly IDataService _dataService;
 
 	private readonly UISettings _uiSettings = new();
 
@@ -30,6 +35,9 @@ public partial class SettingsViewModel : PageViewModel
 		IXamlRootProvider xamlRootProvider,
 		IStoreService storeService,
 		IDialogService dialogService,
+		IScheduledNotificationService scheduledNotificationService,
+		INotificationPermissionService notificationPermissionService,
+		IDataService dataService,
 		IStringLocalizer stringLocalizer) : base(navigationService)
 	{
 		_appSettings = appSettings;
@@ -37,6 +45,9 @@ public partial class SettingsViewModel : PageViewModel
 		_xamlRootProvider = xamlRootProvider;
 		_storeService = storeService;
 		_dialogService = dialogService;
+		_scheduledNotificationService = scheduledNotificationService;
+		_notificationPermissionService = notificationPermissionService;
+		_dataService = dataService;
 
 		Title = stringLocalizer.GetString("Settings");
 	}
@@ -95,6 +106,55 @@ public partial class SettingsViewModel : PageViewModel
 				_appSettings.KeepScreenOn = value;
 				OnPropertyChanged();
 			}
+		}
+	}
+
+	public bool NotificationsEnabled
+	{
+		get => _appSettings.NotificationsEnabled;
+		set
+		{
+			if (_appSettings.NotificationsEnabled != value)
+			{
+				if (value)
+				{
+					_ = EnableNotificationsAsync();
+				}
+				else
+				{
+					_appSettings.NotificationsEnabled = false;
+					OnPropertyChanged();
+					_ = DisableNotificationsAsync();
+				}
+			}
+		}
+	}
+
+	private async Task EnableNotificationsAsync()
+	{
+		var granted = await _notificationPermissionService.RequestPermissionWithDialogsAsync();
+		if (granted)
+		{
+			_appSettings.NotificationsEnabled = true;
+			OnPropertyChanged(nameof(NotificationsEnabled));
+			var countdowns = await _dataService.GetCountdownsAsync();
+			var futureCountdowns = countdowns.Where(c => c.TargetDateTime > DateTimeOffset.Now);
+			await _scheduledNotificationService.RescheduleAllNotificationsAsync(futureCountdowns);
+		}
+		else
+		{
+			// Revert toggle UI
+			OnPropertyChanged(nameof(NotificationsEnabled));
+		}
+	}
+
+	private async Task DisableNotificationsAsync()
+	{
+		var countdowns = await _dataService.GetCountdownsAsync();
+		var futureCountdowns = countdowns.Where(c => c.TargetDateTime > DateTimeOffset.Now);
+		foreach (var countdown in futureCountdowns)
+		{
+			_scheduledNotificationService.UnscheduleCountdownNotification(countdown);
 		}
 	}
 

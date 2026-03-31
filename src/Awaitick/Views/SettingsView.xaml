@@ -48,6 +48,13 @@
                     HeaderIcon="{ui:FontIcon Glyph=&#xF182;}">
                     <ToggleSwitch IsOn="{x:Bind ViewModel.KeepScreenOn, Mode=TwoWay}" />
                 </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard
+                    Description="{ex:Localize Key=NotificationsSettingDescription}"
+                    Header="{ex:Localize Key=Notifications}"
+                    HeaderIcon="{ui:FontIcon Glyph=&#xEA8F;}">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.NotificationsEnabled, Mode=TwoWay}" />
+                </toolkit:SettingsCard>
                 <!--  About  -->
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=About}" />
 

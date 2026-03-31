@@ -579,4 +579,28 @@
   <data name="TextColor" xml:space="preserve">
     <value>Text color</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationsSettingDescription" xml:space="preserve">
+    <value>Receive notifications when your countdown events arrive</value>
+  </data>
+  <data name="NotificationPermission_PreDialog_Title" xml:space="preserve">
+    <value>Enable Notifications</value>
+  </data>
+  <data name="NotificationPermission_PreDialog_Content" xml:space="preserve">
+    <value>Awaitick can notify you when your countdown events arrive. To do this, we need your permission to send notifications.</value>
+  </data>
+  <data name="NotificationPermission_Denied_Title" xml:space="preserve">
+    <value>Notifications Not Enabled</value>
+  </data>
+  <data name="NotificationPermission_Denied_Content" xml:space="preserve">
+    <value>Notifications are currently disabled. You can enable them in your device's system settings.</value>
+  </data>
+  <data name="NotificationPermission_OpenSettings" xml:space="preserve">
+    <value>Open Settings</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
 </root>

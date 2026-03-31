@@ -28,6 +28,7 @@ using Awaitick.Services;
 using Windows.Devices.WiFiDirect.Services;
 using Awaitick.Core.Models;
 using System.Text.Json;
+using Awaitick.Core.Services.DeepLink;
 
 namespace Awaitick;
 
@@ -41,6 +42,39 @@ public partial class CountdownsApp : Application, IApplication
 	{
 		this.InitializeComponent();
 	}
+
+#if WINDOWS
+	/// <summary>
+	/// Handles toast notification activation arguments.
+	/// </summary>
+	private void HandleToastActivation(string launchArgs)
+	{
+		if (string.IsNullOrEmpty(launchArgs))
+		{
+			return;
+		}
+
+		// Parse the launch arguments (format: "action=viewCountdown&countdownId=guid")
+		var queryParams = launchArgs.Split('&')
+			.Select(p => p.Split('='))
+			.Where(p => p.Length == 2)
+			.ToDictionary(p => p[0], p => p[1]);
+
+		if (queryParams.TryGetValue(NotificationConstants.CountdownIdKey, out var countdownId))
+		{
+			var deepLinkService = Host?.Services.GetService<IDeepLinkService>();
+			deepLinkService?.SetPendingNavigation(countdownId);
+
+			// If app is already running, trigger navigation on UI thread
+			MainWindow?.DispatcherQueue.TryEnqueue(() =>
+			{
+				// Navigation will be handled by MainViewModel when it checks for pending navigation
+				var messenger = Host?.Services.GetService<IMessenger>();
+				messenger?.Send(new Core.Messages.DeepLinkReceivedMessage());
+			});
+		}
+	}
+#endif
 
 	public Window? MainWindow { get; private set; }
 
@@ -79,8 +113,44 @@ public partial class CountdownsApp : Application, IApplication
 
 		Host = builder.Build();
 		Ioc.Default.ConfigureServices(Host.Services);
+		IoC.SetProvider(Host.Services);
 
-		await Host.Services.GetRequiredService<IDataService>().InitializeAsync();
+#if __IOS__
+		if (!string.IsNullOrEmpty(Awaitick.iOS.NotificationDelegate.PendingCountdownId))
+		{
+			var deepLinkService = Host.Services.GetService<IDeepLinkService>();
+			deepLinkService?.SetPendingNavigation(Awaitick.iOS.NotificationDelegate.PendingCountdownId);
+			Awaitick.iOS.NotificationDelegate.PendingCountdownId = null;
+		}
+#elif __ANDROID__
+		if (!string.IsNullOrEmpty(Awaitick.Droid.MainActivity.PendingCountdownId))
+		{
+			var deepLinkService = Host.Services.GetService<IDeepLinkService>();
+			deepLinkService?.SetPendingNavigation(Awaitick.Droid.MainActivity.PendingCountdownId);
+			Awaitick.Droid.MainActivity.PendingCountdownId = null;
+		}
+#endif
+
+		var dataService = Host.Services.GetRequiredService<IDataService>();
+		await dataService.InitializeAsync();
+
+		// Reschedule all notifications on startup to ensure they persist after device restart or app updates
+		var appPreferencesStartup = Host.Services.GetRequiredService<IAppPreferences>();
+		if (appPreferencesStartup.NotificationsEnabled)
+		{
+			var notificationService = Host.Services.GetRequiredService<IScheduledNotificationService>();
+			var countdowns = await dataService.GetCountdownsAsync();
+			var futureCountdowns = countdowns.Where(c => c.TargetDateTime > DateTimeOffset.Now);
+			await notificationService.RescheduleAllNotificationsAsync(futureCountdowns);
+		}
+
+#if WINDOWS
+		// Handle toast notification activation (launch arguments contain the toast launch string)
+		if (!string.IsNullOrEmpty(args.Arguments))
+		{
+			HandleToastActivation(args.Arguments);
+		}
+#endif
 
 		var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
 
@@ -141,7 +211,13 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<IFileService, FileService>();
 		services.AddSingleton<ITileService, TileService>();
 		services.AddSingleton<IMailService, MailService>();
-		services.AddSingleton<IScheduledNotificationService, ScheduledNotificationService>();
+		services.AddSingleton<IDeepLinkService, DeepLinkService>();
+#if WINDOWS || __ANDROID__ || __IOS__
+		services.AddSingleton<IScheduledNotificationService, Awaitick.Services.ScheduledNotification.ScheduledNotificationService>();
+#else
+		services.AddSingleton<IScheduledNotificationService, Awaitick.Core.Services.ScheduledNotification.ScheduledNotificationService>();
+#endif
+		services.AddScoped<INotificationPermissionService, NotificationPermissionService>();
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
 		services.AddSingleton<IPreferences, Preferences>();
 		services.AddSingleton<IAppPreferences, AppPreferences>();

@@ -55,5 +55,4 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Awaitick.Core\Awaitick.Core.csproj" />
 	</ItemGroup>
-
 </Project>

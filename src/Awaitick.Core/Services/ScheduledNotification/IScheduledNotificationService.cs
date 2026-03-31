@@ -11,4 +11,26 @@ public interface IScheduledNotificationService
 	void SuppressCountdownNotification(EventCountdown eventCountdown);
 
 	void UnSuppressAllCountdownNotifications();
+
+	/// <summary>
+	/// Requests notification permission from the user.
+	/// </summary>
+	/// <returns>True if permission was granted, false otherwise.</returns>
+	Task<bool> RequestPermissionAsync();
+
+	/// <summary>
+	/// Gets whether the app has notification permission.
+	/// </summary>
+	bool HasPermission { get; }
+
+	/// <summary>
+	/// Reschedules notifications for all provided countdowns.
+	/// Used on app startup to ensure notifications persist after device restart or app updates.
+	/// </summary>
+	Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns);
+
+	/// <summary>
+	/// Opens the system notification settings for the app.
+	/// </summary>
+	Task OpenNotificationSettingsAsync();
 }

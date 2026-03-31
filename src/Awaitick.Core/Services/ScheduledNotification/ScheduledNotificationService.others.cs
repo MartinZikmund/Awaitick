@@ -2,8 +2,13 @@
 
 namespace Awaitick.Core.Services.ScheduledNotification;
 
+/// <summary>
+/// Fallback stub implementation for platforms without notification support.
+/// </summary>
 public class ScheduledNotificationService : IScheduledNotificationService
 {
+	public bool HasPermission => false;
+
 	public void ScheduleCountdownNotification(EventCountdown eventCountdown)
 	{
 	}
@@ -19,4 +24,10 @@ public class ScheduledNotificationService : IScheduledNotificationService
 	public void UnSuppressAllCountdownNotifications()
 	{
 	}
+
+	public Task<bool> RequestPermissionAsync() => Task.FromResult(false);
+
+	public Task RescheduleAllNotificationsAsync(IEnumerable<EventCountdown> countdowns) => Task.CompletedTask;
+
+	public Task OpenNotificationSettingsAsync() => Task.CompletedTask;
 }
