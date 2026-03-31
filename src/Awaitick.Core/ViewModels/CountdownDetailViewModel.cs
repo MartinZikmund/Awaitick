@@ -4,7 +4,6 @@ using Awaitick.Core.Services.Countdowns;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
 using Awaitick.Core.Services.ScheduledNotification;
-using Awaitick.Core.Services.Settings;
 using Awaitick.Core.Services.Tiles;
 using Awaitick.Services.Navigation;
 using Awaitick.Services.Theming;
@@ -36,7 +35,6 @@ public partial class CountdownDetailViewModel : PageViewModel
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IStringLocalizer _localizationService;
 	private readonly IThemeManager _themeManager;
-	private readonly IAppPreferences _appPreferences;
 
 	private bool _isTilePinned;
 	private string _targetDateString = "";
@@ -49,8 +47,7 @@ public partial class CountdownDetailViewModel : PageViewModel
 		ITileService tileService,
 		IScheduledNotificationService scheduledNotificationService,
 		IStringLocalizer localizationService,
-		IThemeManager themeManager,
-		IAppPreferences appPreferences) :
+		IThemeManager themeManager) :
 		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager;
@@ -61,7 +58,6 @@ public partial class CountdownDetailViewModel : PageViewModel
 		_countdownsManager = countdownsManager;
 		_localizationService = localizationService;
 		_themeManager = themeManager;
-		_appPreferences = appPreferences;
 	}
 
 	[ObservableProperty]
@@ -103,13 +99,13 @@ public partial class CountdownDetailViewModel : PageViewModel
 		var countdownTheme = EventCountdown.Theme;
 		if (countdownTheme != ElementTheme.Default)
 		{
-			_themeManager.SetTheme(countdownTheme);
+			_themeManager.SetTitleBarTheme(countdownTheme);
 		}
 	}
 
 	private void RestoreShellTheme()
 	{
-		_themeManager.SetTheme(_appPreferences.Theme);
+		_themeManager.SetTitleBarTheme(_themeManager.CurrentTheme);
 	}
 
 	[RelayCommand]
