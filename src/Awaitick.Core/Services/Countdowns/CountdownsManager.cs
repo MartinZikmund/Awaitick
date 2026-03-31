@@ -87,7 +87,7 @@ public class CountdownsManager : ICountdownsManager
 				countdown.DaysLeft,
 				countdown.HoursLeft,
 				countdown.MinutesLeft,
-				countdown.TargetDateTime.ToString("g", CultureInfo.CurrentCulture),
+				countdown.TargetDateString,
 				_localizer.GetString("AppName"));
 		}
 
