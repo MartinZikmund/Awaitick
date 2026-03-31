@@ -4,8 +4,10 @@ using Awaitick.Core.Services.Countdowns;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
 using Awaitick.Core.Services.ScheduledNotification;
+using Awaitick.Core.Services.Settings;
 using Awaitick.Core.Services.Tiles;
 using Awaitick.Services.Navigation;
+using Awaitick.Services.Theming;
 using Awaitick.ViewModels;
 
 namespace Awaitick.Core.ViewModels;
@@ -33,6 +35,8 @@ public partial class CountdownDetailViewModel : PageViewModel
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly ICountdownsManager _countdownsManager;
 	private readonly IStringLocalizer _localizationService;
+	private readonly IThemeManager _themeManager;
+	private readonly IAppPreferences _appPreferences;
 
 	private bool _isTilePinned;
 	private string _targetDateString = "";
@@ -44,7 +48,9 @@ public partial class CountdownDetailViewModel : PageViewModel
 		IDataService dataService,
 		ITileService tileService,
 		IScheduledNotificationService scheduledNotificationService,
-		IStringLocalizer localizationService) :
+		IStringLocalizer localizationService,
+		IThemeManager themeManager,
+		IAppPreferences appPreferences) :
 		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager;
@@ -54,6 +60,8 @@ public partial class CountdownDetailViewModel : PageViewModel
 		_scheduledNotificationService = scheduledNotificationService;
 		_countdownsManager = countdownsManager;
 		_localizationService = localizationService;
+		_themeManager = themeManager;
+		_appPreferences = appPreferences;
 	}
 
 	[ObservableProperty]
@@ -73,9 +81,35 @@ public partial class CountdownDetailViewModel : PageViewModel
 		}
 
 		EventCountdown = new CountdownViewModel(eventInfo, _countdownsManager);
+		ApplyTextThemeToShell();
 
 		IsTilePinned = _tileService.IsCountdownPinned(EventCountdown.Id);
 		_scheduledNotificationService.SuppressCountdownNotification(EventCountdown.Model);
+	}
+
+	public override void ViewUnloaded()
+	{
+		base.ViewUnloaded();
+		RestoreShellTheme();
+	}
+
+	private void ApplyTextThemeToShell()
+	{
+		if (EventCountdown is null)
+		{
+			return;
+		}
+
+		var countdownTheme = EventCountdown.Theme;
+		if (countdownTheme != ElementTheme.Default)
+		{
+			_themeManager.SetTheme(countdownTheme);
+		}
+	}
+
+	private void RestoreShellTheme()
+	{
+		_themeManager.SetTheme(_appPreferences.Theme);
 	}
 
 	[RelayCommand]
