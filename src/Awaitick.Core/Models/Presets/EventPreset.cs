@@ -24,7 +24,7 @@ public abstract class EventPreset
 
 	public string Name => Localizer.Instance.GetString($"EventPreset_{_eventPresetKey}_Name");
 
-	public Uri BackgroundImageUri => new Uri($"ms-appx:///Assets/EventPresets/{_eventPresetKey}.jpg", UriKind.Absolute);
+	public Uri BackgroundImageUri => new Uri($"ms-appx:///Assets/EventBackgrounds/{_eventPresetKey}.jpg", UriKind.Absolute);
 
 	public EventCategory Category { get; }
 

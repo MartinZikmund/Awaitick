@@ -4,8 +4,18 @@ public class DefaultBackground
 {
 	public DefaultBackground(string name)
 	{
-		BackgroundUri = new Uri($"ms-appx:///Assets/SampleBackgrounds/{name}.jpg", UriKind.Absolute);
-		ThumbnailUri = new Uri($"ms-appx:///Assets/SampleBackgrounds/Thumbnails/{name}.jpg", UriKind.Absolute);
+		var extension = System.IO.Path.GetExtension(name);
+		if (string.IsNullOrEmpty(extension))
+		{
+			extension = ".jpg";
+		}
+		else
+		{
+			name = System.IO.Path.GetFileNameWithoutExtension(name);
+		}
+
+		BackgroundUri = new Uri($"ms-appx:///Assets/EventBackgrounds/{name}{extension}", UriKind.Absolute);
+		ThumbnailUri = new Uri($"ms-appx:///Assets/EventBackgrounds/Thumbnails/{name}Thumbnail{extension}", UriKind.Absolute);
 	}
 
 	public Uri BackgroundUri { get; }

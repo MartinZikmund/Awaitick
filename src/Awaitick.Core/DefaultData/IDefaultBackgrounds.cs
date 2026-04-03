@@ -1,8 +1,8 @@
-﻿using Awaitick.Core.Models;
+using Awaitick.Core.Models;
 
 namespace Awaitick.Core.DefaultData;
 
 public interface IDefaultBackgrounds
 {
-	DefaultBackground[] GetDefaultBackgrounds();
+	Task<DefaultBackground[]> GetDefaultBackgroundsAsync();
 }
