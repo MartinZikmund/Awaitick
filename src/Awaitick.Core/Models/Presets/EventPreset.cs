@@ -48,7 +48,7 @@ public abstract class EventPreset
 
 	public EventCountdown Create()
 	{
-		var celebrationMessageKey = $"EventCountdown.{_eventPresetKey}.CelebrationMessage";
+		var celebrationMessageKey = $"EventCountdown_{_eventPresetKey}_CelebrationMessage";
 
 		var celebrationMessage = Localizer.Instance.GetString(celebrationMessageKey);
 

@@ -465,6 +465,66 @@
   <data name="EventPreset_Easter_Name" xml:space="preserve">
     <value>Velikonoce</value>
   </data>
+  <data name="EventCountdown_NewYearsEve_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Silvestr!</value>
+  </data>
+  <data name="EventCountdown_NewYear_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný nový rok!</value>
+  </data>
+  <data name="EventCountdown_ValentinesDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Valentýn!</value>
+  </data>
+  <data name="EventCountdown_InternationalWomensDay_CelebrationMessage" xml:space="preserve">
+    <value>Vše nejlepší k MDŽ!</value>
+  </data>
+  <data name="EventCountdown_AprilFoolsDay_CelebrationMessage" xml:space="preserve">
+    <value>Apríl!</value>
+  </data>
+  <data name="EventCountdown_EarthDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Země!</value>
+  </data>
+  <data name="EventCountdown_Halloween_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Halloween!</value>
+  </data>
+  <data name="EventCountdown_Christmas_CelebrationMessage" xml:space="preserve">
+    <value>Veselé Vánoce!</value>
+  </data>
+  <data name="EventCountdown_AllSaintsDay_CelebrationMessage" xml:space="preserve">
+    <value>Památka zesnulých</value>
+  </data>
+  <data name="EventCountdown_IndependenceDayUSA_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den nezávislosti!</value>
+  </data>
+  <data name="EventCountdown_BastilleDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Bastily!</value>
+  </data>
+  <data name="EventCountdown_CanadaDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Kanady!</value>
+  </data>
+  <data name="EventCountdown_AustraliaDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Austrálie!</value>
+  </data>
+  <data name="EventCountdown_IndianIndependenceDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den nezávislosti!</value>
+  </data>
+  <data name="EventCountdown_BrazilIndependenceDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den nezávislosti!</value>
+  </data>
+  <data name="EventCountdown_SouthAfricaFreedomDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den svobody!</value>
+  </data>
+  <data name="EventCountdown_Easter_CelebrationMessage" xml:space="preserve">
+    <value>Veselé Velikonoce!</value>
+  </data>
+  <data name="TextTheme_Default" xml:space="preserve">
+    <value>Výchozí</value>
+  </data>
+  <data name="TextTheme_Light" xml:space="preserve">
+    <value>Světlý</value>
+  </data>
+  <data name="TextTheme_Dark" xml:space="preserve">
+    <value>Tmavý</value>
+  </data>
   <data name="Onboarding_WelcomeTitle" xml:space="preserve">
     <value>Vítejte v Awaitick!</value>
   </data>
@@ -524,6 +584,33 @@
   </data>
   <data name="Debugging" xml:space="preserve">
     <value>Ladění</value>
+  </data>
+  <data name="DeveloperTools" xml:space="preserve">
+    <value>Vývojářské nástroje</value>
+  </data>
+  <data name="DataSeeding" xml:space="preserve">
+    <value>Seedování dat</value>
+  </data>
+  <data name="SeedRandomEvents" xml:space="preserve">
+    <value>Přidat 5 náhodných událostí</value>
+  </data>
+  <data name="SeedRandomEventsDescription" xml:space="preserve">
+    <value>Přidá 5 náhodně vybraných přednastavených událostí</value>
+  </data>
+  <data name="AddAllPresetEvents" xml:space="preserve">
+    <value>Přidat všechny přednastavené události</value>
+  </data>
+  <data name="AddAllPresetEventsDescription" xml:space="preserve">
+    <value>Přidá všech 17 přednastavených událostí</value>
+  </data>
+  <data name="DeleteAllEvents" xml:space="preserve">
+    <value>Smazat všechny události</value>
+  </data>
+  <data name="DeleteAll" xml:space="preserve">
+    <value>Smazat vše</value>
+  </data>
+  <data name="ResetPreferences" xml:space="preserve">
+    <value>Resetovat předvolby</value>
   </data>
   <data name="TestData" xml:space="preserve">
     <value>Testovací data</value>

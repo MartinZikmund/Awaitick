@@ -83,7 +83,7 @@
                         Command="{x:Bind ViewModel.ToggleFullScreenCommand}"
                         Style="{StaticResource FloatingToolbarButtonStyle}"
                         ToolTipService.ToolTip="{xaml:Localize Key=FullScreen}">
-                        <SymbolIcon Symbol="FullScreen" />
+                        <SymbolIcon Symbol="{x:Bind ViewModel.IsFullScreen, Converter={StaticResource FullScreenIconConverter}, Mode=OneWay}" />
                     </Button>
                 </StackPanel>
             </Border>

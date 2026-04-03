@@ -1,4 +1,5 @@
-﻿using Awaitick.Core.Services.Data;
+﻿using Awaitick.Core.Models.Presets;
+using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.ScheduledNotification;
 using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Navigation;
@@ -170,6 +171,38 @@ public partial class SettingsViewModel : PageViewModel
 	private void ClearPreferences()
 	{
 		ApplicationData.Current.LocalSettings.Values.Clear();
+	}
+
+	[RelayCommand]
+	private async Task SeedRandomEventsAsync()
+	{
+		var random = new Random();
+		var presets = EventPresets.Presets.OrderBy(_ => random.Next()).Take(5).ToArray();
+		var events = presets.Select(p =>
+		{
+			var e = p.Create();
+			e.Id = Guid.NewGuid().ToString().ToLowerInvariant();
+			return e;
+		}).ToArray();
+		await _dataService.AddCountdownsAsync(events);
+	}
+
+	[RelayCommand]
+	private async Task AddAllPresetEventsAsync()
+	{
+		var events = EventPresets.Presets.Select(p =>
+		{
+			var e = p.Create();
+			e.Id = Guid.NewGuid().ToString().ToLowerInvariant();
+			return e;
+		}).ToArray();
+		await _dataService.AddCountdownsAsync(events);
+	}
+
+	[RelayCommand]
+	private async Task DeleteAllEventsAsync()
+	{
+		await _dataService.DeleteAllCountdownsAsync();
 	}
 
 	private void SaveChanges()

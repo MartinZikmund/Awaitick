@@ -104,4 +104,10 @@ public class FileDataService : IDataService
 		_eventCountdowns.AddRange(sampleEvents);
 		await SaveDataAsync();
 	}
+
+	public async Task DeleteAllCountdownsAsync()
+	{
+		_eventCountdowns.Clear();
+		await SaveDataAsync();
+	}
 }

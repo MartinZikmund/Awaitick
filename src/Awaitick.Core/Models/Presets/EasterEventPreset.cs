@@ -1,8 +1,10 @@
-﻿namespace Awaitick.Core.Models.Presets;
+﻿using Windows.UI;
+
+namespace Awaitick.Core.Models.Presets;
 
 public class EasterEventPreset : EventPreset
 {
-	public EasterEventPreset() : base(EventCategory.ChristianHoliday, "Easter", TextTheme.Light)
+	public EasterEventPreset() : base(EventCategory.ChristianHoliday, "Easter", TextTheme.Light, backgroundColor: Color.FromArgb(255, 91, 140, 42))
 	{
 	}
 

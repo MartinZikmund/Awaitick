@@ -465,6 +465,66 @@
   <data name="EventPreset_Easter_Name" xml:space="preserve">
     <value>Easter</value>
   </data>
+  <data name="EventCountdown_NewYearsEve_CelebrationMessage" xml:space="preserve">
+    <value>Happy New Year's Eve!</value>
+  </data>
+  <data name="EventCountdown_NewYear_CelebrationMessage" xml:space="preserve">
+    <value>Happy New Year!</value>
+  </data>
+  <data name="EventCountdown_ValentinesDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Valentine's Day!</value>
+  </data>
+  <data name="EventCountdown_InternationalWomensDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy International Women's Day!</value>
+  </data>
+  <data name="EventCountdown_AprilFoolsDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy April Fools' Day!</value>
+  </data>
+  <data name="EventCountdown_EarthDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Earth Day!</value>
+  </data>
+  <data name="EventCountdown_Halloween_CelebrationMessage" xml:space="preserve">
+    <value>Happy Halloween!</value>
+  </data>
+  <data name="EventCountdown_Christmas_CelebrationMessage" xml:space="preserve">
+    <value>Merry Christmas!</value>
+  </data>
+  <data name="EventCountdown_AllSaintsDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy All Saints' Day!</value>
+  </data>
+  <data name="EventCountdown_IndependenceDayUSA_CelebrationMessage" xml:space="preserve">
+    <value>Happy Independence Day!</value>
+  </data>
+  <data name="EventCountdown_BastilleDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Bastille Day!</value>
+  </data>
+  <data name="EventCountdown_CanadaDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Canada Day!</value>
+  </data>
+  <data name="EventCountdown_AustraliaDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Australia Day!</value>
+  </data>
+  <data name="EventCountdown_IndianIndependenceDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Independence Day!</value>
+  </data>
+  <data name="EventCountdown_BrazilIndependenceDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Independence Day!</value>
+  </data>
+  <data name="EventCountdown_SouthAfricaFreedomDay_CelebrationMessage" xml:space="preserve">
+    <value>Happy Freedom Day!</value>
+  </data>
+  <data name="EventCountdown_Easter_CelebrationMessage" xml:space="preserve">
+    <value>Happy Easter!</value>
+  </data>
+  <data name="TextTheme_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="TextTheme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="TextTheme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
   <data name="Onboarding_WelcomeTitle" xml:space="preserve">
     <value>Welcome to Awaitick!</value>
   </data>
@@ -524,6 +584,33 @@
   </data>
   <data name="Debugging" xml:space="preserve">
     <value>Debugging</value>
+  </data>
+  <data name="DeveloperTools" xml:space="preserve">
+    <value>Developer Tools</value>
+  </data>
+  <data name="DataSeeding" xml:space="preserve">
+    <value>Data seeding</value>
+  </data>
+  <data name="SeedRandomEvents" xml:space="preserve">
+    <value>Seed 5 random events</value>
+  </data>
+  <data name="SeedRandomEventsDescription" xml:space="preserve">
+    <value>Adds 5 randomly selected preset events</value>
+  </data>
+  <data name="AddAllPresetEvents" xml:space="preserve">
+    <value>Add all preset events</value>
+  </data>
+  <data name="AddAllPresetEventsDescription" xml:space="preserve">
+    <value>Adds all 17 preset events</value>
+  </data>
+  <data name="DeleteAllEvents" xml:space="preserve">
+    <value>Delete all events</value>
+  </data>
+  <data name="DeleteAll" xml:space="preserve">
+    <value>Delete all</value>
+  </data>
+  <data name="ResetPreferences" xml:space="preserve">
+    <value>Reset preferences</value>
   </data>
   <data name="TestData" xml:space="preserve">
     <value>Test data</value>
