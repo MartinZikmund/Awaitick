@@ -97,13 +97,30 @@ public partial class MainViewModel : PageViewModel
 
 		//load countdowns
 		var countdowns = await _dataService.GetCountdownsAsync();
-		var newCountdowns = new ObservableCollection<CountdownViewModel>();
-		foreach (var countdown in countdowns)
+		var newIds = countdowns.Select(c => c.Id).ToList();
+		var existingIds = Awaitick.Select(c => c.Id).ToList();
+
+		if (!existingIds.SequenceEqual(newIds))
 		{
-			newCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
+			// Collection changed (items added, removed, or reordered) — rebuild,
+			// but reuse existing CountdownViewModel instances so ItemsView keeps
+			// their containers and loaded BitmapImages.
+			var existingById = Awaitick.ToDictionary(c => c.Id);
+			var newCountdowns = new ObservableCollection<CountdownViewModel>();
+			foreach (var countdown in countdowns)
+			{
+				if (existingById.TryGetValue(countdown.Id, out var existing))
+				{
+					newCountdowns.Add(existing);
+				}
+				else
+				{
+					newCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
+				}
+			}
+			Awaitick = newCountdowns;
+			OnPropertyChanged(nameof(HasAnyEvents));
 		}
-		Awaitick = newCountdowns;
-		OnPropertyChanged(nameof(HasAnyEvents));
 
 		IsLoading = false;
 		_scheduledNotificationService.UnSuppressAllCountdownNotifications();

@@ -12,6 +12,7 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 	private readonly DispatcherQueueTimer _timer;
 	private readonly DispatcherQueueTimer _autoHideTimer;
 	private bool _overlayVisible = true;
+	private bool _isNavigatedAway;
 	private bool _subscribedToViewModel;
 
 	public CountdownDetailView()
@@ -25,8 +26,6 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		_autoHideTimer.Interval = TimeSpan.FromSeconds(3);
 		_autoHideTimer.IsRepeating = false;
 		_autoHideTimer.Tick += AutoHideTimer_Tick;
-
-		FadeOutStoryboard.Completed += FadeOutStoryboard_Completed;
 
 		Loaded += CountdownDetailView_Loaded;
 		Unloaded += CountdownDetailView_Unloaded;
@@ -73,6 +72,11 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 
 	private void AutoHideTimer_Tick(DispatcherQueueTimer sender, object args)
 	{
+		if (_isNavigatedAway)
+		{
+			return;
+		}
+
 		if (_overlayVisible)
 		{
 			FadeOutOverlay();
@@ -82,6 +86,7 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 	protected override void OnNavigatedTo(NavigationEventArgs e)
 	{
 		base.OnNavigatedTo(e);
+		_isNavigatedAway = false;
 		_timer.Start();
 		_autoHideTimer.Start();
 		SubscribeToViewModel();
@@ -90,13 +95,11 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 	protected override void OnNavigatedFrom(NavigationEventArgs e)
 	{
 		base.OnNavigatedFrom(e);
+		_isNavigatedAway = true;
 		_timer.Stop();
 		_autoHideTimer.Stop();
 
 		// Restore overlay and notify WindowShell to show title bar
-		FadeInStoryboard.Stop();
-		FadeOutStoryboard.Stop();
-		OverlayContainer.Visibility = Visibility.Visible;
 		OverlayContainer.Opacity = 1;
 		OverlayContainer.IsHitTestVisible = true;
 		_overlayVisible = true;
@@ -148,9 +151,7 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 
 	private void FadeInOverlay()
 	{
-		FadeOutStoryboard.Stop();
-		OverlayContainer.Visibility = Visibility.Visible;
-		FadeInStoryboard.Begin();
+		OverlayContainer.Opacity = 1;
 		OverlayContainer.IsHitTestVisible = true;
 		_overlayVisible = true;
 		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(true));
@@ -158,16 +159,10 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 
 	private void FadeOutOverlay()
 	{
-		FadeInStoryboard.Stop();
-		FadeOutStoryboard.Begin();
+		OverlayContainer.Opacity = 0;
 		OverlayContainer.IsHitTestVisible = false;
 		_overlayVisible = false;
 		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(false));
-	}
-
-	private void FadeOutStoryboard_Completed(object? sender, object e)
-	{
-		OverlayContainer.Visibility = Visibility.Collapsed;
 	}
 }
 

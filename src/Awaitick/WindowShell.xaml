@@ -11,24 +11,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <Storyboard x:Name="TitleBarFadeInStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="TitleBar"
-                Storyboard.TargetProperty="Opacity"
-                From="0"
-                To="1"
-                Duration="0:0:0.25" />
-        </Storyboard>
-        <Storyboard x:Name="TitleBarFadeOutStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="TitleBar"
-                Storyboard.TargetProperty="Opacity"
-                To="0"
-                Duration="0:0:0.25" />
-        </Storyboard>
-    </Page.Resources>
-
     <Grid toolkit:VisibleBoundsPadding.PaddingMask="All">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -46,6 +28,9 @@
             VerticalAlignment="Top"
             Background="{ThemeResource AppOverlayBackgroundBrush}"
             Visibility="{x:Bind HasCustomTitleBar}">
+            <Grid.OpacityTransition>
+                <ScalarTransition Duration="0:0:0.25" />
+            </Grid.OpacityTransition>
             <StackPanel
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"

@@ -27,7 +27,7 @@
                 Opacity="{x:Bind Countdown.BackgroundImageOpacity, Mode=OneWay}"
                 Stretch="UniformToFill">
                 <Image.Source>
-                    <BitmapImage UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
+                    <BitmapImage x:Name="BackgroundBitmapImage" DecodePixelWidth="800" UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
                 </Image.Source>
             </Image>
         </Border>

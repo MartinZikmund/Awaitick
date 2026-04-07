@@ -11,10 +11,15 @@ public sealed partial class MainView : MainViewBase
 	public MainView()
 	{
 		InitializeComponent();
+		NavigationCacheMode = NavigationCacheMode.Required;
 		_timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 		_timer.Interval = TimeSpan.FromMilliseconds(1000);
 		_timer.Tick += _timer_Tick;
+
+		Unloaded += MainView_Unloaded;
 	}
+
+	private void MainView_Unloaded(object sender, RoutedEventArgs e) => _timer.Stop();
 
 	private void _timer_Tick(DispatcherQueueTimer sender, object args)
 	{

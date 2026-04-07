@@ -35,8 +35,6 @@ public sealed partial class WindowShell : Page, IWindowShell
 
 		InnerFrame.Navigated += OnFrameNavigated;
 
-		TitleBarFadeOutStoryboard.Completed += TitleBarFadeOutStoryboard_Completed;
-
 		var messenger = ServiceProvider.GetRequiredService<IMessenger>();
 		messenger.Register<FullScreenChangedMessage>(this, OnFullScreenChanged);
 		messenger.Register<OverlayVisibilityChangedMessage>(this, OnOverlayVisibilityChanged);
@@ -61,6 +59,12 @@ public sealed partial class WindowShell : Page, IWindowShell
 		else
 		{
 			TitleBar.ClearValue(Panel.BackgroundProperty);
+
+			if (HasCustomTitleBar)
+			{
+				TitleBar.Opacity = 1;
+				TitleBar.IsHitTestVisible = true;
+			}
 		}
 	}
 
@@ -81,22 +85,8 @@ public sealed partial class WindowShell : Page, IWindowShell
 			return;
 		}
 
-		if (message.IsVisible)
-		{
-			TitleBarFadeOutStoryboard.Stop();
-			TitleBar.Visibility = Visibility.Visible;
-			TitleBarFadeInStoryboard.Begin();
-		}
-		else
-		{
-			TitleBarFadeInStoryboard.Stop();
-			TitleBarFadeOutStoryboard.Begin();
-		}
-	}
-
-	private void TitleBarFadeOutStoryboard_Completed(object? sender, object e)
-	{
-		TitleBar.Visibility = Visibility.Collapsed;
+		TitleBar.Opacity = message.IsVisible ? 1 : 0;
+		TitleBar.IsHitTestVisible = message.IsVisible;
 	}
 
 	private void CustomizeWindow()

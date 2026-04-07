@@ -17,23 +17,6 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </local:CountdownDetailViewBase.Transitions>
-    <local:CountdownDetailViewBase.Resources>
-        <Storyboard x:Name="FadeInStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="OverlayContainer"
-                Storyboard.TargetProperty="Opacity"
-                From="0"
-                To="1"
-                Duration="0:0:0.25" />
-        </Storyboard>
-        <Storyboard x:Name="FadeOutStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="OverlayContainer"
-                Storyboard.TargetProperty="Opacity"
-                To="0"
-                Duration="0:0:0.25" />
-        </Storyboard>
-    </local:CountdownDetailViewBase.Resources>
     <Grid
         x:Name="RootGrid"
         PointerMoved="RootGrid_PointerMoved"
@@ -45,6 +28,9 @@
 
         <!--  Floating pill toolbar with fade support for full screen mode  -->
         <Grid x:Name="OverlayContainer">
+            <Grid.OpacityTransition>
+                <ScalarTransition Duration="0:0:0.25" />
+            </Grid.OpacityTransition>
             <Border
                 x:Name="FloatingToolbar"
                 Margin="0,0,16,16"
