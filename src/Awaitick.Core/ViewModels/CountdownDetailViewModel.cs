@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Awaitick.Core.Messages;
+﻿using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using CommunityToolkit.Mvvm.Messaging;
 using Awaitick.Core.Services.Countdowns;
@@ -60,6 +59,17 @@ public partial class CountdownDetailViewModel : PageViewModel
 
 	[ObservableProperty]
 	public partial CountdownViewModel EventCountdown { get; private set; }
+
+	partial void OnEventCountdownChanged(CountdownViewModel? value)
+	{
+		if (value is not null && value.Theme != ElementTheme.Default)
+		{
+			var titleBarTheme = value.Theme == ElementTheme.Dark
+				? ApplicationTheme.Dark
+				: ApplicationTheme.Light;
+			Messenger.Send(new TitleBarThemeOverrideMessage(titleBarTheme));
+		}
+	}
 
 	[ObservableProperty]
 	public partial bool IsFullScreen { get; set; }

@@ -48,7 +48,36 @@ public sealed partial class MainView : MainViewBase
 		{
 			vm.GoToDetail();
 		}
-    }
+	}
+
+	private bool _isListLayout;
+
+	private readonly UniformGridLayout _gridLayout = new()
+	{
+		ItemsJustification = UniformGridLayoutItemsJustification.Center,
+		ItemsStretch = UniformGridLayoutItemsStretch.Fill,
+		MaximumRowsOrColumns = 3,
+		MinColumnSpacing = 20,
+		MinItemHeight = 320,
+		MinItemWidth = 480,
+		MinRowSpacing = 20,
+		Orientation = Orientation.Horizontal,
+	};
+
+	private readonly StackLayout _listLayout = new()
+	{
+		Spacing = 20,
+	};
+
+	private void EventsGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+	{
+		var useList = e.NewSize.Width < 520;
+		if (useList != _isListLayout)
+		{
+			_isListLayout = useList;
+			CountdownItemsView.Layout = useList ? _listLayout : _gridLayout;
+		}
+	}
 }
 
 public abstract partial class MainViewBase : PageBase<MainViewModel>

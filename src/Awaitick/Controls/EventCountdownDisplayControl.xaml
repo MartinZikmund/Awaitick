@@ -22,12 +22,10 @@
         <Border Visibility="{x:Bind Countdown.BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
             <Image
                 Margin="-1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
                 Opacity="{x:Bind Countdown.BackgroundImageOpacity, Mode=OneWay}"
                 Stretch="UniformToFill">
                 <Image.Source>
-                    <BitmapImage x:Name="BackgroundBitmapImage" DecodePixelWidth="800" UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
+                    <BitmapImage x:Name="BackgroundBitmapImage" UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
                 </Image.Source>
             </Image>
         </Border>
