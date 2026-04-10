@@ -60,7 +60,7 @@ public partial class CountdownDetailViewModel : PageViewModel
 	[ObservableProperty]
 	public partial CountdownViewModel EventCountdown { get; private set; }
 
-	partial void OnEventCountdownChanged(CountdownViewModel? value)
+	partial void OnEventCountdownChanged(CountdownViewModel value)
 	{
 		if (value is not null && value.Theme != ElementTheme.Default)
 		{

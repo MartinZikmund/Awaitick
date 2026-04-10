@@ -38,6 +38,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 		var messenger = ServiceProvider.GetRequiredService<IMessenger>();
 		messenger.Register<FullScreenChangedMessage>(this, OnFullScreenChanged);
 		messenger.Register<OverlayVisibilityChangedMessage>(this, OnOverlayVisibilityChanged);
+		messenger.Register<TitleBarThemeOverrideMessage>(this, OnTitleBarThemeOverride);
 	}
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
@@ -66,6 +67,11 @@ public sealed partial class WindowShell : Page, IWindowShell
 				TitleBar.IsHitTestVisible = true;
 			}
 		}
+
+		// Reset title bar button theming to app theme on navigation.
+		// Pages that need an override (e.g., CountdownDetailView) will
+		// send a TitleBarThemeOverrideMessage when their data loads.
+		ServiceProvider.GetRequiredService<IThemeManager>().SetTitleBarThemeOverride(null);
 	}
 
 	private void OnFullScreenChanged(object recipient, FullScreenChangedMessage message)
@@ -76,6 +82,11 @@ public sealed partial class WindowShell : Page, IWindowShell
 			: Microsoft.UI.Windowing.AppWindowPresenterKind.Default;
 		_associatedWindow.AppWindow.SetPresenter(presenter);
 #endif
+	}
+
+	private void OnTitleBarThemeOverride(object recipient, TitleBarThemeOverrideMessage message)
+	{
+		ServiceProvider.GetRequiredService<IThemeManager>().SetTitleBarThemeOverride(message.ThemeOverride);
 	}
 
 	private void OnOverlayVisibilityChanged(object recipient, OverlayVisibilityChangedMessage message)
