@@ -1,8 +1,8 @@
 ﻿
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.UI.Dispatching;
-using Awaitick.ViewModels;
 using Awaitick.Core.Infrastructure;
+using Awaitick.ViewModels;
+using Microsoft.UI.Dispatching;
 using MZikmund.Toolkit.WinUI.Infrastructure;
 
 namespace Awaitick.Services.Navigation;

@@ -7,7 +7,7 @@ namespace Awaitick.Core.Models.Presets;
 public abstract class EventPreset
 {
 	private string _eventPresetKey;
-	
+
 	public EventPreset(
 		EventCategory category,
 		string eventPresetKey,

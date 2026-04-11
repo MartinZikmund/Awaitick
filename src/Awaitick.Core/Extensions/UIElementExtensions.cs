@@ -1,5 +1,5 @@
-﻿using CommunityToolkit.WinUI;
-using Awaitick.Core.Infrastructure;
+﻿using Awaitick.Core.Infrastructure;
+using CommunityToolkit.WinUI;
 
 namespace Awaitick.Extensions;
 

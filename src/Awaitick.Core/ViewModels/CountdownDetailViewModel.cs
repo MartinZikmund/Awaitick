@@ -1,6 +1,5 @@
 ﻿using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
-using CommunityToolkit.Mvvm.Messaging;
 using Awaitick.Core.Services.Countdowns;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
@@ -8,6 +7,7 @@ using Awaitick.Core.Services.ScheduledNotification;
 using Awaitick.Core.Services.Tiles;
 using Awaitick.Services.Navigation;
 using Awaitick.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Awaitick.Core.ViewModels;
 

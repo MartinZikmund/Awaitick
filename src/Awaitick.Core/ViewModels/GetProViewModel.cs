@@ -10,7 +10,7 @@ public partial class GetProViewModel : PageViewModel
 
 	[ObservableProperty]
 	public partial string? CurrentPrice { get; set; }
-	
+
 	public GetProViewModel(INavigationService navigationService, IStoreService storeService) : base(navigationService)
 	{
 		_storeService = storeService;

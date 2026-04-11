@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
+using Awaitick.Core.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using Windows.UI.Core;
-using Awaitick.Core.Messages;
 
 namespace Awaitick.Services.Navigation;
 

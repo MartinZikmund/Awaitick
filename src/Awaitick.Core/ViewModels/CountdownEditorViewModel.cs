@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
-using CommunityToolkit.WinUI.Helpers;
 using Awaitick.Core.DefaultData;
 using Awaitick.Core.Models;
 using Awaitick.Core.Services;
@@ -13,6 +12,7 @@ using Awaitick.Services.Dialogs;
 using Awaitick.Services.Localization;
 using Awaitick.Services.Navigation;
 using Awaitick.Services.Store;
+using CommunityToolkit.WinUI.Helpers;
 using Microsoft.UI;
 using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;

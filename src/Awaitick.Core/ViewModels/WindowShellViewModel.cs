@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using Awaitick.Core.Messages;
 using Awaitick.Core.ViewModels;
 using Awaitick.Services.Localization;
 using Awaitick.Services.Navigation;
-using Awaitick.Core.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Dispatching;
 using Uno.Disposables;
 
@@ -30,7 +30,7 @@ public partial class WindowShellViewModel : ViewModelBase
 
 	[RelayCommand]
 	public void GoBack() => _navigationService.GoBack();
-	
+
 	public bool CanGoBack => _navigationService.CanGoBack;
 
 	public IDisposable BeginLoading()

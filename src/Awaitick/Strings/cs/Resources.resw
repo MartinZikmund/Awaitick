@@ -693,4 +693,49 @@
   <data name="FullScreen" xml:space="preserve">
     <value>Celá obrazovka</value>
   </data>
+  <data name="WhyGoPro" xml:space="preserve">
+    <value>Proč přejít na Pro?</value>
+  </data>
+  <data name="OneTimePurchaseForever" xml:space="preserve">
+    <value>Jednorázový nákup. Navždy vaše.</value>
+  </data>
+  <data name="UnlimitedCountdowns" xml:space="preserve">
+    <value>Neomezené odpočty</value>
+  </data>
+  <data name="UnlimitedCountdownsDescription" xml:space="preserve">
+    <value>Sledujte každý důležitý okamžik</value>
+  </data>
+  <data name="UnlimitedCountdownsFree" xml:space="preserve">
+    <value>max 3</value>
+  </data>
+  <data name="UnlimitedCountdownsPro" xml:space="preserve">
+    <value>∞</value>
+  </data>
+  <data name="NoAdsFree" xml:space="preserve">
+    <value>Reklamy</value>
+  </data>
+  <data name="NoAdsPro" xml:space="preserve">
+    <value>Žádné</value>
+  </data>
+  <data name="FullCustomization" xml:space="preserve">
+    <value>Plné přizpůsobení</value>
+  </data>
+  <data name="FullCustomizationDescription" xml:space="preserve">
+    <value>Vlastní pozadí a další</value>
+  </data>
+  <data name="SupportDevelopmentProDescription" xml:space="preserve">
+    <value>Pomozte formovat budoucí aktualizace</value>
+  </data>
+  <data name="FutureProFeaturesDescription" xml:space="preserve">
+    <value>Přístup k novým funkcím jako první</value>
+  </data>
+  <data name="OneTimePurchase" xml:space="preserve">
+    <value>Jednorázový nákup</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Zdarma</value>
+  </data>
+  <data name="Pro" xml:space="preserve">
+    <value>Pro</value>
+  </data>
 </root>

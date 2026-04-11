@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using Awaitick.Core.ViewModels;
+﻿using Awaitick.Core.ViewModels;
 using Awaitick.Services.Navigation;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Awaitick.Core.ViewModels;
 

@@ -54,7 +54,7 @@ public partial class CountdownViewModel : ObservableObject
 	public int SecondsLeft => _cachedTimeLeft.Seconds;
 
 	public DateTimeOffset TargetDateTime => _eventCountdown.TargetDateTime;
-	
+
 	public string TargetDateString => TargetDateTime.ToLocalTime().ToString("f", CultureInfo.CurrentCulture);
 
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;

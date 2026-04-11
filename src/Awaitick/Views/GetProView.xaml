@@ -1,4 +1,4 @@
-﻿<local:GetProViewBase
+<local:GetProViewBase
     x:Class="Awaitick.Views.GetProView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,142 +6,457 @@
     xmlns:ex="using:Awaitick.Extensions.Xaml"
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:usercontrols="using:Awaitick.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <usercontrols:PageHeaderControl Title="{ex:Localize Key=FluentAwaitickPro}" />
-        <ScrollViewer
-            Grid.Row="1"
-            Padding="8"
-            VerticalAlignment="Center">
-            <Grid RowSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
 
-                <Grid
-                    Grid.Row="1"
-                    MaxWidth="800"
-                    Margin="36,0,36,8"
-                    ColumnSpacing="8"
-                    RowSpacing="8">
-                    <Grid.Resources>
-                        <Style x:Key="HeaderStyle" TargetType="TextBlock">
-                            <Setter Property="FontWeight" Value="Bold" />
-                            <Setter Property="FontSize" Value="20" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Margin" Value="8" />
-                        </Style>
-                        <Style x:Key="CaptionStyle" TargetType="TextBlock">
-                            <Setter Property="FontSize" Value="14" />
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="TextWrapping" Value="WrapWholeWords" />
-                        </Style>
-                        <Style TargetType="Image">
-                            <Setter Property="MaxWidth" Value="180" />
-                        </Style>
-                    </Grid.Resources>
+        <!-- Content -->
+        <ScrollViewer
+            Grid.Row="0"
+            Padding="16"
+            VerticalAlignment="Center">
+
+            <StackPanel
+                MaxWidth="800"
+                HorizontalAlignment="Center"
+                Spacing="24">
+
+                <!-- Hero section -->
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    Spacing="4">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="{ex:Localize Key=FluentAwaitickPro}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{ex:Localize Key=WhyGoPro}" />
+                </StackPanel>
+
+                <!-- Comparison table -->
+                <Grid ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition x:Name="FreeColumn" Width="70" />
+                        <ColumnDefinition x:Name="ProColumn" Width="70" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Column="0">
-                        <Image Source="ms-appx:///Assets/Pro/removeads.png" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource HeaderStyle}"
-                            Text="{ex:Localize Key=NoAds}"
-                            TextTrimming="CharacterEllipsis" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource CaptionStyle}"
-                            Text="{ex:Localize Key=NoAdsDescription}" />
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="1">
-                        <Image Source="ms-appx:///Assets/Pro/customize.png" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource HeaderStyle}"
-                            Text="{ex:Localize Key=EndlessCustomization}"
-                            TextTrimming="CharacterEllipsis" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource CaptionStyle}"
-                            Text="{ex:Localize Key=EndlessCustomizationDescription}" />
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2">
-                        <Image Source="ms-appx:///Assets/Pro/support.png" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource HeaderStyle}"
-                            Text="{ex:Localize Key=SupportDevelopment}"
-                            TextTrimming="CharacterEllipsis" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource CaptionStyle}"
-                            Text="{ex:Localize Key=SupportDevelopmentDescription}" />
-                    </StackPanel>
-
+                    <!-- Column headers -->
                     <TextBlock
+                        x:Name="FreeHeader"
+                        Grid.Column="2"
+                        Margin="0,0,0,4"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{ex:Localize Key=Free}"
+                        TextAlignment="Center" />
+                    <TextBlock
+                        x:Name="ProHeader"
+                        Grid.Column="3"
+                        Margin="0,0,0,4"
+                        FontWeight="SemiBold"
+                        Foreground="#04D4F0"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{ex:Localize Key=Pro}"
+                        TextAlignment="Center" />
+
+                    <!-- Table rows -->
+                    <Border
                         Grid.Row="1"
-                        Grid.ColumnSpan="3"
-                        Margin="8,24,8,0"
-                        HorizontalAlignment="Center"
-                        FontSize="24"
-                        Text="{ex:Localize Key=FutureProFeatures}"
-                        TextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
+                        Grid.ColumnSpan="4"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel>
+                            <!-- Row 1: Unlimited countdowns -->
+                            <Grid Padding="16,14" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    Background="#227B68EE"
+                                    CornerRadius="4">
+                                    <FontIcon
+                                        FontSize="16"
+                                        Foreground="#7B68EE"
+                                        Glyph="&#xE8AB;" />
+                                </Border>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Spacing="2">
+                                    <TextBlock
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{ex:Localize Key=UnlimitedCountdowns}" />
+                                    <TextBlock
+                                        x:Name="UnlimitedCountdownsDesc"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{ex:Localize Key=UnlimitedCountdownsDescription}" />
+                                    <TextBlock
+                                        x:Name="UnlimitedCountdownsNarrowDesc"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{ex:Localize Key=UnlimitedCountdownsFree}"
+                                        Visibility="Collapsed" />
+                                </StackPanel>
+                                <TextBlock
+                                    x:Name="UnlimitedCountdownsFreeValue"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{ex:Localize Key=UnlimitedCountdownsFree}"
+                                    TextAlignment="Center" />
+                                <TextBlock
+                                    x:Name="UnlimitedCountdownsProValue"
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Foreground="#04D4F0"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{ex:Localize Key=UnlimitedCountdownsPro}"
+                                    TextAlignment="Center" />
+                            </Grid>
+
+                            <Border
+                                Height="1"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                            <!-- Row 2: No ads -->
+                            <Grid Padding="16,14" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    Background="#22FF6347"
+                                    CornerRadius="4">
+                                    <FontIcon
+                                        FontSize="16"
+                                        Foreground="#FF6347"
+                                        Glyph="&#xE711;" />
+                                </Border>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Spacing="2">
+                                    <TextBlock
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{ex:Localize Key=NoAds}" />
+                                    <TextBlock
+                                        x:Name="NoAdsDesc"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{ex:Localize Key=NoAdsDescription}" />
+                                    <TextBlock
+                                        x:Name="NoAdsNarrowDesc"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{ex:Localize Key=NoAdsFree}"
+                                        Visibility="Collapsed" />
+                                </StackPanel>
+                                <TextBlock
+                                    x:Name="NoAdsFreeValue"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{ex:Localize Key=NoAdsFree}"
+                                    TextAlignment="Center" />
+                                <TextBlock
+                                    x:Name="NoAdsProValue"
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Foreground="#04D4F0"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{ex:Localize Key=NoAdsPro}"
+                                    TextAlignment="Center" />
+                            </Grid>
+
+                            <Border
+                                Height="1"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                            <!-- Row 3: Full customization -->
+                            <Grid Padding="16,14" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    Background="#2204D4F0"
+                                    CornerRadius="4">
+                                    <FontIcon
+                                        FontSize="16"
+                                        Foreground="#04D4F0"
+                                        Glyph="&#xE790;" />
+                                </Border>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Spacing="2">
+                                    <TextBlock
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{ex:Localize Key=FullCustomization}" />
+                                    <TextBlock
+                                        x:Name="CustomizationDesc"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{ex:Localize Key=FullCustomizationDescription}" />
+                                </StackPanel>
+                                <TextBlock
+                                    x:Name="CustomizationFreeValue"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="✗"
+                                    TextAlignment="Center" />
+                                <TextBlock
+                                    x:Name="CustomizationProValue"
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Foreground="#04D4F0"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="✓"
+                                    TextAlignment="Center" />
+                            </Grid>
+
+                            <Border
+                                Height="1"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                            <!-- Row 4: Support development -->
+                            <Grid Padding="16,14" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    Background="#22FF69B4"
+                                    CornerRadius="4">
+                                    <FontIcon
+                                        FontSize="16"
+                                        Foreground="#FF69B4"
+                                        Glyph="&#xEB51;" />
+                                </Border>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Spacing="2">
+                                    <TextBlock
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{ex:Localize Key=SupportDevelopment}" />
+                                    <TextBlock
+                                        x:Name="SupportDevDesc"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{ex:Localize Key=SupportDevelopmentProDescription}" />
+                                </StackPanel>
+                                <TextBlock
+                                    x:Name="SupportDevFreeValue"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="✗"
+                                    TextAlignment="Center" />
+                                <TextBlock
+                                    x:Name="SupportDevProValue"
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Foreground="#04D4F0"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="✓"
+                                    TextAlignment="Center" />
+                            </Grid>
+
+                            <Border
+                                Height="1"
+                                HorizontalAlignment="Stretch"
+                                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                            <!-- Row 5: Future Pro features -->
+                            <Grid Padding="16,14" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Width="32"
+                                    Height="32"
+                                    Background="#22FFD700"
+                                    CornerRadius="4">
+                                    <FontIcon
+                                        FontSize="16"
+                                        Foreground="#FFD700"
+                                        Glyph="&#xE724;" />
+                                </Border>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Spacing="2">
+                                    <TextBlock
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{ex:Localize Key=FutureProFeatures}" />
+                                    <TextBlock
+                                        x:Name="FutureDesc"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{ex:Localize Key=FutureProFeaturesDescription}" />
+                                </StackPanel>
+                                <TextBlock
+                                    x:Name="FutureFreeValue"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="✗"
+                                    TextAlignment="Center" />
+                                <TextBlock
+                                    x:Name="FutureProValue"
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Foreground="#04D4F0"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="✓"
+                                    TextAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
                 </Grid>
-                <StackPanel
-                    Grid.Row="2"
-                    Spacing="4"
-                    Visibility="{x:Bind ViewModel.CurrentPrice, Mode=OneWay, Converter={StaticResource NonNullToVisibilityConverter}}">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Text="{ex:Localize Key=InAppPriceOnly}" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        FontSize="30"
-                        Text="{x:Bind ViewModel.CurrentPrice, Mode=OneWay}" />
-                </StackPanel>
-            </Grid>
+
+            </StackPanel>
         </ScrollViewer>
+
+        <!-- Price + CTA pinned to bottom -->
         <StackPanel
-            Grid.Row="2"
-            Margin="0"
-            Spacing="16">
+            Grid.Row="1"
+            Padding="0,16,0,24"
+            HorizontalAlignment="Center"
+            Spacing="12">
+            <!-- Price area — fixed height to prevent layout shift -->
+            <Grid
+                Height="32"
+                HorizontalAlignment="Center">
+                <!-- Loading indicator (visible while price is loading) -->
+                <ProgressRing
+                    Width="24"
+                    Height="24"
+                    IsActive="True"
+                    Visibility="{x:Bind ViewModel.CurrentPrice, Mode=OneWay, Converter={StaticResource EmptyStringToVisibilityConverter}}" />
+                <!-- Price (visible once loaded) -->
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Foreground="#04D4F0"
+                    Text="{x:Bind ViewModel.CurrentPrice, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.CurrentPrice, Mode=OneWay, Converter={StaticResource NonNullToVisibilityConverter}}" />
+            </Grid>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{ex:Localize Key=OneTimePurchaseForever}" />
             <Button
-                Padding="30"
-                HorizontalAlignment="Stretch"
+                Padding="24,12"
+                HorizontalAlignment="Center"
                 Command="{x:Bind ViewModel.GetProCommand}"
-                CornerRadius="0"
-                FontSize="30"
+                FontSize="16"
                 Style="{StaticResource AccentButtonStyle}">
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <FontIcon FontSize="30" Glyph="&#xE7BF;" />
+                    <FontIcon FontSize="16" Glyph="&#xE7BF;" />
                     <TextBlock Text="{ex:Localize Key=GetProNow}" />
                 </StackPanel>
             </Button>
         </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!-- Hide column headers -->
+                        <Setter Target="FreeHeader.Visibility" Value="Collapsed" />
+                        <Setter Target="ProHeader.Visibility" Value="Collapsed" />
+
+                        <!-- Collapse Free/Pro columns in row 1 -->
+                        <Setter Target="FreeColumn.Width" Value="0" />
+                        <Setter Target="ProColumn.Width" Value="0" />
+                        <Setter Target="UnlimitedCountdownsFreeValue.Visibility" Value="Collapsed" />
+                        <Setter Target="UnlimitedCountdownsProValue.Visibility" Value="Collapsed" />
+                        <Setter Target="UnlimitedCountdownsDesc.Visibility" Value="Collapsed" />
+                        <Setter Target="UnlimitedCountdownsNarrowDesc.Visibility" Value="Visible" />
+
+                        <!-- Collapse Free/Pro columns in row 2 -->
+                        <Setter Target="NoAdsFreeValue.Visibility" Value="Collapsed" />
+                        <Setter Target="NoAdsProValue.Visibility" Value="Collapsed" />
+                        <Setter Target="NoAdsDesc.Visibility" Value="Collapsed" />
+                        <Setter Target="NoAdsNarrowDesc.Visibility" Value="Visible" />
+
+                        <!-- Collapse Free/Pro columns in row 3 -->
+                        <Setter Target="CustomizationFreeValue.Visibility" Value="Collapsed" />
+                        <Setter Target="CustomizationProValue.Visibility" Value="Collapsed" />
+
+                        <!-- Collapse Free/Pro columns in row 4 -->
+                        <Setter Target="SupportDevFreeValue.Visibility" Value="Collapsed" />
+                        <Setter Target="SupportDevProValue.Visibility" Value="Collapsed" />
+
+                        <!-- Collapse Free/Pro columns in row 5 -->
+                        <Setter Target="FutureFreeValue.Visibility" Value="Collapsed" />
+                        <Setter Target="FutureProValue.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </local:GetProViewBase>

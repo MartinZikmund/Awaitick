@@ -693,4 +693,49 @@
   <data name="FullScreen" xml:space="preserve">
     <value>Full screen</value>
   </data>
+  <data name="WhyGoPro" xml:space="preserve">
+    <value>Why go Pro?</value>
+  </data>
+  <data name="OneTimePurchaseForever" xml:space="preserve">
+    <value>One-time purchase. Yours forever.</value>
+  </data>
+  <data name="UnlimitedCountdowns" xml:space="preserve">
+    <value>Unlimited countdowns</value>
+  </data>
+  <data name="UnlimitedCountdownsDescription" xml:space="preserve">
+    <value>Track every moment that matters</value>
+  </data>
+  <data name="UnlimitedCountdownsFree" xml:space="preserve">
+    <value>3 max</value>
+  </data>
+  <data name="UnlimitedCountdownsPro" xml:space="preserve">
+    <value>∞</value>
+  </data>
+  <data name="NoAdsFree" xml:space="preserve">
+    <value>Ads</value>
+  </data>
+  <data name="NoAdsPro" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="FullCustomization" xml:space="preserve">
+    <value>Full customization</value>
+  </data>
+  <data name="FullCustomizationDescription" xml:space="preserve">
+    <value>Custom backgrounds and more</value>
+  </data>
+  <data name="SupportDevelopmentProDescription" xml:space="preserve">
+    <value>Help shape future updates</value>
+  </data>
+  <data name="FutureProFeaturesDescription" xml:space="preserve">
+    <value>First access to new capabilities</value>
+  </data>
+  <data name="OneTimePurchase" xml:space="preserve">
+    <value>One-time purchase</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="Pro" xml:space="preserve">
+    <value>Pro</value>
+  </data>
 </root>

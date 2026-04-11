@@ -45,7 +45,7 @@ public partial class OnboardingViewModel : PageViewModel
 	private async Task StartAppAsync()
 	{
 		await SavePresetsAsync();
-		
+
 		_appPreferences.FirstStart = false;
 		NavigationService.Navigate<MainViewModel>();
 

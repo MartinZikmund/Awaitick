@@ -1,10 +1,11 @@
 ﻿using Awaitick.Extensions;
+using Awaitick.Extensions;
 using Awaitick.Services.Localization;
 using Awaitick.Services.Navigation;
 using Awaitick.ViewModels;
-using Awaitick.Extensions;
 
 namespace Awaitick.Services.Dialogs;
+
 public sealed partial class ProOnlyFeatureDialog : ContentDialog
 {
 	public ProOnlyFeatureDialog()
