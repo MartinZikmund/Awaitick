@@ -68,10 +68,16 @@ public sealed partial class WindowShell : Page, IWindowShell
 			}
 		}
 
-		// Reset title bar button theming to app theme on navigation.
-		// Pages that need an override (e.g., CountdownDetailView) will
-		// send a TitleBarThemeOverrideMessage when their data loads.
-		ServiceProvider.GetRequiredService<IThemeManager>().SetTitleBarThemeOverride(null);
+		// Reset title bar button theming to app theme when navigating to a
+		// non-blending page.  Pages that blend into the title bar (e.g.,
+		// CountdownDetailView) set their own override via
+		// TitleBarThemeOverrideMessage once their data loads — resetting
+		// here would race with that (OnNavigatedTo fires before Navigated).
+		if (!blendsInTitleBar)
+		{
+			ServiceProvider.GetRequiredService<IThemeManager>().SetTitleBarThemeOverride(null);
+			TitleBar.RequestedTheme = ElementTheme.Default;
+		}
 	}
 
 	private void OnFullScreenChanged(object recipient, FullScreenChangedMessage message)
@@ -87,6 +93,12 @@ public sealed partial class WindowShell : Page, IWindowShell
 	private void OnTitleBarThemeOverride(object recipient, TitleBarThemeOverrideMessage message)
 	{
 		ServiceProvider.GetRequiredService<IThemeManager>().SetTitleBarThemeOverride(message.ThemeOverride);
+		TitleBar.RequestedTheme = message.ThemeOverride switch
+		{
+			ApplicationTheme.Dark => ElementTheme.Dark,
+			ApplicationTheme.Light => ElementTheme.Light,
+			_ => ElementTheme.Default,
+		};
 	}
 
 	private void OnOverlayVisibilityChanged(object recipient, OverlayVisibilityChangedMessage message)
