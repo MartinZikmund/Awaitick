@@ -1,9 +1,8 @@
 {
-	"sdk": {
-		"allowPrerelease": false
-	},
-	"msbuild-sdks": {
-		"Uno.Sdk": "6.6.0-dev.162"
-	}
+  "sdk": {
+    "allowPrerelease": false
+  },
+  "msbuild-sdks": {
+    "Uno.Sdk": "6.6.0-dev.184"
+  }
 }
-
