@@ -6,25 +6,29 @@ namespace Awaitick.Core.Models.Presets;
 
 public abstract class EventPreset
 {
-	private string _eventPresetKey;
-
 	public EventPreset(
 		EventCategory category,
+		int groupNumber,
 		string eventPresetKey,
 		TextTheme textTheme,
 		double backgroundImageOpacity = 0.8,
 		Color? backgroundColor = null)
 	{
-		_eventPresetKey = eventPresetKey;
+		Key = eventPresetKey;
 		Category = category;
+		GroupNumber = groupNumber;
 		BackgroundImageOpacity = backgroundImageOpacity;
 		BackgroundColor = backgroundColor;
 		TextTheme = textTheme;
 	}
 
-	public string Name => Localizer.Instance.GetString($"EventPreset_{_eventPresetKey}_Name");
+	public string Key { get; }
 
-	public Uri BackgroundImageUri => new Uri($"ms-appx:///Assets/EventBackgrounds/{_eventPresetKey}.jpg", UriKind.Absolute);
+	public int GroupNumber { get; }
+
+	public string Name => Localizer.Instance.GetString($"EventPreset_{Key}_Name");
+
+	public Uri BackgroundImageUri => new Uri($"ms-appx:///Assets/EventBackgrounds/{Key}.jpg", UriKind.Absolute);
 
 	public EventCategory Category { get; }
 
@@ -48,7 +52,7 @@ public abstract class EventPreset
 
 	public EventCountdown Create()
 	{
-		var celebrationMessageKey = $"EventCountdown_{_eventPresetKey}_CelebrationMessage";
+		var celebrationMessageKey = $"EventCountdown_{Key}_CelebrationMessage";
 
 		var celebrationMessage = Localizer.Instance.GetString(celebrationMessageKey);
 

@@ -738,4 +738,16 @@
   <data name="Pro" xml:space="preserve">
     <value>Pro</value>
   </data>
+  <data name="NewCountdown_Title" xml:space="preserve">
+    <value>Nové odpočítávání</value>
+  </data>
+  <data name="NewCountdown_StartFromPreset" xml:space="preserve">
+    <value>Začít ze šablony</value>
+  </data>
+  <data name="NewCountdown_Or" xml:space="preserve">
+    <value>nebo</value>
+  </data>
+  <data name="NewCountdown_CreateMyOwn" xml:space="preserve">
+    <value>Vytvořit vlastní událost</value>
+  </data>
 </root>

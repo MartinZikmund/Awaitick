@@ -5,7 +5,7 @@ namespace Awaitick.Core.Models.Presets;
 
 public class ChristmasEventPreset : EventPreset
 {
-	public ChristmasEventPreset() : base(EventCategory.ChristianHoliday, "Christmas", TextTheme.Light, backgroundColor: Color.FromArgb(255, 13, 31, 60))
+	public ChristmasEventPreset() : base(EventCategory.ChristianHoliday, 2, "Christmas", TextTheme.Light, backgroundColor: Color.FromArgb(255, 13, 31, 60))
 	{
 	}
 

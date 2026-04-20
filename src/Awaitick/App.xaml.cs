@@ -190,6 +190,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddScoped<GetProViewModel>();
 		services.AddTransient<CountdownEditorViewModel>();
 		services.AddTransient<CountdownDetailViewModel>();
+		services.AddTransient<NewCountdownViewModel>();
 
 		services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 

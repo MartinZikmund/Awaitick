@@ -78,4 +78,15 @@ public class NavigationService : INavigationService
 		Frame.BackStack.Clear();
 		_messenger.Send(new NavigationChangedMessage());
 	}
+
+	public void RemoveLastFromBackStack()
+	{
+		if (Frame.BackStack.Count == 0)
+		{
+			return;
+		}
+
+		Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
+		_messenger.Send(new NavigationChangedMessage());
+	}
 }

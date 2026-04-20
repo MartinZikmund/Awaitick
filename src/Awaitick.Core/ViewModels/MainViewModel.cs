@@ -140,7 +140,7 @@ public partial class MainViewModel : PageViewModel
 
 		if (Awaitick.Count == 0 && _isFirstNavigation)
 		{
-			Add();
+			NavigateToNewEditorDirect();
 		}
 
 		_isFirstNavigation = false;
@@ -191,8 +191,13 @@ public partial class MainViewModel : PageViewModel
 			return;
 		}
 
+		_navigationService.Navigate<NewCountdownViewModel>();
+	}
+
+	private void NavigateToNewEditorDirect()
+	{
 		_navigationService.Navigate<CountdownEditorViewModel>(
-			new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
+			CountdownEditorViewModel.NavigationModel.CreateAdd());
 	}
 
 	[RelayCommand]

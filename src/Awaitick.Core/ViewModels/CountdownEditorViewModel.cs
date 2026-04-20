@@ -2,6 +2,7 @@
 using System.Globalization;
 using Awaitick.Core.DefaultData;
 using Awaitick.Core.Models;
+using Awaitick.Core.Models.Presets;
 using Awaitick.Core.Services;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
@@ -172,7 +173,16 @@ public partial class CountdownEditorViewModel : PageViewModel
 		else
 		{
 			Title = _localizationService.GetString("AddEvent");
-			_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			if (!string.IsNullOrEmpty(navigationModel.PresetKey)
+				&& EventPresets.GetByKey(navigationModel.PresetKey) is { } preset)
+			{
+				_editedEventCountdown = preset.Create();
+				_editedEventCountdown.Id = Guid.NewGuid().ToString();
+			}
+			else
+			{
+				_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			}
 		}
 
 		await LoadEditedCountdownAsync();

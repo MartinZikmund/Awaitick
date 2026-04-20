@@ -17,7 +17,7 @@ public partial class OnboardingViewModel : PageViewModel
 		_dataService = dataService;
 	}
 
-	public EventPreset[] Presets => EventPresets.Presets;
+	public IEnumerable<EventPreset> Presets => EventPresets.InDisplayOrder();
 
 	public EventPreset[] SelectedPresets { get; set; } = Array.Empty<EventPreset>();
 
