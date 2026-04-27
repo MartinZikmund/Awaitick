@@ -20,7 +20,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
+        <usercontrols:PageHeaderControl HorizontalAlignment="Center" Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
 
         <Button
             Grid.Row="1"

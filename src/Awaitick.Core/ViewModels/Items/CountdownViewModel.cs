@@ -71,6 +71,19 @@ public partial class CountdownViewModel : ObservableObject
 	[RelayCommand]
 	public Task<bool> DeleteAsync() => _countdownsManager is not null ? _countdownsManager.DeleteAsync(this) : Task.FromResult(false);
 
+	public void RefreshFromModel()
+	{
+		OnPropertyChanged(nameof(Name));
+		OnPropertyChanged(nameof(BackgroundImageUri));
+		OnPropertyChanged(nameof(BackgroundImageOpacity));
+		OnPropertyChanged(nameof(Theme));
+		OnPropertyChanged(nameof(BackgroundColor));
+		OnPropertyChanged(nameof(TargetDateTime));
+		OnPropertyChanged(nameof(TargetDateString));
+		OnPropertyChanged(nameof(CelebrationMessage));
+		UpdateBindings();
+	}
+
 	public void UpdateBindings()
 	{
 		var now = DateTimeOffset.Now;

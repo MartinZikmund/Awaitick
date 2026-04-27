@@ -43,6 +43,8 @@ public partial class CountdownsApp : Application, IApplication
 		this.InitializeComponent();
 	}
 
+	internal string? LaunchArgs { get; private set; }
+
 #if WINDOWS
 	/// <summary>
 	/// Handles toast notification activation arguments.
@@ -153,6 +155,7 @@ public partial class CountdownsApp : Application, IApplication
 #endif
 
 		var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
+		LaunchArgs = args.Arguments;
 
 		// Do not repeat app initialization when the Window already has content,
 		// just ensure that the window is active
@@ -163,18 +166,6 @@ public partial class CountdownsApp : Application, IApplication
 
 			// Place the frame in the current Window
 			MainWindow.Content = windowShell;
-		}
-
-		if (windowShell.RootFrame.Content is null)
-		{
-			if (appPreferences.FirstStart)
-			{
-				windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<OnboardingViewModel>(args.Arguments);
-			}
-			else
-			{
-				windowShell.ServiceProvider.GetRequiredService<INavigationService>().Navigate<MainViewModel>(args.Arguments);
-			}
 		}
 
 		// Ensure the current window is active

@@ -40,8 +40,8 @@
                     <EntranceThemeTransition />
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <Grid Padding="12" SizeChanged="EventsGrid_SizeChanged" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                <ScrollViewer HorizontalAlignment="Center" HorizontalContentAlignment="Center" >
+            <Grid SizeChanged="EventsGrid_SizeChanged" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ScrollViewer Padding="12" HorizontalAlignment="Center" HorizontalContentAlignment="Center" >
                     <ItemsView
                         x:Name="CountdownItemsView"
                         HorizontalAlignment="Center"

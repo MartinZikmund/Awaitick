@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
 using Awaitick.Core.DefaultData;
+using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using Awaitick.Core.Models.Presets;
 using Awaitick.Core.Services;
@@ -13,6 +14,7 @@ using Awaitick.Services.Dialogs;
 using Awaitick.Services.Localization;
 using Awaitick.Services.Navigation;
 using Awaitick.Services.Store;
+using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.WinUI.Helpers;
 using Microsoft.UI;
 using MZikmund.Services.Dialogs;
@@ -36,6 +38,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private readonly INotificationPermissionService _notificationPermissionService;
 	private readonly IAppPreferences _appPreferences;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
+	private readonly IMessenger _messenger;
 	private readonly UISettings _uiSettings = new();
 	private EventCountdown? _editedEventCountdown;
 
@@ -51,7 +54,8 @@ public partial class CountdownEditorViewModel : PageViewModel
 		IXamlRootProvider xamlRootProvider,
 		INotificationPermissionService notificationPermissionService,
 		IAppPreferences appPreferences,
-		IScheduledNotificationService scheduledNotificationService) :
+		IScheduledNotificationService scheduledNotificationService,
+		IMessenger messenger) :
 		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
@@ -66,7 +70,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_notificationPermissionService = notificationPermissionService ?? throw new ArgumentNullException(nameof(notificationPermissionService));
 		_appPreferences = appPreferences ?? throw new ArgumentNullException(nameof(appPreferences));
 		_scheduledNotificationService = scheduledNotificationService ?? throw new ArgumentNullException(nameof(scheduledNotificationService));
-
+		_messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 	}
 
 	public ICountdownEditorViewService? View { get; set; }
@@ -302,6 +306,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		if (Mode == EditorMode.Edit)
 		{
 			await _eventCountdownManager.UpdateCountdownAsync(_editedEventCountdown);
+			_messenger.Send(new CountdownUpdatedMessage(_editedEventCountdown.Id));
 		}
 		else
 		{

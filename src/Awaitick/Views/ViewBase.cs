@@ -1,4 +1,5 @@
-﻿using Awaitick.Core.ViewModels;
+﻿using System.Diagnostics.CodeAnalysis;
+using Awaitick.Core.ViewModels;
 using Awaitick.ViewModels;
 
 namespace Awaitick.Views;
@@ -12,32 +13,39 @@ public abstract partial class PageBase<TViewModel> : Page, IBlendsInTitleBar
 	where TViewModel : PageViewModel
 {
 	private object? _pendingParameter;
-	private bool _isNavigationDelayed;
 
 	protected PageBase()
 	{
-		Loading += PageLoading;
-		Loaded += PageLoaded;
-		Unloaded += PageUnloaded;
+		Loading += OnPageLoading;
+		Loaded += OnPageLoaded;
+		Unloaded += OnPageUnloaded;
 	}
 
 	public virtual bool BlendsInTitleBar => false;
 
-	public virtual TViewModel? ViewModel { get; private set; }
+	/// <summary>
+	/// Gets the ViewModel for this page. Resolved from DI on first access.
+	/// </summary>
+	public TViewModel? ViewModel { get; private set; }
 
-	private void PageLoading(object sender, object args)
+	[MemberNotNull(nameof(ViewModel))]
+	private void EnsureViewModel()
 	{
 		SetTitleBarPadding();
 
-		EnsureViewModel();
-
-		if (_isNavigationDelayed)
+		if (ViewModel is not null)
 		{
-			ViewModel?.ViewNavigatedToInternal(_pendingParameter);
-			_pendingParameter = null;
+			return;
 		}
 
-		ViewModel?.ViewLoading();
+		if (FindWindowShell(Frame.XamlRoot?.Content) is not WindowShell windowShell)
+		{
+			throw new InvalidOperationException("View must be hosted inside a WindowShell");
+		}
+
+		ViewModel = windowShell.ServiceProvider.GetRequiredService<TViewModel>();
+		DataContext = ViewModel;
+		ViewModel.ViewCreated();
 	}
 
 	private void SetTitleBarPadding()
@@ -58,36 +66,50 @@ public abstract partial class PageBase<TViewModel> : Page, IBlendsInTitleBar
 		}
 	}
 
-	private void PageLoaded(object sender, RoutedEventArgs e) => ViewModel?.ViewLoaded();
+	private WindowShell? FindWindowShell(UIElement? windowRoot)
+	{
+		if (windowRoot is WindowShell shell)
+		{
+			return shell;
+		}
 
-	protected override void OnNavigatedTo(NavigationEventArgs e)
+		// This happens when Hot Design takes over the root.
+		if (windowRoot is ContentControl { Content: WindowShell windowShell })
+		{
+			return windowShell;
+		}
+
+		return null;
+	}
+
+	private void OnPageLoading(FrameworkElement sender, object args)
 	{
 		EnsureViewModel();
 
-		if (ViewModel is not null)
-		{
-			ViewModel.ViewNavigatedToInternal(_pendingParameter ?? e.Parameter);
-		}
-		else
-		{
-			_isNavigationDelayed = true;
-			_pendingParameter = e.Parameter;
-		}
+		ViewModel?.ViewLoading();
 	}
 
-	private void PageUnloaded(object sender, RoutedEventArgs e) => ViewModel?.ViewUnloaded();
-
-	private void EnsureViewModel()
+	private void OnPageLoaded(object sender, RoutedEventArgs e)
 	{
-		if (ViewModel is not null)
-		{
-			return;
-		}
+		ViewModel?.ViewLoaded();
+	}
 
-		if (XamlRoot?.Content is WindowShell windowShell)
-		{
-			ViewModel = windowShell.ServiceProvider.GetRequiredService<TViewModel>();
-			DataContext = ViewModel;
-		}
+	private void OnPageUnloaded(object sender, RoutedEventArgs e)
+	{
+		ViewModel?.ViewUnloaded();
+	}
+
+	protected override void OnNavigatedTo(NavigationEventArgs e)
+	{
+		base.OnNavigatedTo(e);
+		EnsureViewModel();
+
+		ViewModel.ViewNavigatedToInternal(e.Parameter);
+	}
+
+	protected override void OnNavigatedFrom(NavigationEventArgs e)
+	{
+		base.OnNavigatedFrom(e);
+		ViewModel?.ViewNavigatedFrom();
 	}
 }

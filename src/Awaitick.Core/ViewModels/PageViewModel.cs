@@ -39,4 +39,9 @@ public abstract partial class PageViewModel : ViewModelBase
 	}
 
 	public virtual void ViewNavigatedTo(object? parameter) { }
+
+	/// <summary>
+	/// Called when the page is navigated away from.
+	/// </summary>
+	public virtual void ViewNavigatedFrom() { }
 }

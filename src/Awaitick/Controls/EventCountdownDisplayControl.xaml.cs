@@ -26,17 +26,7 @@ public sealed partial class EventCountdownDisplayControl : UserControl
 			nameof(Countdown),
 			typeof(CountdownViewModel),
 			typeof(EventCountdownDisplayControl),
-			new PropertyMetadata(null, OnCountdownChanged));
-
-	private static void OnCountdownChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-	{
-		if (dependencyObject is not EventCountdownDisplayControl control || args.NewValue is not CountdownViewModel countdown)
-		{
-			return;
-		}
-
-		control.RootGrid.RequestedTheme = countdown.Theme;
-	}
+			new PropertyMetadata(null));
 
 	public CountdownDisplayMode DisplayMode
 	{

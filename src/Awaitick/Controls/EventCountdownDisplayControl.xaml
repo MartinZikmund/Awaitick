@@ -10,7 +10,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" RequestedTheme="{x:Bind Countdown.Theme, Mode=OneWay}">
         <!--  Background color  -->
         <Border>
             <Border.Background>

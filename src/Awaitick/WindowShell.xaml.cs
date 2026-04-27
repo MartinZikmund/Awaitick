@@ -1,12 +1,14 @@
-using Windows.Foundation.Metadata;
-using Awaitick.Services.Navigation;
 using Awaitick.Core.Infrastructure;
 using Awaitick.Core.Messages;
-using Awaitick.ViewModels;
 using Awaitick.Core.Services.Settings;
+using Awaitick.Core.ViewModels;
+using Awaitick.Services.Navigation;
 using Awaitick.Services.Theming;
+using Awaitick.ViewModels;
 using Awaitick.Views;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.UI.Composition.SystemBackdrops;
+using Windows.Foundation.Metadata;
 
 namespace Awaitick;
 
@@ -18,7 +20,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 	public WindowShell(IServiceProvider serviceProvider, Window associatedWindow)
 	{
 		InitializeComponent();
-
+		Loaded += WindowShell_Loaded;
 		_windowScope = serviceProvider.CreateScope();
 		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
 		windowShellProvider.SetShell(this, associatedWindow);
@@ -39,6 +41,23 @@ public sealed partial class WindowShell : Page, IWindowShell
 		messenger.Register<FullScreenChangedMessage>(this, OnFullScreenChanged);
 		messenger.Register<OverlayVisibilityChangedMessage>(this, OnOverlayVisibilityChanged);
 		messenger.Register<TitleBarThemeOverrideMessage>(this, OnTitleBarThemeOverride);
+	}
+
+	private void WindowShell_Loaded(object sender, RoutedEventArgs e)
+	{
+		if (RootFrame.Content is null)
+		{
+			var appPreferences = ServiceProvider.GetRequiredService<IAppPreferences>();
+			var navigationService = ServiceProvider.GetRequiredService<INavigationService>();
+			if (appPreferences.FirstStart)
+			{
+				navigationService.Navigate<OnboardingViewModel>((Application.Current as CountdownsApp)?.LaunchArgs);
+			}
+			else
+			{
+				navigationService.Navigate<MainViewModel>((Application.Current as CountdownsApp)?.LaunchArgs);
+			}
+		}
 	}
 
 	public IServiceProvider ServiceProvider => _windowScope.ServiceProvider;
@@ -124,7 +143,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 #endif
 		}
 
-		if (ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.Window", "SystemBackdrop"))
+		if (MicaController.IsSupported())
 		{
 			_associatedWindow.SystemBackdrop = new MicaBackdrop();
 			Background = null;

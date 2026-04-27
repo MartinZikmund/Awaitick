@@ -60,7 +60,17 @@ public partial class MainViewModel : PageViewModel
 		_messenger = messenger;
 		_appSettings = appSettings;
 		_messenger.Register<CountdownDeletedMessage>(this, CountdownDeletedHandler);
+		_messenger.Register<CountdownUpdatedMessage>(this, CountdownUpdatedHandler);
 		_messenger.Register<DeepLinkReceivedMessage>(this, DeepLinkReceivedHandler);
+	}
+
+	private static void CountdownUpdatedHandler(object recipient, CountdownUpdatedMessage message)
+	{
+		if (recipient is MainViewModel viewModel)
+		{
+			var countdown = viewModel.Awaitick.FirstOrDefault(c => c.Id == message.Id);
+			countdown?.RefreshFromModel();
+		}
 	}
 
 	private static void DeepLinkReceivedHandler(object recipient, DeepLinkReceivedMessage message)
@@ -95,8 +105,6 @@ public partial class MainViewModel : PageViewModel
 	{
 		IsLoading = true;
 
-		HasProLicense = await _storeService.HasProAsync();
-
 		//load countdowns
 		var countdowns = await _dataService.GetCountdownsAsync();
 		var newIds = countdowns.Select(c => c.Id).ToList();
@@ -123,6 +131,8 @@ public partial class MainViewModel : PageViewModel
 			Awaitick = newCountdowns;
 			OnPropertyChanged(nameof(HasAnyEvents));
 		}
+
+		HasProLicense = await _storeService.HasProAsync();
 
 		IsLoading = false;
 		_scheduledNotificationService.UnSuppressAllCountdownNotifications();
