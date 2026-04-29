@@ -33,6 +33,7 @@ jobs:
         with:
           submodules: true
           lfs: false
+          fetch-depth: 0
 
       # Cache NuGet to speed up restores
       - name: NuGet cache
