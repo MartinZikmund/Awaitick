@@ -7,6 +7,8 @@
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Awaitick.Extensions.Xaml"
+    IsTabStop="True"
+    KeyDown="OnPageKeyDown"
     mc:Ignorable="d">
     <local:CountdownDetailViewBase.Transitions>
         <TransitionCollection>

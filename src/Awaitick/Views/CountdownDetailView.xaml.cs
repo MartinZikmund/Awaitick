@@ -90,6 +90,7 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		_timer.Start();
 		_autoHideTimer.Start();
 		SubscribeToViewModel();
+		Focus(FocusState.Programmatic);
 	}
 
 	protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -122,6 +123,11 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 	}
 
 	private void RootGrid_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+	{
+		HandleUserInteraction();
+	}
+
+	private void OnPageKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
 	{
 		HandleUserInteraction();
 	}

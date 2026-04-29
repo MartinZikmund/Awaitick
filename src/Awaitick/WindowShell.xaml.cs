@@ -16,12 +16,14 @@ public sealed partial class WindowShell : Page, IWindowShell
 {
 	private readonly IServiceScope _windowScope;
 	private readonly Window _associatedWindow;
+	private bool _titleBarVisible = true;
 
 	public WindowShell(IServiceProvider serviceProvider, Window associatedWindow)
 	{
 		InitializeComponent();
 		Loaded += WindowShell_Loaded;
 		_windowScope = serviceProvider.CreateScope();
+
 		var windowShellProvider = (WindowShellProvider)ServiceProvider.GetRequiredService<IWindowShellProvider>();
 		windowShellProvider.SetShell(this, associatedWindow);
 		ServiceProvider.GetRequiredService<INavigationService>().RegisterViewsFromAssembly(typeof(CountdownsApp).Assembly);
@@ -84,6 +86,7 @@ public sealed partial class WindowShell : Page, IWindowShell
 			{
 				TitleBar.Opacity = 1;
 				TitleBar.IsHitTestVisible = true;
+				_titleBarVisible = true;
 			}
 		}
 
@@ -127,8 +130,18 @@ public sealed partial class WindowShell : Page, IWindowShell
 			return;
 		}
 
-		TitleBar.Opacity = message.IsVisible ? 1 : 0;
-		TitleBar.IsHitTestVisible = message.IsVisible;
+		if (message.IsVisible)
+		{
+			TitleBar.Opacity = 1;
+			TitleBar.IsHitTestVisible = true;
+			_titleBarVisible = true;
+		}
+		else
+		{
+			TitleBar.Opacity = 0;
+			TitleBar.IsHitTestVisible = false;
+			_titleBarVisible = false;
+		}
 	}
 
 	private void CustomizeWindow()
