@@ -14,15 +14,22 @@ public class DefaultBackgrounds : IDefaultBackgrounds
 			return _cachedBackgrounds;
 		}
 
-		var folder = await StorageFolder.GetFolderFromPathAsync(
-			System.IO.Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets", "EventBackgrounds"));
+		try
+		{
+			var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
+			var assetsFolder = await installedLocation.GetFolderAsync("Assets");
+			var folder = await assetsFolder.GetFolderAsync("EventBackgrounds");
+			var files = await folder.GetFilesAsync();
 
-		var files = await folder.GetFilesAsync();
-
-		_cachedBackgrounds = files
-			.Where(f => f.FileType is ".jpg" or ".png")
-			.Select(f => new DefaultBackground(System.IO.Path.GetFileNameWithoutExtension(f.Name)))
-			.ToArray();
+			_cachedBackgrounds = files
+				.Where(f => f.FileType is ".jpg" or ".png")
+				.Select(f => new DefaultBackground(f.Name))
+				.ToArray();
+		}
+		catch
+		{
+			_cachedBackgrounds = [];
+		}
 
 		return _cachedBackgrounds;
 	}

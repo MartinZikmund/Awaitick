@@ -159,6 +159,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		HasProLicense = await _storeService.HasProAsync();
 
 		var backgrounds = await _defaultBackgrounds.GetDefaultBackgroundsAsync();
+		DefaultBackgrounds.Clear();
 		foreach (var background in backgrounds)
 		{
 			DefaultBackgrounds.Add(background);

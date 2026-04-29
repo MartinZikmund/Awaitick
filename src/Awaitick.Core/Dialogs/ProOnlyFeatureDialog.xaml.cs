@@ -1,5 +1,4 @@
 ﻿using Awaitick.Extensions;
-using Awaitick.Extensions;
 using Awaitick.Services.Localization;
 using Awaitick.Services.Navigation;
 using Awaitick.ViewModels;

@@ -12,8 +12,6 @@ public interface IBlendsInTitleBar
 public abstract partial class PageBase<TViewModel> : Page, IBlendsInTitleBar
 	where TViewModel : PageViewModel
 {
-	private object? _pendingParameter;
-
 	protected PageBase()
 	{
 		Loading += OnPageLoading;

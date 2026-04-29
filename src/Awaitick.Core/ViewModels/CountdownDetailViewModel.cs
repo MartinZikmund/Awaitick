@@ -62,13 +62,16 @@ public partial class CountdownDetailViewModel : PageViewModel
 
 	partial void OnEventCountdownChanged(CountdownViewModel value)
 	{
-		if (value is not null && value.Theme != ElementTheme.Default)
+		if (value is null || value.Theme == ElementTheme.Default)
 		{
-			var titleBarTheme = value.Theme == ElementTheme.Dark
-				? ApplicationTheme.Dark
-				: ApplicationTheme.Light;
-			Messenger.Send(new TitleBarThemeOverrideMessage(titleBarTheme));
+			Messenger.Send(new TitleBarThemeOverrideMessage(null));
+			return;
 		}
+
+		var titleBarTheme = value.Theme == ElementTheme.Dark
+			? ApplicationTheme.Dark
+			: ApplicationTheme.Light;
+		Messenger.Send(new TitleBarThemeOverrideMessage(titleBarTheme));
 	}
 
 	[ObservableProperty]
