@@ -19,4 +19,6 @@ public interface IDataService
 	Task<EventCountdown?> GetCountdownAsync(string id);
 
 	Task AddCountdownsAsync(params EventCountdown[] sampleEvents);
+
+	Task DeleteAllCountdownsAsync();
 }

@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using Awaitick.Core.Services.Countdowns;
 using Awaitick.Core.Services.Data;
@@ -7,6 +7,7 @@ using Awaitick.Core.Services.ScheduledNotification;
 using Awaitick.Core.Services.Tiles;
 using Awaitick.Services.Navigation;
 using Awaitick.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Awaitick.Core.ViewModels;
 
@@ -58,6 +59,31 @@ public partial class CountdownDetailViewModel : PageViewModel
 
 	[ObservableProperty]
 	public partial CountdownViewModel EventCountdown { get; private set; }
+
+	partial void OnEventCountdownChanged(CountdownViewModel value)
+	{
+		if (value is null || value.Theme == ElementTheme.Default)
+		{
+			Messenger.Send(new TitleBarThemeOverrideMessage(null));
+			return;
+		}
+
+		var titleBarTheme = value.Theme == ElementTheme.Dark
+			? ApplicationTheme.Dark
+			: ApplicationTheme.Light;
+		Messenger.Send(new TitleBarThemeOverrideMessage(titleBarTheme));
+	}
+
+	[ObservableProperty]
+	public partial bool IsFullScreen { get; set; }
+
+	[RelayCommand]
+	private void ToggleFullScreen() => IsFullScreen = !IsFullScreen;
+
+	partial void OnIsFullScreenChanged(bool value)
+	{
+		Messenger.Send(new FullScreenChangedMessage(value));
+	}
 
 	public override async void ViewNavigatedTo(object? parameter)
 	{
@@ -119,6 +145,15 @@ public partial class CountdownDetailViewModel : PageViewModel
 	{
 		var unpinSuccessful = await _tileService.UnpinCountdownAsync(EventCountdown.Model);
 		IsTilePinned = !unpinSuccessful;
+	}
+
+	public override void ViewUnloaded()
+	{
+		base.ViewUnloaded();
+		if (IsFullScreen)
+		{
+			IsFullScreen = false;
+		}
 	}
 
 	public void UpdateCountdowns() => EventCountdown?.UpdateBindings();

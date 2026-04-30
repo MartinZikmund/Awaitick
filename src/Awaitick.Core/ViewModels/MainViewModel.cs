@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.Messaging;
 using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using Awaitick.Core.Services.Countdowns;
@@ -13,11 +12,14 @@ using Awaitick.Core.Services.Tiles;
 using Awaitick.Services.Navigation;
 using Awaitick.Services.Store;
 using Awaitick.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Awaitick.Core.ViewModels;
 
 public partial class MainViewModel : PageViewModel
 {
+	private const int MaxFreeCountdowns = 3;
+
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;
 	private readonly IMailService _mailService;
@@ -58,7 +60,17 @@ public partial class MainViewModel : PageViewModel
 		_messenger = messenger;
 		_appSettings = appSettings;
 		_messenger.Register<CountdownDeletedMessage>(this, CountdownDeletedHandler);
+		_messenger.Register<CountdownUpdatedMessage>(this, CountdownUpdatedHandler);
 		_messenger.Register<DeepLinkReceivedMessage>(this, DeepLinkReceivedHandler);
+	}
+
+	private static void CountdownUpdatedHandler(object recipient, CountdownUpdatedMessage message)
+	{
+		if (recipient is MainViewModel viewModel)
+		{
+			var countdown = viewModel.Awaitick.FirstOrDefault(c => c.Id == message.Id);
+			countdown?.RefreshFromModel();
+		}
 	}
 
 	private static void DeepLinkReceivedHandler(object recipient, DeepLinkReceivedMessage message)
@@ -93,17 +105,34 @@ public partial class MainViewModel : PageViewModel
 	{
 		IsLoading = true;
 
-		HasProLicense = await _storeService.HasProAsync();
-
 		//load countdowns
 		var countdowns = await _dataService.GetCountdownsAsync();
-		var newCountdowns = new ObservableCollection<CountdownViewModel>();
-		foreach (var countdown in countdowns)
+		var newIds = countdowns.Select(c => c.Id).ToList();
+		var existingIds = Awaitick.Select(c => c.Id).ToList();
+
+		if (!existingIds.SequenceEqual(newIds))
 		{
-			newCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
+			// Collection changed (items added, removed, or reordered) — rebuild,
+			// but reuse existing CountdownViewModel instances so ItemsView keeps
+			// their containers and loaded BitmapImages.
+			var existingById = Awaitick.ToDictionary(c => c.Id);
+			var newCountdowns = new ObservableCollection<CountdownViewModel>();
+			foreach (var countdown in countdowns)
+			{
+				if (existingById.TryGetValue(countdown.Id, out var existing))
+				{
+					newCountdowns.Add(existing);
+				}
+				else
+				{
+					newCountdowns.Add(new CountdownViewModel(countdown, _countdownsManager));
+				}
+			}
+			Awaitick = newCountdowns;
+			OnPropertyChanged(nameof(HasAnyEvents));
 		}
-		Awaitick = newCountdowns;
-		OnPropertyChanged(nameof(HasAnyEvents));
+
+		HasProLicense = await _storeService.HasProAsync();
 
 		IsLoading = false;
 		_scheduledNotificationService.UnSuppressAllCountdownNotifications();
@@ -121,7 +150,7 @@ public partial class MainViewModel : PageViewModel
 
 		if (Awaitick.Count == 0 && _isFirstNavigation)
 		{
-			Add();
+			NavigateToNewEditorDirect();
 		}
 
 		_isFirstNavigation = false;
@@ -164,7 +193,22 @@ public partial class MainViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private void Add() => _navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Mode = CountdownEditorViewModel.EditorMode.Add });
+	private void Add()
+	{
+		if (!HasProLicense && Awaitick.Count >= MaxFreeCountdowns)
+		{
+			_navigationService.Navigate<GetProViewModel>();
+			return;
+		}
+
+		_navigationService.Navigate<NewCountdownViewModel>();
+	}
+
+	private void NavigateToNewEditorDirect()
+	{
+		_navigationService.Navigate<CountdownEditorViewModel>(
+			CountdownEditorViewModel.NavigationModel.CreateAdd());
+	}
 
 	[RelayCommand]
 	private void ShowCountdown(CountdownViewModel? eventCountdown)

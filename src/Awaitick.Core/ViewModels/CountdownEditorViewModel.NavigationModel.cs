@@ -1,4 +1,4 @@
-﻿namespace Awaitick.Core.ViewModels;
+namespace Awaitick.Core.ViewModels;
 
 public partial class CountdownEditorViewModel
 {
@@ -17,10 +17,15 @@ public partial class CountdownEditorViewModel
 
 		public static NavigationModel CreateAdd() => new();
 
+		public static NavigationModel CreateAddFromPreset(string presetKey) =>
+			new() { Mode = EditorMode.Add, PresetKey = presetKey };
+
 		public static NavigationModel CreateEdit(string id) => new(id);
 
 		public string Id { get; set; } = "";
 
 		public EditorMode Mode { get; set; } = EditorMode.Add;
+
+		public string? PresetKey { get; set; }
 	}
 }

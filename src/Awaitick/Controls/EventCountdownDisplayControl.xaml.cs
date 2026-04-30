@@ -26,17 +26,7 @@ public sealed partial class EventCountdownDisplayControl : UserControl
 			nameof(Countdown),
 			typeof(CountdownViewModel),
 			typeof(EventCountdownDisplayControl),
-			new PropertyMetadata(null, OnCountdownChanged));
-
-	private static void OnCountdownChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-	{
-		if (dependencyObject is not EventCountdownDisplayControl control || args.NewValue is not CountdownViewModel countdown)
-		{
-			return;
-		}
-
-		control.RootGrid.RequestedTheme = countdown.Theme;
-	}
+			new PropertyMetadata(null));
 
 	public CountdownDisplayMode DisplayMode
 	{
@@ -61,5 +51,6 @@ public sealed partial class EventCountdownDisplayControl : UserControl
 	{
 		TargetDateTimeTextBlock.Visibility = DisplayMode == CountdownDisplayMode.Full ? Visibility.Visible : Visibility.Collapsed;
 		CountdownNameTextBlock.FontSize = DisplayMode == CountdownDisplayMode.Full ? 40 : 24;
+		BackgroundBitmapImage.DecodePixelWidth = DisplayMode == CountdownDisplayMode.Full ? 0 : 800;
 	}
 }

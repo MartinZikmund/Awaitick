@@ -6,6 +6,8 @@ public interface INavigationService
 {
 	void ClearBackStack();
 
+	void RemoveLastFromBackStack();
+
 	void Navigate<TViewModel>();
 
 	void Navigate<TViewModel>(object? parameter);

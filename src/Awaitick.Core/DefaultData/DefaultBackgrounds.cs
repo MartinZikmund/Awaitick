@@ -1,22 +1,36 @@
-﻿using Awaitick.Core.Models;
+using Awaitick.Core.Models;
+using Windows.Storage;
 
 namespace Awaitick.Core.DefaultData;
 
 public class DefaultBackgrounds : IDefaultBackgrounds
 {
-	private readonly Dictionary<string, DefaultBackground> _defaultBackgrounds = new()
-	{
-		{ "blank", new DefaultBackground("BlankBackground") },
-		{ "christmas", new DefaultBackground("Christmas") },
-		{ "easter", new DefaultBackground("Easter") },
-		{ "halloween", new DefaultBackground("Halloween") },
-		{ "beach", new DefaultBackground("Beach") },
-		{ "concert", new DefaultBackground("Concert") },
-		{ "love", new DefaultBackground("Love") },
-		{ "movies", new DefaultBackground("Movies") },
-		{ "newyear", new DefaultBackground("NewYear") },
-		{ "plane", new DefaultBackground("Plane")},
-	};
+	private DefaultBackground[]? _cachedBackgrounds;
 
-	public DefaultBackground[] GetDefaultBackgrounds() => _defaultBackgrounds.Values.ToArray();
+	public async Task<DefaultBackground[]> GetDefaultBackgroundsAsync()
+	{
+		if (_cachedBackgrounds is not null)
+		{
+			return _cachedBackgrounds;
+		}
+
+		try
+		{
+			var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
+			var assetsFolder = await installedLocation.GetFolderAsync("Assets");
+			var folder = await assetsFolder.GetFolderAsync("EventBackgrounds");
+			var files = await folder.GetFilesAsync();
+
+			_cachedBackgrounds = files
+				.Where(f => f.FileType is ".jpg" or ".png")
+				.Select(f => new DefaultBackground(f.Name))
+				.ToArray();
+		}
+		catch
+		{
+			_cachedBackgrounds = [];
+		}
+
+		return _cachedBackgrounds;
+	}
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Awaitick.Core.Extensions
 {
-    public static class ObservableCollectionExtensions
-    {
+	public static class ObservableCollectionExtensions
+	{
 		public static void MergeWith<T>(this ObservableCollection<T> target, IList<T> source, Func<T, T, bool> equalityComparer)
 		{
 			// 1. Remove any items from target that aren't in source.

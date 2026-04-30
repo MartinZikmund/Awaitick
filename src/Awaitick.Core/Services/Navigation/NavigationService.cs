@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
+using Awaitick.Core.Messages;
 using CommunityToolkit.Mvvm.Messaging;
 using Windows.UI.Core;
-using Awaitick.Core.Messages;
 
 namespace Awaitick.Services.Navigation;
 
@@ -76,6 +76,17 @@ public class NavigationService : INavigationService
 	public void ClearBackStack()
 	{
 		Frame.BackStack.Clear();
+		_messenger.Send(new NavigationChangedMessage());
+	}
+
+	public void RemoveLastFromBackStack()
+	{
+		if (Frame.BackStack.Count == 0)
+		{
+			return;
+		}
+
+		Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
 		_messenger.Send(new NavigationChangedMessage());
 	}
 }

@@ -10,7 +10,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" RequestedTheme="{x:Bind Countdown.Theme, Mode=OneWay}">
         <!--  Background color  -->
         <Border>
             <Border.Background>
@@ -22,12 +22,10 @@
         <Border Visibility="{x:Bind Countdown.BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
             <Image
                 Margin="-1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
                 Opacity="{x:Bind Countdown.BackgroundImageOpacity, Mode=OneWay}"
                 Stretch="UniformToFill">
                 <Image.Source>
-                    <BitmapImage UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
+                    <BitmapImage x:Name="BackgroundBitmapImage" UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
                 </Image.Source>
             </Image>
         </Border>

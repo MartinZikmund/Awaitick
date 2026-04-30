@@ -1,4 +1,4 @@
-﻿<local:CountdownDetailViewBase
+<local:CountdownDetailViewBase
     x:Class="Awaitick.Views.CountdownDetailView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +7,8 @@
     xmlns:local="using:Awaitick.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Awaitick.Extensions.Xaml"
+    IsTabStop="True"
+    KeyDown="OnPageKeyDown"
     mc:Ignorable="d">
     <local:CountdownDetailViewBase.Transitions>
         <TransitionCollection>
@@ -17,49 +19,63 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </local:CountdownDetailViewBase.Transitions>
-    <Grid>
-        <!--  Bottom padding reserves space for the floating toolbar: button height (~52px) + 24px bottom margin + spacing  -->
+    <Grid
+        x:Name="RootGrid"
+        PointerMoved="RootGrid_PointerMoved"
+        Tapped="RootGrid_Tapped">
         <controls:EventCountdownDisplayControl
             Padding="16,48,0,16"
             Countdown="{x:Bind ViewModel.EventCountdown, Mode=OneWay}"
             DisplayMode="Full" />
 
-        <!--  Floating pill toolbar  -->
-        <Border
-            x:Name="FloatingToolbar"
-            Margin="0,0,16,16"
-            Padding="8,4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Background="{ThemeResource FloatingToolbarBackgroundBrush}"
-            CornerRadius="24">
-            <Border.Shadow>
-                <ThemeShadow />
-            </Border.Shadow>
-            <StackPanel Orientation="Horizontal" Spacing="4">
-                <Button
-                    AutomationProperties.Name="{xaml:Localize Key=Share}"
-                    Command="{x:Bind ViewModel.ShareCommand}"
-                    Style="{StaticResource FloatingToolbarButtonStyle}"
-                    ToolTipService.ToolTip="{xaml:Localize Key=Share}">
-                    <SymbolIcon Symbol="Share" />
-                </Button>
-                <Button
-                    AutomationProperties.Name="{xaml:Localize Key=Edit}"
-                    Command="{x:Bind ViewModel.EditCommand}"
-                    Style="{StaticResource FloatingToolbarButtonStyle}"
-                    ToolTipService.ToolTip="{xaml:Localize Key=Edit}">
-                    <SymbolIcon Symbol="Edit" />
-                </Button>
-                <Button
-                    AutomationProperties.Name="{xaml:Localize Key=Delete}"
-                    Command="{x:Bind ViewModel.DeleteCommand}"
-                    Style="{StaticResource FloatingToolbarButtonStyle}"
-                    ToolTipService.ToolTip="{xaml:Localize Key=Delete}">
-                    <SymbolIcon Symbol="Delete" />
-                </Button>
-            </StackPanel>
-        </Border>
+        <!--  Floating pill toolbar with fade support for full screen mode  -->
+        <Grid x:Name="OverlayContainer">
+            <Grid.OpacityTransition>
+                <ScalarTransition Duration="0:0:0.25" />
+            </Grid.OpacityTransition>
+            <Border
+                x:Name="FloatingToolbar"
+                Margin="0,0,16,16"
+                Padding="8,4"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="{ThemeResource FloatingToolbarBackgroundBrush}"
+                CornerRadius="24">
+                <Border.Shadow>
+                    <ThemeShadow />
+                </Border.Shadow>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button
+                        AutomationProperties.Name="{xaml:Localize Key=Share}"
+                        Command="{x:Bind ViewModel.ShareCommand}"
+                        Style="{StaticResource FloatingToolbarButtonStyle}"
+                        ToolTipService.ToolTip="{xaml:Localize Key=Share}">
+                        <SymbolIcon Symbol="Share" />
+                    </Button>
+                    <Button
+                        AutomationProperties.Name="{xaml:Localize Key=Edit}"
+                        Command="{x:Bind ViewModel.EditCommand}"
+                        Style="{StaticResource FloatingToolbarButtonStyle}"
+                        ToolTipService.ToolTip="{xaml:Localize Key=Edit}">
+                        <SymbolIcon Symbol="Edit" />
+                    </Button>
+                    <Button
+                        AutomationProperties.Name="{xaml:Localize Key=Delete}"
+                        Command="{x:Bind ViewModel.DeleteCommand}"
+                        Style="{StaticResource FloatingToolbarButtonStyle}"
+                        ToolTipService.ToolTip="{xaml:Localize Key=Delete}">
+                        <SymbolIcon Symbol="Delete" />
+                    </Button>
+                    <Button
+                        AutomationProperties.Name="{xaml:Localize Key=FullScreen}"
+                        Command="{x:Bind ViewModel.ToggleFullScreenCommand}"
+                        Style="{StaticResource FloatingToolbarButtonStyle}"
+                        ToolTipService.ToolTip="{xaml:Localize Key=FullScreen}">
+                        <SymbolIcon Symbol="{x:Bind ViewModel.IsFullScreen, Converter={StaticResource FullScreenIconConverter}, Mode=OneWay}" />
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ToolbarLayoutStates">
                 <VisualState x:Name="NarrowState">
@@ -69,7 +85,6 @@
                     <VisualState.Setters>
                         <Setter Target="FloatingToolbar.HorizontalAlignment" Value="Center" />
                         <Setter Target="FloatingToolbar.VerticalAlignment" Value="Top" />
-                        <!--  80px = title bar height (~48px) + spacing, keeps toolbar below the back button  -->
                         <Setter Target="FloatingToolbar.Margin" Value="0,48,0,0" />
                     </VisualState.Setters>
                 </VisualState>

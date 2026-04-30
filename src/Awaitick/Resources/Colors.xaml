@@ -14,9 +14,9 @@
                 TintOpacity="0.8" />
             <AcrylicBrush
                 x:Key="FloatingToolbarBackgroundBrush"
+                FallbackColor="#CC000000"
                 TintColor="#000000"
-                TintOpacity="0.6"
-                FallbackColor="#CC000000" />
+                TintOpacity="0.6" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <Color x:Key="PageBackgroundSolidColor">#F3F3F3</Color>
@@ -32,9 +32,9 @@
                 TintOpacity="0.8" />
             <AcrylicBrush
                 x:Key="FloatingToolbarBackgroundBrush"
+                FallbackColor="#CCFFFFFF"
                 TintColor="#FFFFFF"
-                TintOpacity="0.6"
-                FallbackColor="#CCFFFFFF" />
+                TintOpacity="0.6" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

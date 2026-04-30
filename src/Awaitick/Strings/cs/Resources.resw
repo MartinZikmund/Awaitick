@@ -465,6 +465,66 @@
   <data name="EventPreset_Easter_Name" xml:space="preserve">
     <value>Velikonoce</value>
   </data>
+  <data name="EventCountdown_NewYearsEve_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Silvestr!</value>
+  </data>
+  <data name="EventCountdown_NewYear_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný nový rok!</value>
+  </data>
+  <data name="EventCountdown_ValentinesDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Valentýn!</value>
+  </data>
+  <data name="EventCountdown_InternationalWomensDay_CelebrationMessage" xml:space="preserve">
+    <value>Vše nejlepší k MDŽ!</value>
+  </data>
+  <data name="EventCountdown_AprilFoolsDay_CelebrationMessage" xml:space="preserve">
+    <value>Apríl!</value>
+  </data>
+  <data name="EventCountdown_EarthDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Země!</value>
+  </data>
+  <data name="EventCountdown_Halloween_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Halloween!</value>
+  </data>
+  <data name="EventCountdown_Christmas_CelebrationMessage" xml:space="preserve">
+    <value>Veselé Vánoce!</value>
+  </data>
+  <data name="EventCountdown_AllSaintsDay_CelebrationMessage" xml:space="preserve">
+    <value>Památka zesnulých</value>
+  </data>
+  <data name="EventCountdown_IndependenceDayUSA_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den nezávislosti!</value>
+  </data>
+  <data name="EventCountdown_BastilleDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Bastily!</value>
+  </data>
+  <data name="EventCountdown_CanadaDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Kanady!</value>
+  </data>
+  <data name="EventCountdown_AustraliaDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den Austrálie!</value>
+  </data>
+  <data name="EventCountdown_IndianIndependenceDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den nezávislosti!</value>
+  </data>
+  <data name="EventCountdown_BrazilIndependenceDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den nezávislosti!</value>
+  </data>
+  <data name="EventCountdown_SouthAfricaFreedomDay_CelebrationMessage" xml:space="preserve">
+    <value>Šťastný Den svobody!</value>
+  </data>
+  <data name="EventCountdown_Easter_CelebrationMessage" xml:space="preserve">
+    <value>Veselé Velikonoce!</value>
+  </data>
+  <data name="TextTheme_Default" xml:space="preserve">
+    <value>Výchozí</value>
+  </data>
+  <data name="TextTheme_Light" xml:space="preserve">
+    <value>Světlý</value>
+  </data>
+  <data name="TextTheme_Dark" xml:space="preserve">
+    <value>Tmavý</value>
+  </data>
   <data name="Onboarding_WelcomeTitle" xml:space="preserve">
     <value>Vítejte v Awaitick!</value>
   </data>
@@ -524,6 +584,33 @@
   </data>
   <data name="Debugging" xml:space="preserve">
     <value>Ladění</value>
+  </data>
+  <data name="DeveloperTools" xml:space="preserve">
+    <value>Vývojářské nástroje</value>
+  </data>
+  <data name="DataSeeding" xml:space="preserve">
+    <value>Seedování dat</value>
+  </data>
+  <data name="SeedRandomEvents" xml:space="preserve">
+    <value>Přidat 5 náhodných událostí</value>
+  </data>
+  <data name="SeedRandomEventsDescription" xml:space="preserve">
+    <value>Přidá 5 náhodně vybraných přednastavených událostí</value>
+  </data>
+  <data name="AddAllPresetEvents" xml:space="preserve">
+    <value>Přidat všechny přednastavené události</value>
+  </data>
+  <data name="AddAllPresetEventsDescription" xml:space="preserve">
+    <value>Přidá všech 17 přednastavených událostí</value>
+  </data>
+  <data name="DeleteAllEvents" xml:space="preserve">
+    <value>Smazat všechny události</value>
+  </data>
+  <data name="DeleteAll" xml:space="preserve">
+    <value>Smazat vše</value>
+  </data>
+  <data name="ResetPreferences" xml:space="preserve">
+    <value>Resetovat předvolby</value>
   </data>
   <data name="TestData" xml:space="preserve">
     <value>Testovací data</value>
@@ -602,5 +689,65 @@
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Pokračovat</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>Celá obrazovka</value>
+  </data>
+  <data name="WhyGoPro" xml:space="preserve">
+    <value>Proč přejít na Pro?</value>
+  </data>
+  <data name="OneTimePurchaseForever" xml:space="preserve">
+    <value>Jednorázový nákup. Navždy vaše.</value>
+  </data>
+  <data name="UnlimitedCountdowns" xml:space="preserve">
+    <value>Neomezené odpočty</value>
+  </data>
+  <data name="UnlimitedCountdownsDescription" xml:space="preserve">
+    <value>Sledujte každý důležitý okamžik</value>
+  </data>
+  <data name="UnlimitedCountdownsFree" xml:space="preserve">
+    <value>max 3</value>
+  </data>
+  <data name="UnlimitedCountdownsPro" xml:space="preserve">
+    <value>∞</value>
+  </data>
+  <data name="NoAdsFree" xml:space="preserve">
+    <value>Reklamy</value>
+  </data>
+  <data name="NoAdsPro" xml:space="preserve">
+    <value>Žádné</value>
+  </data>
+  <data name="FullCustomization" xml:space="preserve">
+    <value>Plné přizpůsobení</value>
+  </data>
+  <data name="FullCustomizationDescription" xml:space="preserve">
+    <value>Vlastní pozadí a další</value>
+  </data>
+  <data name="SupportDevelopmentProDescription" xml:space="preserve">
+    <value>Pomozte formovat budoucí aktualizace</value>
+  </data>
+  <data name="FutureProFeaturesDescription" xml:space="preserve">
+    <value>Přístup k novým funkcím jako první</value>
+  </data>
+  <data name="OneTimePurchase" xml:space="preserve">
+    <value>Jednorázový nákup</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Zdarma</value>
+  </data>
+  <data name="Pro" xml:space="preserve">
+    <value>Pro</value>
+  </data>
+  <data name="NewCountdown_Title" xml:space="preserve">
+    <value>Nové odpočítávání</value>
+  </data>
+  <data name="NewCountdown_StartFromPreset" xml:space="preserve">
+    <value>Začít ze šablony</value>
+  </data>
+  <data name="NewCountdown_Or" xml:space="preserve">
+    <value>nebo</value>
+  </data>
+  <data name="NewCountdown_CreateMyOwn" xml:space="preserve">
+    <value>Vytvořit vlastní událost</value>
   </data>
 </root>

@@ -17,7 +17,7 @@ public partial class OnboardingViewModel : PageViewModel
 		_dataService = dataService;
 	}
 
-	public EventPreset[] Presets => EventPresets.Presets;
+	public IEnumerable<EventPreset> Presets => EventPresets.InDisplayOrder();
 
 	public EventPreset[] SelectedPresets { get; set; } = Array.Empty<EventPreset>();
 
@@ -45,7 +45,7 @@ public partial class OnboardingViewModel : PageViewModel
 	private async Task StartAppAsync()
 	{
 		await SavePresetsAsync();
-		
+
 		_appPreferences.FirstStart = false;
 		NavigationService.Navigate<MainViewModel>();
 

@@ -1,8 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
-using CommunityToolkit.WinUI.Helpers;
 using Awaitick.Core.DefaultData;
+using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
+using Awaitick.Core.Models.Presets;
 using Awaitick.Core.Services;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.EventCountdownManager;
@@ -13,6 +14,8 @@ using Awaitick.Services.Dialogs;
 using Awaitick.Services.Localization;
 using Awaitick.Services.Navigation;
 using Awaitick.Services.Store;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.WinUI.Helpers;
 using Microsoft.UI;
 using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
@@ -35,6 +38,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 	private readonly INotificationPermissionService _notificationPermissionService;
 	private readonly IAppPreferences _appPreferences;
 	private readonly IScheduledNotificationService _scheduledNotificationService;
+	private readonly IMessenger _messenger;
 	private readonly UISettings _uiSettings = new();
 	private EventCountdown? _editedEventCountdown;
 
@@ -50,7 +54,8 @@ public partial class CountdownEditorViewModel : PageViewModel
 		IXamlRootProvider xamlRootProvider,
 		INotificationPermissionService notificationPermissionService,
 		IAppPreferences appPreferences,
-		IScheduledNotificationService scheduledNotificationService) :
+		IScheduledNotificationService scheduledNotificationService,
+		IMessenger messenger) :
 		base(navigationService)
 	{
 		_eventCountdownManager = eventCountdownManager ?? throw new ArgumentNullException(nameof(eventCountdownManager));
@@ -65,12 +70,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		_notificationPermissionService = notificationPermissionService ?? throw new ArgumentNullException(nameof(notificationPermissionService));
 		_appPreferences = appPreferences ?? throw new ArgumentNullException(nameof(appPreferences));
 		_scheduledNotificationService = scheduledNotificationService ?? throw new ArgumentNullException(nameof(scheduledNotificationService));
-
-		var backgrounds = _defaultBackgrounds.GetDefaultBackgrounds();
-		foreach (var background in backgrounds)
-		{
-			DefaultBackgrounds.Add(background);
-		}
+		_messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 	}
 
 	public ICountdownEditorViewService? View { get; set; }
@@ -158,10 +158,17 @@ public partial class CountdownEditorViewModel : PageViewModel
 		Mode = navigationModel.Mode;
 		HasProLicense = await _storeService.HasProAsync();
 
+		var backgrounds = await _defaultBackgrounds.GetDefaultBackgroundsAsync();
+		DefaultBackgrounds.Clear();
+		foreach (var background in backgrounds)
+		{
+			DefaultBackgrounds.Add(background);
+		}
+
 		if (Mode == EditorMode.Edit)
 		{
 			Title = _localizationService.GetString("EditEvent");
-		
+
 			_editedEventCountdown = await _dataService.GetCountdownAsync(navigationModel.Id);
 			if (_editedEventCountdown is null)
 			{
@@ -171,10 +178,19 @@ public partial class CountdownEditorViewModel : PageViewModel
 		else
 		{
 			Title = _localizationService.GetString("AddEvent");
-			_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			if (!string.IsNullOrEmpty(navigationModel.PresetKey)
+				&& EventPresets.GetByKey(navigationModel.PresetKey) is { } preset)
+			{
+				_editedEventCountdown = preset.Create();
+				_editedEventCountdown.Id = Guid.NewGuid().ToString();
+			}
+			else
+			{
+				_editedEventCountdown = new EventCountdown() { Id = Guid.NewGuid().ToString() };
+			}
 		}
-		
-		LoadEditedCountdown();
+
+		await LoadEditedCountdownAsync();
 	}
 
 	partial void OnSelectedDefaultBackgroundChanged(DefaultBackground? value)
@@ -191,7 +207,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	partial void OnBackgroundImageUriChanged(Uri? value) => LastCustomBackgroundUri = value;
 
-	private void LoadEditedCountdown()
+	private async Task LoadEditedCountdownAsync()
 	{
 		if (_editedEventCountdown == null) throw new NullReferenceException("Edited Countdown is null");
 		Name = _editedEventCountdown.Name;
@@ -202,7 +218,8 @@ public partial class CountdownEditorViewModel : PageViewModel
 		BackgroundColor = ColorHelper.ToColor(_editedEventCountdown.BackgroundColor);
 		TextTheme = _editedEventCountdown.TextTheme;
 		BackgroundImageOpacityPercent = _editedEventCountdown.BackgroundImageOpacity * 100;
-		SelectedDefaultBackground = _defaultBackgrounds.GetDefaultBackgrounds().FirstOrDefault(x => x.BackgroundUri == BackgroundImageUri);
+		var backgrounds = await _defaultBackgrounds.GetDefaultBackgroundsAsync();
+		SelectedDefaultBackground = backgrounds.FirstOrDefault(x => x.BackgroundUri == BackgroundImageUri);
 		LastCustomBackgroundUri = BackgroundImageUri;
 	}
 
@@ -290,6 +307,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		if (Mode == EditorMode.Edit)
 		{
 			await _eventCountdownManager.UpdateCountdownAsync(_editedEventCountdown);
+			_messenger.Send(new CountdownUpdatedMessage(_editedEventCountdown.Id));
 		}
 		else
 		{

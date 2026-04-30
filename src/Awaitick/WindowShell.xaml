@@ -28,6 +28,9 @@
             VerticalAlignment="Top"
             Background="{ThemeResource AppOverlayBackgroundBrush}"
             Visibility="{x:Bind HasCustomTitleBar}">
+            <Grid.OpacityTransition>
+                <ScalarTransition Duration="0:0:0.25" />
+            </Grid.OpacityTransition>
             <StackPanel
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"

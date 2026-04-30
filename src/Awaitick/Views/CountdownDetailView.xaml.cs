@@ -1,4 +1,8 @@
-﻿using Awaitick.Core.ViewModels;
+using System.ComponentModel;
+using Awaitick.Core.Infrastructure;
+using Awaitick.Core.Messages;
+using Awaitick.Core.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Dispatching;
 
 namespace Awaitick.Views;
@@ -6,6 +10,10 @@ namespace Awaitick.Views;
 public sealed partial class CountdownDetailView : CountdownDetailViewBase
 {
 	private readonly DispatcherQueueTimer _timer;
+	private readonly DispatcherQueueTimer _autoHideTimer;
+	private bool _overlayVisible = true;
+	private bool _isNavigatedAway;
+	private bool _subscribedToViewModel;
 
 	public CountdownDetailView()
 	{
@@ -13,9 +21,45 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		_timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 		_timer.Interval = TimeSpan.FromMilliseconds(1000);
 		_timer.Tick += _timer_Tick;
+
+		_autoHideTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+		_autoHideTimer.Interval = TimeSpan.FromSeconds(3);
+		_autoHideTimer.IsRepeating = false;
+		_autoHideTimer.Tick += AutoHideTimer_Tick;
+
+		Loaded += CountdownDetailView_Loaded;
+		Unloaded += CountdownDetailView_Unloaded;
 	}
 
 	public override bool BlendsInTitleBar => true;
+
+	private void CountdownDetailView_Loaded(object sender, RoutedEventArgs e)
+	{
+		SubscribeToViewModel();
+	}
+
+	private void CountdownDetailView_Unloaded(object sender, RoutedEventArgs e)
+	{
+		UnsubscribeFromViewModel();
+	}
+
+	private void SubscribeToViewModel()
+	{
+		if (!_subscribedToViewModel && ViewModel != null)
+		{
+			ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+			_subscribedToViewModel = true;
+		}
+	}
+
+	private void UnsubscribeFromViewModel()
+	{
+		if (_subscribedToViewModel && ViewModel != null)
+		{
+			ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
+			_subscribedToViewModel = false;
+		}
+	}
 
 	private void _timer_Tick(DispatcherQueueTimer sender, object args)
 	{
@@ -26,16 +70,105 @@ public sealed partial class CountdownDetailView : CountdownDetailViewBase
 		}
 	}
 
+	private void AutoHideTimer_Tick(DispatcherQueueTimer sender, object args)
+	{
+		if (_isNavigatedAway)
+		{
+			return;
+		}
+
+		if (_overlayVisible)
+		{
+			FadeOutOverlay();
+		}
+	}
+
 	protected override void OnNavigatedTo(NavigationEventArgs e)
 	{
 		base.OnNavigatedTo(e);
+		_isNavigatedAway = false;
 		_timer.Start();
+		_autoHideTimer.Start();
+		SubscribeToViewModel();
+		Focus(FocusState.Programmatic);
 	}
 
 	protected override void OnNavigatedFrom(NavigationEventArgs e)
 	{
 		base.OnNavigatedFrom(e);
+		_isNavigatedAway = true;
 		_timer.Stop();
+		_autoHideTimer.Stop();
+
+		// Restore overlay and notify WindowShell to show title bar
+		OverlayContainer.Opacity = 1;
+		OverlayContainer.IsHitTestVisible = true;
+		_overlayVisible = true;
+		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(true));
+
+		UnsubscribeFromViewModel();
+	}
+
+	private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+	{
+		if (e.PropertyName == nameof(CountdownDetailViewModel.IsFullScreen))
+		{
+			OnFullScreenChanged(ViewModel!.IsFullScreen);
+		}
+	}
+
+	private void RootGrid_PointerMoved(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+	{
+		HandleUserInteraction();
+	}
+
+	private void RootGrid_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+	{
+		HandleUserInteraction();
+	}
+
+	private void OnPageKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+	{
+		HandleUserInteraction();
+	}
+
+	private void HandleUserInteraction()
+	{
+		if (!_overlayVisible)
+		{
+			FadeInOverlay();
+		}
+
+		// Reset the auto-hide timer
+		_autoHideTimer.Stop();
+		_autoHideTimer.Start();
+	}
+
+	private void OnFullScreenChanged(bool isFullScreen)
+	{
+		if (!isFullScreen)
+		{
+			// Exiting full screen - show overlay and reset timer
+			FadeInOverlay();
+			_autoHideTimer.Stop();
+			_autoHideTimer.Start();
+		}
+	}
+
+	private void FadeInOverlay()
+	{
+		OverlayContainer.Opacity = 1;
+		OverlayContainer.IsHitTestVisible = true;
+		_overlayVisible = true;
+		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(true));
+	}
+
+	private void FadeOutOverlay()
+	{
+		OverlayContainer.Opacity = 0;
+		OverlayContainer.IsHitTestVisible = false;
+		_overlayVisible = false;
+		IoC.GetRequiredService<IMessenger>().Send(new OverlayVisibilityChangedMessage(false));
 	}
 }
 

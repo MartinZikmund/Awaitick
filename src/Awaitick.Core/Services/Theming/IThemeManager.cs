@@ -7,4 +7,6 @@ public interface IThemeManager
 	ElementTheme CurrentTheme { get; }
 
 	ApplicationTheme ActualTheme { get; }
+
+	void SetTitleBarThemeOverride(ApplicationTheme? themeOverride);
 }

@@ -73,9 +73,21 @@
                 </toolkit:SettingsCard>
 
                 <StackPanel Visibility="{x:Bind ViewModel.IsDebug}">
-                    <!--  Debugging  -->
-                    <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=Debugging}" />
-                    <toolkit:SettingsCard Header="{ex:Localize Key=TestData}">
+                    <!--  Developer Tools  -->
+                    <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=DeveloperTools}" />
+
+                    <toolkit:SettingsCard Header="{ex:Localize Key=DataSeeding}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Command="{x:Bind ViewModel.SeedRandomEventsCommand}" Content="{ex:Localize Key=SeedRandomEvents}" />
+                            <Button Command="{x:Bind ViewModel.AddAllPresetEventsCommand}" Content="{ex:Localize Key=AddAllPresetEvents}" />
+                        </StackPanel>
+                    </toolkit:SettingsCard>
+
+                    <toolkit:SettingsCard Header="{ex:Localize Key=DeleteAllEvents}">
+                        <Button Command="{x:Bind ViewModel.DeleteAllEventsCommand}" Content="{ex:Localize Key=DeleteAll}" />
+                    </toolkit:SettingsCard>
+
+                    <toolkit:SettingsCard Header="{ex:Localize Key=ResetPreferences}">
                         <Button Command="{x:Bind ViewModel.ClearPreferencesCommand}" Content="{ex:Localize Key=ClearPreferences}" />
                     </toolkit:SettingsCard>
 

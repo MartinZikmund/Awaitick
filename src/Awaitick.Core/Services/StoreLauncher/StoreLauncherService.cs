@@ -1,5 +1,5 @@
-﻿using Windows.System;
-using Awaitick.Core.Services.StoreLauncher;
+﻿using Awaitick.Core.Services.StoreLauncher;
+using Windows.System;
 
 namespace Awaitick.Core.Services;
 

@@ -1,9 +1,9 @@
-﻿using System.Text;
-using Windows.UI.Popups;
+﻿using System.Globalization;
+using System.Text;
 using Awaitick.Core.Services.Rating;
 using Awaitick.Core.Services.Settings;
 using Awaitick.Core.Services.StoreLauncher;
-using System.Globalization;
+using Windows.UI.Popups;
 
 namespace Awaitick.Core.Services;
 

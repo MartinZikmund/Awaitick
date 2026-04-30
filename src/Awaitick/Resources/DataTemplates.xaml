@@ -26,7 +26,7 @@
                         Opacity="0.8"
                         Stretch="UniformToFill">
                         <Image.Source>
-                            <BitmapImage UriSource="{x:Bind BackgroundImageUri, Mode=OneWay}" />
+                            <BitmapImage DecodePixelWidth="800" UriSource="{x:Bind BackgroundImageUri, Mode=OneWay}" />
                         </Image.Source>
                     </Image>
                 </Grid>

@@ -9,10 +9,17 @@ public partial class CountdownViewModel : ObservableObject
 	private readonly EventCountdown _eventCountdown;
 	private readonly ICountdownsManager _countdownsManager;
 
+	private TimeSpan _cachedTimeLeft;
+	private bool _cachedHasFinished;
+
 	public CountdownViewModel(EventCountdown eventCountdown, ICountdownsManager? countdownsManager)
 	{
 		_eventCountdown = eventCountdown ?? throw new ArgumentNullException(nameof(eventCountdown));
 		_countdownsManager = countdownsManager;
+
+		var now = DateTimeOffset.Now;
+		_cachedTimeLeft = _eventCountdown.TargetDateTime - now;
+		_cachedHasFinished = _eventCountdown.TargetDateTime < now;
 	}
 
 	public EventCountdown Model => _eventCountdown;
@@ -34,20 +41,20 @@ public partial class CountdownViewModel : ObservableObject
 
 	public Windows.UI.Color BackgroundColor => ColorHelper.ToColor(_eventCountdown.BackgroundColor);
 
-	public bool HasFinished => _eventCountdown.TargetDateTime < DateTimeOffset.Now;
+	public bool HasFinished => _cachedHasFinished;
 
-	public TimeSpan TimeLeft => _eventCountdown.TargetDateTime - DateTimeOffset.Now;
+	public TimeSpan TimeLeft => _cachedTimeLeft;
 
-	public int DaysLeft => TimeLeft.Days;
+	public int DaysLeft => _cachedTimeLeft.Days;
 
-	public int HoursLeft => TimeLeft.Hours;
+	public int HoursLeft => _cachedTimeLeft.Hours;
 
-	public int MinutesLeft => TimeLeft.Minutes;
+	public int MinutesLeft => _cachedTimeLeft.Minutes;
 
-	public int SecondsLeft => TimeLeft.Seconds;
+	public int SecondsLeft => _cachedTimeLeft.Seconds;
 
 	public DateTimeOffset TargetDateTime => _eventCountdown.TargetDateTime;
-	
+
 	public string TargetDateString => TargetDateTime.ToLocalTime().ToString("f", CultureInfo.CurrentCulture);
 
 	public string CelebrationMessage => _eventCountdown.CelebrationMessage;
@@ -64,13 +71,56 @@ public partial class CountdownViewModel : ObservableObject
 	[RelayCommand]
 	public Task<bool> DeleteAsync() => _countdownsManager is not null ? _countdownsManager.DeleteAsync(this) : Task.FromResult(false);
 
+	public void RefreshFromModel()
+	{
+		OnPropertyChanged(nameof(Name));
+		OnPropertyChanged(nameof(BackgroundImageUri));
+		OnPropertyChanged(nameof(BackgroundImageOpacity));
+		OnPropertyChanged(nameof(Theme));
+		OnPropertyChanged(nameof(BackgroundColor));
+		OnPropertyChanged(nameof(TargetDateTime));
+		OnPropertyChanged(nameof(TargetDateString));
+		OnPropertyChanged(nameof(CelebrationMessage));
+		UpdateBindings();
+	}
+
 	public void UpdateBindings()
 	{
-		OnPropertyChanged(nameof(DaysLeft));
-		OnPropertyChanged(nameof(HoursLeft));
-		OnPropertyChanged(nameof(MinutesLeft));
-		OnPropertyChanged(nameof(SecondsLeft));
-		OnPropertyChanged(nameof(TimeLeft));
-		OnPropertyChanged(nameof(HasFinished));
+		var now = DateTimeOffset.Now;
+		var timeLeft = _eventCountdown.TargetDateTime - now;
+		var previousTimeLeft = _cachedTimeLeft;
+		_cachedTimeLeft = timeLeft;
+
+		if (previousTimeLeft.Seconds != timeLeft.Seconds)
+		{
+			OnPropertyChanged(nameof(SecondsLeft));
+		}
+
+		if (previousTimeLeft.Minutes != timeLeft.Minutes)
+		{
+			OnPropertyChanged(nameof(MinutesLeft));
+		}
+
+		if (previousTimeLeft.Hours != timeLeft.Hours)
+		{
+			OnPropertyChanged(nameof(HoursLeft));
+		}
+
+		if (previousTimeLeft.Days != timeLeft.Days)
+		{
+			OnPropertyChanged(nameof(DaysLeft));
+		}
+
+		if (previousTimeLeft != timeLeft)
+		{
+			OnPropertyChanged(nameof(TimeLeft));
+		}
+
+		var hasFinished = _eventCountdown.TargetDateTime < now;
+		if (_cachedHasFinished != hasFinished)
+		{
+			_cachedHasFinished = hasFinished;
+			OnPropertyChanged(nameof(HasFinished));
+		}
 	}
 }

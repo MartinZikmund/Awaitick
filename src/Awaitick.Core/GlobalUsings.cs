@@ -3,7 +3,7 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Localization;
 global using Microsoft.Extensions.Logging;
 global using ApplicationExecutionState = Windows.ApplicationModel.Activation.ApplicationExecutionState;
 global using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
-global using Microsoft.Extensions.Localization;
