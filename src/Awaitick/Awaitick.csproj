@@ -47,8 +47,6 @@
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
 		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />
 		<PackageReference Include="MZikmund.Toolkit.WinUI" />
-		<PackageReference Include="Plugin.InAppBilling" />
-		<PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI" Condition="!$(TargetFramework.Contains('windows10'))" />
 		<PackageReference Include="Uno.Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="!$(TargetFramework.Contains('windows10'))" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="$(TargetFramework.Contains('windows10'))" />
 	</ItemGroup>
