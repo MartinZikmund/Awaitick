@@ -42,59 +42,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="Platforms\Windows\AppIcon.altform-lightunplated_targetsize-16.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-lightunplated_targetsize-24.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-lightunplated_targetsize-256.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-lightunplated_targetsize-32.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-lightunplated_targetsize-48.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-unplated_targetsize-16.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-unplated_targetsize-24.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-unplated_targetsize-256.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-unplated_targetsize-32.png" />
-	  <Content Include="Platforms\Windows\AppIcon.altform-unplated_targetsize-48.png" />
-	  <Content Include="Platforms\Windows\AppIcon.scale-100.png" />
-	  <Content Include="Platforms\Windows\AppIcon.scale-125.png" />
-	  <Content Include="Platforms\Windows\AppIcon.scale-150.png" />
-	  <Content Include="Platforms\Windows\AppIcon.scale-200.png" />
-	  <Content Include="Platforms\Windows\AppIcon.scale-400.png" />
-	  <Content Include="Platforms\Windows\AppIcon.targetsize-16.png" />
-	  <Content Include="Platforms\Windows\AppIcon.targetsize-24.png" />
-	  <Content Include="Platforms\Windows\AppIcon.targetsize-256.png" />
-	  <Content Include="Platforms\Windows\AppIcon.targetsize-32.png" />
-	  <Content Include="Platforms\Windows\AppIcon.targetsize-48.png" />
-	  <Content Include="Platforms\Windows\LargeTile.scale-100.png" />
-	  <Content Include="Platforms\Windows\LargeTile.scale-125.png" />
-	  <Content Include="Platforms\Windows\LargeTile.scale-150.png" />
-	  <Content Include="Platforms\Windows\LargeTile.scale-200.png" />
-	  <Content Include="Platforms\Windows\LargeTile.scale-400.png" />
-	  <Content Include="Platforms\Windows\MediumTile.scale-100.png" />
-	  <Content Include="Platforms\Windows\MediumTile.scale-125.png" />
-	  <Content Include="Platforms\Windows\MediumTile.scale-150.png" />
-	  <Content Include="Platforms\Windows\MediumTile.scale-200.png" />
-	  <Content Include="Platforms\Windows\MediumTile.scale-400.png" />
-	  <Content Include="Platforms\Windows\PackageLogo.scale-100.png" />
-	  <Content Include="Platforms\Windows\PackageLogo.scale-125.png" />
-	  <Content Include="Platforms\Windows\PackageLogo.scale-150.png" />
-	  <Content Include="Platforms\Windows\PackageLogo.scale-200.png" />
-	  <Content Include="Platforms\Windows\PackageLogo.scale-400.png" />
-	  <Content Include="Platforms\Windows\SmallTile.scale-100.png" />
-	  <Content Include="Platforms\Windows\SmallTile.scale-125.png" />
-	  <Content Include="Platforms\Windows\SmallTile.scale-150.png" />
-	  <Content Include="Platforms\Windows\SmallTile.scale-200.png" />
-	  <Content Include="Platforms\Windows\SmallTile.scale-400.png" />
-	  <Content Include="Platforms\Windows\SplashScreen.scale-100.png" />
-	  <Content Include="Platforms\Windows\SplashScreen.scale-125.png" />
-	  <Content Include="Platforms\Windows\SplashScreen.scale-150.png" />
-	  <Content Include="Platforms\Windows\SplashScreen.scale-200.png" />
-	  <Content Include="Platforms\Windows\SplashScreen.scale-400.png" />
-	  <Content Include="Platforms\Windows\WideTile.scale-100.png" />
-	  <Content Include="Platforms\Windows\WideTile.scale-125.png" />
-	  <Content Include="Platforms\Windows\WideTile.scale-150.png" />
-	  <Content Include="Platforms\Windows\WideTile.scale-200.png" />
-	  <Content Include="Platforms\Windows\WideTile.scale-400.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" />
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" />
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
