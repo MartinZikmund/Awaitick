@@ -221,7 +221,7 @@ public partial class CountdownsApp : Application, IApplication
 #else
 		services.AddScoped<IStoreService, StoreService>();
 #endif
-		services.AddSingleton<IDataService, FileDataService>();
+		services.AddSingleton<IDataService, SqliteDataService>();
 	}
 
 	/// <summary>
