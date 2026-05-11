@@ -32,5 +32,6 @@
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
 		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />
 		<PackageReference Include="MZikmund.Toolkit.WinUI" />
+		<PackageReference Include="sqlite-net-e" />
 	</ItemGroup>
 </Project>
