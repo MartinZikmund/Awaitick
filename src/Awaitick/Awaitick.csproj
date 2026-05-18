@@ -39,6 +39,11 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-browserwasm'">
 		<WasmShellEnableIDBFS>true</WasmShellEnableIDBFS>
+		<!-- Workaround for ILLink 10.0.7 crash (IL1012, "Sequence contains no elements" in
+		     Mono.Linker.MessageOrigin.ToString) while formatting cached trim warnings from
+		     Uno.Extensions (Configuration/Localization/Serialization) APIs annotated with
+		     RequiresUnreferencedCode. Trimming itself still runs; only the warning output is suppressed. -->
+		<SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
 	</PropertyGroup>
 
 	<ItemGroup>
