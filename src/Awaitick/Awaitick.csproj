@@ -39,6 +39,11 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-browserwasm'">
 		<WasmShellEnableIDBFS>true</WasmShellEnableIDBFS>
+		<!-- Workaround for ILLink 10.0.7 crash (IL1012, "Sequence contains no elements" in
+		     Mono.Linker.MessageOrigin.ToString) while formatting cached trim warnings from
+		     Uno.Extensions (Configuration/Localization/Serialization) APIs annotated with
+		     RequiresUnreferencedCode. Trimming itself still runs; only the warning output is suppressed. -->
+		<SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -53,5 +58,16 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Awaitick.Core\Awaitick.Core.csproj" />
+	</ItemGroup>
+
+	<!--
+		Workaround: Uno.Sdk does not auto-include files under Platforms/Windows/ as Content for
+		the WinAppSDK target, so manifest-referenced assets (splash/tiles/icons) are missing
+		from the produced .msix. Remove once the Uno.Sdk fix ships.
+	-->
+	<ItemGroup Condition="$(TargetFramework.Contains('windows10'))">
+		<Content Include="Platforms\Windows\**\*.png"
+		         Exclude="@(Content)"
+		         CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 </Project>
