@@ -59,4 +59,15 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Awaitick.Core\Awaitick.Core.csproj" />
 	</ItemGroup>
+
+	<!--
+		Workaround: Uno.Sdk does not auto-include files under Platforms/Windows/ as Content for
+		the WinAppSDK target, so manifest-referenced assets (splash/tiles/icons) are missing
+		from the produced .msix. Remove once the Uno.Sdk fix ships.
+	-->
+	<ItemGroup Condition="$(TargetFramework.Contains('windows10'))">
+		<Content Include="Platforms\Windows\**\*.png"
+		         Exclude="@(Content)"
+		         CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
 </Project>
