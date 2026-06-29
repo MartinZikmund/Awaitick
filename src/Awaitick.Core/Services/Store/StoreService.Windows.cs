@@ -55,7 +55,12 @@ public class StoreService : IStoreService
 		{
 			var context = GetStoreContext();
 			var result = await context.GetAppLicenseAsync();
-			_hasPro = result.AddOnLicenses.Any(license => license.Value.SkuStoreId == AwaitickProId);
+			// SkuStoreId is formatted "{StoreId}/{SKU}" (e.g. "9NPNW4QSWBGK/0010"),
+			// so match on the Store ID prefix rather than the whole value.
+			_hasPro = result.AddOnLicenses.Any(license =>
+				license.Value.IsActive &&
+				license.Value.SkuStoreId is { } skuStoreId &&
+				skuStoreId.Split('/')[0] == AwaitickProId);
 		}
 
 		return _hasPro.Value;
