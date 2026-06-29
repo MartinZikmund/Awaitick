@@ -150,6 +150,9 @@
   <data name="Christmas" xml:space="preserve">
     <value>Christmas</value>
   </data>
+  <data name="Clone" xml:space="preserve">
+    <value>Clone</value>
+  </data>
   <data name="ConfirmDelete" xml:space="preserve">
     <value>Confirm deletion</value>
   </data>
