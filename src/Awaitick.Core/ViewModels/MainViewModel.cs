@@ -61,7 +61,39 @@ public partial class MainViewModel : PageViewModel
 		_appSettings = appSettings;
 		_messenger.Register<CountdownDeletedMessage>(this, CountdownDeletedHandler);
 		_messenger.Register<CountdownUpdatedMessage>(this, CountdownUpdatedHandler);
+		_messenger.Register<CountdownAddedMessage>(this, CountdownAddedHandler);
 		_messenger.Register<DeepLinkReceivedMessage>(this, DeepLinkReceivedHandler);
+	}
+
+	private static async void CountdownAddedHandler(object recipient, CountdownAddedMessage message)
+	{
+		if (recipient is not MainViewModel viewModel)
+		{
+			return;
+		}
+
+		if (viewModel.Awaitick.Any(c => c.Id == message.Id))
+		{
+			return;
+		}
+
+		var model = await viewModel._dataService.GetCountdownAsync(message.Id);
+		if (model is null)
+		{
+			return;
+		}
+
+		CountdownViewModel newCountdown = new(model, viewModel._countdownsManager);
+
+		// Insert preserving ascending ordering by TargetDateTime.
+		var index = 0;
+		while (index < viewModel.Awaitick.Count && viewModel.Awaitick[index].TargetDateTime <= newCountdown.TargetDateTime)
+		{
+			index++;
+		}
+
+		viewModel.Awaitick.Insert(index, newCountdown);
+		viewModel.OnPropertyChanged(nameof(HasAnyEvents));
 	}
 
 	private static void CountdownUpdatedHandler(object recipient, CountdownUpdatedMessage message)
