@@ -13,7 +13,11 @@ namespace Awaitick.Services.Store;
 
 public class StoreService : IStoreService
 {
+	// Store ID — used for purchase and price queries (RequestPurchaseAsync / GetStoreProductsAsync).
 	private const string AwaitickProId = "9NPNW4QSWBGK";
+
+	// Partner Center product ID — used to identify our add-on's license via StoreLicense.InAppOfferToken.
+	private const string AwaitickProProductId = "AwaitickPro";
 
 	private readonly IWindowShellProvider _shellProvider;
 	private readonly IDialogService _dialogService;
@@ -55,7 +59,13 @@ public class StoreService : IStoreService
 		{
 			var context = GetStoreContext();
 			var result = await context.GetAppLicenseAsync();
-			_hasPro = result.AddOnLicenses.Any(license => license.Value.SkuStoreId == AwaitickProId);
+			// A durable add-on's license is present in AddOnLicenses only while the user is
+			// entitled (expired/invalid licenses are removed), so membership signals ownership.
+			// Identify our add-on by its Partner Center product ID via InAppOfferToken — the
+			// documented way to match a specific add-on. Don't gate on StoreLicense.IsActive:
+			// it is reserved for future use and currently always returns true.
+			_hasPro = result.AddOnLicenses.Values.Any(license =>
+				license.InAppOfferToken == AwaitickProProductId);
 		}
 
 		return _hasPro.Value;
