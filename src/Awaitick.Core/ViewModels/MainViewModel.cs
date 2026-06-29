@@ -68,9 +68,27 @@ public partial class MainViewModel : PageViewModel
 	{
 		if (recipient is MainViewModel viewModel)
 		{
-			var countdown = viewModel.Awaitick.FirstOrDefault(c => c.Id == message.Id);
-			countdown?.RefreshFromModel();
+			_ = viewModel.HandleCountdownUpdatedAsync(message.Id);
 		}
+	}
+
+	private async Task HandleCountdownUpdatedAsync(string id)
+	{
+		var countdown = Awaitick.FirstOrDefault(c => c.Id == id);
+		if (countdown is null)
+		{
+			return;
+		}
+
+		// Re-read the freshly persisted model; the data service returns new
+		// EventCountdown instances, so the tile VM still holds the stale one.
+		var freshModel = await _dataService.GetCountdownAsync(id);
+		if (freshModel is null)
+		{
+			return;
+		}
+
+		countdown.UpdateModel(freshModel);
 	}
 
 	private static void DeepLinkReceivedHandler(object recipient, DeepLinkReceivedMessage message)
