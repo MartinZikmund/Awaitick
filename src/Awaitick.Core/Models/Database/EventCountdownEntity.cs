@@ -20,5 +20,8 @@ public class EventCountdownEntity
 
 	public double BackgroundImageOpacity { get; set; }
 
+	// Nullable so legacy rows (added via CreateTable migration) read as null and fall back to centered.
+	public double? BackgroundImageVerticalPosition { get; set; }
+
 	public string BackgroundColor { get; set; } = string.Empty;
 }

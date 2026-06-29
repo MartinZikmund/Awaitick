@@ -19,15 +19,17 @@
         </Border>
 
         <!--  Background image  -->
-        <Border Visibility="{x:Bind Countdown.BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
-            <Image
-                Margin="-1"
-                Opacity="{x:Bind Countdown.BackgroundImageOpacity, Mode=OneWay}"
-                Stretch="UniformToFill">
-                <Image.Source>
-                    <BitmapImage x:Name="BackgroundBitmapImage" UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
-                </Image.Source>
-            </Image>
+        <Border
+            Margin="-1"
+            Opacity="{x:Bind Countdown.BackgroundImageOpacity, Mode=OneWay}"
+            Visibility="{x:Bind Countdown.BackgroundImageUri, Converter={StaticResource NonNullToVisibilityConverter}, FallbackValue=Collapsed, Mode=OneWay}">
+            <Border.Background>
+                <ImageBrush AlignmentY="{x:Bind Countdown.BackgroundImageVerticalAlignment, Mode=OneWay}" Stretch="UniformToFill">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage x:Name="BackgroundBitmapImage" UriSource="{x:Bind Countdown.BackgroundImageUri, Mode=OneWay}" />
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
         </Border>
 
         <Border Padding="{x:Bind Padding, Mode=OneWay}">
