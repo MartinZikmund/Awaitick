@@ -50,17 +50,21 @@ public sealed partial class MainView : MainViewBase
 		}
 	}
 
-	private bool _isListLayout;
+	private const double ListLayoutThreshold = 520;
+	private const double ScrollViewerEdgePadding = 12;
+	private const double GridMinItemWidth = 480;
+	private const double GridMinItemHeight = 320;
+	private const double GridSpacing = 20;
 
 	private readonly UniformGridLayout _gridLayout = new()
 	{
 		ItemsJustification = UniformGridLayoutItemsJustification.Center,
 		ItemsStretch = UniformGridLayoutItemsStretch.Fill,
 		MaximumRowsOrColumns = 3,
-		MinColumnSpacing = 20,
-		MinItemHeight = 320,
-		MinItemWidth = 480,
-		MinRowSpacing = 20,
+		MinColumnSpacing = GridSpacing,
+		MinItemHeight = GridMinItemHeight,
+		MinItemWidth = GridMinItemWidth,
+		MinRowSpacing = GridSpacing,
 		Orientation = Orientation.Horizontal,
 	};
 
@@ -71,11 +75,30 @@ public sealed partial class MainView : MainViewBase
 
 	private void EventsGrid_SizeChanged(object sender, SizeChangedEventArgs e)
 	{
-		var useList = e.NewSize.Width < 520;
-		if (useList != _isListLayout)
+		if (e.NewSize.Width < ListLayoutThreshold)
 		{
-			_isListLayout = useList;
-			CountdownItemsView.Layout = useList ? _listLayout : _gridLayout;
+			if (CountdownItemsView.Layout != _listLayout)
+			{
+				CountdownItemsView.Layout = _listLayout;
+			}
+
+			return;
+		}
+
+		// Compute how many columns fit the available width (minus ScrollViewer padding),
+		// allowing for the inter-column spacing. No upper cap, so wide/ultra-wide displays
+		// can show more than three columns.
+		var availableWidth = e.NewSize.Width - (ScrollViewerEdgePadding * 2);
+		var columns = Math.Max(1, (int)Math.Floor((availableWidth + GridSpacing) / (GridMinItemWidth + GridSpacing)));
+
+		_gridLayout.MaximumRowsOrColumns = columns;
+
+		// Reassign the layout when transitioning from the list (or the XAML-seeded layout)
+		// to force the ItemsView to pick up the responsive grid; the column change above
+		// re-lays out subsequent resizes in place.
+		if (CountdownItemsView.Layout != _gridLayout)
+		{
+			CountdownItemsView.Layout = _gridLayout;
 		}
 	}
 }
