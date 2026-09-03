@@ -396,3 +396,21 @@ FodyWeavers.xsd
 
 # Single Target Config
 solution-config.props
+
+# Signing material and store credentials — never commit these.
+# (*.pfx and *.appxupload are already covered by the Visual Studio section above.)
+*.keystore
+*.jks
+*.p12
+*.snk
+*.cer
+*.certSigningRequest
+*.mobileprovision
+*.provisionprofile
+google-services.json
+GoogleService-Info.plist
+api_key.json
+play-store-key.json
+.env
+.env.*
+!.env.example
