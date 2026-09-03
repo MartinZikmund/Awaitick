@@ -180,6 +180,9 @@
   <data name="DoYouEnjoyAppFormatString" xml:space="preserve">
     <value>Are you enjoying {0}?</value>
   </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
   <data name="Easter" xml:space="preserve">
     <value>Easter</value>
   </data>

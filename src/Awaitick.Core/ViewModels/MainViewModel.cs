@@ -1,4 +1,5 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using Awaitick.Core.Configuration;
 using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using Awaitick.Core.Services.Countdowns;
@@ -18,8 +19,6 @@ namespace Awaitick.Core.ViewModels;
 
 public partial class MainViewModel : PageViewModel
 {
-	private const int MaxFreeCountdowns = 3;
-
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;
 	private readonly IMailService _mailService;
@@ -61,7 +60,53 @@ public partial class MainViewModel : PageViewModel
 		_appSettings = appSettings;
 		_messenger.Register<CountdownDeletedMessage>(this, CountdownDeletedHandler);
 		_messenger.Register<CountdownUpdatedMessage>(this, CountdownUpdatedHandler);
+		_messenger.Register<CountdownAddedMessage>(this, CountdownAddedHandler);
 		_messenger.Register<DeepLinkReceivedMessage>(this, DeepLinkReceivedHandler);
+	}
+
+	private static async void CountdownAddedHandler(object recipient, CountdownAddedMessage message)
+	{
+		if (recipient is not MainViewModel viewModel)
+		{
+			return;
+		}
+
+		try
+		{
+			if (viewModel.Awaitick.Any(c => c.Id == message.Id))
+			{
+				return;
+			}
+
+			var model = await viewModel._dataService.GetCountdownAsync(message.Id);
+			if (model is null)
+			{
+				return;
+			}
+
+			// The collection may have been rebuilt/updated while awaiting the data service call.
+			if (viewModel.Awaitick.Any(c => c.Id == message.Id))
+			{
+				return;
+			}
+
+			CountdownViewModel newCountdown = new(model, viewModel._countdownsManager);
+
+			// Insert preserving ascending ordering by TargetDateTime.
+			var index = 0;
+			while (index < viewModel.Awaitick.Count && viewModel.Awaitick[index].TargetDateTime <= newCountdown.TargetDateTime)
+			{
+				index++;
+			}
+
+			viewModel.Awaitick.Insert(index, newCountdown);
+			viewModel.OnPropertyChanged(nameof(HasAnyEvents));
+		}
+		catch (Exception ex)
+		{
+			// async void: an escaping exception would tear the app down.
+			viewModel.Log().LogError(ex, "Failed to add countdown {CountdownId} to the list.", message.Id);
+		}
 	}
 
 	private static void CountdownUpdatedHandler(object recipient, CountdownUpdatedMessage message)
@@ -195,7 +240,7 @@ public partial class MainViewModel : PageViewModel
 	[RelayCommand]
 	private void Add()
 	{
-		if (!HasProLicense && Awaitick.Count >= MaxFreeCountdowns)
+		if (!HasProLicense && Awaitick.Count >= FreeTierLimits.MaxCountdowns)
 		{
 			_navigationService.Navigate<GetProViewModel>();
 			return;

@@ -180,6 +180,9 @@
   <data name="DoYouEnjoyAppFormatString" xml:space="preserve">
     <value>Líbí se vám {0}?</value>
   </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplikovat</value>
+  </data>
   <data name="Easter" xml:space="preserve">
     <value>Velikonoce</value>
   </data>

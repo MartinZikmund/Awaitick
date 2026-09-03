@@ -155,6 +155,10 @@
                             Icon="Edit"
                             Text="{xaml:Localize Key=Edit}" />
                         <MenuFlyoutItem
+                            Command="{x:Bind DuplicateCommand}"
+                            Icon="Copy"
+                            Text="{xaml:Localize Key=Duplicate}" />
+                        <MenuFlyoutItem
                             Command="{x:Bind DeleteCommand}"
                             Icon="Delete"
                             Text="{xaml:Localize Key=Delete}" />
