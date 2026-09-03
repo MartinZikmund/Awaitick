@@ -14,6 +14,7 @@ internal static class EventCountdownMapper
 		BackgroundImageUri = source.BackgroundImageUri?.ToString(),
 		TextTheme = (int)source.TextTheme,
 		BackgroundImageOpacity = source.BackgroundImageOpacity,
+		BackgroundImageVerticalPosition = source.BackgroundImageVerticalPosition,
 		BackgroundColor = source.BackgroundColor,
 	};
 
@@ -26,6 +27,8 @@ internal static class EventCountdownMapper
 		BackgroundImageUri = string.IsNullOrEmpty(entity.BackgroundImageUri) ? null : new Uri(entity.BackgroundImageUri),
 		TextTheme = (TextTheme)entity.TextTheme,
 		BackgroundImageOpacity = entity.BackgroundImageOpacity,
+		// Legacy rows have no stored value; clamp to [0,1] and fall back to centered (0.5).
+		BackgroundImageVerticalPosition = entity.BackgroundImageVerticalPosition is double position && position >= 0 && position <= 1 ? position : 0.5,
 		BackgroundColor = entity.BackgroundColor,
 	};
 }

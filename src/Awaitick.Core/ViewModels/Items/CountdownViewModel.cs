@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 using Awaitick.Core.Services.Countdowns;
+using Microsoft.UI.Xaml.Media;
 
 namespace Awaitick.Core.Models;
 
@@ -31,6 +32,15 @@ public partial class CountdownViewModel : ObservableObject
 	public Uri? BackgroundImageUri => _eventCountdown.BackgroundImageUri;
 
 	public double BackgroundImageOpacity => _eventCountdown.BackgroundImageOpacity;
+
+	public double BackgroundImageVerticalPosition => _eventCountdown.BackgroundImageVerticalPosition;
+
+	public AlignmentY BackgroundImageVerticalAlignment => _eventCountdown.BackgroundImageVerticalPosition switch
+	{
+		<= 0.34 => AlignmentY.Top,
+		>= 0.66 => AlignmentY.Bottom,
+		_ => AlignmentY.Center,
+	};
 
 	public ElementTheme Theme => _eventCountdown.TextTheme switch
 	{
@@ -76,6 +86,8 @@ public partial class CountdownViewModel : ObservableObject
 		OnPropertyChanged(nameof(Name));
 		OnPropertyChanged(nameof(BackgroundImageUri));
 		OnPropertyChanged(nameof(BackgroundImageOpacity));
+		OnPropertyChanged(nameof(BackgroundImageVerticalPosition));
+		OnPropertyChanged(nameof(BackgroundImageVerticalAlignment));
 		OnPropertyChanged(nameof(Theme));
 		OnPropertyChanged(nameof(BackgroundColor));
 		OnPropertyChanged(nameof(TargetDateTime));

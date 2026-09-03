@@ -113,6 +113,10 @@ public partial class CountdownEditorViewModel : PageViewModel
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
+	public partial double BackgroundImageVerticalPosition { get; set; } = 0.5;
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SampleCountdown))]
 	[NotifyPropertyChangedFor(nameof(DefaultCelebrationMessage))]
 	public partial string Name { get; set; } = "";
 
@@ -218,6 +222,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		BackgroundColor = ColorHelper.ToColor(_editedEventCountdown.BackgroundColor);
 		TextTheme = _editedEventCountdown.TextTheme;
 		BackgroundImageOpacityPercent = _editedEventCountdown.BackgroundImageOpacity * 100;
+		BackgroundImageVerticalPosition = _editedEventCountdown.BackgroundImageVerticalPosition;
 		var backgrounds = await _defaultBackgrounds.GetDefaultBackgroundsAsync();
 		SelectedDefaultBackground = backgrounds.FirstOrDefault(x => x.BackgroundUri == BackgroundImageUri);
 		LastCustomBackgroundUri = BackgroundImageUri;
@@ -326,6 +331,7 @@ public partial class CountdownEditorViewModel : PageViewModel
 		eventCountdown.BackgroundColor = BackgroundColor.ToHex();
 		eventCountdown.TextTheme = TextTheme;
 		eventCountdown.BackgroundImageOpacity = BackgroundImageOpacity;
+		eventCountdown.BackgroundImageVerticalPosition = BackgroundImageVerticalPosition;
 		eventCountdown.CelebrationMessage = string.IsNullOrWhiteSpace(CelebrationMessage) ? string.Format(CultureInfo.CurrentCulture, _localizationService.GetString("DefaultCelebration"), Name) : CelebrationMessage;
 	}
 }
