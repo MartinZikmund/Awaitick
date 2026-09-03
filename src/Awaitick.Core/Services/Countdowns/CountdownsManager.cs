@@ -79,7 +79,7 @@ public class CountdownsManager : ICountdownsManager
 
 	public void GoToEdit(CountdownViewModel countdown) => _navigationService.Navigate<CountdownEditorViewModel>(new CountdownEditorViewModel.NavigationModel() { Id = countdown.Id, Mode = CountdownEditorViewModel.EditorMode.Edit });
 
-	public async Task CloneAsync(CountdownViewModel countdown)
+	public async Task DuplicateAsync(CountdownViewModel countdown)
 	{
 		// Respect the free-tier limit, consistent with adding a new countdown.
 		if (!await _storeService.HasProAsync())
@@ -93,7 +93,7 @@ public class CountdownsManager : ICountdownsManager
 		}
 
 		var source = countdown.Model;
-		EventCountdown clone = new()
+		EventCountdown duplicate = new()
 		{
 			Name = $"{source.Name} (copy)",
 			TargetDateTime = source.TargetDateTime,
@@ -105,8 +105,8 @@ public class CountdownsManager : ICountdownsManager
 			BackgroundImageUri = source.BackgroundImageUri is { } uri && uri.Scheme == "ms-appx" ? uri : null,
 		};
 
-		await _countdownsDataService.AddCountdownAsync(clone);
-		_messenger.Send(new CountdownAddedMessage(clone.Id));
+		await _countdownsDataService.AddCountdownAsync(duplicate);
+		_messenger.Send(new CountdownAddedMessage(duplicate.Id));
 	}
 
 	public async Task ShareAsync(CountdownViewModel countdown)

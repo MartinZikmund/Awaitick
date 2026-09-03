@@ -69,7 +69,7 @@ public partial class CountdownViewModel : ObservableObject
 	public void GoToEdit() => _countdownsManager?.GoToEdit(this);
 
 	[RelayCommand]
-	public Task CloneAsync() => _countdownsManager is not null ? _countdownsManager.CloneAsync(this) : Task.CompletedTask;
+	public Task DuplicateAsync() => _countdownsManager is not null ? _countdownsManager.DuplicateAsync(this) : Task.CompletedTask;
 
 	[RelayCommand]
 	public Task<bool> DeleteAsync() => _countdownsManager is not null ? _countdownsManager.DeleteAsync(this) : Task.FromResult(false);

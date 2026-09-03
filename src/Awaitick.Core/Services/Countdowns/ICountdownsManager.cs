@@ -8,7 +8,7 @@ public interface ICountdownsManager
 
 	void GoToEdit(CountdownViewModel countdown);
 
-	Task CloneAsync(CountdownViewModel countdown);
+	Task DuplicateAsync(CountdownViewModel countdown);
 
 	Task<bool> DeleteAsync(CountdownViewModel countdown);
 
