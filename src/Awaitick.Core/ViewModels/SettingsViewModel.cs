@@ -1,4 +1,5 @@
 ﻿using Awaitick.Core.Models.Presets;
+using Awaitick.Core.Models.Licensing;
 using Awaitick.Core.Services.Data;
 using Awaitick.Core.Services.ScheduledNotification;
 using Awaitick.Core.Services.Settings;
@@ -10,6 +11,7 @@ using Microsoft.Toolkit.Uwp.Helpers;
 using MZikmund.Services.Dialogs;
 using MZikmund.Toolkit.WinUI.Infrastructure;
 using MZikmund.Toolkit.WinUI.Services;
+using Windows.System;
 using Windows.UI.ViewManagement;
 
 namespace Awaitick.Core.ViewModels;
@@ -161,8 +163,16 @@ public partial class SettingsViewModel : PageViewModel
 
 	public string PackageVersionString => Package.Current.Id.Version.ToFormattedString();
 
+	public string CopyrightLine => AppLicenseInfo.Copyright;
+
 	[RelayCommand]
 	private async Task ReviewAppAsync() => await SystemInformation.LaunchStoreForReviewAsync();
+
+	[RelayCommand]
+	private void OpenLicenses() => NavigationService.Navigate<LicensesViewModel>();
+
+	[RelayCommand]
+	private async Task OpenSourceCodeAsync() => await Launcher.LaunchUriAsync(new Uri(AppLicenseInfo.RepositoryUrl));
 
 	[RelayCommand]
 	private void GoToOnboarding() => NavigationService.Navigate<OnboardingViewModel>();

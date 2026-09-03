@@ -750,4 +750,22 @@
   <data name="NewCountdown_CreateMyOwn" xml:space="preserve">
     <value>Vytvořit vlastní událost</value>
   </data>
+  <data name="License" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="OpenSourceLicenses" xml:space="preserve">
+    <value>Licence open source</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Zdrojový kód</value>
+  </data>
+  <data name="SourceCodeDescription" xml:space="preserve">
+    <value>Zobrazit zdrojový kód na GitHubu</value>
+  </data>
+  <data name="ThirdPartyComponents" xml:space="preserve">
+    <value>Komponenty třetích stran</value>
+  </data>
+  <data name="BundledAssets" xml:space="preserve">
+    <value>Písma a obrázky</value>
+  </data>
 </root>

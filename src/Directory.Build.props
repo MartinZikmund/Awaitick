@@ -1,7 +1,14 @@
 <Project>
 	<PropertyGroup>
-		<Copyright>Martin Zikmund 2024</Copyright>
+		<Copyright>Copyright (c) 2020-present Martin Zikmund</Copyright>
 		<Author>Martin Zikmund</Author>
+		<Authors>Martin Zikmund</Authors>
+
+		<!-- Awaitick is licensed under the GNU AGPLv3 or later; see LICENSE and LICENSING.md. -->
+		<PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/MartinZikmund/Awaitick</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MartinZikmund/Awaitick</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
 
 		<DefaultLanguage>en-US</DefaultLanguage>
 
