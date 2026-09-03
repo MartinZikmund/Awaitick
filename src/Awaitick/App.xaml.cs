@@ -41,6 +41,39 @@ public partial class CountdownsApp : Application, IApplication
 	public CountdownsApp()
 	{
 		this.InitializeComponent();
+		UnhandledException += OnUnhandledException;
+	}
+
+	/// <summary>
+	/// Global last-resort guard. Logs every unhandled exception, and keeps the app
+	/// alive only for the known transient picker/popup glitch that can surface when
+	/// the window is deactivated/reactivated while a light-dismiss flyout
+	/// (TimePicker/CalendarDatePicker/ComboBox) is open (#479). Everything else is
+	/// left unhandled so genuine crashes stay visible and reportable.
+	/// </summary>
+	private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+	{
+		var exception = e.Exception;
+		var logger = Host?.Services?.GetService<ILogger<CountdownsApp>>();
+		logger?.LogError(exception, "Unhandled exception: {Message}", e.Message);
+		System.Diagnostics.Debug.WriteLine($"Unhandled exception: {e.Message}\n{exception}");
+
+		if (IsTransientPopupGlitch(exception))
+		{
+			e.Handled = true;
+		}
+	}
+
+	private static bool IsTransientPopupGlitch(Exception? exception)
+	{
+		if (exception is null)
+		{
+			return false;
+		}
+
+		var details = $"{exception.GetType().FullName} {exception.Message} {exception.StackTrace}";
+		return details.Contains("Popup", StringComparison.OrdinalIgnoreCase)
+			|| details.Contains("Flyout", StringComparison.OrdinalIgnoreCase);
 	}
 
 	internal string? LaunchArgs { get; private set; }
