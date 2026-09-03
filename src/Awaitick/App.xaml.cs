@@ -182,6 +182,7 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddTransient<CountdownEditorViewModel>();
 		services.AddTransient<CountdownDetailViewModel>();
 		services.AddTransient<NewCountdownViewModel>();
+		services.AddTransient<LicensesViewModel>();
 
 		services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 

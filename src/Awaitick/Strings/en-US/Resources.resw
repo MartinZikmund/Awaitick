@@ -750,4 +750,22 @@
   <data name="NewCountdown_CreateMyOwn" xml:space="preserve">
     <value>Create my own event</value>
   </data>
+  <data name="License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="OpenSourceLicenses" xml:space="preserve">
+    <value>Open-source licenses</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Source code</value>
+  </data>
+  <data name="SourceCodeDescription" xml:space="preserve">
+    <value>View the source code on GitHub</value>
+  </data>
+  <data name="ThirdPartyComponents" xml:space="preserve">
+    <value>Third-party components</value>
+  </data>
+  <data name="BundledAssets" xml:space="preserve">
+    <value>Fonts and images</value>
+  </data>
 </root>

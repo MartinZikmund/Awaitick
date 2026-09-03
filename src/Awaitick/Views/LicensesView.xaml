@@ -1,0 +1,108 @@
+﻿<local:LicensesViewBase
+    x:Class="Awaitick.Views.LicensesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ex="using:Awaitick.Extensions.Xaml"
+    xmlns:licensing="using:Awaitick.Core.Models.Licensing"
+    xmlns:local="using:Awaitick.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:Awaitick.Extensions.Xaml"
+    xmlns:usercontrols="using:Awaitick.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel
+                x:Name="ContentRoot"
+                Orientation="Vertical"
+                Spacing="8">
+                <usercontrols:PageHeaderControl Title="{x:Bind ViewModel.Title, Mode=OneWay}" />
+
+                <!--  This app  -->
+                <toolkit:SettingsCard Description="{x:Bind ViewModel.Copyright}" Header="{x:Bind ViewModel.AppName}">
+                    <toolkit:SettingsCard.HeaderIcon>
+                        <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Icons/icon_foreground.png" />
+                    </toolkit:SettingsCard.HeaderIcon>
+                </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard
+                    Description="{x:Bind ViewModel.LicenseName}"
+                    Header="{ex:Localize Key=License}"
+                    HeaderIcon="{ui:FontIcon Glyph=&#xE8A5;}">
+                    <Button Command="{x:Bind ViewModel.OpenLicenseCommand}" Content="{ex:Localize Key=Open}" />
+                </toolkit:SettingsCard>
+
+                <toolkit:SettingsCard
+                    Description="{x:Bind ViewModel.RepositoryUrl}"
+                    Header="{ex:Localize Key=SourceCode}"
+                    HeaderIcon="{ui:FontIcon Glyph=&#xE943;}">
+                    <Button Command="{x:Bind ViewModel.OpenRepositoryCommand}" Content="{ex:Localize Key=Open}" />
+                </toolkit:SettingsCard>
+
+                <!--  Third-party packages, grouped by licence  -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=ThirdPartyComponents}" />
+
+                <ItemsControl ItemsSource="{x:Bind ViewModel.Packages}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="licensing:ThirdPartyNoticeGroup">
+                            <toolkit:SettingsExpander Margin="0,0,0,4" Header="{x:Bind License}">
+                                <toolkit:SettingsExpander.Items>
+                                    <toolkit:SettingsCard ContentAlignment="Left">
+                                        <TextBlock
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{x:Bind ComponentsText}"
+                                            TextWrapping="Wrap" />
+                                    </toolkit:SettingsCard>
+                                </toolkit:SettingsExpander.Items>
+                            </toolkit:SettingsExpander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!--  Bundled fonts and artwork  -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="{ex:Localize Key=BundledAssets}" />
+
+                <ItemsControl ItemsSource="{x:Bind ViewModel.Assets}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="licensing:ThirdPartyNotice">
+                            <toolkit:SettingsCard
+                                Margin="0,0,0,4"
+                                Description="{x:Bind Copyright}"
+                                Header="{x:Bind Name}">
+                                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind License}" />
+                            </toolkit:SettingsCard>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentRoot.Padding" Value="12" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="768" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentRoot.Padding" Value="24" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</local:LicensesViewBase>
