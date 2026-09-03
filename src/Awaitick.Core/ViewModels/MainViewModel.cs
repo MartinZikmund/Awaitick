@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Awaitick.Core.Configuration;
 using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
@@ -71,28 +71,36 @@ public partial class MainViewModel : PageViewModel
 			return;
 		}
 
-		if (viewModel.Awaitick.Any(c => c.Id == message.Id))
+		try
 		{
-			return;
-		}
+			if (viewModel.Awaitick.Any(c => c.Id == message.Id))
+			{
+				return;
+			}
 
-		var model = await viewModel._dataService.GetCountdownAsync(message.Id);
-		if (model is null)
+			var model = await viewModel._dataService.GetCountdownAsync(message.Id);
+			if (model is null)
+			{
+				return;
+			}
+
+			CountdownViewModel newCountdown = new(model, viewModel._countdownsManager);
+
+			// Insert preserving ascending ordering by TargetDateTime.
+			var index = 0;
+			while (index < viewModel.Awaitick.Count && viewModel.Awaitick[index].TargetDateTime <= newCountdown.TargetDateTime)
+			{
+				index++;
+			}
+
+			viewModel.Awaitick.Insert(index, newCountdown);
+			viewModel.OnPropertyChanged(nameof(HasAnyEvents));
+		}
+		catch (Exception ex)
 		{
-			return;
+			// async void: an escaping exception would tear the app down.
+			viewModel.Log().LogError(ex, "Failed to add countdown {CountdownId} to the list.", message.Id);
 		}
-
-		CountdownViewModel newCountdown = new(model, viewModel._countdownsManager);
-
-		// Insert preserving ascending ordering by TargetDateTime.
-		var index = 0;
-		while (index < viewModel.Awaitick.Count && viewModel.Awaitick[index].TargetDateTime <= newCountdown.TargetDateTime)
-		{
-			index++;
-		}
-
-		viewModel.Awaitick.Insert(index, newCountdown);
-		viewModel.OnPropertyChanged(nameof(HasAnyEvents));
 	}
 
 	private static void CountdownUpdatedHandler(object recipient, CountdownUpdatedMessage message)
