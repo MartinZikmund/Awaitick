@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Awaitick.Core.Configuration;
 using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using Awaitick.Core.Services.Countdowns;
@@ -18,8 +19,6 @@ namespace Awaitick.Core.ViewModels;
 
 public partial class MainViewModel : PageViewModel
 {
-	private const int MaxFreeCountdowns = 3;
-
 	private readonly IDataService _dataService;
 	private readonly ITileService? _tileService;
 	private readonly IMailService _mailService;
@@ -227,7 +226,7 @@ public partial class MainViewModel : PageViewModel
 	[RelayCommand]
 	private void Add()
 	{
-		if (!HasProLicense && Awaitick.Count >= MaxFreeCountdowns)
+		if (!HasProLicense && Awaitick.Count >= FreeTierLimits.MaxCountdowns)
 		{
 			_navigationService.Navigate<GetProViewModel>();
 			return;

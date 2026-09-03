@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Awaitick.Core.Configuration;
 using Awaitick.Core.Messages;
 using Awaitick.Core.Models;
 using Awaitick.Core.Services.Data;
@@ -15,9 +16,6 @@ namespace Awaitick.Core.Services.Countdowns;
 
 public class CountdownsManager : ICountdownsManager
 {
-	// Keep in sync with MainViewModel.MaxFreeCountdowns.
-	private const int MaxFreeCountdowns = 3;
-
 	private readonly IDialogService _dialogService;
 	private readonly INavigationService _navigationService;
 	private readonly ISystemSharingService _sharingService;
@@ -85,7 +83,7 @@ public class CountdownsManager : ICountdownsManager
 		if (!await _storeService.HasProAsync())
 		{
 			var existing = await _dataService.GetCountdownsAsync();
-			if (existing.Count >= MaxFreeCountdowns)
+			if (existing.Count >= FreeTierLimits.MaxCountdowns)
 			{
 				_navigationService.Navigate<GetProViewModel>();
 				return;
