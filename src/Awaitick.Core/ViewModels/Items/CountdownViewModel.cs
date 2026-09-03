@@ -6,7 +6,7 @@ namespace Awaitick.Core.Models;
 
 public partial class CountdownViewModel : ObservableObject
 {
-	private readonly EventCountdown _eventCountdown;
+	private EventCountdown _eventCountdown;
 	private readonly ICountdownsManager _countdownsManager;
 
 	private TimeSpan _cachedTimeLeft;
@@ -70,6 +70,12 @@ public partial class CountdownViewModel : ObservableObject
 
 	[RelayCommand]
 	public Task<bool> DeleteAsync() => _countdownsManager is not null ? _countdownsManager.DeleteAsync(this) : Task.FromResult(false);
+
+	public void UpdateModel(EventCountdown model)
+	{
+		_eventCountdown = model ?? throw new ArgumentNullException(nameof(model));
+		RefreshFromModel();
+	}
 
 	public void RefreshFromModel()
 	{
