@@ -84,6 +84,12 @@ public partial class MainViewModel : PageViewModel
 				return;
 			}
 
+			// The collection may have been rebuilt/updated while awaiting the data service call.
+			if (viewModel.Awaitick.Any(c => c.Id == message.Id))
+			{
+				return;
+			}
+
 			CountdownViewModel newCountdown = new(model, viewModel._countdownsManager);
 
 			// Insert preserving ascending ordering by TargetDateTime.
