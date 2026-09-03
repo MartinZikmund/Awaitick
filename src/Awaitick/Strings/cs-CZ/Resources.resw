@@ -151,7 +151,7 @@
     <value>Vánoce</value>
   </data>
   <data name="Clone" xml:space="preserve">
-    <value>Klonovat</value>
+    <value>Duplikovat</value>
   </data>
   <data name="ConfirmDelete" xml:space="preserve">
     <value>Potvrdit odstranění</value>
