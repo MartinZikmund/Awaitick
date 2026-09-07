@@ -187,6 +187,23 @@
                                                 Value="{x:Bind ViewModel.BackgroundImageOpacityPercent, Mode=TwoWay}" />
                                         </StackPanel>
                                     </toolkit:SettingsCard>
+
+                                    <toolkit:SettingsCard
+                                        Header="{ui:Localize Key=BackgroundImagePosition}"
+                                        HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}"
+                                        IsEnabled="{x:Bind ViewModel.IsBackgroundImageSet, Mode=OneWay}">
+                                        <StackPanel>
+                                            <Slider
+                                                Width="{StaticResource SettingsControlMinWidth}"
+                                                Maximum="1"
+                                                Minimum="0"
+                                                SnapsTo="StepValues"
+                                                StepFrequency="0.5"
+                                                TickFrequency="0.5"
+                                                TickPlacement="Outside"
+                                                Value="{x:Bind ViewModel.BackgroundImageVerticalPosition, Mode=TwoWay}" />
+                                        </StackPanel>
+                                    </toolkit:SettingsCard>
                                 </toolkit:SettingsExpander.Items>
                             </toolkit:SettingsExpander>
                         </StackPanel>

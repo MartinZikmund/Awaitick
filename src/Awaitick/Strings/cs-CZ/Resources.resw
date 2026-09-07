@@ -402,6 +402,9 @@
   <data name="BackgroundImageOpacity" xml:space="preserve">
     <value>Průhlednost obrázku pozadí</value>
   </data>
+  <data name="BackgroundImagePosition" xml:space="preserve">
+    <value>Pozice obrázku pozadí</value>
+  </data>
   <data name="BackgroundColor" xml:space="preserve">
     <value>Barva pozadí</value>
   </data>

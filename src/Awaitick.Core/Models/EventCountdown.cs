@@ -23,5 +23,10 @@ public class EventCountdown
 
 	public double BackgroundImageOpacity { get; set; } = 0.8;
 
+	/// <summary>
+	/// Vertical position of the background image (0 = top, 0.5 = center, 1 = bottom).
+	/// </summary>
+	public double BackgroundImageVerticalPosition { get; set; } = 0.5;
+
 	public string BackgroundColor { get; set; } = ColorHelper.ToHex(Colors.Transparent);
 }

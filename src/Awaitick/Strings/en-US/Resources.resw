@@ -402,6 +402,9 @@
   <data name="BackgroundImageOpacity" xml:space="preserve">
     <value>Background image opacity</value>
   </data>
+  <data name="BackgroundImagePosition" xml:space="preserve">
+    <value>Background image position</value>
+  </data>
   <data name="BackgroundColor" xml:space="preserve">
     <value>Background color</value>
   </data>
