@@ -1,0 +1,50 @@
+                  APPLE APP STORE ADDITIONAL PERMISSION
+              Additional permission under GNU AGPL version 3 section 7
+
+Awaitick is licensed under the GNU Affero General Public License, version 3
+or (at your option) any later version ("AGPLv3"), the text of which is in the
+LICENSE file at the root of this repository.
+
+Apple's App Store and Mac App Store terms of service impose conditions on
+distribution — including digital rights management and limits on what
+recipients may do with a downloaded copy — that are incompatible with
+sections 6 and 10 of the AGPLv3. Without the permission below, Awaitick could
+not lawfully be offered on those stores at all. This file grants that
+permission.
+
+
+GRANT OF ADDITIONAL PERMISSION
+
+As an additional permission under section 7 of the AGPLv3, Martin Zikmund,
+the copyright holder of Awaitick, gives permission to convey Awaitick — in
+source or object form, whether unmodified or modified — through the Apple App
+Store and the Mac App Store, subject to Apple's applicable terms of service,
+notwithstanding sections 6 and 10 of the AGPLv3.
+
+This permission is granted to:
+
+  (a) Martin Zikmund, for the official builds of Awaitick published on those
+      stores; and
+
+  (b) any other person who conveys an unmodified or a modified version of
+      Awaitick through those stores.
+
+For the avoidance of doubt, every other obligation of the AGPLv3 continues to
+apply in full. In particular, you must still make the Corresponding Source of
+any version you convey available to its recipients under the AGPLv3, and
+section 13 (Remote Network Interaction) is unaffected.
+
+
+REMOVING THIS PERMISSION
+
+As provided by section 7 of the AGPLv3, when you convey a copy of Awaitick
+you may at your option remove this additional permission from that copy, or
+from any part of it. A modified version conveyed without this file is
+governed by the AGPLv3 alone.
+
+
+TRADEMARKS
+
+This permission concerns copyright only. It grants no rights in the
+"Awaitick" name, logo, icon or other brand assets. If you publish a modified
+version to any store, you must rebrand it. See TRADEMARKS.md.

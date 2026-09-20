@@ -66,6 +66,20 @@
                 </toolkit:SettingsCard>
 
                 <toolkit:SettingsCard
+                    Command="{x:Bind ViewModel.OpenLicensesCommand}"
+                    Description="{x:Bind ViewModel.CopyrightLine}"
+                    Header="{ex:Localize Key=OpenSourceLicenses}"
+                    HeaderIcon="{ui:FontIcon Glyph=&#xE8A5;}"
+                    IsClickEnabled="True" />
+
+                <toolkit:SettingsCard
+                    Command="{x:Bind ViewModel.OpenSourceCodeCommand}"
+                    Description="{ex:Localize Key=SourceCodeDescription}"
+                    Header="{ex:Localize Key=SourceCode}"
+                    HeaderIcon="{ui:FontIcon Glyph=&#xE943;}"
+                    IsClickEnabled="True" />
+
+                <toolkit:SettingsCard
                     Description="{ex:Localize Key=ReviewAppDescription}"
                     Header="{ex:Localize Key=ReviewApp}"
                     HeaderIcon="{ui:FontIcon Glyph=&#xE90A;}">

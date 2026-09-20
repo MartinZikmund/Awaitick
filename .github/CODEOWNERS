@@ -1,0 +1,10 @@
+# Default owner for everything in the repository.
+*                       @MartinZikmund
+
+# Licensing and legal documents — changes here need the copyright holder's review.
+/LICENSE                @MartinZikmund
+/LICENSING.md           @MartinZikmund
+/COPYING.iOS            @MartinZikmund
+/CLA.md                 @MartinZikmund
+/TRADEMARKS.md          @MartinZikmund
+/THIRD-PARTY-NOTICES.md @MartinZikmund
