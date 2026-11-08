@@ -1,6 +1,11 @@
 name: Build Android Packages
 
+# Push to release/v*: Prod-channel AAB uploaded to the Google Play internal track as a draft.
+# Manual run from any other branch: Dev-channel AAB, no upload. See docs/versioning.md.
 on:
+  push:
+    branches:
+      - "release/v**"
   workflow_dispatch:
 
 env:
@@ -30,6 +35,16 @@ jobs:
       ContinuousIntegrationBuild: true
 
     steps:
+      - name: Compute app channel
+        id: channel
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/heads/release/v* ]]; then
+            echo "value=Prod" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=Dev" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -67,6 +82,7 @@ jobs:
       - name: Publish AAB (signed with Upload Key)
         run: |
           dotnet publish "${{ env.PROJECT_FILE }}" -c Release -f ${{ env.ANDROID_TARGET_FRAMEWORK }} \
+            -p:AppChannel=${{ steps.channel.outputs.value }} \
             -p:AndroidKeyStore=true \
             -p:AndroidSigningKeyStore="$GITHUB_WORKSPACE/android-upload.keystore" \
             -p:AndroidSigningKeyAlias='${{ secrets.ANDROID_KEY_ALIAS }}' \
@@ -82,6 +98,7 @@ jobs:
             ${{ env.PROJECT_PATH }}/bin/Release/${{ env.ANDROID_TARGET_FRAMEWORK }}/publish/*.aab
 
       - name: Upload to Google Play Console
+        if: steps.channel.outputs.value == 'Prod'
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
@@ -95,6 +112,7 @@ jobs:
         if: ${{ always() }} # flip to "false" to disable or delete this step
         run: |
           dotnet publish "${{ env.PROJECT_FILE }}" -c Release -f ${{ env.ANDROID_TARGET_FRAMEWORK }} -r android-arm64 \
+            -p:AppChannel=${{ steps.channel.outputs.value }} \
             -p:AndroidKeyStore=true \
             -p:AndroidSigningKeyStore="$GITHUB_WORKSPACE/android-upload.keystore" \
             -p:AndroidSigningKeyAlias='${{ secrets.ANDROID_KEY_ALIAS }}' \

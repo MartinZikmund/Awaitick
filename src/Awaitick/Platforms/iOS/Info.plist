@@ -33,17 +33,11 @@
 		<string>Assets.xcassets/icon.appiconset</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
-		<key>CFBundleIdentifier</key>
-		<string>dev.mzikmund.awaitick</string>
 		<key>CFBundleLocalizations</key>
 		<array>
 			<string>en</string>
 			<string>cs</string>
 		</array>
-		<key>CFBundleName</key>
-		<string>Awaitick</string>
-		<key>CFBundleDisplayName</key>
-		<string>Awaitick</string>
 		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
 	</dict>

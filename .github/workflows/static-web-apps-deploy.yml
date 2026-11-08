@@ -1,9 +1,14 @@
 name: Azure Static Web Apps CI/CD
 
+# Push to release/v*: Prod-channel WASM deployed to the production Static Web App.
+# PR to main: Dev-channel WASM deployed to a preview environment.
+# See docs/versioning.md.
 on:
   push:
     branches:
-      - main
+      - "release/v**"
+  # Prepare Release starts this, because its own push doesn't trigger workflows.
+  workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
@@ -25,10 +30,24 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    # Non-PR deployments go to production, so a manual run must come from a release branch.
+    if: >
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/heads/release/v')) ||
+      (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
+      - name: Compute app channel
+        id: channel
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/heads/release/v* ]]; then
+            echo "value=Prod" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=Dev" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v4
         with:
           submodules: true
@@ -52,7 +71,7 @@ jobs:
           cd ${{ env.PROJECT_PATH }}
           dotnet workload restore
           dotnet workload install wasm-tools
-          dotnet publish -c Release -f ${{ env.WASM_TARGET_FRAMEWORK }}
+          dotnet publish -c Release -f ${{ env.WASM_TARGET_FRAMEWORK }} -p:AppChannel=${{ steps.channel.outputs.value }} -p:ContinuousIntegrationBuild=true
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

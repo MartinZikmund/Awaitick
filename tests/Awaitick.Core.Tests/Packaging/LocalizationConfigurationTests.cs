@@ -21,7 +21,7 @@ public class LocalizationConfigurationTests
 	public void Cultures_StartWithEnglishAsTheFallback() =>
 		Assert.AreEqual("en-US", ReadCultures().First());
 
-	private static string AppRoot => Path.Combine(FindRepoRoot(), "src", "Awaitick");
+	private static string AppRoot => RepoPaths.AppProject;
 
 	private static IEnumerable<string> ReadCultures()
 	{
@@ -33,16 +33,5 @@ public class LocalizationConfigurationTests
 			.EnumerateArray()
 			.Select(culture => culture.GetString()!)
 			.ToArray();
-	}
-
-	private static string FindRepoRoot()
-	{
-		DirectoryInfo? directory = new(AppContext.BaseDirectory);
-		while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "Awaitick.slnx")))
-		{
-			directory = directory.Parent;
-		}
-
-		return directory?.FullName ?? throw new DirectoryNotFoundException("Repository root (Awaitick.slnx) not found.");
 	}
 }

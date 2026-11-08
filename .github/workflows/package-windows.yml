@@ -1,6 +1,11 @@
 name: Build Windows Packages
 
+# Push to release/v*: Prod-channel .msixupload for manual Partner Center submission.
+# Manual run from any other branch: Dev-channel package. See docs/versioning.md.
 on:
+  push:
+    branches:
+      - "release/v**"
   workflow_dispatch:
 
 env:
@@ -37,6 +42,16 @@ jobs:
       ContinuousIntegrationBuild: true
 
     steps:
+    - name: Compute app channel
+      id: channel
+      shell: pwsh
+      run: |
+        if ($env:GITHUB_REF -like 'refs/heads/release/v*') {
+          "value=Prod" >> $env:GITHUB_OUTPUT
+        } else {
+          "value=Dev" >> $env:GITHUB_OUTPUT
+        }
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
@@ -63,7 +78,7 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild $env:PROJECT_FILE /t:Restore /p:TargetFramework=$env:WINDOWS_TARGET_FRAMEWORK /p:Configuration=$env:Configuration /p:PublishReadyToRun=true
+      run: msbuild $env:PROJECT_FILE /t:Restore /p:TargetFramework=$env:WINDOWS_TARGET_FRAMEWORK /p:Configuration=$env:Configuration /p:PublishReadyToRun=true /p:AppChannel=${{ steps.channel.outputs.value }}
       env:
         Configuration: ${{ matrix.configuration }}
 
@@ -76,7 +91,7 @@ jobs:
 
     # Create the app package by building and packaging the project
     - name: Create the app package
-      run: msbuild $env:PROJECT_FILE /p:TargetFramework=$env:WINDOWS_TARGET_FRAMEWORK /p:Configuration=$env:Configuration /p:Platform=$env:Platform /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:AppxPackageDir="$env:Appx_Package_Dir" /p:GenerateAppxPackageOnBuild=true
+      run: msbuild $env:PROJECT_FILE /p:TargetFramework=$env:WINDOWS_TARGET_FRAMEWORK /p:Configuration=$env:Configuration /p:Platform=$env:Platform /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:AppxPackageDir="$env:Appx_Package_Dir" /p:GenerateAppxPackageOnBuild=true /p:AppChannel=${{ steps.channel.outputs.value }}
       env:
         Appx_Bundle: Never
         Appx_Package_Build_Mode: CI

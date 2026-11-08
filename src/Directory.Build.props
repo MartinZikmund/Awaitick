@@ -21,4 +21,10 @@
 	<ItemGroup>
 		<PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="All" />
 	</ItemGroup>
+
+	<!-- Dev (default, local and main) or Prod (release/v* CI builds). See docs/versioning.md. -->
+	<PropertyGroup>
+		<AppChannel Condition="'$(AppChannel)' == ''">Dev</AppChannel>
+		<DefineConstants Condition="'$(AppChannel)' == 'Dev'">$(DefineConstants);APP_CHANNEL_DEV</DefineConstants>
+	</PropertyGroup>
 </Project>
