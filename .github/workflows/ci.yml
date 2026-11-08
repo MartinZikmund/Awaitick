@@ -56,3 +56,7 @@ jobs:
       - name: Build ${{ env.APP_NAME }} (Debug)
         shell: pwsh
         run: msbuild $env:PROJECT_FILE /r
+
+      - name: Run unit tests
+        shell: pwsh
+        run: dotnet test tests/Awaitick.Core.Tests/Awaitick.Core.Tests.csproj
