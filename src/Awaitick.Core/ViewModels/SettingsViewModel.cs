@@ -1,5 +1,6 @@
 ﻿using Awaitick.Core.Models.Presets;
 using Awaitick.Core.Services.Data;
+using Awaitick.Core.Services.Display;
 using Awaitick.Core.Services.ScheduledNotification;
 using Awaitick.Core.Services.Settings;
 using Awaitick.Services.Navigation;
@@ -24,6 +25,7 @@ public partial class SettingsViewModel : PageViewModel
 	private readonly IScheduledNotificationService _scheduledNotificationService;
 	private readonly INotificationPermissionService _notificationPermissionService;
 	private readonly IDataService _dataService;
+	private readonly IKeepScreenOnService _keepScreenOnService;
 
 	private readonly UISettings _uiSettings = new();
 
@@ -39,6 +41,7 @@ public partial class SettingsViewModel : PageViewModel
 		IScheduledNotificationService scheduledNotificationService,
 		INotificationPermissionService notificationPermissionService,
 		IDataService dataService,
+		IKeepScreenOnService keepScreenOnService,
 		IStringLocalizer stringLocalizer) : base(navigationService)
 	{
 		_appSettings = appSettings;
@@ -49,6 +52,7 @@ public partial class SettingsViewModel : PageViewModel
 		_scheduledNotificationService = scheduledNotificationService;
 		_notificationPermissionService = notificationPermissionService;
 		_dataService = dataService;
+		_keepScreenOnService = keepScreenOnService;
 
 		Title = stringLocalizer.GetString("Settings");
 	}
@@ -105,6 +109,7 @@ public partial class SettingsViewModel : PageViewModel
 			if (_appSettings.KeepScreenOn != value)
 			{
 				_appSettings.KeepScreenOn = value;
+				_keepScreenOnService.SetEnabled(value);
 				OnPropertyChanged();
 			}
 		}

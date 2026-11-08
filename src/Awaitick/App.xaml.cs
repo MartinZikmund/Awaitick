@@ -29,6 +29,7 @@ using Windows.Devices.WiFiDirect.Services;
 using Awaitick.Core.Models;
 using System.Text.Json;
 using Awaitick.Core.Services.DeepLink;
+using Awaitick.Core.Services.Display;
 
 namespace Awaitick;
 
@@ -155,6 +156,7 @@ public partial class CountdownsApp : Application, IApplication
 #endif
 
 		var appPreferences = Host.Services.GetRequiredService<IAppPreferences>();
+		Host.Services.GetRequiredService<IKeepScreenOnService>().SetEnabled(appPreferences.KeepScreenOn);
 		LaunchArgs = args.Arguments;
 
 		// Do not repeat app initialization when the Window already has content,
@@ -204,6 +206,8 @@ public partial class CountdownsApp : Application, IApplication
 		services.AddSingleton<ITileService, TileService>();
 		services.AddSingleton<IMailService, MailService>();
 		services.AddSingleton<IDeepLinkService, DeepLinkService>();
+		services.AddSingleton<IDisplayRequestManager, DisplayRequestManager>();
+		services.AddSingleton<IKeepScreenOnService, KeepScreenOnService>();
 #if WINDOWS || __ANDROID__ || __IOS__
 		services.AddSingleton<IScheduledNotificationService, Awaitick.Services.ScheduledNotification.ScheduledNotificationService>();
 #else
