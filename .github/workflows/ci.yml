@@ -60,3 +60,7 @@ jobs:
       - name: Run unit tests
         shell: pwsh
         run: dotnet test tests/Awaitick.Core.Tests/Awaitick.Core.Tests.csproj
+
+      - name: Verify worktree identity invariants
+        shell: pwsh
+        run: ./scripts/verify-worktree-identity.ps1
