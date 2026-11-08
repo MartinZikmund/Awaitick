@@ -6,23 +6,21 @@
     xmlns:local="using:Awaitick.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Uno.UI.Toolkit"
-	xmlns:xaml="using:Awaitick.Extensions.Xaml"
+    xmlns:xaml="using:Awaitick.Extensions.Xaml"
     d:DesignHeight="100"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid
-        x:Name="HeaderGrid"
-        toolkit:VisibleBoundsPadding.PaddingMask="Top,Left,Right">
+    <Grid x:Name="HeaderGrid" toolkit:VisibleBoundsPadding.PaddingMask="Top,Left,Right">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button
-            Visibility="{x:Bind CanGoBack, Mode=OneWay}"
-            ToolTipService.ToolTip="{xaml:Localize Key=Back}"
             Command="{x:Bind GoBackCommand, Mode=OneWay}"
-            Style="{ThemeResource NavigationBackButtonStyle}" />
+            Style="{ThemeResource NavigationBackButtonStyle}"
+            ToolTipService.ToolTip="{xaml:Localize Key=Back}"
+            Visibility="{x:Bind CanGoBack, Mode=OneWay}" />
         <TextBlock
             Grid.Column="1"
             FontWeight="{x:Bind FontWeight, Mode=OneWay}"
