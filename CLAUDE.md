@@ -172,10 +172,15 @@ public override void ViewNavigatedTo(object? parameter)
 
 ## Testing
 
-Currently no automated tests exist in the codebase. When adding tests:
-- Target `Awaitick.Core` for unit testing ViewModels and services
-- Use mocking frameworks for service dependencies
-- Test cross-platform compatibility where applicable
+Tests live in `tests/Awaitick.Core.Tests` (MSTest on Microsoft.Testing.Platform, `net10.0`):
+
+```bash
+dotnet test tests/Awaitick.Core.Tests/Awaitick.Core.Tests.csproj
+```
+
+- Keep testable logic in `Awaitick.Core` so it can be covered without a UI head
+- Prefer small hand-written fakes for service dependencies
+- Don't pass VSTest-only flags like `--logger`, because the runner is MTP
 
 ## Development Notes
 
