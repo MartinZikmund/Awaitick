@@ -1,11 +1,7 @@
 <Project ToolsVersion="15.0">
 	<ItemGroup>
 
-		<!-- Community Toolkit -->
-		<PackageVersion Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240916" />
-		<PackageVersion Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.1.240916" />
-		<PackageVersion Include="CommunityToolkit.WinUI.Converters" Version="8.1.240916" />
-		<PackageVersion Include="CommunityToolkit.WinUI.Helpers" Version="8.1.240916" />
+		<!-- The Community Toolkit controls and helpers are a source copy until they target Uno 7: src/Awaitick/ThirdParty/CommunityToolkit/README.md -->
 
 		<PackageVersion Include="MZikmund.Toolkit.WinUI" Version="0.1.13-dev.43" />
 
