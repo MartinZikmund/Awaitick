@@ -41,15 +41,18 @@
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
             <Grid SizeChanged="EventsGrid_SizeChanged" Visibility="{x:Bind ViewModel.HasAnyEvents, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                <ScrollViewer Padding="12" HorizontalAlignment="Center" HorizontalContentAlignment="Center" >
+                <ScrollViewer
+                    Padding="12"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center">
                     <ItemsView
                         x:Name="CountdownItemsView"
                         HorizontalAlignment="Center"
                         IsItemInvokedEnabled="True"
-						SelectionMode="None"
                         ItemInvoked="ItemsView_ItemInvoked"
                         ItemTemplate="{StaticResource EventListItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.Awaitick, Mode=OneWay}">
+                        ItemsSource="{x:Bind ViewModel.Awaitick, Mode=OneWay}"
+                        SelectionMode="None">
                         <ItemsView.Layout>
                             <UniformGridLayout
                                 ItemsJustification="Center"
@@ -76,24 +79,26 @@
             </StackPanel>
         </Grid>
 
-		<CommandBar Grid.Row="3" Background="{ThemeResource AppOverlayBackgroundBrush}" 
+        <CommandBar
+            Grid.Row="3"
+            Background="{ThemeResource AppOverlayBackgroundBrush}"
             ClosedDisplayMode="Compact"
             OverflowButtonVisibility="Collapsed">
-			<AppBarButton
-				Command="{x:Bind ViewModel.GoToGetProCommand}"
-				Foreground="Gold"
-				Visibility="{x:Bind ViewModel.HasProLicense, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
-				<FontIcon Foreground="Gold" Glyph="&#xF133;" />
-			</AppBarButton>
-			<AppBarButton
+            <AppBarButton
+                Command="{x:Bind ViewModel.GoToGetProCommand}"
+                Foreground="Gold"
+                Visibility="{x:Bind ViewModel.HasProLicense, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+                <FontIcon Foreground="Gold" Glyph="&#xF133;" />
+            </AppBarButton>
+            <AppBarButton
+                Command="{x:Bind ViewModel.AddCommand}"
                 Icon="Add"
-				Command="{x:Bind ViewModel.AddCommand}"
                 Label="{xaml:Localize Key=Add}"
-				ToolTipService.Placement="Top">
-				<AppBarButton.KeyboardAccelerators>
-					<KeyboardAccelerator Key="N" Modifiers="Control" />
-				</AppBarButton.KeyboardAccelerators>
-			</AppBarButton>
+                ToolTipService.Placement="Top">
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="N" Modifiers="Control" />
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
             <AppBarButton
                 Command="{x:Bind ViewModel.GoToSettingsCommand}"
                 Icon="Setting"

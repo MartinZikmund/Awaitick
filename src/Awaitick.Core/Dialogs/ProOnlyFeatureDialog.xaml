@@ -2,15 +2,15 @@
     x:Class="Awaitick.Services.Dialogs.ProOnlyFeatureDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ex="using:Awaitick.Extensions.Xaml"
     xmlns:local="using:Awaitick.Services.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:ex="using:Awaitick.Extensions.Xaml"
     Title="{ex:Localize Key=FluentAwaitickPro}"
-    Style="{ThemeResource DefaultContentDialogStyle}"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonText="{ex:Localize Key=LearnMore}"
     SecondaryButtonText="{ex:Localize Key=Cancel}"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
-	<Grid>
-		<TextBlock x:Name="DescriptionTextBlock" TextWrapping="WrapWholeWords" />
-	</Grid>
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <Grid>
+        <TextBlock x:Name="DescriptionTextBlock" TextWrapping="WrapWholeWords" />
+    </Grid>
 </ContentDialog>
