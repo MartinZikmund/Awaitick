@@ -1,6 +1,12 @@
 name: Build iOS Packages
 
+# Push to release/v*: Prod-channel signed .ipa uploaded to TestFlight.
+# Manual run from any other branch: Dev-channel build to verify it compiles, no signing or upload.
+# See docs/versioning.md.
 on:
+  push:
+    branches:
+      - "release/v**"
   workflow_dispatch:
 
 env:
@@ -28,6 +34,16 @@ jobs:
       ContinuousIntegrationBuild: true
 
     steps:
+      - name: Compute app channel
+        id: channel
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/heads/release/v* ]]; then
+            echo "value=Prod" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=Dev" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -70,6 +86,7 @@ jobs:
 
       # --- Code signing: import Apple Distribution cert into a temp keychain ---
       - name: Import signing certificate
+        if: steps.channel.outputs.value == 'Prod'
         uses: apple-actions/import-codesign-certs@v1
         with:
           p12-file-base64: ${{ secrets.APPLE_DISTRIBUTION_P12_BASE64 }}
@@ -77,6 +94,7 @@ jobs:
 
       # --- Provisioning profile install (App Store) ---
       - name: Install provisioning profile
+        if: steps.channel.outputs.value == 'Prod'
         shell: bash
         run: |
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
@@ -87,16 +105,23 @@ jobs:
         run: dotnet restore "${{ env.SOLUTION_FILE }}"
 
       # Build an archive and produce a signed .ipa
-      - name: Publish iOS (signed .ipa)
+      - name: Publish iOS (signed .ipa, Prod)
+        if: steps.channel.outputs.value == 'Prod'
         run: |
           dotnet publish "${{ env.PROJECT_FILE }}" -c Release -f ${{ env.IOS_TARGET_FRAMEWORK }} -r ios-arm64 \
+            -p:AppChannel=Prod \
             -p:ArchiveOnBuild=true \
             -p:BuildIpa=true \
             -p:CodesignKey="${{ secrets.APPLE_CODESIGN_KEY }}" \
             -p:CodesignTeamId="${{ secrets.APPLE_TEAM_ID }}" \
             -p:CodesignProvision="${{ secrets.APPLE_PROVISIONING_PROFILE_UUID }}"
 
+      - name: Build iOS (verify only, Dev)
+        if: steps.channel.outputs.value == 'Dev'
+        run: dotnet build "${{ env.PROJECT_FILE }}" -c Release -f ${{ env.IOS_TARGET_FRAMEWORK }} -p:AppChannel=Dev
+
       - name: Upload .ipa
+        if: steps.channel.outputs.value == 'Prod'
         uses: actions/upload-artifact@v4
         with:
           name: iOS_IPA
@@ -104,6 +129,7 @@ jobs:
             ${{ env.PROJECT_PATH }}/bin/Release/${{ env.IOS_TARGET_FRAMEWORK }}/ios-arm64/publish/*.ipa
       
       - name: Upload to TestFlight
+        if: steps.channel.outputs.value == 'Prod'
         uses: apple-actions/upload-testflight-build@v3
         with:
           app-path: "${{ env.PROJECT_PATH }}/bin/Release/${{ env.IOS_TARGET_FRAMEWORK }}/ios-arm64/publish/${{ env.APP_NAME }}.ipa"
