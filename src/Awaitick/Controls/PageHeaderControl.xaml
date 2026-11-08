@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Awaitick.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="using:Uno.UI.Toolkit"
+    xmlns:uub="using:Uno.UI.Behaviors"
 	xmlns:xaml="using:Awaitick.Extensions.Xaml"
     d:DesignHeight="100"
     d:DesignWidth="400"
@@ -13,7 +13,7 @@
 
     <Grid
         x:Name="HeaderGrid"
-        toolkit:VisibleBoundsPadding.PaddingMask="Top,Left,Right">
+        uub:VisibleBoundsPadding.PaddingMask="Top,Left,Right">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />

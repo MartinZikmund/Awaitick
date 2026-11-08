@@ -3,7 +3,7 @@
 
 		<!-- The Community Toolkit controls and helpers are a source copy until they target Uno 7: src/Awaitick/ThirdParty/CommunityToolkit/README.md -->
 
-		<PackageVersion Include="MZikmund.Toolkit.WinUI" Version="0.1.13-dev.43" />
+		<PackageVersion Include="MZikmund.Toolkit.WinUI" Version="1.0.0-dev.71" />
 
 		<PackageVersion Include="Nerdbank.GitVersioning" Version="3.9.50" />
 
