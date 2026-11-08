@@ -13,6 +13,6 @@
             FontSize="10"
             FontWeight="SemiBold"
             Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-            Text="{x:Bind infra:AppEnvironment.ChannelLabel, Mode=OneTime}" />
+            Text="{x:Bind infra:AppEnvironment.ChannelBadgeLabel, Mode=OneTime}" />
     </Border>
 </UserControl>

@@ -8,4 +8,7 @@
 			<ApplicationDisplayVersion>$(BuildVersionSimple)</ApplicationDisplayVersion>
 		</PropertyGroup>
 	</Target>
+
+	<!-- Per-worktree app identity. See docs/worktree-identity.md. -->
+	<Import Project="$(MSBuildThisFileDirectory)WorktreeIdentity.targets" />
 </Project>
