@@ -396,3 +396,10 @@ FodyWeavers.xsd
 
 # Single Target Config
 solution-config.props
+# Claude Code
+.claude/worktrees/
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# Local screenshots from the run-winui-app skill
+.screenshots/
