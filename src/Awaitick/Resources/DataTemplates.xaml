@@ -3,8 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Awaitick.Controls"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:models="using:Awaitick.Core.Models"
     xmlns:utu="using:Uno.Toolkit.UI"
     xmlns:xaml="using:Awaitick.Extensions.Xaml">

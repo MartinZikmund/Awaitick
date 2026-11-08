@@ -11,7 +11,7 @@ Awaitick is a cross-platform event countdown application built with **Uno Platfo
 - UI: XAML with WinUI controls
 - Architecture: MVVM using CommunityToolkit.Mvvm
 - Data Storage: File-based JSON serialization
-- Dependencies: Plugin.InAppBilling, CommunityToolkit.WinUI, MZikmund.Toolkit.WinUI
+- Dependencies: Plugin.InAppBilling, MZikmund.Toolkit.WinUI, and a source copy of the CommunityToolkit.WinUI parts in use until it targets Uno 7 (see `src/Awaitick/ThirdParty/CommunityToolkit/README.md`)
 
 ## Build and Development Commands
 

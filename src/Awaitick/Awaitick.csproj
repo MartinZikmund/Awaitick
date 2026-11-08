@@ -47,13 +47,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" />
-		<PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" />
-		<PackageReference Include="CommunityToolkit.WinUI.Converters" />
-		<PackageReference Include="CommunityToolkit.WinUI.Helpers" />
 		<PackageReference Include="MZikmund.Toolkit.WinUI" />
-		<PackageReference Include="Uno.Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="!$(TargetFramework.Contains('windows10'))" />
-		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Condition="$(TargetFramework.Contains('windows10'))" />
 		<PackageReference Include="SourceGear.sqlite3" />
 	</ItemGroup>
 	<ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using Awaitick.Core.Models;
 using Awaitick.Core.ViewModels;
 using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml.Input;
 
 namespace Awaitick.Views;
 
@@ -49,6 +50,8 @@ public sealed partial class MainView : MainViewBase
 			vm.GoToDetail();
 		}
 	}
+
+	private void RootGrid_Tapped(object sender, TappedRoutedEventArgs e) => ViewModel?.RootTapCommand.Execute(null);
 
 	private const double ListLayoutThreshold = 520;
 	private const double ScrollViewerEdgePadding = 12;

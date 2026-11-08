@@ -211,7 +211,8 @@ public partial class CountdownsApp : Application, IApplication
 #endif
 		services.AddScoped<INotificationPermissionService, NotificationPermissionService>();
 		services.AddSingleton<IStoreLauncherService, StoreLauncherService>();
-		services.AddSingleton<IPreferences, Preferences>();
+		// Left to DI, Preferences would receive the unconfigured JsonSerializerOptions registered above.
+		services.AddSingleton<IPreferences>(_ => new Preferences(PreferencesSerializerContext.Default.Options));
 		services.AddSingleton<IAppPreferences, AppPreferences>();
 		services.AddScoped<IThemeManager, ThemeManager>();
 #if HAS_UNO
@@ -241,7 +242,7 @@ public partial class CountdownsApp : Application, IApplication
 		{
 #if __WASM__
             builder.AddProvider(new global::Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider());
-#elif __IOS__ || __MACCATALYST__
+#elif __IOS__
             builder.AddProvider(new global::Uno.Extensions.Logging.OSLogLoggerProvider());
 #else
 			builder.AddConsole();
