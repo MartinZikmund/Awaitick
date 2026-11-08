@@ -58,6 +58,8 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           skip_app_build: true
+          # Dependabot PRs and forks don't receive the deployment token. Skip instead of failing.
+          skip_deploy_on_missing_secrets: true
           azure_static_web_apps_api_token: ${{ secrets.AZURESTATICWEBAPPSDEPLOYMENTTOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
@@ -75,6 +77,7 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
+          skip_deploy_on_missing_secrets: true
           azure_static_web_apps_api_token: ${{ secrets.AZURESTATICWEBAPPSDEPLOYMENTTOKEN }}
           action: "close"
           app_location: "/${{ env.PROJECT_PATH }}/bin/Release/${{ env.WASM_TARGET_FRAMEWORK }}/publish/wwwroot"
