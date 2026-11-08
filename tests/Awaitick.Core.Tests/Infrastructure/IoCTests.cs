@@ -6,6 +6,42 @@ namespace Awaitick.Core.Tests.Infrastructure;
 [DoNotParallelize]
 public class IoCTests
 {
+	[TestCleanup]
+	public void TestCleanup() => IoC.Reset();
+
+	[TestMethod]
+	public void GetService_AfterReset_ThrowsInvalidOperationException()
+	{
+		IoC.SetProvider(new StubServiceProvider(new SampleService()));
+
+		IoC.Reset();
+
+		Assert.ThrowsExactly<InvalidOperationException>(() => IoC.GetService<SampleService>());
+	}
+
+	[TestMethod]
+	public void GetRequiredService_AfterReset_ThrowsInvalidOperationException()
+	{
+		IoC.SetProvider(new StubServiceProvider(new SampleService()));
+
+		IoC.Reset();
+
+		Assert.ThrowsExactly<InvalidOperationException>(() => IoC.GetRequiredService<SampleService>());
+	}
+
+	[TestMethod]
+	public void SetProvider_AfterReset_ResolvesFromNewProvider()
+	{
+		SampleService first = new();
+		SampleService second = new();
+		IoC.SetProvider(new StubServiceProvider(first));
+
+		IoC.Reset();
+		IoC.SetProvider(new StubServiceProvider(second));
+
+		Assert.AreSame(second, IoC.GetRequiredService<SampleService>());
+	}
+
 	[TestMethod]
 	public void GetService_AfterSetProvider_ReturnsServiceFromProvider()
 	{
