@@ -104,6 +104,13 @@ public partial class CountdownsApp : Application, IApplication
 				})
 				// Enable localization (see appsettings.json for supported languages)
 				.UseLocalization()
+				.UseDefaultServiceProvider((context, options) =>
+				{
+					// Development only, so production startup doesn't pay to walk every registration.
+					var isDevelopment = context.HostingEnvironment.IsDevelopment();
+					options.ValidateScopes = isDevelopment;
+					options.ValidateOnBuild = isDevelopment;
+				})
 				.ConfigureServices((context, services) => ConfigureServices(services))
 			);
 		MainWindow = builder.Window;
